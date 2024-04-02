@@ -1,0 +1,1069 @@
+{
+  "active": false,
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Check_type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check_type": {
+      "main": [
+        [
+          {
+            "node": "check_role",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "check_role1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "check_role": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "check_role1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Picked_button",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Picked_button": {
+      "main": [
+        [
+          {
+            "node": "pick",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Stats",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Finish",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "menu-ok",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "menu-wrong",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "comment",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "menu",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Finish": {
+      "main": [
+        []
+      ]
+    },
+    "main-menu2": {
+      "main": [
+        []
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "main-menu",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "main-menu2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [],
+        [
+          {
+            "node": "Telegram1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Telegram2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "main-menu": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2024-03-26T13:57:32.243Z",
+  "id": "G5idVA6X5Dr9MgYr",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "workflow Sasha",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message",
+          "callback_query"
+        ],
+        "additionalFields": {}
+      },
+      "id": "bd577820-c05e-44d0-b6a3-2d92248b02fd",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        940,
+        380
+      ],
+      "webhookId": "26b2f4b1-d359-47e0-b0ac-4e39f5443b8a",
+      "credentials": {
+        "telegramApi": {
+          "id": "gOQQxmUbZz0UWAfO",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "799934256",
+        "text": "привет, дорогой диспетчер",
+        "additionalFields": {}
+      },
+      "id": "56e85d92-f32d-436a-b05c-f77614465e0f",
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        1600,
+        -160
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "gOQQxmUbZz0UWAfO",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "11c45e0d-196b-47f1-821e-bee57c9f070b",
+              "leftValue": "={{ $json.hasField(\"message\") }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "62a55243-720a-47cc-9ff2-cbc609f4071e",
+      "name": "Check_type",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "ed8fd1fb-ba97-41a5-844d-74a3ce352197",
+              "leftValue": "={{ $json.message.from.username }}",
+              "rightValue": "sanioche",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "id": "8745e9da-1f6f-474e-b2e0-bede93568fc9",
+      "name": "check_role",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1400,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "9e5341d4-525b-4677-b22e-26741349cd16",
+              "leftValue": "{{ $json.callback_query.from.username }}",
+              "rightValue": "saniochek",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "5c256daa-af4a-4f5a-bd01-28c646055d29",
+      "name": "check_role1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1300,
+        620
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "=<b>Пожалуйста, проведите осмотр авто перед началом работы!\n\nАвтомобиль:</b>\n* SCANIA А459ТЕ *\n\n<b>Водитель:</b>\nМамедов Е.С.\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n\nСтраховка до: 18.07.2024.\n\nПробег:</b> 332358км.\n",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅Всё в норме.",
+                    "additionalFields": {
+                      "callback_data": "=menu_ok"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "❌Есть неисправности",
+                    "additionalFields": {
+                      "callback_data": "=menu_wrong"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "65924574-719a-43cf-8b76-77b51635b8cf",
+      "name": "main-menu",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2400,
+        20
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "gOQQxmUbZz0UWAfO",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $json.callback_query.message.chat.id }}",
+        "messageId": "={{ $json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "=<b>Пожалуйста, проведите осмотр авто перед началом работы!\n\nАвтомобиль:</b>\n* SCANIA А459ТЕ *\n\n<b>Водитель:</b>\nМамедов Е.С.\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n\nСтраховка до: 18.07.2024.\n\nПробег:</b> 332358км.",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "📄Добавить комментарий",
+                    "additionalFields": {
+                      "callback_data": "menu_com"
+                    }
+                  },
+                  {
+                    "text": "Комментарии не требуются",
+                    "additionalFields": {
+                      "callback_data": "no_com"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "9fe24e3f-d181-47a6-be27-98df2165d7ea",
+      "name": "menu-wrong",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2620,
+        1160
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "gOQQxmUbZz0UWAfO",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $json.callback_query.message.chat.id }}",
+        "messageId": "={{ $json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "=<b>Автомобиль:</b>\n* SCANIA А459ТЕ *\n\n<b>Водитель:</b>\nМамедов Е.С.\n______________________\n<b>✅ Тех. жидкость в норме.\n✅ Тормозная система в норме.\n✅ Ходовая часть в норме.\n✅ Запаска в норме.\n\nСтраховка до: 18.07.2024.\n\nПробег:</b> 332358км.",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "📄Добавить комментарий",
+                    "additionalFields": {
+                      "callback_data": "menu_com"
+                    }
+                  },
+                  {
+                    "text": "Комментарии не требуются",
+                    "additionalFields": {
+                      "callback_data": "no_com"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "5b556c72-0252-4d3a-89f9-f7363105fa9d",
+      "name": "menu-ok",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2620,
+        1000
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "gOQQxmUbZz0UWAfO",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "=<b>Пожалуйста, проведите осмотр авто перед завершением работы!\n\nАвтомобиль:</b>\n* SCANIA А459ТЕ *\n\n<b>Водитель:</b>\nМамедов Е.С.\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n\nСтраховка до: 18.07.2024.\n\nПробег:</b> 332358км.\n",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅Всё в норме.",
+                    "additionalFields": {
+                      "callback_data": "=menu_ok"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "❌Есть неисправности",
+                    "additionalFields": {
+                      "callback_data": "=menu_wrong"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "8da5f755-4afc-4db5-8f87-2c0cc0bb1469",
+      "name": "main-menu2",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2540,
+        180
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "gOQQxmUbZz0UWAfO",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $json.callback_query.message.chat.id }}",
+        "messageId": "={{ $json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "Отлично, вы приняли заказ, по его завершению нажмите на кнопку, когда завершите выполнение",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Завершить заказ",
+                    "additionalFields": {
+                      "callback_data": "Finish"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Статистика",
+                    "additionalFields": {
+                      "callback_data": "stats"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "id": "c99d883e-1a02-491b-ad2f-13940b60f7b8",
+      "name": "pick",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        1940,
+        580
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "gOQQxmUbZz0UWAfO",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $json.callback_query.message.chat.id }}",
+        "messageId": "={{ $json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "Отлично, вы завершили заказ, хотите принять следующий?",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Принять заказ",
+                    "additionalFields": {
+                      "callback_data": "pick"
+                    }
+                  },
+                  {
+                    "text": "Посмотреть статистику",
+                    "additionalFields": {
+                      "callback_data": "stats"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "id": "d31987e3-add7-4a23-bcf5-ffd5ff966f07",
+      "name": "Finish",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2580,
+        820
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "gOQQxmUbZz0UWAfO",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $json.callback_query.message.chat.id }}",
+        "messageId": "={{ $json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "=Тут статистика дорогого водителя:\nза сегодняший день ты выполнил {{counter}} заказов\nПроехал      километров\nПеревёз     тонн груза",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Выйти в меню",
+                    "additionalFields": {
+                      "callback_data": "Finish"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "id": "beeb8372-68c1-4b2a-b475-85ada407877f",
+      "name": "Stats",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2240,
+        700
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "gOQQxmUbZz0UWAfO",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $json.callback_query.message.chat.id }}",
+        "messageId": "={{ $json.callback_query.message.message_id }}",
+        "text": "=<b>Напишите комментарий:</b>",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "941923da-1694-4533-accb-d3d460aa0987",
+      "name": "comment",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2620,
+        1360
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "gOQQxmUbZz0UWAfO",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.callback_query.message.chat.id }}",
+        "text": "Привет дорогой водитель, какое действие ты намерен совершить?",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Принять заказ",
+                    "additionalFields": {
+                      "callback_data": "pick",
+                      "switch_inline_query_current_chat": ""
+                    }
+                  },
+                  {
+                    "text": "Посмотреть статистику",
+                    "additionalFields": {
+                      "callback_data": "stats",
+                      "switch_inline_query_current_chat": ""
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "af5b9ffd-f698-45a6-a1f7-911d8971baa9",
+      "name": "menu",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2480,
+        1580
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "gOQQxmUbZz0UWAfO",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}  ",
+        "text": "Комментарий доставлен диспетчеру",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Приступить к заказам",
+                    "additionalFields": {
+                      "callback_data": "no_com"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "fb0d3340-6d30-425c-9e6f-0c50a804c032",
+      "name": "Telegram1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2300,
+        280
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "gOQQxmUbZz0UWAfO",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "799934256",
+        "text": "=Дорогой диспетчер, у водителя возникла проблема:\n{{ $json.message.text }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "67f8c276-4424-4f8a-8fd8-92fe2256ec26",
+      "name": "Telegram2",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2300,
+        460
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "gOQQxmUbZz0UWAfO",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "=pick",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "8bc82b0c-1224-4b1a-8c5f-8889e9c22f7a",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "stats",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "8393d9b4-05b0-4ecf-a449-110e64114680",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "Finish",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "6a32c278-a8b4-4dd6-910c-38775e0c5267",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "menu_ok",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "5ac51105-cc73-4102-b9c6-a408ce0f165b",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "menu_wrong",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "b834315e-6c45-4d14-82b5-980bebf6fdd0",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "menu_com",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "1a38fd4f-020e-4df5-a1b1-11240f872356",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "no_com",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "cc60313c-2d9f-4185-a3c2-2074d83c7ca9",
+      "name": "Picked_button",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        1520,
+        880
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/start",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "25f542cb-b3ad-4b48-9efe-4ddbfbf061c3",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/stop",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "33133f70-808e-4dfc-b1dc-59459b6f153b",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/connect",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "2840f16b-5d62-4b30-bb5c-d37dfc8f7a8a",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "=",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d5989c2d-9fd3-4631-85aa-dc9714bc1204",
+      "name": "Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        1700,
+        180
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2024-03-29T16:00:44.000Z",
+  "versionId": "a4138f51-7136-4136-ad2d-7b4717bf252f"
+}
