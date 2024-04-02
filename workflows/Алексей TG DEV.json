@@ -1,0 +1,927 @@
+{
+  "active": false,
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "добавляет пользователя, если не существует",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "добавляет пользователя, если не существует": {
+      "main": [
+        [
+          {
+            "node": "получаем первый статус",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получаем первый статус": {
+      "main": [
+        [
+          {
+            "node": "есть ли статус",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "есть ли статус": {
+      "main": [
+        [
+          {
+            "node": "актуальный статус",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "меняем статус",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "меняем статус": {
+      "main": [
+        [
+          {
+            "node": "получаем первый статус",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "актуальный статус": {
+      "main": [
+        [
+          {
+            "node": "проверка авторизации",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "меняем статус1": {
+      "main": [
+        [
+          {
+            "node": "отправляем кнопку контакта",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка нажатия кнопки контакта": {
+      "main": [
+        [
+          {
+            "node": "получаем id по mobile_phone",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получаем id по mobile_phone": {
+      "main": [
+        [
+          {
+            "node": "проверяем наличие",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверяем наличие": {
+      "main": [
+        [
+          {
+            "node": "получаем имя",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "пишем, что номера нет",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "успешный вход": {
+      "main": [
+        [
+          {
+            "node": "меняем статус на \"авторизован\"",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получаем имя": {
+      "main": [
+        [
+          {
+            "node": "успешный вход",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка авторизации": {
+      "main": [
+        [
+          {
+            "node": "меняем статус1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "проверка нажатия кнопки контакта",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "сюда всё остальное",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2024-03-28T11:45:35.632Z",
+  "id": "daDmJ5Eo2gEmGff4",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Алексей TG DEV",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message",
+          "callback_query"
+        ],
+        "additionalFields": {}
+      },
+      "id": "352a879f-8813-4ab5-af25-5b423d4b3412",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        940,
+        840
+      ],
+      "webhookId": "8c25abe6-944f-4804-a635-a383c3eeb93f",
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO tg_users (tg_id, odoo_id, status) VALUES ($1, NULL, NULL) ON CONFLICT (tg_id) DO NOTHING;",
+        "options": {
+          "queryReplacement": "={{ $('Telegram Trigger').item.json.message.from.id }}"
+        }
+      },
+      "id": "4999960d-027b-4994-9a79-36b60f7e5524",
+      "name": "добавляет пользователя, если не существует",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        1140,
+        840
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "3f1dd178-652c-4e81-8cb6-91df77dfe097",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "unauthorized",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "349847a9-6c65-425f-94e3-0de7b86beb85",
+      "name": "есть ли статус",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1540,
+        840
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "tg_id",
+              "value": "={{ $('Telegram Trigger').item.json.message.from.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "76dbda09-0b75-4874-b8d6-5873af80a742",
+      "name": "получаем первый статус",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        1340,
+        840
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tg_id": "={{ $('есть ли статус').item.json.tg_id }}",
+            "status": "unauthorized"
+          },
+          "matchingColumns": [
+            "tg_id"
+          ],
+          "schema": [
+            {
+              "id": "tg_id",
+              "displayName": "tg_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "796f88df-c6b3-45b2-a7f1-550a052290d8",
+      "name": "меняем статус",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        1780,
+        1020
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "tg_id",
+              "value": "={{ $('Telegram Trigger').item.json.message.from.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5cf09f2c-cb23-4a1e-bdfd-c2fcd9610f7d",
+      "name": "актуальный статус",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        1740,
+        520
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tg_id": "={{ $json.tg_id }}",
+            "status": "input_number"
+          },
+          "matchingColumns": [
+            "tg_id"
+          ],
+          "schema": [
+            {
+              "id": "tg_id",
+              "displayName": "tg_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "51c8b995-aae4-4ce3-a224-09b9f46a17ef",
+      "name": "меняем статус1",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        2140,
+        240
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "Чтобы войти, поделитесь контактом",
+        "replyMarkup": "replyKeyboard",
+        "replyKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Поделиться контактом",
+                    "additionalFields": {
+                      "request_contact": true
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "replyKeyboardOptions": {},
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "b000ffb1-4e1a-43c0-9dd3-54e03f6245b3",
+      "name": "отправляем кнопку контакта",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2400,
+        100
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "24ec202f-0645-4527-b391-6bb1bc0ea711",
+              "leftValue": "={{ $('Telegram Trigger').item.json.message.reply_to_message.text }}",
+              "rightValue": "Чтобы войти, поделитесь контактом",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "9bb05ff0-57e8-4ff1-af0e-b7f5d14c11c9",
+      "name": "проверка нажатия кнопки контакта",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        2220,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "hr.employee",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {
+          "fieldsList": [
+            "id",
+            "mobile_phone"
+          ]
+        },
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "mobile_phone",
+              "value": "={{ $('Telegram Trigger').item.json.message.contact.phone_number }}"
+            }
+          ]
+        }
+      },
+      "id": "6da9de33-f1a4-4644-8395-f3448d5a52e1",
+      "name": "получаем id по mobile_phone",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        2520,
+        340
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "IbOO6r3p0Qvo35Gh",
+          "name": "Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "9b905cb5-83c4-4cdb-b1df-7e7f94e2a734",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "3d48e129-4c45-46ec-9d02-b61943f9d2f3",
+      "name": "проверяем наличие",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        2740,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "Такого сотрудника ещё нет в Odoo.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "62ecfb29-dd11-4402-90c9-e1ebbe59fe1b",
+      "name": "пишем, что номера нет",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2980,
+        440
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.reply_to_message.chat.id }}",
+        "text": "=Вы успешно авторизовались, <b>{{ $json.name }}</b>",
+        "replyMarkup": "replyKeyboardRemove",
+        "replyKeyboardRemove": {
+          "remove_keyboard": true
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "fc324fec-fb5d-4af6-ad49-8ce150b1597d",
+      "name": "успешный вход",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        3220,
+        160
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tg_id": "={{ $json.result.chat.id }}",
+            "odoo_id": "={{ $('проверяем наличие').item.json.id }}",
+            "status": "authorized"
+          },
+          "matchingColumns": [
+            "tg_id"
+          ],
+          "schema": [
+            {
+              "id": "tg_id",
+              "displayName": "tg_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0333ec4b-c610-48db-a7e2-aaf353504d15",
+      "name": "меняем статус на \"авторизован\"",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        3520,
+        160
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Эта нода удаляет клавиатуру \"поделитсья контактом\". Но также она может удалить все клавиатуры",
+        "height": 284.79395620525594,
+        "width": 222.34055848395155
+      },
+      "id": "ddc0fc9f-a1f7-431f-90bf-052e5d2b7151",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3160,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "hr.employee",
+        "operation": "get",
+        "customResourceId": "={{ $json.id }}",
+        "options": {
+          "fieldsList": [
+            "name"
+          ]
+        }
+      },
+      "id": "e7c075a1-1d23-4b6c-8b30-773f691bb4f9",
+      "name": "получаем имя",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        2980,
+        200
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "IbOO6r3p0Qvo35Gh",
+          "name": "Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "858f9508-f857-4dd5-b510-d882981c6ffb",
+      "name": "сюда всё остальное",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        2660,
+        1040
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "77fe838f-5f60-44cc-a654-5adcbbebf8bb",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "unauthorized",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "457bced4-6249-44de-a93c-a620d83a3ee4",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "input_number",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "106703ab-1c8d-4186-85a4-b866bbfe271f",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "authorized",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7ba755ea-cc59-4e14-a9e2-77506b444b9f",
+      "name": "проверка авторизации",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        1940,
+        420
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2024-04-02T10:02:17.000Z",
+  "versionId": "d1fde146-0171-4a1c-a14d-e74f5f363314"
+}
