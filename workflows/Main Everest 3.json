@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Telegram Trigger": {
       "main": [
@@ -352,6 +352,17 @@
         ]
       ]
     },
+    "комментарий": {
+      "main": [
+        [
+          {
+            "node": "удаление прошлого сообщения",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Switch1": {
       "main": [
         [
@@ -388,17 +399,6 @@
           },
           {
             "node": "Отправка проблемы механику",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "комментарий": {
-      "main": [
-        [
-          {
-            "node": "удаление прошлого сообщения",
             "type": "main",
             "index": 0
           }
@@ -2083,109 +2083,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
-                    "rightValue": "/start",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "25f542cb-b3ad-4b48-9efe-4ddbfbf061c3",
-                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
-                    "rightValue": "/stop",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "33133f70-808e-4dfc-b1dc-59459b6f153b",
-                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
-                    "rightValue": "/connect",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "2840f16b-5d62-4b30-bb5c-d37dfc8f7a8a",
-                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
-                    "rightValue": "=",
-                    "operator": {
-                      "type": "string",
-                      "operation": "exists",
-                      "singleValue": true
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "45e73a62-1467-4bee-8e43-324985551bf4",
-      "name": "Switch1",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        1640,
-        1660
-      ]
-    },
-    {
-      "parameters": {
         "chatId": "799934256",
         "text": "=Дорогой диспетчер, у водителя возникла проблема:\n{{ $('Telegram Trigger').item.json.message.text }}",
         "additionalFields": {
@@ -2290,6 +2187,109 @@
           "name": "Main Everest"
         }
       }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "rightValue": "/start",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "25f542cb-b3ad-4b48-9efe-4ddbfbf061c3",
+                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "rightValue": "/stop",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "33133f70-808e-4dfc-b1dc-59459b6f153b",
+                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "rightValue": "/connect",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "2840f16b-5d62-4b30-bb5c-d37dfc8f7a8a",
+                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "rightValue": "=",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "45e73a62-1467-4bee-8e43-324985551bf4",
+      "name": "Switch1",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        1640,
+        1660
+      ]
     }
   ],
   "pinData": {},
@@ -2299,6 +2299,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-04-03T12:36:04.000Z",
-  "versionId": "56adc6b9-02a9-4334-b0bf-fca4e219fcd4"
+  "updatedAt": "2024-04-04T08:57:28.000Z",
+  "versionId": "69a50d42-43b3-4fb8-99e0-3ecfc98585e1"
 }
