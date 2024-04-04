@@ -137,37 +137,6 @@
         ]
       ]
     },
-    "Switch1": {
-      "main": [
-        [
-          {
-            "node": "получение номера машины",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "получаем odoo id",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "main-menu2",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [],
-        [
-          {
-            "node": "Telegram5",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "получение номера машины": {
       "main": [
         [
@@ -377,6 +346,59 @@
         [
           {
             "node": "успешный вход",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "получение номера машины",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "получаем odoo id",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "main-menu2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "/connect",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "комментарий",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Отправка проблемы механику",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "комментарий": {
+      "main": [
+        [
+          {
+            "node": "удаление прошлого сообщения",
             "type": "main",
             "index": 0
           }
@@ -973,8 +995,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        2200,
-        1720
+        2480,
+        1680
       ],
       "credentials": {
         "telegramApi": {
@@ -1166,149 +1188,6 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
-        "text": "Комментарий доставлен диспетчеру",
-        "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Приступить к заказам",
-                    "additionalFields": {
-                      "callback_data": "Finish"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {
-          "appendAttribution": false
-        }
-      },
-      "id": "1138f97c-cbf2-45e6-94db-d57b42d1f56c",
-      "name": "Telegram5",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        1980,
-        1880
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "ThC2kf8ZCBAO0FBa",
-          "name": "Main Everest"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
-                    "rightValue": "/start",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "25f542cb-b3ad-4b48-9efe-4ddbfbf061c3",
-                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
-                    "rightValue": "/stop",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "33133f70-808e-4dfc-b1dc-59459b6f153b",
-                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
-                    "rightValue": "/connect",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "2840f16b-5d62-4b30-bb5c-d37dfc8f7a8a",
-                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
-                    "rightValue": "=",
-                    "operator": {
-                      "type": "string",
-                      "operation": "exists",
-                      "singleValue": true
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "45e73a62-1467-4bee-8e43-324985551bf4",
-      "name": "Switch1",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        1640,
-        1660
-      ]
-    },
-    {
-      "parameters": {
         "operation": "select",
         "schema": {
           "__rl": true,
@@ -1346,7 +1225,8 @@
           "id": "Q4ZHMkPf1vzJmsuw",
           "name": "Postgres account"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -2147,7 +2027,8 @@
       "parameters": {
         "content": "Эта нода удаляет клавиатуру \"поделитсья контактом\". Но также она может удалить все клавиатуры",
         "height": 284.79395620525594,
-        "width": 222.34055848395155
+        "width": 222.34055848395155,
+        "color": 7
       },
       "id": "bfc17bf8-ec60-4620-a99e-26f2e1c148a1",
       "name": "Sticky Note",
@@ -2199,6 +2080,216 @@
         1460.39543103924,
         320
       ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "rightValue": "/start",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "25f542cb-b3ad-4b48-9efe-4ddbfbf061c3",
+                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "rightValue": "/stop",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "33133f70-808e-4dfc-b1dc-59459b6f153b",
+                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "rightValue": "/connect",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "2840f16b-5d62-4b30-bb5c-d37dfc8f7a8a",
+                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "rightValue": "=",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "45e73a62-1467-4bee-8e43-324985551bf4",
+      "name": "Switch1",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        1640,
+        1660
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "799934256",
+        "text": "=Дорогой диспетчер, у водителя возникла проблема:\n{{ $('Telegram Trigger').item.json.message.text }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "e4da1be5-9fcf-451b-9f45-a7aa03d91af0",
+      "name": "Отправка проблемы механику",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        1940,
+        2160
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ThC2kf8ZCBAO0FBa",
+          "name": "Main Everest"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "Опишите вашу проблему, доставим ее механику",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "520888ac-23a3-45c5-8662-bc7a90b1e51c",
+      "name": "/connect",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2500,
+        1880
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ThC2kf8ZCBAO0FBa",
+          "name": "Main Everest"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "Комментарий доставлен диспетчеру",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Приступить к заказам",
+                    "additionalFields": {
+                      "callback_data": "Finish"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "1138f97c-cbf2-45e6-94db-d57b42d1f56c",
+      "name": "комментарий",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2140,
+        2000
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ThC2kf8ZCBAO0FBa",
+          "name": "Main Everest"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "deleteMessage",
+        "chatId": "={{ $json.result.chat.id }}",
+        "messageId": "={{ $json.result.message_id -2}}"
+      },
+      "id": "8e1bc9f9-e279-4e84-a70b-cbdc14895a4c",
+      "name": "удаление прошлого сообщения",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2420,
+        2060
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ThC2kf8ZCBAO0FBa",
+          "name": "Main Everest"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -2208,6 +2299,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-04-03T11:23:05.000Z",
-  "versionId": "2407c0bb-e404-42c0-b856-b1876c0261be"
+  "updatedAt": "2024-04-03T12:36:04.000Z",
+  "versionId": "56adc6b9-02a9-4334-b0bf-fca4e219fcd4"
 }
