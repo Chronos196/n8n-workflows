@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Telegram Trigger": {
       "main": [
@@ -113,16 +113,6 @@
         ]
       ]
     },
-    "Finish": {
-      "main": [
-        []
-      ]
-    },
-    "main-menu2": {
-      "main": [
-        []
-      ]
-    },
     "Switch": {
       "main": [
         [
@@ -139,7 +129,13 @@
             "index": 0
           }
         ],
-        [],
+        [
+          {
+            "node": "Telegram3",
+            "type": "main",
+            "index": 0
+          }
+        ],
         [
           {
             "node": "Telegram1",
@@ -154,7 +150,18 @@
         ]
       ]
     },
-    "main-menu": {
+    "Telegram1": {
+      "main": [
+        [
+          {
+            "node": "Telegram4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram3": {
       "main": [
         []
       ]
@@ -180,7 +187,7 @@
       "type": "n8n-nodes-base.telegramTrigger",
       "typeVersion": 1.1,
       "position": [
-        940,
+        840,
         380
       ],
       "webhookId": "26b2f4b1-d359-47e0-b0ac-4e39f5443b8a",
@@ -354,7 +361,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        2400,
+        2620,
         20
       ],
       "credentials": {
@@ -503,7 +510,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        2540,
+        2760,
         180
       ],
       "credentials": {
@@ -755,7 +762,7 @@
       "typeVersion": 1.1,
       "position": [
         2300,
-        280
+        380
       ],
       "credentials": {
         "telegramApi": {
@@ -767,7 +774,7 @@
     {
       "parameters": {
         "chatId": "799934256",
-        "text": "=Дорогой диспетчер, у водителя возникла проблема:\n{{ $json.message.text }}",
+        "text": "=Дорогой механик, у водителя возникла проблема:\n{{ $json.message.text }}",
         "additionalFields": {
           "appendAttribution": false
         }
@@ -778,7 +785,7 @@
       "typeVersion": 1.1,
       "position": [
         2300,
-        460
+        540
       ],
       "credentials": {
         "telegramApi": {
@@ -955,6 +962,50 @@
     },
     {
       "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "Опишите вашу проблему, доставим ее механику",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "059a67a2-37e4-4dfb-94c3-45cc35ed3fbe",
+      "name": "Telegram3",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2720,
+        340
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "gOQQxmUbZz0UWAfO",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "deleteMessage",
+        "chatId": "={{ $json.result.chat.id }}",
+        "messageId": "={{ $json.result.message_id -2}}"
+      },
+      "id": "11bb8052-c822-4011-8962-3cdc37047b4f",
+      "name": "Telegram4",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2700,
+        540
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "gOQQxmUbZz0UWAfO",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
         "rules": {
           "values": [
             {
@@ -1064,6 +1115,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-03-29T16:00:44.000Z",
-  "versionId": "a4138f51-7136-4136-ad2d-7b4717bf252f"
+  "updatedAt": "2024-04-03T12:21:21.000Z",
+  "versionId": "d57852f1-48c7-43eb-980e-a63eab5152bd"
 }
