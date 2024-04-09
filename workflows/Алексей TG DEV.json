@@ -518,6 +518,104 @@
           }
         ]
       ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "получаем все карточки",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получаем все карточки": {
+      "main": [
+        [
+          {
+            "node": "добавляем их в таблиц, если их нет там",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "получаем пересечение",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "добавляем их в таблиц, если их нет там": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получаем те карточки, которые изменили свой статус": {
+      "main": [
+        [
+          {
+            "node": "получаем пересечение",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Получаем данные водителя": {
+      "main": [
+        [
+          {
+            "node": "Telegram3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получаем пересечение": {
+      "main": [
+        [
+          {
+            "node": "Получаем данные водителя",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram3": {
+      "main": [
+        [
+          {
+            "node": "меняем статус сообщений",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "получаем те карточки, которые изменили свой статус",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-03-28T11:45:35.632Z",
@@ -2861,15 +2959,316 @@
           "name": "Odoo Алексей"
         }
       }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds",
+              "secondsInterval": 1
+            }
+          ]
+        }
+      },
+      "id": "1ea1599e-aefc-4d25-a008-88c31ff1da68",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        360,
+        4520
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "maintenance.request",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {
+          "fieldsList": [
+            "id",
+            "name",
+            "stage_id",
+            "employee_id"
+          ]
+        }
+      },
+      "id": "32dcc5c9-8e60-4261-8778-f622a8ce35f1",
+      "name": "получаем все карточки",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        580,
+        4520
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "IbOO6r3p0Qvo35Gh",
+          "name": "Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO maintenance_requests (odoo_id, last_state) VALUES ($1, $2) ON CONFLICT (odoo_id) DO NOTHING;",
+        "options": {
+          "queryReplacement": "={{ $json.id }} {{ $json.stage_id[1] }}"
+        }
+      },
+      "id": "5cf020b1-bf83-4cab-95da-4cd8c9d719a8",
+      "name": "добавляем их в таблиц, если их нет там",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        800,
+        4340
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "maintenance_requests",
+          "mode": "list",
+          "cachedResultName": "maintenance_requests"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "last_state",
+              "condition": "!=",
+              "value": "={{ $json.stage_id[1] }}"
+            },
+            {
+              "column": "odoo_id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "dc6baffe-7856-4738-8363-802aabc794ad",
+      "name": "получаем те карточки, которые изменили свой статус",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        1260,
+        4520
+      ],
+      "alwaysOutputData": false,
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "odoo_id",
+              "value": "={{ $json.employee_id[0] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "369a3b11-0adc-410b-ba01-e96d83c3d376",
+      "name": "Получаем данные водителя",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        1680,
+        4840
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "mergeByFields": {
+          "values": [
+            {
+              "field1": "odoo_id",
+              "field2": "id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d5b3bc35-96ac-4e2e-832a-aec612f39121",
+      "name": "получаем пересечение",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        1420,
+        4840
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "maintenance_requests",
+          "mode": "list",
+          "cachedResultName": "maintenance_requests"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "odoo_id": "={{ $('получаем пересечение').item.json.odoo_id }}",
+            "last_state": "={{ $('получаем пересечение').item.json.stage_id[1] }}"
+          },
+          "matchingColumns": [
+            "odoo_id"
+          ],
+          "schema": [
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "last_state",
+              "displayName": "last_state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5d4dadfb-5559-4048-87cb-8d8e654a7218",
+      "name": "меняем статус сообщений",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        2140,
+        4840
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.tg_id }}",
+        "text": "={{ $('получаем пересечение').item.json.employee_id[1] }}\nВаше обращение перенесено в статус <b>{{ $('получаем пересечение').item.json.stage_id[1] }}</b>\n\nТекст вашего обращения:\n<i>{{ $('получаем пересечение').item.json.name }}</i>",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "039719e9-5e55-4f45-af61-41837e76b57d",
+      "name": "Telegram3",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        1920,
+        4840
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "multiplex",
+        "options": {}
+      },
+      "id": "5a84ad98-4dbc-4aae-9941-0e405420ea50",
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        1020,
+        4520
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Проверка состояния карточек ",
+        "height": 749.4704439473635,
+        "width": 2060.2048954077554
+      },
+      "id": "4dd37de4-e42c-44cb-a2de-e2d3d8e9615c",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        300,
+        4300
+      ]
     }
   ],
   "pinData": {},
   "settings": {
     "executionOrder": "v1"
   },
-  "staticData": null,
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrencyRules": []
+    }
+  },
   "tags": [],
-  "triggerCount": 1,
-  "updatedAt": "2024-04-09T15:10:04.000Z",
-  "versionId": "b432e625-5837-45b0-90c4-1bb7b988ff83"
+  "triggerCount": 2,
+  "updatedAt": "2024-04-09T17:20:33.000Z",
+  "versionId": "aec0d23a-5647-4b5c-b309-65a7efd4fa06"
 }
