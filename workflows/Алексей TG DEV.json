@@ -297,7 +297,7 @@
       "main": [
         [
           {
-            "node": "Odoo4",
+            "node": "Postgres2",
             "type": "main",
             "index": 0
           }
@@ -508,11 +508,11 @@
         ]
       ]
     },
-    "Odoo4": {
+    "удаление прошлого сообщения": {
       "main": [
         [
           {
-            "node": "Postgres2",
+            "node": "создание заявки ",
             "type": "main",
             "index": 0
           }
@@ -1966,7 +1966,7 @@
     {
       "parameters": {
         "chatId": "700956969",
-        "text": "=Дорогой механик, у водителя <b>{{ $('Odoo').item.json[\"name\"] }}</b> {{ $('Odoo').item.json[\"mobile_phone\"] }} проблема: {{ $('Telegram Trigger').item.json.message.text }}",
+        "text": "=Дорогой механик, у водителя <b>{{ $json[\"name\"] }}</b> {{$json[\"mobile_phone\"]}} проблема: {{ $('Telegram Trigger').item.json.message.text }}",
         "additionalFields": {
           "appendAttribution": false,
           "parse_mode": "HTML"
@@ -2059,8 +2059,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        2900,
-        3780
+        2740,
+        3800
       ],
       "credentials": {
         "postgres": {
@@ -2800,7 +2800,7 @@
           ]
         }
       },
-      "id": "030fc127-5d55-4103-827e-6aa5dbfde6ad",
+      "id": "be1c8e12-69a1-443a-8262-e095624fd466",
       "name": "Odoo3",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -2817,23 +2817,43 @@
     },
     {
       "parameters": {
+        "content": "## Создание запроса на обслуживание ",
+        "height": 293.1503506761383,
+        "width": 546.4679438035064
+      },
+      "id": "76184a33-90c0-48fe-a45b-929b2e230e03",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2680,
+        3200
+      ]
+    },
+    {
+      "parameters": {
         "resource": "custom",
         "customResource": "maintenance.request",
         "fieldsToCreateOrUpdate": {
           "fields": [
             {
-              "fieldName": "employee_id"
+              "fieldName": "employee_id",
+              "fieldValue": "={{ $('Switch').item.json.odoo_id }}"
+            },
+            {
+              "fieldName": "name",
+              "fieldValue": "={{ $('Telegram Trigger').item.json.message.text }}"
             }
           ]
         }
       },
-      "id": "e227faee-766f-4462-b3e5-df946bd8bab9",
-      "name": "Odoo4",
+      "id": "b5e3a0c9-d551-4087-b00c-7e57f5182274",
+      "name": "создание заявки ",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        2700,
-        3780
+        2980,
+        3300
       ],
       "credentials": {
         "odooApi": {
@@ -2850,6 +2870,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-04-09T14:14:20.000Z",
-  "versionId": "5ddc5ec7-a124-4baa-b52f-ce65b7e3eead"
+  "updatedAt": "2024-04-09T15:10:04.000Z",
+  "versionId": "b432e625-5837-45b0-90c4-1bb7b988ff83"
 }
