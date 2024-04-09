@@ -173,22 +173,6 @@
           }
         ]
       ]
-    },
-    "Edit Fields": {
-      "main": [
-        [
-          {
-            "node": "GitHub Edit",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "GitHub Create",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
     }
   },
   "createdAt": "2024-04-02T14:14:36.450Z",
@@ -224,7 +208,7 @@
       "name": "GitHub",
       "type": "n8n-nodes-base.github",
       "position": [
-        1680,
+        2040,
         300
       ],
       "typeVersion": 1,
@@ -261,7 +245,7 @@
       "name": "github_status",
       "type": "n8n-nodes-base.switch",
       "position": [
-        2320,
+        2680,
         440
       ],
       "typeVersion": 1
@@ -272,7 +256,7 @@
       "name": "same",
       "type": "n8n-nodes-base.noOp",
       "position": [
-        2560,
+        2920,
         240
       ],
       "typeVersion": 1
@@ -283,7 +267,7 @@
       "name": "different",
       "type": "n8n-nodes-base.noOp",
       "position": [
-        2560,
+        2920,
         440
       ],
       "typeVersion": 1
@@ -294,7 +278,7 @@
       "name": "new",
       "type": "n8n-nodes-base.noOp",
       "position": [
-        2560,
+        2920,
         620
       ],
       "typeVersion": 1
@@ -307,13 +291,13 @@
         "repository": "={{$node[\"Globals\"].json[\"repo\"][\"name\"]}}",
         "filePath": "={{$node[\"Globals\"].json[\"repo\"][\"path\"]}}{{$node[\"OneAtATime\"].json[\"name\"]}}.json",
         "fileContent": "={{$node[\"isDiffOrNew\"].json[\"n8n_data_stringy\"]}}",
-        "commitMessage": "=[N8N Backup] {{$node[\"OneAtATime\"].json[\"name\"]}}.json ({{$json[\"github_status\"]}})"
+        "commitMessage": "=[N8N Backup] {{$node[\"OneAtATime\"].json[\"name\"]}}.json ({{$json[\"github_status\"]}})\n{{ $('Комментарий к коммиту').item.json.commit }}"
       },
       "id": "5526efe9-c7fd-4cd5-8ba6-adda3b9c6629",
       "name": "GitHub Edit",
       "type": "n8n-nodes-base.github",
       "position": [
-        2740,
+        3100,
         440
       ],
       "typeVersion": 1,
@@ -331,13 +315,13 @@
         "repository": "={{$node[\"Globals\"].json[\"repo\"][\"name\"]}}",
         "filePath": "={{$node[\"Globals\"].json[\"repo\"][\"path\"]}}{{$node[\"OneAtATime\"].json[\"name\"]}}.json",
         "fileContent": "={{$node[\"isDiffOrNew\"].json[\"n8n_data_stringy\"]}}",
-        "commitMessage": "=[N8N Backup] {{$node[\"OneAtATime\"].json[\"name\"]}}.json ({{$json[\"github_status\"]}})"
+        "commitMessage": "=[N8N Backup] {{$node[\"OneAtATime\"].json[\"name\"]}}.json ({{$json[\"github_status\"]}})\n{{ $('Комментарий к коммиту').item.json.commit }}"
       },
       "id": "0e919b9b-a810-4fe4-be21-f18d11d15a25",
       "name": "GitHub Create",
       "type": "n8n-nodes-base.github",
       "position": [
-        2740,
+        3100,
         620
       ],
       "typeVersion": 1,
@@ -357,7 +341,7 @@
       "name": "OneAtATime",
       "type": "n8n-nodes-base.splitInBatches",
       "position": [
-        1460,
+        1820,
         460
       ],
       "typeVersion": 1
@@ -377,6 +361,10 @@
             {
               "name": "repo.path",
               "value": "workflows/"
+            },
+            {
+              "name": "commit",
+              "value": "поменял немного код в скрипте бекапов"
             }
           ]
         },
@@ -436,8 +424,8 @@
       "name": "Note2",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1440,
-        180
+        1640,
+        240
       ],
       "typeVersion": 1
     },
@@ -451,7 +439,7 @@
       "name": "Note3",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        2280,
+        2420,
         120
       ],
       "typeVersion": 1
@@ -464,7 +452,7 @@
       "name": "n8n",
       "type": "n8n-nodes-base.n8n",
       "position": [
-        1220,
+        1420,
         460
       ],
       "typeVersion": 1,
@@ -483,7 +471,7 @@
       "name": "isDiffOrNew",
       "type": "n8n-nodes-base.code",
       "position": [
-        2080,
+        2440,
         440
       ],
       "typeVersion": 1
@@ -494,33 +482,10 @@
       "name": "Merge",
       "type": "n8n-nodes-base.merge",
       "position": [
-        1900,
+        2260,
         440
       ],
       "typeVersion": 2
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "14121082-974c-404b-8593-f75e04dcd896",
-              "name": "commit",
-              "value": "теперь можно добавлять комментарий к коммиту",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "00646cd4-428c-4572-8cc9-b24215d1d2d8",
-      "name": "Edit Fields",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.3,
-      "position": [
-        3080,
-        420
-      ]
     }
   ],
   "pinData": {},
@@ -528,6 +493,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-04-09T15:39:57.000Z",
-  "versionId": "cafe46cf-40e1-4b0a-8a07-3060d9aca9e8"
+  "updatedAt": "2024-04-09T15:48:08.000Z",
+  "versionId": "720ce1f1-868e-44fa-9f67-c8612a77da35"
 }
