@@ -208,7 +208,7 @@
       "name": "GitHub",
       "type": "n8n-nodes-base.github",
       "position": [
-        2040,
+        1740,
         300
       ],
       "typeVersion": 1,
@@ -245,7 +245,7 @@
       "name": "github_status",
       "type": "n8n-nodes-base.switch",
       "position": [
-        2680,
+        2380,
         440
       ],
       "typeVersion": 1
@@ -256,7 +256,7 @@
       "name": "same",
       "type": "n8n-nodes-base.noOp",
       "position": [
-        2920,
+        2620,
         240
       ],
       "typeVersion": 1
@@ -267,7 +267,7 @@
       "name": "different",
       "type": "n8n-nodes-base.noOp",
       "position": [
-        2920,
+        2620,
         440
       ],
       "typeVersion": 1
@@ -278,7 +278,7 @@
       "name": "new",
       "type": "n8n-nodes-base.noOp",
       "position": [
-        2920,
+        2620,
         620
       ],
       "typeVersion": 1
@@ -291,13 +291,13 @@
         "repository": "={{$node[\"Globals\"].json[\"repo\"][\"name\"]}}",
         "filePath": "={{$node[\"Globals\"].json[\"repo\"][\"path\"]}}{{$node[\"OneAtATime\"].json[\"name\"]}}.json",
         "fileContent": "={{$node[\"isDiffOrNew\"].json[\"n8n_data_stringy\"]}}",
-        "commitMessage": "=[N8N Backup] {{$node[\"OneAtATime\"].json[\"name\"]}}.json ({{$json[\"github_status\"]}})\n{{ $('Комментарий к коммиту').item.json.commit }}"
+        "commitMessage": "=[N8N Backup] {{$node[\"OneAtATime\"].json[\"name\"]}}.json ({{$json[\"github_status\"]}})\n{{ $('Globals').item.json.commit }}"
       },
       "id": "5526efe9-c7fd-4cd5-8ba6-adda3b9c6629",
       "name": "GitHub Edit",
       "type": "n8n-nodes-base.github",
       "position": [
-        3100,
+        2800,
         440
       ],
       "typeVersion": 1,
@@ -315,13 +315,13 @@
         "repository": "={{$node[\"Globals\"].json[\"repo\"][\"name\"]}}",
         "filePath": "={{$node[\"Globals\"].json[\"repo\"][\"path\"]}}{{$node[\"OneAtATime\"].json[\"name\"]}}.json",
         "fileContent": "={{$node[\"isDiffOrNew\"].json[\"n8n_data_stringy\"]}}",
-        "commitMessage": "=[N8N Backup] {{$node[\"OneAtATime\"].json[\"name\"]}}.json ({{$json[\"github_status\"]}})\n{{ $('Комментарий к коммиту').item.json.commit }}"
+        "commitMessage": "=[N8N Backup] {{$node[\"OneAtATime\"].json[\"name\"]}}.json ({{$json[\"github_status\"]}})\n{{ $('Globals').item.json.commit }}"
       },
       "id": "0e919b9b-a810-4fe4-be21-f18d11d15a25",
       "name": "GitHub Create",
       "type": "n8n-nodes-base.github",
       "position": [
-        3100,
+        2800,
         620
       ],
       "typeVersion": 1,
@@ -341,7 +341,7 @@
       "name": "OneAtATime",
       "type": "n8n-nodes-base.splitInBatches",
       "position": [
-        1820,
+        1520,
         460
       ],
       "typeVersion": 1
@@ -364,7 +364,7 @@
             },
             {
               "name": "commit",
-              "value": "поменял немного код в скрипте бекапов"
+              "value": "теперь есть уведомления"
             }
           ]
         },
@@ -424,8 +424,8 @@
       "name": "Note2",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1640,
-        240
+        1480,
+        200
       ],
       "typeVersion": 1
     },
@@ -439,8 +439,8 @@
       "name": "Note3",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        2420,
-        120
+        2360,
+        160
       ],
       "typeVersion": 1
     },
@@ -452,7 +452,7 @@
       "name": "n8n",
       "type": "n8n-nodes-base.n8n",
       "position": [
-        1420,
+        1240,
         460
       ],
       "typeVersion": 1,
@@ -471,7 +471,7 @@
       "name": "isDiffOrNew",
       "type": "n8n-nodes-base.code",
       "position": [
-        2440,
+        2140,
         440
       ],
       "typeVersion": 1
@@ -482,7 +482,7 @@
       "name": "Merge",
       "type": "n8n-nodes-base.merge",
       "position": [
-        2260,
+        1960,
         440
       ],
       "typeVersion": 2
@@ -493,6 +493,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-04-09T15:48:08.000Z",
-  "versionId": "720ce1f1-868e-44fa-9f67-c8612a77da35"
+  "updatedAt": "2024-04-09T17:01:25.000Z",
+  "versionId": "2e62935f-48f6-4631-b1b7-1c9c5091e740"
 }
