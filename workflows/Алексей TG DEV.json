@@ -319,14 +319,14 @@
       "main": [
         [
           {
-            "node": "Odoo",
+            "node": "отправка логисту",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Odoo3",
+            "node": "Отправка проблемы механику",
             "type": "main",
             "index": 0
           }
@@ -479,7 +479,7 @@
             "index": 0
           },
           {
-            "node": "If",
+            "node": "Odoo",
             "type": "main",
             "index": 0
           }
@@ -490,18 +490,7 @@
       "main": [
         [
           {
-            "node": "отправка логисту",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Odoo3": {
-      "main": [
-        [
-          {
-            "node": "Отправка проблемы механику",
+            "node": "If",
             "type": "main",
             "index": 0
           }
@@ -2064,7 +2053,7 @@
     {
       "parameters": {
         "chatId": "700956969",
-        "text": "=Дорогой механик, у водителя <b>{{ $json[\"name\"] }}</b> {{$json[\"mobile_phone\"]}} проблема: {{ $('Telegram Trigger').item.json.message.text }}",
+        "text": "=Дорогой механик, у водителя <b>{{ $('Odoo').item.json[\"name\"] }}</b> {{ $('Odoo').item.json[\"mobile_phone\"] }} проблема: {{ $('Telegram Trigger').item.json.message.text }}",
         "additionalFields": {
           "appendAttribution": false,
           "parse_mode": "HTML"
@@ -2075,7 +2064,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        2480,
+        2500,
         3780
       ],
       "credentials": {
@@ -2157,8 +2146,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        2740,
-        3800
+        2800,
+        3780
       ],
       "credentials": {
         "postgres": {
@@ -2181,8 +2170,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        2320,
-        3420
+        2340,
+        3440
       ],
       "credentials": {
         "telegramApi": {
@@ -2202,7 +2191,7 @@
           "conditions": [
             {
               "id": "f4a04b7f-8758-49ca-b7cd-8e933dc9137d",
-              "leftValue": "={{ $json.only_mech }}",
+              "leftValue": "={{ $('Switch').item.json.only_mech }}",
               "rightValue": "",
               "operator": {
                 "type": "boolean",
@@ -2220,8 +2209,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        1860,
-        3300
+        2000,
+        3420
       ]
     },
     {
@@ -2875,36 +2864,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        2120,
-        3300
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "IbOO6r3p0Qvo35Gh",
-          "name": "Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "hr.employee",
-        "operation": "get",
-        "customResourceId": "={{ $json.odoo_id }}",
-        "options": {
-          "fieldsList": [
-            "name",
-            "mobile_phone"
-          ]
-        }
-      },
-      "id": "be1c8e12-69a1-443a-8262-e095624fd466",
-      "name": "Odoo3",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        2060,
-        3540
+        1840,
+        3280
       ],
       "credentials": {
         "odooApi": {
@@ -3254,7 +3215,7 @@
       "typeVersion": 1,
       "position": [
         300,
-        4300
+        4280
       ]
     }
   ],
@@ -3269,6 +3230,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-04-09T17:20:33.000Z",
-  "versionId": "aec0d23a-5647-4b5c-b309-65a7efd4fa06"
+  "updatedAt": "2024-04-11T09:52:12.000Z",
+  "versionId": "d4566533-5d3a-48e9-87be-2129832ca816"
 }
