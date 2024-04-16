@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Telegram Trigger": {
       "main": [
@@ -19,17 +19,6 @@
             "node": "получаем первый статус",
             "type": "main",
             "index": 0
-          }
-        ]
-      ]
-    },
-    "Odoo2": {
-      "main": [
-        [
-          {
-            "node": "Merge",
-            "type": "main",
-            "index": 1
           }
         ]
       ]
@@ -109,28 +98,6 @@
         [
           {
             "node": "Picked_button",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "получение номера машины": {
-      "main": [
-        [
-          {
-            "node": "Merge",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Merge": {
-      "main": [
-        [
-          {
-            "node": "main-menu",
             "type": "main",
             "index": 0
           }
@@ -240,17 +207,6 @@
         [
           {
             "node": "удаление прошлого сообщения",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "получаем odoo id": {
-      "main": [
-        [
-          {
-            "node": "Odoo2",
             "type": "main",
             "index": 0
           }
@@ -577,7 +533,7 @@
       "main": [
         [
           {
-            "node": "Получаем данные водителя",
+            "node": "перевод на русский",
             "type": "main",
             "index": 0
           }
@@ -600,6 +556,17 @@
         [
           {
             "node": "получаем те карточки, которые изменили свой статус",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "перевод на русский": {
+      "main": [
+        [
+          {
+            "node": "Получаем данные водителя",
             "type": "main",
             "index": 0
           }
@@ -658,27 +625,6 @@
         "postgres": {
           "id": "Q4ZHMkPf1vzJmsuw",
           "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "get",
-        "contactId": "={{ $json.odoo_id }}",
-        "options": {}
-      },
-      "id": "d0ab39bd-6747-4a7b-adc2-00f3f36e21f8",
-      "name": "Odoo2",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        3143,
-        2260
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "IbOO6r3p0Qvo35Gh",
-          "name": "Odoo Алексей"
         }
       }
     },
@@ -934,59 +880,6 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
-        "text": "=<b>Пожалуйста, проведите осмотр авто перед началом работы!\n\nАвтомобиль:</b>\n{{ $json.auto_number }}\n\n<b>Водитель:</b>\n{{ $json[\"name\"] }}\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n\nСтраховка до: 18.07.2024.\n\nПробег:</b> 332358км.",
-        "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "✅Всё в норме.",
-                    "additionalFields": {
-                      "callback_data": "=menu_ok"
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "❌Есть неисправности",
-                    "additionalFields": {
-                      "callback_data": "=menu_wrong"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {
-          "appendAttribution": false,
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "b39c89ee-0954-4691-a32c-41c26a20744d",
-      "name": "main-menu",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        3703,
-        2180
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
-        }
-      }
-    },
-    {
-      "parameters": {
         "operation": "editMessageText",
         "chatId": "={{ $json.callback_query.message.chat.id }}",
         "messageId": "={{ $json.callback_query.message.message_id }}",
@@ -1144,63 +1037,6 @@
           "name": "Алексей dev"
         }
       }
-    },
-    {
-      "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "value": "public",
-          "mode": "list",
-          "cachedResultName": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "vehicles",
-          "mode": "list",
-          "cachedResultName": "vehicles"
-        },
-        "limit": 1,
-        "where": {
-          "values": [
-            {
-              "column": "tg_user",
-              "value": "={{ $('Telegram Trigger').item.json.message.from.id }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "dd6f8fd6-765b-47a9-9d1b-485ca47e421b",
-      "name": "получение номера машины",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.3,
-      "position": [
-        2863,
-        2080
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "Q4ZHMkPf1vzJmsuw",
-          "name": "Postgres account"
-        }
-      },
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "mode": "combine",
-        "combinationMode": "multiplex",
-        "options": {}
-      },
-      "id": "15110f81-2305-458d-99f4-01b358d6abed",
-      "name": "Merge",
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 2.1,
-      "position": [
-        3443,
-        2180
-      ]
     },
     {
       "parameters": {
@@ -1820,60 +1656,6 @@
     },
     {
       "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "tg_users",
-          "mode": "list",
-          "cachedResultName": "tg_users"
-        },
-        "where": {
-          "values": [
-            {
-              "column": "tg_id",
-              "value": "={{ $('Telegram Trigger').item.json.message.from.id }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "0ae49b84-ddf3-4460-bd0a-3e558eea0398",
-      "name": "получаем odoo id",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.3,
-      "position": [
-        2863,
-        2260
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "Q4ZHMkPf1vzJmsuw",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "content": "## Меню осмотра автомобиля \nУбрал пока это из команды /start",
-        "height": 509.58038373476813,
-        "width": 1116.4403857716206
-      },
-      "id": "93c7c4f8-a588-454f-9a6a-57b54d7a471d",
-      "name": "Sticky Note2",
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        2820,
-        1960
-      ]
-    },
-    {
-      "parameters": {
         "rules": {
           "values": [
             {
@@ -2158,7 +1940,7 @@
     },
     {
       "parameters": {
-        "chatId": "700956969",
+        "chatId": "884627269",
         "text": "=Дорогой логист, у водителя <b>{{ $json[\"name\"] }}</b> {{ $json[\"mobile_phone\"] }} проблема: {{ $('Telegram Trigger').item.json.message.text }}",
         "additionalFields": {
           "appendAttribution": false,
@@ -2961,7 +2743,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        580,
+        660,
         4520
       ],
       "credentials": {
@@ -2984,7 +2766,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        800,
+        880,
         4340
       ],
       "credentials": {
@@ -3029,7 +2811,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        1260,
+        1340,
         4520
       ],
       "alwaysOutputData": false,
@@ -3059,7 +2841,7 @@
           "values": [
             {
               "column": "odoo_id",
-              "value": "={{ $json.employee_id[0] }}"
+              "value": "={{ $('Merge1').item.json.employee_id[0] }}"
             }
           ]
         },
@@ -3070,7 +2852,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        1680,
+        1980,
         4840
       ],
       "credentials": {
@@ -3098,7 +2880,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        1420,
+        1500,
         4840
       ]
     },
@@ -3154,7 +2936,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        2140,
+        2440,
         4840
       ],
       "credentials": {
@@ -3167,7 +2949,7 @@
     {
       "parameters": {
         "chatId": "={{ $json.tg_id }}",
-        "text": "={{ $('получаем пересечение').item.json.employee_id[1] }}\nВаше обращение перенесено в статус <b>{{ $('получаем пересечение').item.json.stage_id[1] }}</b>\n\nТекст вашего обращения:\n<i>{{ $('получаем пересечение').item.json.name }}</i>",
+        "text": "={{ $('получаем пересечение').item.json.employee_id[1] }}\nВаше обращение перенесено в статус <b>{{ $('перевод на русский').item.json[\"state\"] }}</b>\n\nТекст вашего обращения:\n<i>{{ $('получаем пересечение').item.json.name }}</i>",
         "additionalFields": {
           "appendAttribution": false,
           "parse_mode": "HTML"
@@ -3178,7 +2960,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        1920,
+        2220,
         4840
       ],
       "credentials": {
@@ -3199,7 +2981,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        1020,
+        1100,
         4520
       ]
     },
@@ -3207,7 +2989,7 @@
       "parameters": {
         "content": "## Проверка состояния карточек ",
         "height": 749.4704439473635,
-        "width": 2060.2048954077554
+        "width": 2342.9054234402693
       },
       "id": "4dd37de4-e42c-44cb-a2de-e2d3d8e9615c",
       "name": "Sticky Note6",
@@ -3216,6 +2998,20 @@
       "position": [
         300,
         4280
+      ]
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "for item in _input.all():\n  current = item.json.stage_id[1]\n  print(current)\n  if current == 'New Request': return {'state': 'Новый запрос'}\n  elif current == 'In Progress': return {'state': 'В процессе'}\n  elif current == 'Repaired': return {'state': 'Отремонтировано'}\nreturn {'state': 'Неопределённый статус'}"
+      },
+      "id": "934116c7-badf-4641-a8ca-ff3520d9691e",
+      "name": "перевод на русский",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1740,
+        4840
       ]
     }
   ],
@@ -3230,6 +3026,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-04-11T09:52:12.000Z",
-  "versionId": "d4566533-5d3a-48e9-87be-2129832ca816"
+  "updatedAt": "2024-04-16T17:37:17.000Z",
+  "versionId": "0371b1cd-f873-442c-bb4c-20bb0182f6dd"
 }
