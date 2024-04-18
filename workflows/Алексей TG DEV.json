@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Telegram Trigger": {
       "main": [
@@ -720,6 +720,39 @@
         [
           {
             "node": "Получение инф. о водители",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "возвращаем статус": {
+      "main": [
+        [
+          {
+            "node": "получаем имя1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получаем имя1": {
+      "main": [
+        [
+          {
+            "node": "изменяем имя",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "изменяем имя": {
+      "main": [
+        [
+          {
+            "node": "добавляем данные в оду",
             "type": "main",
             "index": 0
           }
@@ -3461,7 +3494,7 @@
     {
       "parameters": {
         "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
-        "text": "Введите номер автомобиля",
+        "text": "Введите номер автомобиля заглавными буквами и без пробелов, например: А312МЕ",
         "additionalFields": {
           "appendAttribution": false
         }
@@ -3772,13 +3805,7 @@
         "customResource": "fleet.vehicle",
         "operation": "getAll",
         "returnAll": true,
-        "options": {
-          "fieldsList": [
-            "license_plate",
-            "odometer",
-            "model_id"
-          ]
-        },
+        "options": {},
         "filterRequest": {
           "filter": [
             {
@@ -3998,7 +4025,7 @@
     },
     {
       "parameters": {
-        "content": "Вот тут сделал две проверки, так как иногда надо доставать юзернейм из другого типа данных",
+        "content": "Вот тут сделал две проверки, так как иногда надо доставать юзернейм из другого типа данных\n\nЕсли не логист:\nis not equal\nand\nis not equal\n\nЕсли логист:\nequal\nor\nequal\n",
         "height": 264.3805315054363,
         "width": 319.27635304210355,
         "color": 3
@@ -4016,7 +4043,7 @@
       "parameters": {
         "content": "## Ввод номера автомобиля",
         "height": 510.0261823387185,
-        "width": 958.5831625659578
+        "width": 884.3608425849824
       },
       "id": "bf70c2e5-b3b2-445c-a4e9-ad0d306981a6",
       "name": "Sticky Note13",
@@ -4026,6 +4053,91 @@
         4460,
         5940
       ]
+    },
+    {
+      "parameters": {
+        "content": "## Изменение водителя в ОДУ\nвозможно это должно быть в другом месте",
+        "height": 258.8309220721088,
+        "width": 800.0418917419497
+      },
+      "id": "375e7642-940b-4a04-9185-478c15de5d37",
+      "name": "Sticky Note14",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        5380,
+        5960
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "hr.employee",
+        "operation": "get",
+        "customResourceId": "={{ $json.odoo_id }}",
+        "options": {
+          "fieldsList": [
+            "name"
+          ]
+        }
+      },
+      "id": "1b96150f-c169-4582-b09d-33b94da9d35f",
+      "name": "получаем имя1",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        5420,
+        6040
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "IbOO6r3p0Qvo35Gh",
+          "name": "Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  var prop = ($('Ищем автомобиль по номеру').item.json[\"vehicle_properties\"]);\n  prop[0].value = new Array()\n  prop[0].value.push($('возвращаем статус').item.json[\"odoo_id\"]);\n  prop[0].value.push($('получаем имя1').item.json[\"name\"]);\n  return prop;\n}"
+      },
+      "id": "134da555-20f1-4655-a61f-0fbe499e1808",
+      "name": "изменяем имя",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5680,
+        6040
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "fleet.vehicle",
+        "operation": "update",
+        "customResourceId": "={{ $('проверка наличия').item.json.id }}",
+        "fieldsToCreateOrUpdate": {
+          "fields": [
+            {
+              "fieldName": "vehicle_properties",
+              "fieldValue": "={{ [$json] }}"
+            }
+          ]
+        }
+      },
+      "id": "fe5d495d-dcdd-44d8-82c2-0653eaefd4d1",
+      "name": "добавляем данные в оду",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        5920,
+        6040
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "IbOO6r3p0Qvo35Gh",
+          "name": "Odoo Алексей"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -4039,6 +4151,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-04-18T09:11:35.000Z",
-  "versionId": "eede622d-dfcc-4d52-b072-7534e12066bd"
+  "updatedAt": "2024-04-18T13:21:23.000Z",
+  "versionId": "5246ea46-7d36-4ae8-adc2-03416f97be3c"
 }
