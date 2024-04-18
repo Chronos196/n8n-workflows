@@ -636,11 +636,6 @@
         ],
         [
           {
-            "node": "Получение инф. о водители",
-            "type": "main",
-            "index": 0
-          },
-          {
             "node": "Комментарий доставлен",
             "type": "main",
             "index": 0
@@ -714,6 +709,17 @@
         [
           {
             "node": "возвращаем статус",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "создание заявки ": {
+      "main": [
+        [
+          {
+            "node": "Получение инф. о водители",
             "type": "main",
             "index": 0
           }
@@ -1710,10 +1716,11 @@
     },
     {
       "parameters": {
-        "chatId": "467549384",
-        "text": "=Дорогой механик, у водителя <b>{{ $('Merge').item.json.name }}</b> {{ $('Merge').item.json.mobile_phone }}, номер машины <b>{{ $('Merge').item.json.license_plate }}</b> проблема: {{ $('Telegram Trigger').item.json.message.text }} ",
+        "chatId": "700956969",
+        "text": "=Дорогой механик, у водителя <b>{{ $('Merge').item.json.name }}</b> {{ $('Merge').item.json.mobile_phone }}, номер машины <b>{{ $('Merge').item.json.license_plate }}</b> проблема: {{ $('Telegram Trigger').item.json.message.text }} \n\n<a href=\"https://everest.lamart.site/web#id={{ $('создание заявки ').item.json[\"id\"] }}&cids=1&menu_id=393&action=603&active_id=1&model=maintenance.request&view_type=form\">Ссылка на заявку в Odoo</a>\n",
         "additionalFields": {
           "appendAttribution": false,
+          "disable_web_page_preview": true,
           "parse_mode": "HTML"
         }
       },
@@ -2700,7 +2707,7 @@
         "resource": "custom",
         "customResource": "hr.employee",
         "operation": "get",
-        "customResourceId": "={{ $json.odoo_id }}",
+        "customResourceId": "={{ $('проверка статуса авторизации').item.json.odoo_id }}",
         "options": {
           "fieldsList": [
             "name",
@@ -4004,6 +4011,21 @@
         1020,
         4480
       ]
+    },
+    {
+      "parameters": {
+        "content": "## Ввод номера автомобиля",
+        "height": 510.0261823387185,
+        "width": 958.5831625659578
+      },
+      "id": "bf70c2e5-b3b2-445c-a4e9-ad0d306981a6",
+      "name": "Sticky Note13",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        4460,
+        5940
+      ]
     }
   ],
   "pinData": {},
@@ -4017,6 +4039,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-04-18T09:02:11.000Z",
-  "versionId": "d0164592-79c8-470a-8618-5a6c5bd6c847"
+  "updatedAt": "2024-04-18T09:11:35.000Z",
+  "versionId": "eede622d-dfcc-4d52-b072-7534e12066bd"
 }
