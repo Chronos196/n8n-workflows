@@ -1,11 +1,11 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Telegram Trigger": {
       "main": [
         [
           {
-            "node": "check_role1",
+            "node": "Проверка роли логиста",
             "type": "main",
             "index": 0
           }
@@ -68,42 +68,6 @@
         [
           {
             "node": "проверка статуса авторизации",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Check_type": {
-      "main": [
-        [
-          {
-            "node": "добавляет пользователя, если не существует",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Picked_button",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "check_role1": {
-      "main": [
-        [
-          {
-            "node": "Проверка старта1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Check_type",
             "type": "main",
             "index": 0
           }
@@ -187,7 +151,7 @@
       "main": [
         [
           {
-            "node": "создание заявки ",
+            "node": "получаем данные автомобиля",
             "type": "main",
             "index": 0
           }
@@ -216,57 +180,6 @@
         ]
       ]
     },
-    "вытащим все машины": {
-      "main": [
-        [
-          {
-            "node": "Проверка наличия автомобиля",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "получаем текущее имя": {
-      "main": [
-        [
-          {
-            "node": "получаем контакт",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "получаем контакт": {
-      "main": [
-        [
-          {
-            "node": "вытащим все машины",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Проверка наличия автомобиля": {
-      "main": [
-        [
-          {
-            "node": "Меню ТО",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Автомобиль не найден",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Postgres1": {
       "main": [
         [
@@ -283,6 +196,17 @@
         [
           {
             "node": "Postgres1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "создание заявки ": {
+      "main": [
+        [
+          {
+            "node": "Получение инф. о водители",
             "type": "main",
             "index": 0
           }
@@ -409,17 +333,6 @@
         ]
       ]
     },
-    "Ожидание": {
-      "main": [
-        [
-          {
-            "node": "получаем текущее имя",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Комментарий доставлен": {
       "main": [
         [
@@ -435,12 +348,7 @@
       "main": [
         [
           {
-            "node": "Merge",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Получаем контакт для машины",
+            "node": "Нужно ли отправить сообщение логисту",
             "type": "main",
             "index": 0
           }
@@ -531,57 +439,6 @@
         ]
       ]
     },
-    "Merge": {
-      "main": [
-        [
-          {
-            "node": "Нужно ли отправить сообщение логисту",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Нужно ли отправить сообщение логисту": {
-      "main": [
-        [
-          {
-            "node": "Отправка логисту",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Отправка проблемы механику",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Получаем контакт для машины": {
-      "main": [
-        [
-          {
-            "node": "Получаем номер машины",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Получаем номер машины": {
-      "main": [
-        [
-          {
-            "node": "Merge",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
     "Выбранная кнопка": {
       "main": [
         [
@@ -600,11 +457,18 @@
         ]
       ]
     },
-    "сообщение ввода автомобиля": {
+    "Нужно ли отправить сообщение логисту": {
       "main": [
         [
           {
-            "node": "меняем статус2",
+            "node": "Отправка логисту",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Отправка проблемы механику",
             "type": "main",
             "index": 0
           }
@@ -643,6 +507,79 @@
         ]
       ]
     },
+    "сообщение ввода автомобиля": {
+      "main": [
+        [
+          {
+            "node": "меняем статус2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ищем автомобиль по номеру": {
+      "main": [
+        [
+          {
+            "node": "проверка наличия",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка наличия": {
+      "main": [
+        [
+          {
+            "node": "Меню ТО1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Автомобиль отсутствует",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Меню ТО1": {
+      "main": [
+        [
+          {
+            "node": "возвращаем статус",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "возвращаем статус": {
+      "main": [
+        [
+          {
+            "node": "получаем имя1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получаем имя1": {
+      "main": [
+        [
+          {
+            "node": "добавляем данные в оду",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "проверка статуса авторизации": {
       "main": [
         [
@@ -675,84 +612,47 @@
         ]
       ]
     },
-    "Ищем автомобиль по номеру": {
+    "Проверка роли логиста": {
       "main": [
         [
           {
-            "node": "проверка наличия",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "проверка наличия": {
-      "main": [
-        [
-          {
-            "node": "Меню ТО1",
+            "node": "Проверка старта1",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Telegram1",
+            "node": "Проверка типа входных данных",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Меню ТО1": {
+    "Проверка типа входных данных": {
       "main": [
         [
           {
-            "node": "возвращаем статус",
+            "node": "добавляет пользователя, если не существует",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Picked_button",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "создание заявки ": {
+    "получаем данные автомобиля": {
       "main": [
         [
           {
-            "node": "Получение инф. о водители",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "возвращаем статус": {
-      "main": [
-        [
-          {
-            "node": "получаем имя1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "получаем имя1": {
-      "main": [
-        [
-          {
-            "node": "изменяем имя",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "изменяем имя": {
-      "main": [
-        [
-          {
-            "node": "добавляем данные в оду",
+            "node": "создание заявки ",
             "type": "main",
             "index": 0
           }
@@ -775,13 +675,13 @@
         ],
         "additionalFields": {}
       },
-      "id": "7a2dbb9c-56b3-478a-a207-86323cf57245",
+      "id": "d30b1f16-282d-429e-a735-61e63cd43056",
       "name": "Telegram Trigger",
       "type": "n8n-nodes-base.telegramTrigger",
       "typeVersion": 1.1,
       "position": [
-        795,
-        4636
+        1935,
+        6416
       ],
       "webhookId": "6829191f-f2cf-41f8-bdd9-6e6890f1ba9b",
       "credentials": {
@@ -799,13 +699,13 @@
           "queryReplacement": "={{ $('Telegram Trigger').item.json.message.from.id }}"
         }
       },
-      "id": "9200c651-5ae8-46ef-b28f-0222fc00b233",
+      "id": "b30430d7-1142-441b-9f11-c85d295cbc4c",
       "name": "добавляет пользователя, если не существует",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        2375,
-        4636
+        3515,
+        6416
       ],
       "credentials": {
         "postgres": {
@@ -838,13 +738,13 @@
         },
         "options": {}
       },
-      "id": "797cbfae-cbd1-4c1d-8759-3e75b55c6588",
+      "id": "2fee38e7-a602-400b-855c-35312df7b8d3",
       "name": "есть ли статус",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        2775,
-        4636
+        3915,
+        6416
       ]
     },
     {
@@ -871,13 +771,13 @@
         },
         "options": {}
       },
-      "id": "edf5155c-8e1f-45e8-9128-92c7043d893e",
+      "id": "da55ee2e-2725-42b5-b7c7-f4f69bc1b1bf",
       "name": "получаем первый статус",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        2575,
-        4636
+        3715,
+        6416
       ],
       "credentials": {
         "postgres": {
@@ -944,13 +844,13 @@
         },
         "options": {}
       },
-      "id": "5200dd15-5da4-48d3-86f9-7b87c02790f6",
+      "id": "3c4c4123-37d3-49a8-bb90-51390cfe579d",
       "name": "меняем статус",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        2975,
-        4756
+        4115,
+        6536
       ],
       "credentials": {
         "postgres": {
@@ -983,13 +883,13 @@
         },
         "options": {}
       },
-      "id": "3b21547d-f277-4cbd-9568-e314ca65e174",
+      "id": "abb60d4a-e753-48b7-a440-4ceaa1fde941",
       "name": "актуальный статус",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        2975,
-        4316
+        4115,
+        6096
       ],
       "credentials": {
         "postgres": {
@@ -997,80 +897,6 @@
           "name": "Postgres account"
         }
       }
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "11c45e0d-196b-47f1-821e-bee57c9f070b",
-              "leftValue": "={{ $('Telegram Trigger').item.json.hasField(\"message\") }}",
-              "rightValue": "",
-              "operator": {
-                "type": "boolean",
-                "operation": "true",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "c454d05d-b304-43f1-8190-56d76457727e",
-      "name": "Check_type",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [
-        1660,
-        4620
-      ]
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "9e5341d4-525b-4677-b22e-26741349cd16",
-              "leftValue": "={{ $json.message.chat.username }}",
-              "rightValue": "Chronos196",
-              "operator": {
-                "type": "string",
-                "operation": "notEquals"
-              }
-            },
-            {
-              "id": "2dc7c105-3303-4700-9806-dbde743d993b",
-              "leftValue": "={{ $json.callback_query.message.chat.username }}",
-              "rightValue": "Chronos196",
-              "operator": {
-                "type": "string",
-                "operation": "notEquals"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "48e2b849-2d76-42f5-a059-277bda428f38",
-      "name": "check_role1",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [
-        1140,
-        4600
-      ]
     },
     {
       "parameters": {
@@ -1099,13 +925,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "532e943d-4d9f-4603-92bc-d20560025e23",
+      "id": "5aedf125-9bf0-4faa-b440-2de946b26af8",
       "name": "Stats",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3080,
-        5340
+        4220,
+        7120
       ],
       "credentials": {
         "telegramApi": {
@@ -1123,18 +949,18 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "777bdd6f-edbd-4140-85d8-38254c30af09",
+      "id": "4dd3b9c0-be0b-41d3-bd34-46da74ed35d0",
       "name": "comment",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3375,
-        5376
+        4515,
+        7156
       ],
       "credentials": {
         "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
+          "id": "ThC2kf8ZCBAO0FBa",
+          "name": "Main Everest"
         }
       }
     },
@@ -1165,13 +991,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "78f0e1f1-ac02-4f6c-86ac-3bebceb1523f",
+      "id": "d52cd443-a464-4d96-beae-eb6dc7c46902",
       "name": "принятый заказ",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3015,
-        5156
+        4155,
+        6936
       ],
       "credentials": {
         "telegramApi": {
@@ -1237,13 +1063,13 @@
         },
         "options": {}
       },
-      "id": "2ec22bb0-06cc-497c-830d-2a32cb8d171a",
+      "id": "c1c00afb-bab6-483d-ac62-337f036c21ca",
       "name": "меняем статус1",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        3740,
-        3240
+        4755,
+        5476
       ],
       "credentials": {
         "postgres": {
@@ -1280,13 +1106,13 @@
           "appendAttribution": false
         }
       },
-      "id": "38b1d6da-c469-4e8e-ac20-b5dcd392dcea",
+      "id": "f999312a-bc49-44c5-a6c3-e028b15021fd",
       "name": "отправляем кнопку контакта",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3960,
-        3240
+        4975,
+        5476
       ],
       "credentials": {
         "telegramApi": {
@@ -1319,13 +1145,13 @@
         },
         "options": {}
       },
-      "id": "0c553cdd-4756-48ae-aa17-7b37806d0dc4",
+      "id": "5958b9b5-31f0-4ab2-a0bf-2e3034d9cf40",
       "name": "проверка нажатия кнопки контакта",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        3760,
-        3440
+        4775,
+        5676
       ]
     },
     {
@@ -1335,10 +1161,7 @@
         "operation": "getAll",
         "returnAll": true,
         "options": {
-          "fieldsList": [
-            "id",
-            "mobile_phone"
-          ]
+          "fieldsList": []
         },
         "filterRequest": {
           "filter": [
@@ -1349,19 +1172,19 @@
           ]
         }
       },
-      "id": "b7d68f30-ae0e-4898-b952-1e331778738a",
+      "id": "41cc3119-3c2c-4f39-87a9-ecb526d3a05a",
       "name": "получаем id по mobile_phone",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        3960,
-        3440
+        4975,
+        5676
       ],
       "alwaysOutputData": true,
       "credentials": {
         "odooApi": {
-          "id": "IbOO6r3p0Qvo35Gh",
-          "name": "Odoo Алексей"
+          "id": "F0iSrepbL08YCR2h",
+          "name": "Odoo new Алексей"
         }
       }
     },
@@ -1389,13 +1212,13 @@
         },
         "options": {}
       },
-      "id": "8475e4cd-61c3-492c-9b4d-f8cf606f65cc",
+      "id": "1776bcd7-b50c-4a87-bf62-509d6e0e714e",
       "name": "проверяем наличие",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        4140,
-        3440
+        5155,
+        5676
       ]
     },
     {
@@ -1406,13 +1229,13 @@
           "appendAttribution": false
         }
       },
-      "id": "56836997-c330-4767-9a11-e20367889677",
+      "id": "86343cba-c73d-42ef-9667-602938fa297a",
       "name": "пишем, что номера нет",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4380,
-        3560
+        5395,
+        5796
       ],
       "credentials": {
         "telegramApi": {
@@ -1468,13 +1291,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "f5915004-64d8-44d1-a991-5d1dfcd07cea",
+      "id": "fe37b728-668a-45b8-9409-7275d63a35ac",
       "name": "успешный вход",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4600,
-        3360
+        5615,
+        5596
       ],
       "credentials": {
         "telegramApi": {
@@ -1542,13 +1365,13 @@
         },
         "options": {}
       },
-      "id": "2d8f84d7-b8c4-4ab9-aefa-2e9c08b66350",
+      "id": "537cf833-8435-4ab4-ae47-71d6f3fbd171",
       "name": "меняем статус на \"авторизован\"",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        4820,
-        3360
+        5835,
+        5596
       ],
       "credentials": {
         "postgres": {
@@ -1564,23 +1387,21 @@
         "operation": "get",
         "customResourceId": "={{ $json.id }}",
         "options": {
-          "fieldsList": [
-            "name"
-          ]
+          "fieldsList": []
         }
       },
-      "id": "983d49a5-47f9-4a47-ba1e-30cc20d5222c",
+      "id": "f236381b-c93d-4b1e-a496-51d744eeecb0",
       "name": "получаем имя",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        4380,
-        3360
+        5395,
+        5596
       ],
       "credentials": {
         "odooApi": {
-          "id": "IbOO6r3p0Qvo35Gh",
-          "name": "Odoo Алексей"
+          "id": "F0iSrepbL08YCR2h",
+          "name": "Odoo new Алексей"
         }
       }
     },
@@ -1590,13 +1411,13 @@
         "height": 623.4771536589793,
         "width": 1361.5817241569612
       },
-      "id": "32aa4ab3-22a7-41b0-914d-6994b59b6057",
+      "id": "be08d34e-9aa0-4c6c-b27f-f7dfb58e0004",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        3700,
-        3120
+        4715,
+        5356
       ]
     },
     {
@@ -1605,13 +1426,13 @@
         "chatId": "={{ $json.result.chat.id }}",
         "messageId": "={{ $json.result.message_id -2}}"
       },
-      "id": "10d13651-8237-46b5-82c4-03b0e35b67d2",
+      "id": "6da7d1e1-31a4-4af9-be2e-58a1cd078593",
       "name": "удаление прошлого сообщения",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5260,
-        4780
+        6540,
+        7220
       ],
       "credentials": {
         "telegramApi": {
@@ -1627,23 +1448,21 @@
         "operation": "get",
         "customResourceId": "={{ $json.odoo_id }}",
         "options": {
-          "fieldsList": [
-            "employee_properties"
-          ]
+          "fieldsList": []
         }
       },
-      "id": "199ebba9-572c-43f4-901b-1647926bb2ff",
+      "id": "1991885a-a854-4250-b956-eab09b6b6c41",
       "name": "Odoo1",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        4580,
-        3920
+        6000,
+        6260
       ],
       "credentials": {
         "odooApi": {
-          "id": "IbOO6r3p0Qvo35Gh",
-          "name": "Odoo Алексей"
+          "id": "F0iSrepbL08YCR2h",
+          "name": "Odoo new Алексей"
         }
       }
     },
@@ -1656,13 +1475,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "915d89dd-48a9-4da7-ba8c-577cdf7534e5",
+      "id": "b628b5c7-80fc-484d-b97b-bd4535f2b27e",
       "name": "Telegram",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4800,
-        3920
+        6220,
+        6260
       ],
       "credentials": {
         "telegramApi": {
@@ -1674,16 +1493,16 @@
     {
       "parameters": {
         "content": "## Вывод статистики \nПока просто заготовка, нормальных данных в Odoo нет",
-        "height": 275.2889929681765,
+        "height": 265.0078547016157,
         "width": 526.1978785004818
       },
-      "id": "dae516ac-8c4e-4f37-87db-8ff075e66fc0",
+      "id": "1edf7d54-73d4-4c6d-b6fe-e9780c685771",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        4540,
-        3820
+        5920,
+        6180
       ]
     },
     {
@@ -1732,13 +1551,13 @@
           "appendAttribution": false
         }
       },
-      "id": "5d559b75-9554-40b7-9b36-5f36398784a6",
+      "id": "69e4bd1a-831c-4b4c-990e-70d25ee0e621",
       "name": "/start",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4120,
-        3860
+        5435,
+        6096
       ],
       "credentials": {
         "telegramApi": {
@@ -1750,20 +1569,19 @@
     {
       "parameters": {
         "chatId": "700956969",
-        "text": "=Дорогой механик, у водителя <b>{{ $('Merge').item.json.name }}</b> {{ $('Merge').item.json.mobile_phone }}, номер машины <b>{{ $('Merge').item.json.license_plate }}</b> проблема: {{ $('Telegram Trigger').item.json.message.text }} \n\n<a href=\"https://everest.lamart.site/web#id={{ $('создание заявки ').item.json[\"id\"] }}&cids=1&menu_id=393&action=603&active_id=1&model=maintenance.request&view_type=form\">Ссылка на заявку в Odoo</a>\n",
+        "text": "=Дорогой механик, у водителя <b>{{ $('Получение инф. о водители').item.json[\"display_name\"] }}</b> {{ $('Получение инф. о водители').item.json[\"mobile_phone\"] }}, номер машины <b>{{ $('получаем данные автомобиля').item.json[\"number_car\"] }}</b> проблема: {{ $('Telegram Trigger').item.json.message.text }} \n\n<a href=\"82.97.249.121:8069/web#id={{ $('создание заявки ').item.json[\"id\"] }}&cids=1&menu_id=137&action=196&active_id=1&model=technical.maintenance&view_type=form\">Ссылка на заявку в Odoo</a>",
         "additionalFields": {
           "appendAttribution": false,
-          "disable_web_page_preview": true,
           "parse_mode": "HTML"
         }
       },
-      "id": "5943142c-670a-4e0a-b859-2a3000872b55",
+      "id": "19a92c96-364d-4f5f-93f3-4b7f28f88a2f",
       "name": "Отправка проблемы механику",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        6160,
-        5460
+        7620,
+        7840
       ],
       "credentials": {
         "telegramApi": {
@@ -1839,13 +1657,13 @@
         },
         "options": {}
       },
-      "id": "869871f4-e48a-41bd-ae88-9fd0e9a1de10",
+      "id": "00db2712-7e29-4b5d-8067-35f9bf2a8f8c",
       "name": "Postgres2",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        6340,
-        5460
+        7900,
+        7840
       ],
       "credentials": {
         "postgres": {
@@ -1853,165 +1671,6 @@
           "name": "Postgres account"
         }
       }
-    },
-    {
-      "parameters": {
-        "content": "## Осмотр автомобиля \nДанные подгружаются из Odoo",
-        "height": 393.91339254014827,
-        "width": 1508.3240247378176
-      },
-      "id": "5842b2f3-1bf6-4b58-a622-3cd86af64478",
-      "name": "Sticky Note3",
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        5980,
-        4340
-      ]
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "fleet.vehicle",
-        "operation": "getAll",
-        "options": {
-          "fieldsList": [
-            "license_plate",
-            "model_id",
-            "odometer"
-          ]
-        },
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "driver_id",
-              "value": "={{ $json.id }}"
-            }
-          ]
-        }
-      },
-      "id": "7e5c09e7-38f6-49ad-8a17-2af4cf496471",
-      "name": "вытащим все машины",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        6880,
-        4520
-      ],
-      "alwaysOutputData": true,
-      "credentials": {
-        "odooApi": {
-          "id": "IbOO6r3p0Qvo35Gh",
-          "name": "Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "content": "Это костыльная нода, так как пока автомобиль привязывается к контакту",
-        "height": 256.452896201226,
-        "width": 477.8791521493896,
-        "color": 7
-      },
-      "id": "25a66b37-c3e5-4bae-b2ab-de6554a65b56",
-      "name": "Sticky Note4",
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        6043,
-        4440
-      ]
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "hr.employee",
-        "operation": "get",
-        "customResourceId": "={{ $('Проверка старта').item.json.odoo_id }}",
-        "options": {
-          "fieldsList": [
-            "name"
-          ]
-        }
-      },
-      "id": "b6718c8f-04f1-4693-a51b-427f439f47ec",
-      "name": "получаем текущее имя",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        6300,
-        4520
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "IbOO6r3p0Qvo35Gh",
-          "name": "Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "res.partner",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "name",
-              "value": "={{ $json.name }}"
-            }
-          ]
-        }
-      },
-      "id": "40fa9b10-0f0e-4a22-b5d0-cb9f3bb54864",
-      "name": "получаем контакт",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        6580,
-        4520
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "IbOO6r3p0Qvo35Gh",
-          "name": "Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "f8758dde-72d4-4417-bd5f-b60086b4426c",
-              "leftValue": "={{ $json.id }}",
-              "rightValue": "",
-              "operator": {
-                "type": "number",
-                "operation": "exists",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "94ca104d-2833-43b9-b18f-c7eddff3538f",
-      "name": "Проверка наличия автомобиля",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [
-        7100,
-        4520
-      ]
     },
     {
       "parameters": {
@@ -2037,13 +1696,13 @@
         },
         "options": {}
       },
-      "id": "2269e634-7964-4f3a-9c44-9e9ec86ef633",
+      "id": "7d31339c-5e8b-4935-bc96-38b48e95755c",
       "name": "Postgres1",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        3095,
-        5856
+        4235,
+        7636
       ],
       "credentials": {
         "postgres": {
@@ -2119,13 +1778,13 @@
         },
         "options": {}
       },
-      "id": "b3c960a6-0d1a-407f-a9e6-6b9b23f231fd",
+      "id": "4f1816f7-d432-42a2-b1cc-bbc345bd2ecf",
       "name": "Postgres",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        3275,
-        5916
+        4415,
+        7696
       ],
       "credentials": {
         "postgres": {
@@ -2142,13 +1801,13 @@
           "appendAttribution": false
         }
       },
-      "id": "5d6bec7b-41fa-40a4-a9fe-8f2cc9fa7163",
+      "id": "6f3d1547-439c-4ac8-bd08-926a25419522",
       "name": "комментарий механику",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        2855,
-        5736
+        3995,
+        7516
       ],
       "credentials": {
         "telegramApi": {
@@ -2161,46 +1820,62 @@
       "parameters": {
         "content": "## Создание запроса на обслуживание ",
         "height": 293.1503506761383,
-        "width": 546.4679438035064
+        "width": 772.4055499735014
       },
-      "id": "eee9ed33-2231-4830-8944-b54c6f788368",
+      "id": "a9225289-f39b-44bf-a515-b44b60504ab0",
       "name": "Sticky Note5",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        5160,
-        4680
+        6440,
+        7120
       ]
     },
     {
       "parameters": {
         "resource": "custom",
-        "customResource": "maintenance.request",
+        "customResource": "technical.maintenance",
         "fieldsToCreateOrUpdate": {
           "fields": [
             {
-              "fieldName": "employee_id",
-              "fieldValue": "={{ $('Разделение reply-кнопок или иного ввода').item.json.odoo_id }}"
+              "fieldName": "car_id",
+              "fieldValue": "={{ $json.id }}"
             },
             {
-              "fieldName": "name",
+              "fieldName": "status",
+              "fieldValue": "=К выполнению"
+            },
+            {
+              "fieldName": "description_of_maintenance",
               "fieldValue": "={{ $('Telegram Trigger').item.json.message.text }}"
+            },
+            {
+              "fieldName": "hours_for_maintenance",
+              "fieldValue": "1"
+            },
+            {
+              "fieldName": "tech_maintenance",
+              "fieldValue": "=false"
+            },
+            {
+              "fieldName": "cost",
+              "fieldValue": "1"
             }
           ]
         }
       },
-      "id": "e89a1ebd-281e-49bf-b4d0-968671125b7e",
+      "id": "f4fbc8e7-c182-46ff-a14c-7821463795d9",
       "name": "создание заявки ",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        5480,
-        4780
+        7040,
+        7220
       ],
       "credentials": {
         "odooApi": {
-          "id": "IbOO6r3p0Qvo35Gh",
-          "name": "Odoo Алексей"
+          "id": "F0iSrepbL08YCR2h",
+          "name": "Odoo new Алексей"
         }
       }
     },
@@ -2210,19 +1885,20 @@
           "interval": [
             {
               "field": "seconds",
-              "secondsInterval": 1
+              "secondsInterval": 5
             }
           ]
         }
       },
-      "id": "382c09c3-1c6f-4bda-804d-aa515e2e35c4",
+      "id": "2fc35faa-9359-4997-b0a2-ad88a5f314bd",
       "name": "Schedule Trigger",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.1,
       "position": [
-        1635,
-        6976
-      ]
+        2775,
+        8756
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -2239,20 +1915,21 @@
           ]
         }
       },
-      "id": "d39b556a-e0a4-4196-9d42-b130d6b0d3d7",
+      "id": "42c6f9da-2e6a-42f9-b2d3-f1bd8b261482",
       "name": "получаем все карточки",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        1935,
-        6976
+        3075,
+        8756
       ],
       "credentials": {
         "odooApi": {
           "id": "IbOO6r3p0Qvo35Gh",
           "name": "Odoo Алексей"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -2262,20 +1939,21 @@
           "queryReplacement": "={{ $json.id }} {{ $json.stage_id[1] }}"
         }
       },
-      "id": "9aefff48-1ce2-4456-9c2f-9295cefead2b",
+      "id": "ea828601-20dc-45bc-96be-3b1a621f131b",
       "name": "добавляем их в таблиц, если их нет там",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        2155,
-        6796
+        3295,
+        8576
       ],
       "credentials": {
         "postgres": {
           "id": "Q4ZHMkPf1vzJmsuw",
           "name": "Postgres account"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -2307,13 +1985,13 @@
         },
         "options": {}
       },
-      "id": "5a2cf553-143c-4f67-b55e-0e16cdce0e90",
+      "id": "9baf5be8-700c-4df1-8311-8d1c6dd784b3",
       "name": "получаем те карточки, которые изменили свой статус",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        2615,
-        6976
+        3755,
+        8756
       ],
       "alwaysOutputData": false,
       "credentials": {
@@ -2321,7 +1999,8 @@
           "id": "Q4ZHMkPf1vzJmsuw",
           "name": "Postgres account"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -2348,20 +2027,21 @@
         },
         "options": {}
       },
-      "id": "955bead5-fcd4-46cf-8050-92ff2944c4a3",
+      "id": "399594b5-c71d-41d7-8429-d50b88d170b9",
       "name": "Получаем данные водителя",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        3255,
-        7296
+        4395,
+        9076
       ],
       "credentials": {
         "postgres": {
           "id": "Q4ZHMkPf1vzJmsuw",
           "name": "Postgres account"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -2376,14 +2056,15 @@
         },
         "options": {}
       },
-      "id": "2d93532d-d03b-466d-8590-f43a2377012f",
+      "id": "363d4e05-6c4c-49fe-a0cf-2a5aa1a62aff",
       "name": "получаем пересечение",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        2775,
-        7296
-      ]
+        3915,
+        9076
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -2432,20 +2113,21 @@
         },
         "options": {}
       },
-      "id": "be581d49-2f73-41e3-90dd-b3f6bde6f38e",
+      "id": "12ca1a78-0332-483d-8ca6-aa51ea207721",
       "name": "меняем статус сообщений",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        3715,
-        7296
+        4855,
+        9076
       ],
       "credentials": {
         "postgres": {
           "id": "Q4ZHMkPf1vzJmsuw",
           "name": "Postgres account"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -2453,14 +2135,15 @@
         "combinationMode": "multiplex",
         "options": {}
       },
-      "id": "d89949e4-7418-4763-8f2a-cc4b06f1fdd1",
+      "id": "8ec028a4-e0c7-4f4b-a98e-adc6c0189fa3",
       "name": "Merge1",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        2375,
-        6976
-      ]
+        3515,
+        8756
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -2468,28 +2151,30 @@
         "height": 749.4704439473635,
         "width": 2342.9054234402693
       },
-      "id": "81e2bcf1-af6c-4fcc-ad40-5df1c5d9f5b6",
+      "id": "b0cb7a39-955c-495d-b47b-0f0339b92d60",
       "name": "Sticky Note6",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1575,
-        6736
-      ]
+        2715,
+        8516
+      ],
+      "disabled": true
     },
     {
       "parameters": {
         "language": "python",
         "pythonCode": "for item in _input.all():\n  current = item.json.stage_id[1]\n  print(current)\n  if current == 'New Request': return {'state': 'Новый запрос'}\n  elif current == 'In Progress': return {'state': 'В процессе'}\n  elif current == 'Repaired': return {'state': 'Отремонтировано'}\nreturn {'state': 'Неопределённый статус'}"
       },
-      "id": "7a565f5c-1600-4242-9a15-0c1e963b587f",
+      "id": "3e7fa4a3-b8b4-47e3-b88a-b130d6cc65df",
       "name": "перевод на русский",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3015,
-        7296
-      ]
+        4155,
+        9076
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -2500,52 +2185,53 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "c1a90d43-8645-4036-8bf5-69d0bdd8b4ed",
+      "id": "7221c27a-6858-4531-8f48-07dc9abb84df",
       "name": "Вывод статуса карточки",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3480,
-        7300
+        4620,
+        9080
       ],
       "credentials": {
         "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
+          "id": "ThC2kf8ZCBAO0FBa",
+          "name": "Main Everest"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
         "content": "## Блок общения с логистом и механиком",
-        "height": 511.31898124328313,
+        "height": 515.2827988953883,
         "width": 1788.7724102696845
       },
-      "id": "29b1a068-32e0-4c46-a48a-0313368274ea",
+      "id": "8609dd53-67a5-45e9-8a4a-a9eea5db4783",
       "name": "Sticky Note2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        4720,
-        5180
+        6400,
+        7536.036182347895
       ]
     },
     {
       "parameters": {
         "chatId": "700956969",
-        "text": "=Дорогой логист, у водителя <b>{{ $json.name }}</b> {{ $json.mobile_phone }}, номер машины <b>{{ $json.license_plate }}</b> проблема: {{ $('Telegram Trigger').item.json.message.text }}",
+        "text": "=Дорогой логист, у водителя <b>{{ $('Получение инф. о водители').item.json[\"display_name\"] }}</b> {{ $('Получение инф. о водители').item.json[\"mobile_phone\"] }}, номер машины <b>{{ $('получаем данные автомобиля').item.json[\"number_car\"] }}</b> проблема: {{ $('Telegram Trigger').item.json.message.text }} ",
         "additionalFields": {
           "appendAttribution": false,
           "parse_mode": "HTML"
         }
       },
-      "id": "15173ae1-a989-4f01-a4c0-6db23134026d",
+      "id": "44f259df-04c8-48b8-b96a-21da101ea53f",
       "name": "Отправка логисту",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5920,
-        5220
+        7340,
+        7600
       ],
       "credentials": {
         "telegramApi": {
@@ -2561,14 +2247,15 @@
         "width": 302.6766257617125,
         "color": 5
       },
-      "id": "ea0c25e2-9c85-44cd-aaec-f6a4f21f2bed",
+      "id": "c6ef3cd7-debc-46b1-9f50-2398eb71f2ec",
       "name": "Sticky Note7",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2915,
-        7176
-      ]
+        4055,
+        8956
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -2578,115 +2265,13 @@
           "appendAttribution": false
         }
       },
-      "id": "dd6b8174-cba0-46e7-b33c-9c27c548bda6",
+      "id": "90bd2888-de01-41db-b15a-5c9c6857b006",
       "name": "Сообщение для описания проблемы",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4900,
-        4480
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
-        "text": "Пожалуйста, подождите!",
-        "additionalFields": {
-          "appendAttribution": false
-        }
-      },
-      "id": "59b05610-0342-4c33-ac50-b1cc309f866b",
-      "name": "Ожидание",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        6100,
-        4520
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "editMessageText",
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
-        "messageId": "={{ $('Ожидание').item.json.result.message_id }}",
-        "replyMarkup": "inlineKeyboard",
-        "text": "=<b>Пожалуйста, проведите осмотр авто перед началом работы!</b>\n\nАвтомобиль: <b>{{ $json[\"model_id\"][1] }}</b>\nНомер: <b>{{ $json[\"license_plate\"] }}</b>\nПробег: <b>{{ $json[\"odometer\"] }}</b>\nВодитель: <b>{{ $('получаем текущее имя').item.json[\"name\"] }}</b>\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n\nСтраховка до: 18.07.2024.\n\nПробег:</b> 332358км.\n",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "✅Всё в норме.",
-                    "additionalFields": {
-                      "callback_data": "menu_ok"
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "❌Есть неисправности",
-                    "additionalFields": {
-                      "callback_data": "menu_wrong"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "fa6a7b24-72e8-4bc7-9ce1-dffc1e8b172a",
-      "name": "Меню ТО",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        7320,
-        4380
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "editMessageText",
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
-        "messageId": "={{ $('Ожидание').item.json.result.message_id }}",
-        "text": "Автомобили не найдены",
-        "additionalFields": {
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "9853650e-ed11-470e-9af1-d176e18ca883",
-      "name": "Автомобиль не найден",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        7320,
-        4580
+        6180,
+        6860
       ],
       "credentials": {
         "telegramApi": {
@@ -2720,13 +2305,13 @@
           "appendAttribution": false
         }
       },
-      "id": "9500af8f-49df-4e72-aa2e-c03dd8e713b0",
+      "id": "780efebe-cd0b-4140-b5c5-800ef678678f",
       "name": "Комментарий доставлен",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4900,
-        4780
+        6120,
+        7120
       ],
       "credentials": {
         "telegramApi": {
@@ -2740,26 +2325,23 @@
         "resource": "custom",
         "customResource": "hr.employee",
         "operation": "get",
-        "customResourceId": "={{ $('проверка статуса авторизации').item.json.odoo_id }}",
+        "customResourceId": "={{ $('Разделение reply-кнопок или иного ввода').item.json.odoo_id }}",
         "options": {
-          "fieldsList": [
-            "name",
-            "mobile_phone"
-          ]
+          "fieldsList": []
         }
       },
-      "id": "46a94d47-f289-400b-af9b-95e416659555",
+      "id": "8aed6fbe-ee6d-45b1-a91f-fa9cfa6b0004",
       "name": "Получение инф. о водители",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        4840,
-        5340
+        6520,
+        7700
       ],
       "credentials": {
         "odooApi": {
-          "id": "IbOO6r3p0Qvo35Gh",
-          "name": "Odoo Алексей"
+          "id": "F0iSrepbL08YCR2h",
+          "name": "Odoo new Алексей"
         }
       }
     },
@@ -2793,13 +2375,13 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "587f5c35-51f4-4534-9a11-29ac903c725a",
+      "id": "0336c2b9-0321-44ef-851c-a6111f312fe4",
       "name": "Проверка старта",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        3860,
-        4080
+        5220,
+        6220
       ]
     },
     {
@@ -2808,13 +2390,13 @@
         "height": 831.5321702603344,
         "width": 1146.4339228987412
       },
-      "id": "5133505a-759c-42bd-b891-fe1293c65eda",
+      "id": "39e76c34-f2cd-4c2a-a27c-15145b47de82",
       "name": "Sticky Note8",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1200,
-        3560
+        2340,
+        5340
       ]
     },
     {
@@ -2853,13 +2435,13 @@
           "appendAttribution": false
         }
       },
-      "id": "6b9cdfdd-4883-49b9-b866-2cb5b6091b58",
+      "id": "c798ee5e-39a0-4962-b426-0bc2d0c8c0a1",
       "name": "Приветственное сообщений",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        2020,
-        3580
+        3160,
+        5360
       ],
       "credentials": {
         "telegramApi": {
@@ -2876,13 +2458,13 @@
           "appendAttribution": false
         }
       },
-      "id": "d7e8b478-93e4-4c35-afca-d46692b91765",
+      "id": "6ff8916a-f907-4243-9748-71c11acce354",
       "name": "Связь с водителем",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        2060,
-        4160
+        3200,
+        5940
       ],
       "credentials": {
         "telegramApi": {
@@ -2899,13 +2481,13 @@
           "appendAttribution": false
         }
       },
-      "id": "6e0fc433-d79b-4729-9639-a011b7fb522d",
+      "id": "558e4a39-15f3-490a-98f7-73dd2f7aa8fa",
       "name": "Проверка свободных машин",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        2060,
-        3920
+        3200,
+        5700
       ],
       "credentials": {
         "telegramApi": {
@@ -3094,13 +2676,13 @@
         },
         "options": {}
       },
-      "id": "d481adea-f60d-440f-bc7b-badc1d26a1a6",
+      "id": "598940f0-6cf4-47ce-93f8-49fb38ebe73d",
       "name": "Picked_button",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        2475,
-        5496
+        3615,
+        7276
       ]
     },
     {
@@ -3109,13 +2691,13 @@
         "height": 1047.6224911751601,
         "width": 1139.8473896219646
       },
-      "id": "5c16dddd-d15a-4a20-b65d-62439b04e9f4",
+      "id": "934329a9-7a57-4b02-b6ba-5dc7d1f7c4b0",
       "name": "Sticky Note9",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2403,
-        5136
+        3543,
+        6916
       ]
     },
     {
@@ -3149,13 +2731,13 @@
         },
         "additionalFields": {}
       },
-      "id": "6a743d1f-4d9a-4a73-9ec8-4ae440fecf57",
+      "id": "68a9b899-8ca6-428f-a369-bc4df5caa9af",
       "name": "Подтверждение завершения",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3095,
-        5496
+        4235,
+        7276
       ],
       "credentials": {
         "telegramApi": {
@@ -3195,13 +2777,13 @@
         },
         "additionalFields": {}
       },
-      "id": "1e901991-e04c-4392-9713-5663c25bbc8b",
+      "id": "50b169fd-24be-4fa5-b3e1-d97880d03ea3",
       "name": "Заказ завершен",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        2780,
-        6000
+        3915,
+        7776
       ],
       "credentials": {
         "telegramApi": {
@@ -3240,197 +2822,14 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "c6f72d39-1742-4eaa-8bdb-ec09152eb909",
+      "id": "4fdc4593-8837-4612-a919-b04399c7ae13",
       "name": "Проверка старта1",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        1380,
-        4040
+        2520,
+        5820
       ]
-    },
-    {
-      "parameters": {
-        "mode": "combine",
-        "combinationMode": "multiplex",
-        "options": {}
-      },
-      "id": "164ed26f-4ce2-403e-bc8c-c5436e28e54c",
-      "name": "Merge",
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 2.1,
-      "position": [
-        5500,
-        5300
-      ]
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "f4a04b7f-8758-49ca-b7cd-8e933dc9137d",
-              "leftValue": "={{ $('Разделение reply-кнопок или иного ввода').item.json.only_mech }}",
-              "rightValue": "",
-              "operator": {
-                "type": "boolean",
-                "operation": "false",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "72f4f1ee-6234-41c1-bcb1-b749f126c345",
-      "name": "Нужно ли отправить сообщение логисту",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [
-        5700,
-        5420
-      ]
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $json.callback_query.message.chat.id }}",
-        "text": "Привет дорогой водитель, какое действие ты намерен совершить?",
-        "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Принять заказ",
-                    "additionalFields": {
-                      "callback_data": "pick",
-                      "switch_inline_query_current_chat": ""
-                    }
-                  },
-                  {
-                    "text": "Посмотреть статистику",
-                    "additionalFields": {
-                      "callback_data": "stats",
-                      "switch_inline_query_current_chat": ""
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {
-          "appendAttribution": false
-        }
-      },
-      "id": "5de15516-bb2d-4a87-935f-6258fd29718d",
-      "name": "меню после ТО",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        3115,
-        5676
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "content": "## Получение номера машины",
-        "height": 220.7785373322794,
-        "width": 553.1415945163089,
-        "color": 6
-      },
-      "id": "5bcd7582-bf55-4d39-a872-48a87db897e8",
-      "name": "Sticky Note10",
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        4960,
-        5440
-      ]
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "res.partner",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {
-          "fieldsList": [
-            "name",
-            "mobile"
-          ]
-        },
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "name",
-              "value": "={{ $json.name }}"
-            }
-          ]
-        }
-      },
-      "id": "70e077e7-0533-4ad0-8bb3-a42c5ff19700",
-      "name": "Получаем контакт для машины",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        5040,
-        5480
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "IbOO6r3p0Qvo35Gh",
-          "name": "Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "fleet.vehicle",
-        "operation": "getAll",
-        "options": {
-          "fieldsList": [
-            "license_plate"
-          ]
-        },
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "driver_id",
-              "value": "={{ $json.id }}"
-            }
-          ]
-        }
-      },
-      "id": "229f4de4-2339-4e57-b628-82a2baeac917",
-      "name": "Получаем номер машины",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        5280,
-        5480
-      ],
-      "alwaysOutputData": true,
-      "credentials": {
-        "odooApi": {
-          "id": "IbOO6r3p0Qvo35Gh",
-          "name": "Odoo Алексей"
-        }
-      }
     },
     {
       "parameters": {
@@ -3482,30 +2881,88 @@
         },
         "options": {}
       },
-      "id": "82858226-a8f4-4d2c-a18d-66e141af3533",
+      "id": "b6f9fd58-459c-47ae-931b-37b94ea4b236",
       "name": "Выбранная кнопка",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        1760,
-        4040
+        2900,
+        5820
       ]
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
-        "text": "Введите номер автомобиля заглавными буквами и без пробелов, например: А312МЕ",
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "f4a04b7f-8758-49ca-b7cd-8e933dc9137d",
+              "leftValue": "={{ $('Разделение reply-кнопок или иного ввода').item.json.only_mech }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "dfe769b2-1606-4940-942b-cc2a09d45b92",
+      "name": "Нужно ли отправить сообщение логисту",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        6920,
+        7700
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.callback_query.message.chat.id }}",
+        "text": "Привет дорогой водитель, какое действие ты намерен совершить?",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Принять заказ",
+                    "additionalFields": {
+                      "callback_data": "pick",
+                      "switch_inline_query_current_chat": ""
+                    }
+                  },
+                  {
+                    "text": "Посмотреть статистику",
+                    "additionalFields": {
+                      "callback_data": "stats",
+                      "switch_inline_query_current_chat": ""
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
         "additionalFields": {
           "appendAttribution": false
         }
       },
-      "id": "d1d60a6b-ac09-4435-8847-b30f1a2c0a85",
-      "name": "сообщение ввода автомобиля",
+      "id": "5602f4aa-58d4-4374-8017-4b71ce3b57f5",
+      "name": "меню после ТО",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5080,
-        4240
+        4255,
+        7456
       ],
       "credentials": {
         "telegramApi": {
@@ -3516,99 +2973,18 @@
     },
     {
       "parameters": {
-        "operation": "update",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "tg_users",
-          "mode": "list",
-          "cachedResultName": "tg_users"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "only_mech": "={{ $('актуальный статус').item.json.only_mech }}",
-            "tg_id": "={{ $json.result.chat.id }}",
-            "odoo_id": "={{ $('актуальный статус').item.json.odoo_id }}",
-            "status": "=inputing_car_number"
-          },
-          "matchingColumns": [
-            "tg_id"
-          ],
-          "schema": [
-            {
-              "id": "tg_id",
-              "displayName": "tg_id",
-              "required": true,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "odoo_id",
-              "displayName": "odoo_id",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "status",
-              "displayName": "status",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "only_mech",
-              "displayName": "only_mech",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "boolean",
-              "canBeUsedToMatch": true
-            }
-          ]
-        },
-        "options": {}
+        "content": "Тут две проверки, так как иногда надо доставать юзернейм из другого типа данных\n\nЕсли не логист:\nis not equal\nand\nis not equal\n\nЕсли логист:\nequal\nor\nequal\n",
+        "height": 292.9581857976716,
+        "width": 344.6787124129794,
+        "color": 3
       },
-      "id": "4b20b5c7-ffd2-4599-8b85-033d61404670",
-      "name": "меняем статус2",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.3,
-      "position": [
-        5280,
-        4240
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "Q4ZHMkPf1vzJmsuw",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "content": "После нажатия кнопки \"приступить к работе\"",
-        "height": 251.1678059984191,
-        "width": 476.5077865756089
-      },
-      "id": "0f93eb69-66db-4836-be7b-b66d69fc22e2",
-      "name": "Sticky Note11",
+      "id": "a5a1c477-8b3a-4735-aad9-7e4c72fa0e0b",
+      "name": "Sticky Note12",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        5000,
-        4160
+        2140,
+        6220
       ]
     },
     {
@@ -3685,14 +3061,419 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "056c2b25-f685-4b2b-b4ee-8df4dfe24a41",
+      "id": "9ccbd0ce-2bc3-4a52-8e39-aaae0e819597",
       "name": "Разделение reply-кнопок или иного ввода",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        4240,
-        4080
+        5440,
+        6520
       ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "Введите номер автомобиля заглавными буквами и без пробелов, например: А312МЕ",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "615470f5-e351-4856-a241-05c812c7d4a0",
+      "name": "сообщение ввода автомобиля",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        6100,
+        6600
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "only_mech": "={{ $('актуальный статус').item.json.only_mech }}",
+            "tg_id": "={{ $json.result.chat.id }}",
+            "odoo_id": "={{ $('актуальный статус').item.json.odoo_id }}",
+            "status": "=inputing_car_number"
+          },
+          "matchingColumns": [
+            "tg_id"
+          ],
+          "schema": [
+            {
+              "id": "tg_id",
+              "displayName": "tg_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "only_mech",
+              "displayName": "only_mech",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "945ba0c8-d9de-47f7-8c74-e75d3838683b",
+      "name": "меняем статус2",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        6300,
+        6600
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "После нажатия кнопки \"приступить к работе\"",
+        "height": 251.1678059984191,
+        "width": 476.5077865756089
+      },
+      "id": "76ef2d8e-26de-4f69-991c-8e940481e5bc",
+      "name": "Sticky Note11",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        6020,
+        6520
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "cars.cars",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "number_car",
+              "value": "={{ $('Telegram Trigger').item.json.message.text }}"
+            }
+          ]
+        }
+      },
+      "id": "08eae1a9-b6ad-4ca7-b1d9-48fb47280ebb",
+      "name": "Ищем автомобиль по номеру",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        6000,
+        8860
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "F0iSrepbL08YCR2h",
+          "name": "Odoo new Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "4d4be8aa-73f6-479a-a3a3-9ab858135854",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "f6774967-71ac-4e0b-899d-6ee6d863676c",
+      "name": "проверка наличия",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        6220,
+        8860
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=<b>Пожалуйста, проведите осмотр авто перед началом работы!</b>\n\nАвтомобиль: <b>{{ $('проверка наличия').item.json[\"model\"] }}</b>\nНомер: <b>{{ $('проверка наличия').item.json[\"number_car\"] }}</b>\nПробег: <b>{{ $('проверка наличия').item.json[\"tare_weight\"] }} км</b>\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n\nСтраховка до: 18.07.2024.\n</b>",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅Всё в норме.",
+                    "additionalFields": {
+                      "callback_data": "menu_ok"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "❌Есть неисправности",
+                    "additionalFields": {
+                      "callback_data": "menu_wrong"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "98339898-3aa0-4dad-b582-29af060b4448",
+      "name": "Меню ТО1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        6460,
+        8740
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "only_mech": "={{ $('проверка статуса авторизации').item.json.only_mech }}",
+            "odoo_id": "={{ $('проверка статуса авторизации').item.json.odoo_id }}",
+            "tg_id": "={{ $('проверка статуса авторизации').item.json.tg_id }}",
+            "status": "authorized"
+          },
+          "matchingColumns": [
+            "tg_id"
+          ],
+          "schema": [
+            {
+              "id": "tg_id",
+              "displayName": "tg_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "only_mech",
+              "displayName": "only_mech",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9842e5c3-0922-40d7-aa6b-ac2e63d2d420",
+      "name": "возвращаем статус",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        6680,
+        8740
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Ввод номера автомобиля",
+        "height": 510.0261823387185,
+        "width": 884.3608425849824
+      },
+      "id": "72b29b43-6b2e-481b-b232-80e968030e62",
+      "name": "Sticky Note13",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        5940,
+        8640
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Изменение водителя в ОДУ\nвозможно это должно быть в другом месте",
+        "height": 258.8309220721088,
+        "width": 800.0418917419497
+      },
+      "id": "cf323568-c623-46d8-b0bd-3fec238d8e36",
+      "name": "Sticky Note14",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        6860,
+        8660
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "hr.employee",
+        "operation": "get",
+        "customResourceId": "={{ $json.odoo_id }}",
+        "options": {
+          "fieldsList": []
+        }
+      },
+      "id": "c1fdb0ad-c2ce-4f18-bf09-372c99adfa86",
+      "name": "получаем имя1",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        6900,
+        8740
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "F0iSrepbL08YCR2h",
+          "name": "Odoo new Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "cars.cars",
+        "operation": "update",
+        "customResourceId": "={{ $('проверка наличия').item.json.id }}",
+        "fieldsToCreateOrUpdate": {
+          "fields": [
+            {
+              "fieldName": "employee_id",
+              "fieldValue": "={{ $json.id }}"
+            }
+          ]
+        }
+      },
+      "id": "98e0d0fe-4e9c-4826-80bd-3ab59494cd0a",
+      "name": "добавляем данные в оду",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        7400,
+        8740
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "F0iSrepbL08YCR2h",
+          "name": "Odoo new Алексей"
+        }
+      }
     },
     {
       "parameters": {
@@ -3773,7 +3554,7 @@
                 },
                 "conditions": [
                   {
-                    "id": "0a6fde3c-f1b3-406f-a6d5-8954ec1308f8",
+                    "id": "ed5a4e82-0574-4022-a4e9-a9e3d492e32f",
                     "leftValue": "={{ $json.status }}",
                     "rightValue": "inputing_car_number",
                     "operator": {
@@ -3790,44 +3571,36 @@
         },
         "options": {}
       },
-      "id": "bf5d45d1-1362-4cb5-8902-c1861bfa3048",
+      "id": "f0039070-f3af-47fe-837d-60af8072309b",
       "name": "проверка статуса авторизации",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        3275,
-        3976
+        4415,
+        5756
       ]
     },
     {
       "parameters": {
-        "resource": "custom",
-        "customResource": "fleet.vehicle",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "license_plate",
-              "value": "={{ $('Telegram Trigger').item.json.message.text }}"
-            }
-          ]
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=Автомобиль с номером <b>{{ $('Telegram Trigger').item.json.message.text }}</b> не найден!\nВведите номер заново",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
         }
       },
-      "id": "88845889-9100-4b60-8d0d-6c9de5157aeb",
-      "name": "Ищем автомобиль по номеру",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
+      "id": "70e444cf-5ecc-4133-93c6-4137605cf68a",
+      "name": "Автомобиль отсутствует",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
       "position": [
-        4520,
-        6160
+        6460,
+        8960
       ],
-      "alwaysOutputData": true,
       "credentials": {
-        "odooApi": {
-          "id": "IbOO6r3p0Qvo35Gh",
-          "name": "Odoo Алексей"
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
         }
       }
     },
@@ -3841,12 +3614,53 @@
           },
           "conditions": [
             {
-              "id": "4d4be8aa-73f6-479a-a3a3-9ab858135854",
-              "leftValue": "={{ $json.id }}",
+              "id": "9e5341d4-525b-4677-b22e-26741349cd16",
+              "leftValue": "={{ $json.message.chat.username }}",
+              "rightValue": "123",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "2dc7c105-3303-4700-9806-dbde743d993b",
+              "leftValue": "={{ $json.callback_query.message.chat.username }}",
+              "rightValue": "123",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "id": "8391e4ab-f856-43d2-a1d4-2b1a1611e1a1",
+      "name": "Проверка роли логиста",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        2280,
+        6360
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "11c45e0d-196b-47f1-821e-bee57c9f070b",
+              "leftValue": "={{ $('Telegram Trigger').item.json.hasField(\"message\") }}",
               "rightValue": "",
               "operator": {
-                "type": "number",
-                "operation": "exists",
+                "type": "boolean",
+                "operation": "true",
                 "singleValue": true
               }
             }
@@ -3855,287 +3669,43 @@
         },
         "options": {}
       },
-      "id": "c2009510-c65a-4c9e-84a4-917254c1e2bd",
-      "name": "проверка наличия",
+      "id": "4dcdb5fc-6e54-492e-b099-c8d84b0f0465",
+      "name": "Проверка типа входных данных",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        4740,
-        6160
-      ]
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
-        "text": "=Автомобиль с номером <b>{{ $('Telegram Trigger').item.json.message.text }}</b> не найден!\nВведите номер заново",
-        "additionalFields": {
-          "appendAttribution": false,
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "22eb2006-16fa-48a1-8d53-5136355b11b0",
-      "name": "Telegram1",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        4980,
-        6260
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
-        "text": "=<b>Пожалуйста, проведите осмотр авто перед началом работы!</b>\n\nАвтомобиль: <b>{{ $json[\"model_id\"][1] }}</b>\nНомер: <b>{{ $('Ищем автомобиль по номеру').item.json[\"license_plate\"] }}</b>\nПробег: <b>{{ $('Ищем автомобиль по номеру').item.json[\"odometer\"] }} км</b>\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n\nСтраховка до: 18.07.2024.\n</b>",
-        "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "✅Всё в норме.",
-                    "additionalFields": {
-                      "callback_data": "menu_ok"
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "❌Есть неисправности",
-                    "additionalFields": {
-                      "callback_data": "menu_wrong"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {
-          "appendAttribution": false,
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "236e5281-b115-4a86-b76c-f684cd16223d",
-      "name": "Меню ТО1",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        4980,
-        6040
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "update",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "tg_users",
-          "mode": "list",
-          "cachedResultName": "tg_users"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "only_mech": "={{ $('проверка статуса авторизации').item.json.only_mech }}",
-            "odoo_id": "={{ $('проверка статуса авторизации').item.json.odoo_id }}",
-            "tg_id": "={{ $('проверка статуса авторизации').item.json.tg_id }}",
-            "status": "authorized"
-          },
-          "matchingColumns": [
-            "tg_id"
-          ],
-          "schema": [
-            {
-              "id": "tg_id",
-              "displayName": "tg_id",
-              "required": true,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "odoo_id",
-              "displayName": "odoo_id",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "status",
-              "displayName": "status",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "only_mech",
-              "displayName": "only_mech",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "boolean",
-              "canBeUsedToMatch": true
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "40ebae30-a70c-4862-a161-b92a9ad057c3",
-      "name": "возвращаем статус",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.3,
-      "position": [
-        5200,
-        6040
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "Q4ZHMkPf1vzJmsuw",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "content": "Вот тут сделал две проверки, так как иногда надо доставать юзернейм из другого типа данных\n\nЕсли не логист:\nis not equal\nand\nis not equal\n\nЕсли логист:\nequal\nor\nequal\n",
-        "height": 264.3805315054363,
-        "width": 319.27635304210355,
-        "color": 3
-      },
-      "id": "667faa07-71f5-4f9c-aeee-d5435adcd5af",
-      "name": "Sticky Note12",
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        1020,
-        4480
-      ]
-    },
-    {
-      "parameters": {
-        "content": "## Ввод номера автомобиля",
-        "height": 510.0261823387185,
-        "width": 884.3608425849824
-      },
-      "id": "bf70c2e5-b3b2-445c-a4e9-ad0d306981a6",
-      "name": "Sticky Note13",
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        4460,
-        5940
-      ]
-    },
-    {
-      "parameters": {
-        "content": "## Изменение водителя в ОДУ\nвозможно это должно быть в другом месте",
-        "height": 258.8309220721088,
-        "width": 800.0418917419497
-      },
-      "id": "375e7642-940b-4a04-9185-478c15de5d37",
-      "name": "Sticky Note14",
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        5380,
-        5960
+        2800,
+        6400
       ]
     },
     {
       "parameters": {
         "resource": "custom",
-        "customResource": "hr.employee",
-        "operation": "get",
-        "customResourceId": "={{ $json.odoo_id }}",
-        "options": {
-          "fieldsList": [
-            "name"
-          ]
-        }
-      },
-      "id": "1b96150f-c169-4582-b09d-33b94da9d35f",
-      "name": "получаем имя1",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        5420,
-        6040
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "IbOO6r3p0Qvo35Gh",
-          "name": "Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  var prop = ($('Ищем автомобиль по номеру').item.json[\"vehicle_properties\"]);\n  prop[0].value = new Array()\n  prop[0].value.push($('возвращаем статус').item.json[\"odoo_id\"]);\n  prop[0].value.push($('получаем имя1').item.json[\"name\"]);\n  return prop;\n}"
-      },
-      "id": "134da555-20f1-4655-a61f-0fbe499e1808",
-      "name": "изменяем имя",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        5680,
-        6040
-      ]
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "fleet.vehicle",
-        "operation": "update",
-        "customResourceId": "={{ $('проверка наличия').item.json.id }}",
-        "fieldsToCreateOrUpdate": {
-          "fields": [
+        "customResource": "cars.cars",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
             {
-              "fieldName": "vehicle_properties",
-              "fieldValue": "={{ [$json] }}"
+              "fieldName": "employee_id",
+              "value": "={{ $('проверка статуса авторизации').item.json.odoo_id }}"
             }
           ]
         }
       },
-      "id": "fe5d495d-dcdd-44d8-82c2-0653eaefd4d1",
-      "name": "добавляем данные в оду",
+      "id": "63bfb524-c97e-46e8-a421-84450d0354c9",
+      "name": "получаем данные автомобиля",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        5920,
-        6040
+        6800,
+        7220
       ],
       "credentials": {
         "odooApi": {
-          "id": "IbOO6r3p0Qvo35Gh",
-          "name": "Odoo Алексей"
+          "id": "F0iSrepbL08YCR2h",
+          "name": "Odoo new Алексей"
         }
       }
     }
@@ -4150,7 +3720,7 @@
     }
   },
   "tags": [],
-  "triggerCount": 2,
-  "updatedAt": "2024-04-18T13:21:23.000Z",
-  "versionId": "5246ea46-7d36-4ae8-adc2-03416f97be3c"
+  "triggerCount": 1,
+  "updatedAt": "2024-04-24T13:02:31.000Z",
+  "versionId": "00325d55-b09f-46f0-ac06-737f6bbcb7c2"
 }
