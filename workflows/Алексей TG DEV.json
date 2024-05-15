@@ -1317,7 +1317,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "INSERT INTO tg_users (tg_id, odoo_id, status) VALUES ($1, NULL, NULL) ON CONFLICT (tg_id) DO NOTHING;",
+        "query": "INSERT INTO tg_users (tg_id, odoo_id, status, only_mech, mech_photo) VALUES ($1, NULL, NULL, FALSE, FALSE) ON CONFLICT (tg_id) DO NOTHING;",
         "options": {
           "queryReplacement": "={{ $('Telegram Trigger1').item.json.message.from.id }}"
         }
@@ -2048,7 +2048,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        11920,
+        12140,
         9720
       ],
       "credentials": {
@@ -2130,7 +2130,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        12100,
+        12320,
         9720
       ],
       "credentials": {
@@ -2440,7 +2440,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        10480,
+        10980,
         9420
       ]
     },
@@ -2458,7 +2458,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        11640,
+        11860,
         9484
       ],
       "credentials": {
@@ -2506,7 +2506,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        10820,
+        11040,
         9584
       ],
       "credentials": {
@@ -2774,7 +2774,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        11220,
+        11440,
         9584
       ]
     },
@@ -5569,7 +5569,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        12280,
+        12500,
         9720
       ],
       "credentials": {
@@ -6398,7 +6398,7 @@
         "resource": "custom",
         "customResource": "hr.employee",
         "operation": "getAll",
-        "returnAll": true,
+        "limit": 1,
         "options": {},
         "filterRequest": {
           "filter": [
@@ -6414,8 +6414,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        8460,
-        10469
+        8500,
+        10460
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -6511,7 +6511,7 @@
         "resource": "custom",
         "customResource": "hr.employee",
         "operation": "getAll",
-        "returnAll": true,
+        "limit": 1,
         "options": {},
         "filterRequest": {
           "filter": [
@@ -6527,7 +6527,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        8880,
+        9100,
         10249
       ],
       "alwaysOutputData": true,
@@ -6567,8 +6567,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        8680,
-        10469
+        8800,
+        10460
       ]
     },
     {
@@ -6600,7 +6600,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        9100,
+        9320,
         10249
       ]
     },
@@ -6615,7 +6615,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        10180,
+        10400,
         10489
       ],
       "credentials": {
@@ -6650,8 +6650,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        10240,
-        9809
+        10380,
+        9740
       ]
     },
     {
@@ -6726,7 +6726,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        10360,
+        10580,
         10489
       ],
       "credentials": {
@@ -6750,7 +6750,7 @@
           "mode": "list",
           "cachedResultName": "tg_users"
         },
-        "returnAll": true,
+        "limit": 1,
         "where": {
           "values": [
             {
@@ -6766,7 +6766,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        9740,
+        9960,
         9909
       ],
       "credentials": {
@@ -6787,10 +6787,10 @@
           "conditions": [
             {
               "id": "9f46d127-7c9f-4835-b234-f2c8100882eb",
-              "leftValue": "={{ $json.tg_id }}",
+              "leftValue": "={{ $json }}",
               "rightValue": "",
               "operator": {
-                "type": "number",
+                "type": "object",
                 "operation": "exists",
                 "singleValue": true
               }
@@ -6805,8 +6805,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        9520,
-        10049
+        9740,
+        10040
       ]
     },
     {
@@ -6823,7 +6823,7 @@
           "mode": "list",
           "cachedResultName": "tg_users"
         },
-        "returnAll": true,
+        "limit": 1,
         "where": {
           "values": [
             {
@@ -6839,7 +6839,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        9300,
+        9520,
         10049
       ],
       "credentials": {
@@ -6851,6 +6851,26 @@
     },
     {
       "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "45003dc4-e9a3-4d26-afc4-20b069b0b30c",
+              "leftValue": "={{ $json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
         "options": {}
       },
       "id": "905375da-6289-4796-8e0b-01cade844ab2",
@@ -6858,7 +6878,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        9960,
+        10180,
         9909
       ]
     },
@@ -6866,7 +6886,7 @@
       "parameters": {
         "content": "## Поиск айди для механика и логиста\nВажно: логист и механик должны присутствовать одновременно. Также нужно сделать проверку, если есть несколько логистов или несколько механиков. И ещё, механик и логист должны быть зареганы в боте, иначе бот не сможет найти их айди",
         "height": 949.0773619585311,
-        "width": 2028.9180583815569,
+        "width": 2103.0412499356385,
         "color": 7
       },
       "id": "452a5178-d28e-48cb-b9c1-6a462df5b7d5",
@@ -6874,7 +6894,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        8360,
+        8460,
         9700
       ]
     }
@@ -6890,6 +6910,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-05-15T08:30:23.000Z",
-  "versionId": "4b72775f-2238-4a74-b2a1-a288f40bafef"
+  "updatedAt": "2024-05-15T10:12:34.000Z",
+  "versionId": "1f6ad87f-e236-480f-a17f-15e6e4787f2c"
 }
