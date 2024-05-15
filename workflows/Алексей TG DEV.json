@@ -392,7 +392,7 @@
       "main": [
         [
           {
-            "node": "найдём водителя по номеру автомобиля",
+            "node": "Получаем тг",
             "type": "main",
             "index": 0
           }
@@ -404,17 +404,6 @@
         [
           {
             "node": "Вывод статуса карточки",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "найдём водителя по номеру автомобиля": {
-      "main": [
-        [
-          {
-            "node": "Получаем тг",
             "type": "main",
             "index": 0
           }
@@ -1229,6 +1218,72 @@
         [
           {
             "node": "Если не найдены",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "получаем все карточки1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получаем все карточки1": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Вывод статуса карточки1": {
+      "main": [
+        [
+          {
+            "node": "помечаем их отправленными1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "найдём водителя по номеру автомобиля1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Получаем тг1": {
+      "main": [
+        [
+          {
+            "node": "Вывод статуса карточки1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "найдём водителя по номеру автомобиля1": {
+      "main": [
+        [
+          {
+            "node": "Получаем тг1",
             "type": "main",
             "index": 0
           }
@@ -2328,6 +2383,10 @@
             {
               "fieldName": "cost",
               "fieldValue": "1"
+            },
+            {
+              "fieldName": "created_by",
+              "fieldValue": "={{ $json.employee_id[0] }}"
             }
           ]
         }
@@ -2393,22 +2452,23 @@
     {
       "parameters": {
         "content": "## Проверка состояния карточек и отправка статуса водителю",
-        "height": 749.4704439473635,
-        "width": 2342.9054234402693
+        "height": 422.196840068823,
+        "width": 1685.1496509392816,
+        "color": 7
       },
       "id": "5839caba-d559-4cb2-963b-32adf68fd90c",
       "name": "Sticky Note6",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        980,
-        11200
+        1023.2085647439067,
+        11287.273603878539
       ]
     },
     {
       "parameters": {
         "chatId": "={{ $json.tg_id }}",
-        "text": "={{ $('найдём водителя по номеру автомобиля').item.json[\"employee_id\"][1] }}\nВаше обращение перенесено в статус <b>{{ $('If').item.json[\"status\"] }}</b>\n\nТекст вашего обращения:\n<i>{{ $('If').item.json[\"description_of_maintenance\"] }}</i>",
+        "text": "={{ $('If').item.json[\"created_by\"][1] }}\nВаше обращение перенесено в статус <b>{{ $('If').item.json[\"status\"] }}</b>\n\nТекст вашего обращения:\n<i>{{ $('If').item.json[\"description_of_maintenance\"] }}</i>",
         "additionalFields": {
           "appendAttribution": false,
           "parse_mode": "HTML"
@@ -3340,7 +3400,7 @@
           "values": [
             {
               "column": "odoo_id",
-              "value": "={{ $json.employee_id[0] }}"
+              "value": "={{ $json.created_by }}"
             }
           ]
         },
@@ -3358,36 +3418,6 @@
         "postgres": {
           "id": "Q4ZHMkPf1vzJmsuw",
           "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "cars.cars",
-        "operation": "getAll",
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "id",
-              "value": "={{ $json.car_id[0] }}"
-            }
-          ]
-        }
-      },
-      "id": "aaf3fea9-5825-48f1-b200-06ecfaaca9d1",
-      "name": "найдём водителя по номеру автомобиля",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        1820,
-        11380
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
         }
       }
     },
@@ -6897,6 +6927,229 @@
         8460,
         9700
       ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds",
+              "secondsInterval": 5
+            }
+          ]
+        }
+      },
+      "id": "6fea50fa-652d-4256-9972-81d2efe8ff5f",
+      "name": "Schedule Trigger1",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        455,
+        12376
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "technical.maintenance",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {}
+      },
+      "id": "d731be3b-7bb7-478b-b342-f28f14b814fe",
+      "name": "получаем все карточки1",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        755,
+        12376
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "## Проверка состояния карточек и отправка статуса водителю",
+        "height": 749.4704439473635,
+        "width": 2342.9054234402693
+      },
+      "id": "b8b047bd-9ead-4381-91a7-1081d6f38713",
+      "name": "Sticky Note21",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        360,
+        12080
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.tg_id }}",
+        "text": "={{ $('найдём водителя по номеру автомобиля1').item.json[\"employee_id\"][1] }}\nВаше обращение перенесено в статус <b>{{ $('If2').item.json[\"status\"] }}</b>\n\nТекст вашего обращения:\n<i>{{ $('If2').item.json[\"description_of_maintenance\"] }}</i>",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "d4c38021-d762-4ce0-bbbf-3133a4277ad2",
+      "name": "Вывод статуса карточки1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        1640,
+        12260
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "83edda29-8198-4233-8d09-a34820e84077",
+              "leftValue": "={{ $json.sent }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "07c36165-8ba6-4ed5-8a40-35d495d49d19",
+      "name": "If2",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        980,
+        12380
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "odoo_id",
+              "value": "={{ $json.employee_id[0] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "abc333cb-b3e6-4626-9c26-061fdeb756e9",
+      "name": "Получаем тг1",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        1420,
+        12260
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "cars.cars",
+        "operation": "getAll",
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "id",
+              "value": "={{ $json.car_id[0] }}"
+            }
+          ]
+        }
+      },
+      "id": "495dd1c3-a3e0-4a56-b2cb-93d1b81db360",
+      "name": "найдём водителя по номеру автомобиля1",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        12260
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "technical.maintenance",
+        "operation": "update",
+        "customResourceId": "={{ $('If2').item.json.id }}",
+        "fieldsToCreateOrUpdate": {
+          "fields": [
+            {
+              "fieldName": "sent",
+              "fieldValue": "={{ true }}"
+            }
+          ]
+        }
+      },
+      "id": "a71917da-b094-47d8-9b0f-7be8b9edbf0e",
+      "name": "помечаем их отправленными1",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1860,
+        12260
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      },
+      "disabled": true
     }
   ],
   "pinData": {},
@@ -6910,6 +7163,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-05-15T10:12:34.000Z",
-  "versionId": "1f6ad87f-e236-480f-a17f-15e6e4787f2c"
+  "updatedAt": "2024-05-15T10:49:40.000Z",
+  "versionId": "c6736475-4107-4eb1-b70b-19587dc4a10b"
 }
