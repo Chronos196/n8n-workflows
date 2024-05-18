@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Telegram Trigger": {
       "main": [
@@ -506,7 +506,7 @@
       "main": [
         [
           {
-            "node": "Postgres4",
+            "node": "получение статуса кому отправить фото",
             "type": "main",
             "index": 0
           }
@@ -737,50 +737,6 @@
         ]
       ]
     },
-    "Postgres4": {
-      "main": [
-        [
-          {
-            "node": "If1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "If1": {
-      "main": [
-        [
-          {
-            "node": "Telegram7",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Telegram7": {
-      "main": [
-        [
-          {
-            "node": "Postgres5",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Postgres5": {
-      "main": [
-        [
-          {
-            "node": "Фото доставлено",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "проверка привязки к автомобилю": {
       "main": [
         [
@@ -993,31 +949,6 @@
         [
           {
             "node": "водитель",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "ветки для ролей": {
-      "main": [
-        [
-          {
-            "node": "Проверка старта1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Telegram3",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Проверка типа входных данных",
             "type": "main",
             "index": 0
           }
@@ -1270,6 +1201,170 @@
         [
           {
             "node": "Сообщение только для механика?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ветки для ролей": {
+      "main": [
+        [
+          {
+            "node": "Проверка старта1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Telegram3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Проверка типа входных данных",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "получение id карточки на тех.обслуживание",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "загрузка фото в карточку",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получение id карточки на тех.обслуживание": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получение фото из тг": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка фото механику/логисту": {
+      "main": [
+        [
+          {
+            "node": "получение фото из тг",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "поиск логистов1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "загрузка фото в карточку": {
+      "main": [
+        [
+          {
+            "node": "возвращение статуса фото для ТО",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получение статуса кому отправить фото": {
+      "main": [
+        [
+          {
+            "node": "проверка фото механику/логисту",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Отправка фото логисту": {
+      "main": [
+        [
+          {
+            "node": "преобразуем в 1 переменную2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "поиск логистов1": {
+      "main": [
+        [
+          {
+            "node": "поиск тг айди логистов1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "поиск тг айди логистов1": {
+      "main": [
+        [
+          {
+            "node": "Отправка фото логисту",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "преобразуем в 1 переменную2": {
+      "main": [
+        [
+          {
+            "node": "Фото доставлено",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "возвращение статуса фото для ТО": {
+      "main": [
+        [
+          {
+            "node": "Фото доставлено",
             "type": "main",
             "index": 0
           }
@@ -2612,8 +2707,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4300,
-        10800
+        4220,
+        11080
       ],
       "credentials": {
         "telegramApi": {
@@ -3517,8 +3612,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        4580,
-        10800
+        4500,
+        11080
       ],
       "credentials": {
         "postgres": {
@@ -3548,8 +3643,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        4800,
-        10800
+        4720,
+        11080
       ],
       "credentials": {
         "odooApi": {
@@ -3600,8 +3695,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        4200,
-        10720
+        4120,
+        11000
       ]
     },
     {
@@ -3804,8 +3899,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        5440,
-        10800
+        5360,
+        11080
       ],
       "credentials": {
         "odooApi": {
@@ -3827,8 +3922,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5580,
-        10800
+        5500,
+        11080
       ],
       "credentials": {
         "telegramApi": {
@@ -3884,8 +3979,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5300,
-        10800
+        5220,
+        11080
       ],
       "credentials": {
         "telegramApi": {
@@ -4061,8 +4156,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        5260,
-        10740
+        5180,
+        11020
       ]
     },
     {
@@ -4894,8 +4989,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        5020,
-        10800
+        4940,
+        11080
       ],
       "credentials": {
         "odooApi": {
@@ -4983,9 +5078,7 @@
           "mappingMode": "defineBelow",
           "value": {
             "mech_photo": true,
-            "tg_id": "={{ $('Telegram Trigger1').item.json.callback_query.message.chat.id }}",
-            "status": "={{ $json.status }}",
-            "odoo_id": "={{ $json.odoo_id }}"
+            "tg_id": "={{ $('Telegram Trigger1').item.json.callback_query.message.chat.id }}"
           },
           "matchingColumns": [
             "tg_id"
@@ -5008,7 +5101,8 @@
               "defaultMatch": false,
               "display": true,
               "type": "number",
-              "canBeUsedToMatch": true
+              "canBeUsedToMatch": true,
+              "removed": true
             },
             {
               "id": "status",
@@ -5017,7 +5111,8 @@
               "defaultMatch": false,
               "display": true,
               "type": "string",
-              "canBeUsedToMatch": true
+              "canBeUsedToMatch": true,
+              "removed": true
             },
             {
               "id": "only_mech",
@@ -5059,194 +5154,6 @@
     },
     {
       "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "tg_users",
-          "mode": "list",
-          "cachedResultName": "tg_users"
-        },
-        "where": {
-          "values": [
-            {
-              "column": "tg_id",
-              "value": "={{ $('Telegram Trigger1').item.json.message.from.id }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "e518f867-ad5f-4189-a8d1-62d0f22b8b89",
-      "name": "Postgres4",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.3,
-      "position": [
-        4220,
-        10360
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "Q4ZHMkPf1vzJmsuw",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "069241e8-a706-4d88-98a4-39e00ff7a911",
-              "leftValue": "={{ $json.mech_photo }}",
-              "rightValue": "true",
-              "operator": {
-                "type": "boolean",
-                "operation": "true",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "413604e4-7486-4b8b-b2d4-0c280adfef40",
-      "name": "If1",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [
-        4400,
-        10560
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "sendPhoto",
-        "chatId": "700956969",
-        "file": "={{ $('Telegram Trigger1').item.json.message.photo[0].file_id }}",
-        "additionalFields": {}
-      },
-      "id": "3c03ddc3-17f7-4435-a01f-ac862c585d75",
-      "name": "Telegram7",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        4960,
-        10520
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "update",
-        "schema": {
-          "__rl": true,
-          "value": "public",
-          "mode": "list",
-          "cachedResultName": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "tg_users",
-          "mode": "list",
-          "cachedResultName": "tg_users"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "tg_id": "={{ $('Postgres4').item.json.tg_id }}",
-            "status": "={{ $('Postgres4').item.json.status }}",
-            "odoo_id": "={{ $('Postgres4').item.json.odoo_id }}",
-            "mech_photo": false
-          },
-          "matchingColumns": [
-            "tg_id"
-          ],
-          "schema": [
-            {
-              "id": "tg_id",
-              "displayName": "tg_id",
-              "required": true,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "odoo_id",
-              "displayName": "odoo_id",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "status",
-              "displayName": "status",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "only_mech",
-              "displayName": "only_mech",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "boolean",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "mech_photo",
-              "displayName": "mech_photo",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "boolean",
-              "canBeUsedToMatch": true,
-              "removed": false
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "4b3e98c3-0606-4359-831d-6ddcd52a8bee",
-      "name": "Postgres5",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.3,
-      "position": [
-        5200,
-        10500
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "Q4ZHMkPf1vzJmsuw",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "chatId": "={{ $('Telegram Trigger1').item.json.message.from.id }}",
         "text": "Фото доставлено",
         "replyMarkup": "inlineKeyboard",
@@ -5275,8 +5182,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5500,
-        10500
+        5740,
+        10640
       ],
       "credentials": {
         "telegramApi": {
@@ -6157,87 +6064,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.job_id[1] }}",
-                    "rightValue": "Логист",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "8c711320-cf09-453c-9f7f-dd3e02d0d308",
-                    "leftValue": "={{ $json.job_id[1] }}",
-                    "rightValue": "Механик",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "a06fb869-7c18-4036-9ca4-f2f7fa9005d8",
-                    "leftValue": "={{ $json.job_id[1] }}",
-                    "rightValue": "Водитель",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "ea84ae0b-79d0-40ff-807a-ed08ca134a4c",
-      "name": "ветки для ролей",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        3000,
-        9840
-      ]
-    },
-    {
-      "parameters": {
         "rule": {
           "interval": [
             {
@@ -7064,6 +6890,502 @@
         10240,
         10522.249106132484
       ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.job_id[1] }}",
+                    "rightValue": "Логист",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "8c711320-cf09-453c-9f7f-dd3e02d0d308",
+                    "leftValue": "={{ $json.job_id[1] }}",
+                    "rightValue": "Механик",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "a06fb869-7c18-4036-9ca4-f2f7fa9005d8",
+                    "leftValue": "={{ $json.job_id[1] }}",
+                    "rightValue": "Водитель",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ea84ae0b-79d0-40ff-807a-ed08ca134a4c",
+      "name": "ветки для ролей",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        3000,
+        9840
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "binaryToPropery",
+        "options": {}
+      },
+      "id": "2a56d119-23ed-46a6-9514-287e9177fe76",
+      "name": "Extract from File",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        5040,
+        10380
+      ]
+    },
+    {
+      "parameters": {
+        "keep": "lastItems"
+      },
+      "id": "2e2c7909-b784-483b-8a95-b37c25e6f766",
+      "name": "Limit",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        5520,
+        10380
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "technical.maintenance",
+        "operation": "getAll",
+        "options": {
+          "fieldsList": [
+            "id"
+          ]
+        },
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "created_by",
+              "value": "={{ $('получаем роль').item.json.id }}"
+            }
+          ]
+        }
+      },
+      "id": "7b98830d-0b49-49cc-a128-af41418300d4",
+      "name": "получение id карточки на тех.обслуживание",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        5300,
+        10380
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "technical.maintenance",
+        "operation": "update",
+        "customResourceId": "={{ $json.id }}",
+        "fieldsToCreateOrUpdate": {
+          "fields": [
+            {
+              "fieldName": "image_of_breakage",
+              "fieldValue": "={{ $('Extract from File').item.json.data }}"
+            }
+          ]
+        }
+      },
+      "id": "31ecd74b-c347-442a-8e90-b40707cd5c50",
+      "name": "загрузка фото в карточку",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        5740,
+        10380
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $('Telegram Trigger1').item.json.message.photo[2].file_id }}"
+      },
+      "id": "b16936a7-b153-49ed-b19f-12f6ab1a1f6e",
+      "name": "получение фото из тг",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        4800,
+        10380
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "069241e8-a706-4d88-98a4-39e00ff7a911",
+              "leftValue": "={{ $json.mech_photo }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "413604e4-7486-4b8b-b2d4-0c280adfef40",
+      "name": "проверка фото механику/логисту",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        4500,
+        10480
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list",
+          "cachedResultName": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "mech_photo": false,
+            "tg_id": "={{ $('получение статуса кому отправить фото').item.json.tg_id }}"
+          },
+          "matchingColumns": [
+            "tg_id"
+          ],
+          "schema": [
+            {
+              "id": "tg_id",
+              "displayName": "tg_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "only_mech",
+              "displayName": "only_mech",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mech_photo",
+              "displayName": "mech_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "df5cc61a-7ab8-4bab-a453-e56059c99d9b",
+      "name": "возвращение статуса фото для ТО",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        5940,
+        10380
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "tg_id",
+              "value": "={{ $('Telegram Trigger1').item.json.message.from.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e518f867-ad5f-4189-a8d1-62d0f22b8b89",
+      "name": "получение статуса кому отправить фото",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        4260,
+        10320
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Добавление фото к карточке тех.обслуживания",
+        "height": 227.62478042711086,
+        "width": 1354.9841846030959
+      },
+      "id": "78c46738-a42b-4b96-8de4-46f270bbdafb",
+      "name": "Sticky Note19",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        4740,
+        10340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Отправка фото логисту",
+        "height": 230.9235502040431,
+        "width": 1202.8444594164503
+      },
+      "id": "41446e50-d42c-4f2c-9fd4-b28aa1efbd8a",
+      "name": "Sticky Note23",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        4760,
+        10580
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "={{ $json.tg_id }}",
+        "file": "={{ $('Telegram Trigger1').item.json.message.photo[0].file_id }}",
+        "additionalFields": {}
+      },
+      "id": "3c03ddc3-17f7-4435-a01f-ac862c585d75",
+      "name": "Отправка фото логисту",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        5260,
+        10640
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "hr.employee",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "job_title",
+              "value": "Логист"
+            }
+          ]
+        }
+      },
+      "id": "9abcc552-5747-4f62-b139-ed616fe5553e",
+      "name": "поиск логистов1",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        4800,
+        10640
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "odoo_id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "cac1e92a-0b79-4a47-abb8-fbfb3015b09e",
+      "name": "поиск тг айди логистов1",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        5020,
+        10640
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "id": "4a4b797b-ac52-4141-bf73-e730c3dfaf6d",
+      "name": "преобразуем в 1 переменную2",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        5480,
+        10640
+      ]
     }
   ],
   "pinData": {},
@@ -7077,6 +7399,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-05-16T07:58:06.000Z",
-  "versionId": "5aebb1d9-26e3-4ec7-b295-167c3a64314a"
+  "updatedAt": "2024-05-17T14:33:08.000Z",
+  "versionId": "bbfbeb2f-982c-4f6c-b962-30666a671fa6"
 }
