@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Telegram Trigger": {
       "main": [
@@ -396,7 +396,7 @@
       "main": [
         [
           {
-            "node": "Меню ТО1",
+            "node": "получим все неисправности",
             "type": "main",
             "index": 0
           }
@@ -1365,6 +1365,57 @@
         [
           {
             "node": "Фото доставлено",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получим все неисправности": {
+      "main": [
+        [
+          {
+            "node": "есть ли неисправности",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "есть ли неисправности": {
+      "main": [
+        [
+          {
+            "node": "найдена неисправность",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Меню ТО1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "найдена неисправность": {
+      "main": [
+        [
+          {
+            "node": "преобразуем в 1 переменную3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "преобразуем в 1 переменную3": {
+      "main": [
+        [
+          {
+            "node": "Меню ТО1",
             "type": "main",
             "index": 0
           }
@@ -2946,7 +2997,7 @@
     {
       "parameters": {
         "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
-        "text": "=<b>Пожалуйста, проведите осмотр авто перед началом работы!</b>\n\nАвтомобиль: <b>{{ $('получаем данные автомобиля1').item.json[\"model\"] }}</b>\nНомер: <b>{{ $('получаем данные автомобиля1').item.json[\"number_car\"] }}</b>\nПробег: <b>{{ $('Telegram Trigger1').item.json[\"message\"][\"text\"] }} км</b>\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n\nСтраховка до: 18.07.2024.\n</b>",
+        "text": "=<b>Пожалуйста, проведите осмотр авто перед началом работы!</b>\n\nАвтомобиль: <b>{{ $('получаем данные автомобиля1').item.json[\"model\"] }}</b>\nНомер: <b>{{ $('получаем данные автомобиля1').item.json[\"number_car\"] }}</b>\nПробег: <b>{{ $('Telegram Trigger1').item.json[\"message\"][\"text\"] }} км</b>\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n\nСтраховка до:\n</b>",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -2986,8 +3037,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        7760,
-        12100
+        8720,
+        12160
       ],
       "credentials": {
         "telegramApi": {
@@ -3068,8 +3119,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        7980,
-        12100
+        8980,
+        12160
       ],
       "credentials": {
         "postgres": {
@@ -7386,6 +7437,129 @@
         5480,
         10640
       ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "technical.maintenance",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "car_id",
+              "value": "={{ $('получаем данные автомобиля1').item.json.id }}"
+            },
+            {
+              "fieldName": "status",
+              "operator": "notEqual",
+              "value": "Готово"
+            }
+          ]
+        }
+      },
+      "id": "de38dde9-e166-4a7b-b4e0-973f13eff66d",
+      "name": "получим все неисправности",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        7800,
+        12100
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "a0512750-cabb-473b-a650-4e13eb2f16bb",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "f489517e-3e7b-4397-ae02-3e4ccd1f1992",
+      "name": "есть ли неисправности",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        8020,
+        12100
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "=<b>Найдена неисправность:</b>\n{{ $('есть ли неисправности').item.json[\"description_of_maintenance\"] }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "ad782ef2-c9f2-4f8f-9414-68afa5232735",
+      "name": "найдена неисправность",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        8240,
+        11920
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "id": "313690c9-ab82-40b1-97ef-650cc9a90f50",
+      "name": "преобразуем в 1 переменную3",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        8460,
+        11920
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Вывод неисправностей перед сменой",
+        "height": 458.5517437594953,
+        "width": 886.5189485550451,
+        "color": 6
+      },
+      "id": "86a92086-d7ab-497d-a538-07b14f49d98a",
+      "name": "Sticky Note24",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        7780,
+        11860
+      ]
     }
   ],
   "pinData": {},
@@ -7399,6 +7573,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-05-20T14:40:34.000Z",
-  "versionId": "bbb992b9-663d-4097-91a1-27ebd5022160"
+  "updatedAt": "2024-05-21T07:54:30.000Z",
+  "versionId": "e7fb2fa3-8be5-49f6-a0cd-ef99aeb03be0"
 }
