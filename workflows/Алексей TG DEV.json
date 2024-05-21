@@ -392,17 +392,6 @@
         ]
       ]
     },
-    "обновляем одометр": {
-      "main": [
-        [
-          {
-            "node": "получим все неисправности",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "получаем odoo id": {
       "main": [
         [
@@ -1386,7 +1375,7 @@
       "main": [
         [
           {
-            "node": "найдена неисправность",
+            "node": "найдены неисправности",
             "type": "main",
             "index": 0
           }
@@ -1400,22 +1389,40 @@
         ]
       ]
     },
-    "найдена неисправность": {
+    "преобразуем в 1 переменную3": {
       "main": [
         [
           {
-            "node": "преобразуем в 1 переменную3",
+            "node": "Меню ТО1",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "преобразуем в 1 переменную3": {
+    "обновляем одометр": {
       "main": [
         [
           {
-            "node": "Меню ТО1",
+            "node": "получим все неисправности",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "одометр введён неверно",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "найдены неисправности": {
+      "main": [
+        [
+          {
+            "node": "преобразуем в 1 переменную3",
             "type": "main",
             "index": 0
           }
@@ -3037,8 +3044,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        8720,
-        12160
+        8920,
+        12020
       ],
       "credentials": {
         "telegramApi": {
@@ -3119,8 +3126,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        8980,
-        12160
+        9180,
+        12020
       ],
       "credentials": {
         "postgres": {
@@ -3509,36 +3516,6 @@
       "typeVersion": 1,
       "position": [
         7260,
-        12100
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "=cars.cars",
-        "operation": "update",
-        "customResourceId": "={{ $json.id }}",
-        "fieldsToCreateOrUpdate": {
-          "fields": [
-            {
-              "fieldName": "odometer",
-              "fieldValue": "={{ $('Telegram Trigger1').item.json.message.text }}"
-            }
-          ]
-        }
-      },
-      "id": "cdf20328-12b9-4412-85be-ccaa003becf7",
-      "name": "обновляем одометр",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        7500,
         12100
       ],
       "credentials": {
@@ -4494,8 +4471,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        7300,
-        12480
+        7080,
+        12620
       ],
       "credentials": {
         "telegramApi": {
@@ -4516,8 +4493,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        7160,
-        12380
+        6940,
+        12520
       ]
     },
     {
@@ -4592,8 +4569,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        7520,
-        12480
+        7300,
+        12620
       ],
       "credentials": {
         "postgres": {
@@ -4714,8 +4691,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        7740,
-        12480
+        7520,
+        12620
       ],
       "credentials": {
         "postgres": {
@@ -7464,8 +7441,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        7800,
-        12100
+        8000,
+        11960
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -7504,33 +7481,9 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        8020,
-        12100
+        8220,
+        11960
       ]
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
-        "text": "=<b>Найдена неисправность:</b>\n{{ $('есть ли неисправности').item.json[\"description_of_maintenance\"] }}",
-        "additionalFields": {
-          "appendAttribution": false,
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "ad782ef2-c9f2-4f8f-9414-68afa5232735",
-      "name": "найдена неисправность",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        8240,
-        11920
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
-        }
-      }
     },
     {
       "parameters": {
@@ -7542,8 +7495,8 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        8460,
-        11920
+        8660,
+        11780
       ]
     },
     {
@@ -7558,9 +7511,88 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        7780,
-        11860
+        7980,
+        11720
       ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "=cars.cars",
+        "operation": "update",
+        "customResourceId": "={{ $json.id }}",
+        "fieldsToCreateOrUpdate": {
+          "fields": [
+            {
+              "fieldName": "odometer",
+              "fieldValue": "={{ $('Telegram Trigger1').item.json.message.text }}"
+            }
+          ]
+        }
+      },
+      "id": "cdf20328-12b9-4412-85be-ccaa003becf7",
+      "name": "обновляем одометр",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        7500,
+        12100
+      ],
+      "retryOnFail": false,
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "=<b>Найдена неисправность:</b>\n{{ $('есть ли неисправности').item.json[\"description_of_maintenance\"] }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "ad782ef2-c9f2-4f8f-9414-68afa5232735",
+      "name": "найдены неисправности",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        8440,
+        11780
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "Произошла ошибка, повторите ввод данных одометра",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "4b2dbd15-8697-4a3b-a9ec-8b885006161f",
+      "name": "одометр введён неверно",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        7800,
+        12240
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -7574,6 +7606,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-05-21T07:58:26.000Z",
-  "versionId": "4e048b00-afa8-4087-acdd-03b0a4941a9a"
+  "updatedAt": "2024-05-21T08:04:58.000Z",
+  "versionId": "1e628812-64c3-4576-9fc3-a95365195f8a"
 }
