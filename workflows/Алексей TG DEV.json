@@ -1428,6 +1428,61 @@
           }
         ]
       ]
+    },
+    "Schedule Trigger2": {
+      "main": [
+        [
+          {
+            "node": "Odoo1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Odoo1": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Limit1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit1": {
+      "main": [
+        [
+          {
+            "node": "Odoo2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Odoo2": {
+      "main": [
+        [
+          {
+            "node": "Odoo3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-03-28T11:45:35.632Z",
@@ -7593,6 +7648,183 @@
           "name": "Алексей dev"
         }
       }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds",
+              "secondsInterval": 5
+            }
+          ]
+        }
+      },
+      "id": "b34a4f89-4922-4856-bde6-b3384191ce87",
+      "name": "Schedule Trigger2",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        860,
+        10740
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "transportation.transportation",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {}
+      },
+      "id": "80780c24-427d-448a-8142-56bb590ed49a",
+      "name": "Odoo1",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        10720
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "transportation.transportation",
+        "operation": "get",
+        "customResourceId": "={{ $json.id }}",
+        "options": {
+          "fieldsList": [
+            "partner"
+          ]
+        }
+      },
+      "id": "68c654d2-76d0-45ab-9177-964e1ea6ee06",
+      "name": "Odoo2",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1900,
+        10660
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "83edda29-8198-4233-8d09-a34820e84077",
+              "leftValue": "={{ $json.sent }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "26243013-83e0-4b0d-bc49-fd1599deb0cf",
+      "name": "If1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1380,
+        10700
+      ]
+    },
+    {
+      "parameters": {
+        "keep": "lastItems"
+      },
+      "id": "a7afaf39-d62f-4184-b3c8-38af1e695e23",
+      "name": "Limit1",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        1640,
+        10680
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "hr.employee",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {
+          "fieldsList": [
+            "id"
+          ]
+        },
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "display_name",
+              "value": "={{ $json.partner[1] }}"
+            }
+          ]
+        }
+      },
+      "id": "266fc94c-4e99-4add-8a06-a1e803f6cf7a",
+      "name": "Odoo3",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        2140,
+        10680
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "hr.employee",
+        "operation": "get",
+        "customResourceId": "=",
+        "options": {
+          "fieldsList": []
+        }
+      },
+      "id": "9d20f80e-2260-466f-bfc4-759e307a7a1a",
+      "name": "Odoo4",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        2400,
+        10480
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -7606,6 +7838,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-05-21T08:04:58.000Z",
-  "versionId": "1e628812-64c3-4576-9fc3-a95365195f8a"
+  "updatedAt": "2024-05-22T09:48:59.000Z",
+  "versionId": "a62434d4-192b-4495-9bf2-5b148e739400"
 }
