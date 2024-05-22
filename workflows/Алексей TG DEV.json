@@ -626,7 +626,7 @@
       "main": [
         [
           {
-            "node": "отправляем статистику",
+            "node": "If3",
             "type": "main",
             "index": 0
           }
@@ -1490,6 +1490,24 @@
           }
         ]
       ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "отправляем статистику",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "нет статистики",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-03-28T11:45:35.632Z",
@@ -2216,7 +2234,7 @@
     {
       "parameters": {
         "content": "## Вывод статистики \nПока данные берутся из Postgres",
-        "height": 271.7908763388541,
+        "height": 401.9779681145926,
         "width": 658.3251335706542,
         "color": 6
       },
@@ -2226,7 +2244,7 @@
       "typeVersion": 1,
       "position": [
         7040,
-        9900
+        9804.741152359215
       ]
     },
     {
@@ -4796,6 +4814,7 @@
         7100,
         9980
       ],
+      "alwaysOutputData": true,
       "credentials": {
         "postgres": {
           "id": "Q4ZHMkPf1vzJmsuw",
@@ -4817,8 +4836,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        7400,
-        9980
+        7520,
+        9840
       ],
       "credentials": {
         "telegramApi": {
@@ -7855,6 +7874,62 @@
           "name": "Алексей dev"
         }
       }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "b6a80687-cfaa-4708-87bf-a0fe1ac9f502",
+              "leftValue": "={{ $json.data }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "9a4f9cc0-2e1e-4362-8aca-66d8ed8f54f4",
+      "name": "If3",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        7320,
+        9980
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.from.id }}",
+        "text": "Нет статистики",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "f7528cff-3920-4261-9ef3-0ba28f547292",
+      "name": "нет статистики",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        7540,
+        10040
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -7868,6 +7943,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-05-22T10:01:08.000Z",
-  "versionId": "bb653b9b-ce34-4699-aeee-b9fb8161b805"
+  "updatedAt": "2024-05-22T10:13:08.000Z",
+  "versionId": "5c3cefe4-6824-4a71-9fef-9c8552de9e48"
 }
