@@ -644,7 +644,7 @@
         ],
         [
           {
-            "node": "сообщение ввода автомобиля",
+            "node": "ищем автомобиль с таким же сотрудником",
             "type": "main",
             "index": 0
           }
@@ -1508,6 +1508,35 @@
           }
         ]
       ]
+    },
+    "ищем автомобиль с таким же сотрудником": {
+      "main": [
+        [
+          {
+            "node": "если сотрудник уже занял авто",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "если сотрудник уже занял авто": {
+      "main": [
+        [
+          {
+            "node": "он не может занять новый, пока занят старый",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "сообщение ввода автомобиля",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-03-28T11:45:35.632Z",
@@ -2243,8 +2272,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        7040,
-        9804.741152359215
+        6860,
+        9580
       ]
     },
     {
@@ -2909,8 +2938,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        7220,
-        10320
+        7680,
+        10260
       ],
       "credentials": {
         "telegramApi": {
@@ -2991,8 +3020,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        7420,
-        10320
+        7940,
+        10260
       ],
       "credentials": {
         "postgres": {
@@ -3003,17 +3032,18 @@
     },
     {
       "parameters": {
-        "content": "После нажатия кнопки \"приступить к работе\"",
-        "height": 251.1678059984191,
-        "width": 476.5077865756089
+        "content": "## После нажатия кнопки \"приступить к работе\"",
+        "height": 421.69740650535715,
+        "width": 1072.1365259106158,
+        "color": 6
       },
       "id": "8057052c-74ea-4573-8dda-73e6d6c6835d",
       "name": "Sticky Note11",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        7140,
-        10240
+        7073.807667572022,
+        10040
       ]
     },
     {
@@ -4811,8 +4841,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        7100,
-        9980
+        6920,
+        9755
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -4836,8 +4866,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        7520,
-        9840
+        7340,
+        9615
       ],
       "credentials": {
         "telegramApi": {
@@ -7904,8 +7934,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        7320,
-        9980
+        7140,
+        9755
       ]
     },
     {
@@ -7921,8 +7951,96 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        7540,
-        10040
+        7360,
+        9815
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "cars.cars",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "employee_id",
+              "value": "={{ $json.odoo_id }}"
+            }
+          ]
+        }
+      },
+      "id": "b8bcc478-7ea7-42bc-9eb5-683082f9de75",
+      "name": "ищем автомобиль с таким же сотрудником",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        7140,
+        10140
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "47286136-a0d9-421b-9f0b-93270696d9ff",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "8555765b-2887-404f-b1c1-d24a645f3092",
+      "name": "если сотрудник уже занял авто",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        7400,
+        10160
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "=Вы не можете занять новый автомобиль, сейчас вы привязаны к авто:\n{{ $json[\"model\"] }} {{ $json[\"number_car\"] }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "4d7c9ccb-3999-4ae0-9675-1c1bd18e588f",
+      "name": "он не может занять новый, пока занят старый",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        7920,
+        10080
       ],
       "credentials": {
         "telegramApi": {
@@ -7943,6 +8061,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-05-22T10:13:08.000Z",
-  "versionId": "5c3cefe4-6824-4a71-9fef-9c8552de9e48"
+  "updatedAt": "2024-05-22T10:29:57.000Z",
+  "versionId": "dbfbdf37-2231-43e8-a395-e539d51bb8e3"
 }
