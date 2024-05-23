@@ -633,52 +633,6 @@
         ]
       ]
     },
-    "проверка статуса авторизации": {
-      "main": [
-        [
-          {
-            "node": "меняем статус1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "проверка нажатия кнопки контакта",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Проверка старта",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Ищем автомобиль по номеру",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "получаем данные автомобиля1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "данные смены введены",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "меняем статус машины на Нет груза": {
       "main": [
         [
@@ -1269,22 +1223,16 @@
       "main": [
         [
           {
-            "node": "найдены неисправности",
+            "node": "форматируем время в удобный формат",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "объединяем время и текст",
+            "type": "main",
+            "index": 1
           }
         ],
-        [
-          {
-            "node": "Меню ТО1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "преобразуем в 1 переменную3": {
-      "main": [
         [
           {
             "node": "Меню ТО1",
@@ -1632,6 +1580,112 @@
         [
           {
             "node": "ввод одометра",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка статуса авторизации": {
+      "main": [
+        [
+          {
+            "node": "меняем статус1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Date & Time",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "проверка нажатия кнопки контакта",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Проверка старта",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ищем автомобиль по номеру",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "получаем данные автомобиля1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "данные смены введены",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "форматируем время в удобный формат": {
+      "main": [
+        [
+          {
+            "node": "объединяем время и текст",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Меню ТО2": {
+      "main": [
+        [
+          {
+            "node": "возвращаем статус",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "объединяем время и текст": {
+      "main": [
+        [
+          {
+            "node": "добавляем теги",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "добавляем теги": {
+      "main": [
+        [
+          {
+            "node": "добавляем разделитель - новая строка",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "добавляем разделитель - новая строка": {
+      "main": [
+        [
+          {
+            "node": "Меню ТО2",
             "type": "main",
             "index": 0
           }
@@ -3253,7 +3307,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        9200,
+        9680,
         12200
       ],
       "credentials": {
@@ -3335,7 +3389,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        9460,
+        9960,
         12200
       ],
       "credentials": {
@@ -4976,155 +5030,6 @@
           "name": "Алексей dev"
         }
       }
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "77fe838f-5f60-44cc-a654-5adcbbebf8bb",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "unauthorized",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "7dc92754-779a-4427-ba34-e7c6a59cb5c6",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "input_number",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "c328907d-5e2f-4059-b43d-dec7c9a2136a",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "authorized",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "ed5a4e82-0574-4022-a4e9-a9e3d492e32f",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "inputing_car_number",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "27af43d5-2d5c-4cf3-9fd6-11b9316f9089",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "inputing_odometer",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "c2794bc8-e2a0-40b4-b9a7-bf906ac1f32b",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "inputing_data_after_work",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "73b2df10-f455-479f-9ac3-6356985f920f",
-      "name": "проверка статуса авторизации",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        5480,
-        9700
-      ]
     },
     {
       "parameters": {
@@ -7369,15 +7274,16 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        8940,
-        11960
-      ]
+        9660,
+        11660
+      ],
+      "disabled": true
     },
     {
       "parameters": {
         "content": "## Вывод неисправностей перед сменой",
         "height": 458.5517437594953,
-        "width": 886.5189485550451,
+        "width": 1950.3722016156914,
         "color": 6
       },
       "id": "86a92086-d7ab-497d-a538-07b14f49d98a",
@@ -7385,7 +7291,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        8260,
+        8245.155536003806,
         11900
       ]
     },
@@ -7435,15 +7341,16 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        8720,
-        11960
+        9480,
+        11620
       ],
       "credentials": {
         "telegramApi": {
           "id": "cg3DBo1aKun5qfRh",
           "name": "Алексей dev"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -8624,6 +8531,392 @@
           "name": "Алексей dev"
         }
       }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "77fe838f-5f60-44cc-a654-5adcbbebf8bb",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "unauthorized",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "7dc92754-779a-4427-ba34-e7c6a59cb5c6",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "input_number",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "c328907d-5e2f-4059-b43d-dec7c9a2136a",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "authorized",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "ed5a4e82-0574-4022-a4e9-a9e3d492e32f",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "inputing_car_number",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "27af43d5-2d5c-4cf3-9fd6-11b9316f9089",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "inputing_odometer",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "c2794bc8-e2a0-40b4-b9a7-bf906ac1f32b",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "inputing_data_after_work",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "73b2df10-f455-479f-9ac3-6356985f920f",
+      "name": "проверка статуса авторизации",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        5480,
+        9700
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "options": {}
+      },
+      "id": "2cfd944b-b92a-45ab-8e14-4019f6356854",
+      "name": "Date & Time",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        5700,
+        9700
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $json.create_date }}",
+        "format": "custom",
+        "customFormat": "dd.MM.yy hh:mm",
+        "options": {}
+      },
+      "id": "c5eb2a74-739a-4676-aed8-4ae4892f2c83",
+      "name": "форматируем время в удобный формат",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        8780,
+        11940
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "append"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a6ed9732-d8ce-45c8-bde0-60934343232e",
+      "name": "Summarize",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        460,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "=<b>Пожалуйста, проведите осмотр авто перед началом работы!</b>\n\nАвтомобиль: <b>{{ $('получаем данные автомобиля1').item.json[\"model\"] }}</b>\nНомер: <b>{{ $('получаем данные автомобиля1').item.json[\"number_car\"] }}</b>\nПробег: <b>{{ $('Telegram Trigger1').item.json[\"message\"][\"text\"] }} км</b>\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n\nСтраховка до:\n</b>",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅Всё в норме.",
+                    "additionalFields": {
+                      "callback_data": "menu_ok"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "❌Есть неисправности",
+                    "additionalFields": {
+                      "callback_data": "menu_wrong"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "0020ae9e-73b0-44ea-a226-0ca86b5d30d2",
+      "name": "Меню ТО",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        540,
+        540
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "=Найдены неисправности:\n{{ $json[\"concatenated_dateAndText\"] }}\n\n<b>Пожалуйста, проведите осмотр авто перед началом работы!</b>\n\nАвтомобиль: <b>{{ $('получаем данные автомобиля1').item.json[\"model\"] }}</b>\nНомер: <b>{{ $('получаем данные автомобиля1').item.json[\"number_car\"] }}</b>\nПробег: <b>{{ $('Telegram Trigger1').item.json[\"message\"][\"text\"] }} км</b>\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n\nСтраховка до:\n</b>",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅Всё в норме.",
+                    "additionalFields": {
+                      "callback_data": "menu_ok"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "❌Есть неисправности",
+                    "additionalFields": {
+                      "callback_data": "menu_wrong"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "486cf76a-a2c1-4219-b58b-c331884460b4",
+      "name": "Меню ТО2",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        9680,
+        12020
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "concatenate"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7ec5c9f2-9967-45b7-b318-a09b6d0b0549",
+      "name": "Summarize1",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        620,
+        620
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "mergeByPosition",
+        "options": {}
+      },
+      "id": "e5f00991-39cb-4725-92b9-282c4989e48d",
+      "name": "объединяем время и текст",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        9020,
+        12040
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "90695d8c-3cb9-4dd0-a519-10f98ad471c2",
+              "name": "dateAndText",
+              "value": "={{ $('объединяем время и текст').item.json.formattedDate }} - <b>{{ $('объединяем время и текст').item.json.description_of_maintenance }}</b>",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f3049f85-09c2-4744-ae00-fddf6ee3f441",
+      "name": "добавляем теги",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        9220,
+        12040
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "concatenate",
+              "field": "dateAndText",
+              "separateBy": "\n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f7c9ad91-0071-4ecc-a6b0-3f6a2c7bf92d",
+      "name": "добавляем разделитель - новая строка",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        9440,
+        12040
+      ]
     }
   ],
   "pinData": {},
@@ -8637,6 +8930,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-05-23T07:39:23.000Z",
-  "versionId": "5d71c762-2d49-4d23-a7ec-7ac8013cf348"
+  "updatedAt": "2024-05-23T09:17:28.000Z",
+  "versionId": "d4dc13c7-3d34-4126-8f8c-a117716c108e"
 }
