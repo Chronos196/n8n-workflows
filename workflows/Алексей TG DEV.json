@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Telegram Trigger": {
       "main": [
@@ -1338,17 +1338,6 @@
       "main": [
         [
           {
-            "node": "If1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "If1": {
-      "main": [
-        [
-          {
             "node": "Limit1",
             "type": "main",
             "index": 0
@@ -1507,31 +1496,6 @@
         ]
       ]
     },
-    "кнопки принятия и завершения заказа": {
-      "main": [
-        [
-          {
-            "node": "принятый заказ",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Заказ завершен1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Switch2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Switch2": {
       "main": [
         [
@@ -1570,6 +1534,86 @@
         [
           {
             "node": "Stats",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "кнопки принятия и завершения заказа": {
+      "main": [
+        [
+          {
+            "node": "принятый заказ",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Заказ завершен1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Switch2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "меняем статус машины на Загружена": {
+      "main": [
+        [
+          {
+            "node": "Odoo5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Odoo5": {
+      "main": [
+        [
+          {
+            "node": "Odoo6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Odoo6": {
+      "main": [
+        [
+          {
+            "node": "Remove Duplicates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Odoo7": {
+      "main": [
+        [
+          {
+            "node": "Telegram4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove Duplicates": {
+      "main": [
+        [
+          {
+            "node": "Odoo7",
             "type": "main",
             "index": 0
           }
@@ -2933,7 +2977,7 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "Принять заказ",
+                    "text": "Посмотреть доступные перевозки",
                     "additionalFields": {
                       "callback_data": "pick"
                     }
@@ -7438,7 +7482,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        1120,
+        1140,
         10720
       ],
       "credentials": {
@@ -7465,8 +7509,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        1900,
-        10660
+        1720,
+        10680
       ],
       "credentials": {
         "odooApi": {
@@ -7504,8 +7548,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        1380,
-        10700
+        1300,
+        10500
       ]
     },
     {
@@ -7517,8 +7561,8 @@
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        1640,
-        10680
+        1460,
+        10700
       ]
     },
     {
@@ -7546,8 +7590,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        2140,
-        10680
+        2000,
+        10660
       ],
       "credentials": {
         "odooApi": {
@@ -7987,67 +8031,6 @@
                 "conditions": [
                   {
                     "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
-                    "rightValue": "pick",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "ab29fac3-d8a1-4277-9aac-c46a8ca3e960",
-                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
-                    "rightValue": "final",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {
-          "fallbackOutput": "extra"
-        }
-      },
-      "id": "025ee053-1bf7-4c2c-b1f2-b4426f77b61d",
-      "name": "кнопки принятия и завершения заказа",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        4060,
-        11340
-      ]
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
                     "rightValue": "Finish",
                     "operator": {
                       "type": "string",
@@ -8371,6 +8354,199 @@
         3480,
         12040
       ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
+                    "rightValue": "pick",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "ab29fac3-d8a1-4277-9aac-c46a8ca3e960",
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
+                    "rightValue": "final",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "025ee053-1bf7-4c2c-b1f2-b4426f77b61d",
+      "name": "кнопки принятия и завершения заказа",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        4060,
+        11340
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "transportation.round",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "car",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        }
+      },
+      "id": "0d33ea29-377e-44ba-a6da-42f3cb43317c",
+      "name": "Odoo5",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        5680,
+        11380
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "transportation.transportation",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "id",
+              "value": "={{ $json.transportation[0] }}"
+            }
+          ]
+        }
+      },
+      "id": "4bfd6e6c-dbf7-4016-a76b-84254f5012f2",
+      "name": "Odoo6",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        5900,
+        11380
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.callback_query.from.id }}",
+        "text": "=Вам доступны следующие перевозки: {{ $json.departure }} -  {{ $json.arrival }}, материал- {{ $('Odoo6').item.json.product[1] }}, комментарий к перевозке -  {{ $('Odoo6').item.json.comment }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "acde0381-ae33-4d4b-84c8-d2cf9f32c342",
+      "name": "Telegram4",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        6360,
+        11380
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "wialon.route",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "id",
+              "value": "={{ $json.route[0] }}"
+            }
+          ]
+        }
+      },
+      "id": "95b30768-bc75-46f4-87a6-0e4f8d4ea972",
+      "name": "Odoo7",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        6120,
+        11380
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "compare": "selectedFields",
+        "fieldsToCompare": "id",
+        "options": {}
+      },
+      "id": "b4552236-ef82-429b-b92a-b7a2d197908c",
+      "name": "Remove Duplicates",
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 1,
+      "position": [
+        6020,
+        11180
+      ]
     }
   ],
   "pinData": {},
@@ -8384,6 +8560,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-05-22T11:07:22.000Z",
-  "versionId": "dbfbdf37-2231-43e8-a395-e539d51bb8e3"
+  "updatedAt": "2024-05-22T13:24:10.000Z",
+  "versionId": "d318ef4f-9569-45ec-8f87-9ef103009499"
 }
