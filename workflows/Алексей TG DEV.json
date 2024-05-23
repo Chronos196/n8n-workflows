@@ -279,7 +279,7 @@
       "main": [
         [
           {
-            "node": "ввод одометра",
+            "node": "если автомобиль уже занят другим водителем",
             "type": "main",
             "index": 0
           }
@@ -1614,6 +1614,24 @@
         [
           {
             "node": "Odoo7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "если автомобиль уже занят другим водителем": {
+      "main": [
+        [
+          {
+            "node": "авто уже занят другим водителем",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ввод одометра",
             "type": "main",
             "index": 0
           }
@@ -3235,8 +3253,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        8920,
-        12020
+        9200,
+        12200
       ],
       "credentials": {
         "telegramApi": {
@@ -3317,8 +3335,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        9180,
-        12020
+        9460,
+        12200
       ],
       "credentials": {
         "postgres": {
@@ -3331,14 +3349,15 @@
       "parameters": {
         "content": "## Ввод номера автомобиля",
         "height": 510.0261823387185,
-        "width": 773.3739483260375
+        "width": 968.976814927086,
+        "color": 6
       },
       "id": "5cc4fbfa-7c6d-489e-afe3-34eff99224b4",
       "name": "Sticky Note13",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        7000,
+        7140,
         11320
       ]
     },
@@ -3346,15 +3365,16 @@
       "parameters": {
         "content": "## Изменение водителя в ОДУ\nвозможно это должно быть в другом месте",
         "height": 258.8309220721088,
-        "width": 800.0418917419497
+        "width": 800.0418917419497,
+        "color": 6
       },
       "id": "7728e4ce-f615-473a-987d-7bc9a9c7c3d5",
       "name": "Sticky Note14",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        8060,
-        11340
+        8440,
+        11380
       ]
     },
     {
@@ -3377,8 +3397,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        8340,
-        11420
+        8720,
+        11460
       ],
       "credentials": {
         "odooApi": {
@@ -3593,8 +3613,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        7800,
-        11420
+        8180,
+        11500
       ],
       "credentials": {
         "telegramApi": {
@@ -3675,8 +3695,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        8100,
-        11420
+        8480,
+        11460
       ],
       "credentials": {
         "postgres": {
@@ -3706,8 +3726,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        7260,
-        12100
+        7460,
+        12240
       ],
       "credentials": {
         "odooApi": {
@@ -3727,8 +3747,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        7180,
-        12020
+        7380,
+        12160
       ]
     },
     {
@@ -3892,8 +3912,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        8620,
-        11420
+        9000,
+        11460
       ],
       "credentials": {
         "odooApi": {
@@ -7295,8 +7315,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        8000,
-        11960
+        8280,
+        12140
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -7335,8 +7355,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        8220,
-        11960
+        8500,
+        12140
       ]
     },
     {
@@ -7349,8 +7369,8 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        8660,
-        11780
+        8940,
+        11960
       ]
     },
     {
@@ -7365,8 +7385,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        7980,
-        11720
+        8260,
+        11900
       ]
     },
     {
@@ -7389,8 +7409,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        7500,
-        12100
+        7700,
+        12240
       ],
       "retryOnFail": false,
       "credentials": {
@@ -7415,8 +7435,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        8440,
-        11780
+        8720,
+        11960
       ],
       "credentials": {
         "telegramApi": {
@@ -7438,8 +7458,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        7800,
-        12240
+        8000,
+        12380
       ],
       "credentials": {
         "telegramApi": {
@@ -8547,6 +8567,63 @@
         6020,
         11180
       ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "eb8f3a86-31ee-4b61-9746-eff045d2ed87",
+              "leftValue": "={{ $json.employee_id[1] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "9c77e05a-b004-44c6-ae7c-ae8a88007d01",
+      "name": "если автомобиль уже занят другим водителем",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        7720,
+        11460
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "=Автомобиль с номером <b>{{ $('Telegram Trigger1').item.json.message.text }}</b> сейчас привязан к водителю: {{ $('Ищем автомобиль по номеру').item.json[\"employee_id\"][1] }}. \nВы не можете занять этот автомобиль",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "0ea3ee7b-65aa-4e72-bb4d-c2112f7725f8",
+      "name": "авто уже занят другим водителем",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        7900,
+        11340
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -8560,6 +8637,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-05-22T13:24:10.000Z",
-  "versionId": "d318ef4f-9569-45ec-8f87-9ef103009499"
+  "updatedAt": "2024-05-23T07:39:23.000Z",
+  "versionId": "5d71c762-2d49-4d23-a7ec-7ac8013cf348"
 }
