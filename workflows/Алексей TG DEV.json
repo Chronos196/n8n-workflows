@@ -1502,31 +1502,6 @@
         ]
       ]
     },
-    "кнопки меню ТО": {
-      "main": [
-        [
-          {
-            "node": "меню после ТО",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "комментарий механику",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Кнопки после отправки фото",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "вывод перевозок": {
       "main": [
         [
@@ -1698,45 +1673,6 @@
         ]
       ]
     },
-    "кнопки принятия и завершения заказа": {
-      "main": [
-        [
-          {
-            "node": "принятый заказ",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Заказ завершен1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Подтверждение завершения",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Выводим информацию о перевозке1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "кнопки меню ТО",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "есть ли данные": {
       "main": [
         [
@@ -1828,6 +1764,70 @@
         [
           {
             "node": "удаление \"отправляйте фото\"",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "кнопки принятия и завершения заказа": {
+      "main": [
+        [
+          {
+            "node": "принятый заказ",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Заказ завершен1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Подтверждение завершения",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Выводим информацию о перевозке1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "кнопки меню ТО",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "кнопки меню ТО": {
+      "main": [
+        [
+          {
+            "node": "меню после ТО",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "комментарий механику",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Кнопки после отправки фото",
             "type": "main",
             "index": 0
           }
@@ -5242,6 +5242,23 @@
       "parameters": {
         "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
         "text": "Механики не найдены",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Приступить к работе",
+                    "additionalFields": {
+                      "callback_data": "menu_ok"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
         "additionalFields": {
           "appendAttribution": false
         }
@@ -8561,69 +8578,6 @@
                 },
                 "conditions": [
                   {
-                    "id": "6fb344b8-2202-44d1-b21d-8f672278767c",
-                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
-                    "rightValue": "menu_ok",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "68071ac7-12d9-4440-97e3-ca534a0322b2",
-                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
-                    "rightValue": "menu_wrong",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {
-          "fallbackOutput": "extra"
-        }
-      },
-      "id": "25bebf87-3682-4298-91fc-607109d42c58",
-      "name": "кнопки меню ТО",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        4060,
-        11660
-      ]
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
                     "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
                     "rightValue": "перевозки",
                     "operator": {
@@ -9277,111 +9231,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
-                    "rightValue": "pick",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "ab29fac3-d8a1-4277-9aac-c46a8ca3e960",
-                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
-                    "rightValue": "final",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "1fb76a2e-1b73-4555-8e9c-fb47193d2c4b",
-                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
-                    "rightValue": "Finish",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "e7143341-d29c-49ad-8647-8595445df788",
-                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
-                    "rightValue": "accept",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {
-          "fallbackOutput": "extra"
-        }
-      },
-      "id": "44c19c55-263c-4393-ba32-ee5976ff93a7",
-      "name": "кнопки принятия и завершения заказа",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        4040,
-        11240
-      ]
-    },
-    {
-      "parameters": {
         "chatId": "={{ $('Telegram Trigger1').item.json.message.from.id }}",
         "text": "Фото доставлено",
         "replyMarkup": "inlineKeyboard",
@@ -9871,6 +9720,174 @@
           "name": "Алексей dev"
         }
       }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
+                    "rightValue": "pick",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "ab29fac3-d8a1-4277-9aac-c46a8ca3e960",
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
+                    "rightValue": "final",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "1fb76a2e-1b73-4555-8e9c-fb47193d2c4b",
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
+                    "rightValue": "Finish",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "e7143341-d29c-49ad-8647-8595445df788",
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
+                    "rightValue": "accept",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "44c19c55-263c-4393-ba32-ee5976ff93a7",
+      "name": "кнопки принятия и завершения заказа",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        4040,
+        11240
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "6fb344b8-2202-44d1-b21d-8f672278767c",
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
+                    "rightValue": "menu_ok",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "68071ac7-12d9-4440-97e3-ca534a0322b2",
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
+                    "rightValue": "menu_wrong",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "25bebf87-3682-4298-91fc-607109d42c58",
+      "name": "кнопки меню ТО",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        4060,
+        11660
+      ]
     }
   ],
   "pinData": {},
@@ -9884,6 +9901,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-05-24T17:40:41.000Z",
-  "versionId": "d00b5bb5-38f2-4f40-8e85-06b91776761e"
+  "updatedAt": "2024-05-24T19:02:49.000Z",
+  "versionId": "5786cc91-49f1-4674-9cc6-8e12ad9725e0"
 }
