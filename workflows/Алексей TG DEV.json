@@ -988,17 +988,6 @@
         ]
       ]
     },
-    "Отправка фото логисту": {
-      "main": [
-        [
-          {
-            "node": "преобразуем в 1 переменную2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "поиск логистов1": {
       "main": [
         [
@@ -2046,6 +2035,24 @@
         [
           {
             "node": "соединяем в единое сообщение",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Отправка фото логисту": {
+      "main": [
+        [
+          {
+            "node": "преобразуем в 1 переменную2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "если не отправилось",
             "type": "main",
             "index": 0
           }
@@ -6256,28 +6263,6 @@
     },
     {
       "parameters": {
-        "operation": "sendPhoto",
-        "chatId": "={{ $json.tg_id }}",
-        "file": "={{ $('Telegram Trigger1').item.json.message.photo[0].file_id }}",
-        "additionalFields": {}
-      },
-      "id": "3c03ddc3-17f7-4435-a01f-ac862c585d75",
-      "name": "Отправка фото логисту",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        5320,
-        10780
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
-        }
-      }
-    },
-    {
-      "parameters": {
         "resource": "custom",
         "customResource": "hr.employee",
         "operation": "getAll",
@@ -10406,6 +10391,67 @@
         12340,
         11540
       ]
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "={{ $json.tg_id }}",
+        "file": "={{ $('Telegram Trigger1').item.json.message.photo[0].file_id }}",
+        "additionalFields": {}
+      },
+      "id": "3c03ddc3-17f7-4435-a01f-ac862c585d75",
+      "name": "Отправка фото логисту",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        5320,
+        10780
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "Не удалось отправить фото, логист не найден",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Продолжить",
+                    "additionalFields": {
+                      "callback_data": "final"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "id": "fac65693-bbe4-4380-97ff-a4458bfdd489",
+      "name": "если не отправилось",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        5940,
+        10780
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -10419,6 +10465,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-05-28T19:28:05.000Z",
-  "versionId": "cb5069b3-60e9-4daa-bf37-b5da16f08121"
+  "updatedAt": "2024-05-29T15:23:18.000Z",
+  "versionId": "fa6c9ef7-c394-4c32-b69c-a840caa8b119"
 }
