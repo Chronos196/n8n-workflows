@@ -1868,7 +1868,7 @@
         ],
         [
           {
-            "node": "Меню ТО1",
+            "node": "If",
             "type": "main",
             "index": 0
           }
@@ -1923,7 +1923,65 @@
       "main": [
         [
           {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Меню ТО1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Меню ТО1 при замене масла",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Меню ТО1 при замене масла": {
+      "main": [
+        [
+          {
+            "node": "возвращаем статус",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
             "node": "Меню ТО2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Меню ТО2 при замене масла",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Меню ТО2 при замене масла": {
+      "main": [
+        [
+          {
+            "node": "возвращаем статус",
             "type": "main",
             "index": 0
           }
@@ -8425,7 +8483,7 @@
           "conditions": [
             {
               "id": "3a4b091e-3f7b-43b9-9a07-1ce686ad3dfd",
-              "leftValue": "={{ $json.oil_change_schedule }}",
+              "leftValue": "={{ $('получаем данные автомобиля1').item.json.oil_change_schedule }}",
               "rightValue": "={{ $json.oil }}",
               "operator": {
                 "type": "number",
@@ -8758,7 +8816,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        6180,
+        6200,
         3980
       ],
       "credentials": {
@@ -9186,7 +9244,7 @@
     {
       "parameters": {
         "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
-        "text": "=<b>Документы на автомобиль:</b>\n\n{{ $('соединяем в единое сообщение').item.json[\"concatenated_status\"] }}\n\n<b>Пожалуйста, проведите осмотр авто перед началом работы!</b>\n\nАвтомобиль: <b>{{ $('получаем данные автомобиля1').item.json[\"model\"] }}</b>\nНомер: <b>{{ $('получаем данные автомобиля1').item.json[\"number_car\"] }}</b>\nПробег: <b>{{ $('Telegram Trigger1').item.json[\"message\"][\"text\"] }} км</b>\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n</b>",
+        "text": "=<b>Документы на автомобиль:</b>\n\n{{ $('соединяем в единое сообщение').item.json[\"concatenated_status\"] }}\n\n<b>Пожалуйста, проведите осмотр авто перед началом работы!</b>\n\nАвтомобиль: <b>{{ $('получаем данные автомобиля1').item.json[\"model\"] }}</b>\nНомер: <b>{{ $('получаем данные автомобиля1').item.json[\"number_car\"] }}</b>\nПробег: <b>{{ $('Telegram Trigger1').item.json[\"message\"][\"text\"] }} км</b>\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n</b>\n<em> До замены масла осталось {{ $('получаем данные автомобиля1').item.json.oil_change_schedule - $('Преобразование одометра в число').item.json.oil }} км</em>",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -9226,7 +9284,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        12255,
+        12340,
         3940
       ],
       "credentials": {
@@ -9308,7 +9366,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        12535,
+        12660,
         3940
       ],
       "credentials": {
@@ -9424,7 +9482,7 @@
     {
       "parameters": {
         "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
-        "text": "=<b>Документы на автомобиль:</b>\n\n{{ $('соединяем в единое сообщение').item.json[\"concatenated_status\"] }}\n\n<b>Найдены заявки на техобслуживание:</b>\n\n{{ $json[\"concatenated_dateAndText\"] }}\n\n<b>Пожалуйста, проведите осмотр авто перед началом работы!</b>\n\nАвтомобиль: <b>{{ $('получаем данные автомобиля1').item.json[\"model\"] }}</b>\nНомер: <b>{{ $('получаем данные автомобиля1').item.json[\"number_car\"] }}</b>\nПробег: <b>{{ $('Telegram Trigger1').item.json[\"message\"][\"text\"] }} км</b>\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n</b>",
+        "text": "=<b>Документы на автомобиль:</b>\n\n{{ $('соединяем в единое сообщение').item.json[\"concatenated_status\"] }}\n\n<b>Найдены заявки на техобслуживание:</b>\n\n{{ $json[\"concatenated_dateAndText\"] }}\n\n<b>Пожалуйста, проведите осмотр авто перед началом работы!</b>\n\nАвтомобиль: <b>{{ $('получаем данные автомобиля1').item.json[\"model\"] }}</b>\nНомер: <b>{{ $('получаем данные автомобиля1').item.json[\"number_car\"] }}</b>\nПробег: <b>{{ $('Telegram Trigger1').item.json[\"message\"][\"text\"] }} км</b>\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n</b>\n<em> До замены масла осталось {{ $('получаем данные автомобиля1').item.json.oil_change_schedule - $('Преобразование одометра в число').item.json.oil }} км</em>",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -9464,7 +9522,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        12255,
+        12440,
         3760
       ],
       "credentials": {
@@ -9533,6 +9591,176 @@
         12015,
         3780
       ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "0befa792-78dc-4a1d-b78b-9fa155007776",
+              "leftValue": "={{ $('получаем данные автомобиля1').item.json.oil_change_schedule }}",
+              "rightValue": "={{ $('Преобразование одометра в число').item.json.oil }}",
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "875cf419-2609-47d3-8868-3ea6337ccdbd",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        11860,
+        3980
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "=<b>Документы на автомобиль:</b>\n\n{{ $('соединяем в единое сообщение').item.json[\"concatenated_status\"] }}\n\n<b>Пожалуйста, проведите осмотр авто перед началом работы!</b>\n\nАвтомобиль: <b>{{ $('получаем данные автомобиля1').item.json[\"model\"] }}</b>\nНомер: <b>{{ $('получаем данные автомобиля1').item.json[\"number_car\"] }}</b>\nПробег: <b>{{ $('Telegram Trigger1').item.json[\"message\"][\"text\"] }} км</b>\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n</b>",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅Всё в норме.",
+                    "additionalFields": {
+                      "callback_data": "menu_ok"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "❌Есть неисправности",
+                    "additionalFields": {
+                      "callback_data": "menu_wrong"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "55106bf1-5f72-4909-af98-88d2346f5a9e",
+      "name": "Меню ТО1 при замене масла",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        12340,
+        4180
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ThC2kf8ZCBAO0FBa",
+          "name": "Main Everest"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "0befa792-78dc-4a1d-b78b-9fa155007776",
+              "leftValue": "={{ $('получаем данные автомобиля1').item.json.oil_change_schedule }}",
+              "rightValue": "={{ $('Преобразование одометра в число').item.json.oil }}",
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "0168a157-016d-48a5-861d-c803e2ad0ace",
+      "name": "If1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        12180,
+        3780
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "=<b>Документы на автомобиль:</b>\n\n{{ $('соединяем в единое сообщение').item.json[\"concatenated_status\"] }}\n\n<b>Найдены заявки на техобслуживание:</b>\n\n{{ $json[\"concatenated_dateAndText\"] }}\n\n<b>Пожалуйста, проведите осмотр авто перед началом работы!</b>\n\nАвтомобиль: <b>{{ $('получаем данные автомобиля1').item.json[\"model\"] }}</b>\nНомер: <b>{{ $('получаем данные автомобиля1').item.json[\"number_car\"] }}</b>\nПробег: <b>{{ $('Telegram Trigger1').item.json[\"message\"][\"text\"] }} км</b>\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n</b>",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅Всё в норме.",
+                    "additionalFields": {
+                      "callback_data": "menu_ok"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "❌Есть неисправности",
+                    "additionalFields": {
+                      "callback_data": "menu_wrong"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "335e9f82-f0e2-4ca6-a05d-b60262a6eb0b",
+      "name": "Меню ТО2 при замене масла",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        12360,
+        3580
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ThC2kf8ZCBAO0FBa",
+          "name": "Main Everest"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -9542,6 +9770,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-06-01T05:18:39.000Z",
-  "versionId": "db2f4b14-7b8a-4546-bd09-03442feb49dc"
+  "updatedAt": "2024-06-03T10:41:59.000Z",
+  "versionId": "a936d833-a880-4764-9954-dd3e9f8f714c"
 }
