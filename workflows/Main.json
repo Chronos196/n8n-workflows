@@ -1506,7 +1506,7 @@
         ],
         [
           {
-            "node": "Обновление пробега при котором нужна будет замена масла",
+            "node": "Отправка уведомления о том, что требуется замена масла",
             "type": "main",
             "index": 0
           }
@@ -1584,17 +1584,6 @@
         [
           {
             "node": "получаем данные автомобиля",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Обновление пробега при котором нужна будет замена масла": {
-      "main": [
-        [
-          {
-            "node": "Отправка уведомления о том, что требуется замена масла",
             "type": "main",
             "index": 0
           }
@@ -1982,6 +1971,39 @@
         [
           {
             "node": "возвращаем статус",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Нажатие водителем на кнопку замена масла": {
+      "main": [
+        [
+          {
+            "node": "Получаем odoo_id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Получаем odoo_id": {
+      "main": [
+        [
+          {
+            "node": "Получаем информацию о машине",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Получаем информацию о машине": {
+      "main": [
+        [
+          {
+            "node": "Обновление пробега при котором нужна будет замена масла1",
             "type": "main",
             "index": 0
           }
@@ -6150,7 +6172,7 @@
     {
       "parameters": {
         "content": "## Блок проверки нажатой водителем кнопки",
-        "height": 2400.4846487480395,
+        "height": 2923.480702004923,
         "width": 2269.2207419493966
       },
       "id": "8442fa3d-e72f-446a-b560-cc9ba99cedc8",
@@ -8500,8 +8522,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        5660,
-        3800
+        5760,
+        3740
       ]
     },
     {
@@ -8758,36 +8780,6 @@
     },
     {
       "parameters": {
-        "resource": "custom",
-        "customResource": "cars.cars",
-        "operation": "update",
-        "customResourceId": "={{ $('получаем данные автомобиля1').item.json.id }}",
-        "fieldsToCreateOrUpdate": {
-          "fields": [
-            {
-              "fieldName": "oil_change_schedule",
-              "fieldValue": "={{ $json.oil + 5000}}"
-            }
-          ]
-        }
-      },
-      "id": "16e6a2a0-796f-4760-9a71-652c1443d30c",
-      "name": "Обновление пробега при котором нужна будет замена масла",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        5960,
-        3980
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
         "chatId": "={{ $('Telegram Trigger1').item.json.message.from.id }}",
         "text": "Дорогой водитель, показания вашего одометра говорят о том, что пора заменить масло",
         "replyMarkup": "inlineKeyboard",
@@ -8816,7 +8808,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        6200,
+        6120,
         3980
       ],
       "credentials": {
@@ -9244,7 +9236,7 @@
     {
       "parameters": {
         "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
-        "text": "=<b>Документы на автомобиль:</b>\n\n{{ $('соединяем в единое сообщение').item.json[\"concatenated_status\"] }}\n\n<b>Пожалуйста, проведите осмотр авто перед началом работы!</b>\n\nАвтомобиль: <b>{{ $('получаем данные автомобиля1').item.json[\"model\"] }}</b>\nНомер: <b>{{ $('получаем данные автомобиля1').item.json[\"number_car\"] }}</b>\nПробег: <b>{{ $('Telegram Trigger1').item.json[\"message\"][\"text\"] }} км</b>\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n</b>\n<em> До замены масла осталось {{ $('получаем данные автомобиля1').item.json.oil_change_schedule - $('Преобразование одометра в число').item.json.oil }} км</em>",
+        "text": "=<b>Документы на автомобиль:</b>\n\n{{ $('соединяем в единое сообщение').item.json[\"concatenated_status\"] }}\n\n<b>Пожалуйста, проведите осмотр авто перед началом работы!</b>\n\nАвтомобиль: <b>{{ $('получаем данные автомобиля1').item.json[\"model\"] }}</b>\nНомер: <b>{{ $('получаем данные автомобиля1').item.json[\"number_car\"] }}</b>\nПробег: <b>{{ $('Telegram Trigger1').item.json[\"message\"][\"text\"] }} км</b>\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n</b>\n<b> До замены масла осталось {{ $('получаем данные автомобиля1').item.json.oil_change_schedule - $('Преобразование одометра в число').item.json.oil }} км</b>",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -9482,7 +9474,7 @@
     {
       "parameters": {
         "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
-        "text": "=<b>Документы на автомобиль:</b>\n\n{{ $('соединяем в единое сообщение').item.json[\"concatenated_status\"] }}\n\n<b>Найдены заявки на техобслуживание:</b>\n\n{{ $json[\"concatenated_dateAndText\"] }}\n\n<b>Пожалуйста, проведите осмотр авто перед началом работы!</b>\n\nАвтомобиль: <b>{{ $('получаем данные автомобиля1').item.json[\"model\"] }}</b>\nНомер: <b>{{ $('получаем данные автомобиля1').item.json[\"number_car\"] }}</b>\nПробег: <b>{{ $('Telegram Trigger1').item.json[\"message\"][\"text\"] }} км</b>\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n</b>\n<em> До замены масла осталось {{ $('получаем данные автомобиля1').item.json.oil_change_schedule - $('Преобразование одометра в число').item.json.oil }} км</em>",
+        "text": "=<b>Документы на автомобиль:</b>\n\n{{ $('соединяем в единое сообщение').item.json[\"concatenated_status\"] }}\n\n<b>Найдены заявки на техобслуживание:</b>\n\n{{ $json[\"concatenated_dateAndText\"] }}\n\n<b>Пожалуйста, проведите осмотр авто перед началом работы!</b>\n\nАвтомобиль: <b>{{ $('получаем данные автомобиля1').item.json[\"model\"] }}</b>\nНомер: <b>{{ $('получаем данные автомобиля1').item.json[\"number_car\"] }}</b>\nПробег: <b>{{ $('Telegram Trigger1').item.json[\"message\"][\"text\"] }} км</b>\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n</b>\n<b> До замены масла осталось {{ $('получаем данные автомобиля1').item.json.oil_change_schedule - $('Преобразование одометра в число').item.json.oil }} км</b>",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -9761,6 +9753,123 @@
           "name": "Main Everest"
         }
       }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "cars.cars",
+        "operation": "update",
+        "customResourceId": "={{ $json.id }}",
+        "fieldsToCreateOrUpdate": {
+          "fields": [
+            {
+              "fieldName": "oil_change_schedule",
+              "fieldValue": "={{ $json.odometer + 5000 }}"
+            }
+          ]
+        }
+      },
+      "id": "46288893-87ef-4b47-98bc-198c313a630b",
+      "name": "Обновление пробега при котором нужна будет замена масла1",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        6340
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Обновление регламента замены масла после подтверждения водителем замены",
+        "height": 367.9567318600623,
+        "width": 1022.4114664041946,
+        "color": 4
+      },
+      "id": "bfc3d6dc-9b23-40dc-ae45-3caae5293601",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        640,
+        6220
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "tg_id",
+              "value": "={{ $('Telegram Trigger1').item.json.callback_query.from.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0e5c9a37-9f7a-4480-979b-43f2dfaa9f36",
+      "name": "Получаем odoo_id",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        1000,
+        6340
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "cars.cars",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "employee_id",
+              "value": "={{ $json.odoo_id }}"
+            }
+          ]
+        }
+      },
+      "id": "ae8b6a8f-0ccb-473b-92f1-8645144523d2",
+      "name": "Получаем информацию о машине",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        6340
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -9770,6 +9879,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-06-03T10:41:59.000Z",
-  "versionId": "a936d833-a880-4764-9954-dd3e9f8f714c"
+  "updatedAt": "2024-06-03T15:36:23.000Z",
+  "versionId": "7a3527d4-b78f-4898-aefe-b02b3be76e2e"
 }
