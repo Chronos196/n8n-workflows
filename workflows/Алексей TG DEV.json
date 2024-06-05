@@ -2134,17 +2134,6 @@
         ]
       ]
     },
-    "добавим перевод на новую строку3": {
-      "main": [
-        [
-          {
-            "node": "готово",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "к выполнению2": {
       "main": [
         [
@@ -2171,18 +2160,7 @@
       "main": [
         [
           {
-            "node": "Merge1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "готово": {
-      "main": [
-        [
-          {
-            "node": "Merge1",
+            "node": "Merge2",
             "type": "main",
             "index": 1
           }
@@ -2196,17 +2174,6 @@
             "node": "Merge2",
             "type": "main",
             "index": 0
-          }
-        ]
-      ]
-    },
-    "Merge1": {
-      "main": [
-        [
-          {
-            "node": "Merge2",
-            "type": "main",
-            "index": 1
           }
         ]
       ]
@@ -2227,38 +2194,6 @@
         [
           {
             "node": "Telegram",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Разделяем по статусам": {
-      "main": [
-        [
-          {
-            "node": "добавим перевод на новую строку",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "добавим перевод на новую строку1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "добавим перевод на новую строку2",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "добавим перевод на новую строку3",
             "type": "main",
             "index": 0
           }
@@ -2527,6 +2462,31 @@
         [
           {
             "node": "Отправка проблемы механикам1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Разделяем по статусам": {
+      "main": [
+        [
+          {
+            "node": "добавим перевод на новую строку",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "добавим перевод на новую строку1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "добавим перевод на новую строку2",
             "type": "main",
             "index": 0
           }
@@ -11134,62 +11094,6 @@
       ]
     },
     {
-      "parameters": {
-        "fieldsToSummarize": {
-          "values": [
-            {
-              "aggregation": "concatenate",
-              "field": "date_description",
-              "separateBy": "\n"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "d5353920-9397-4d9d-8249-839d864bc1c8",
-      "name": "добавим перевод на новую строку3",
-      "type": "n8n-nodes-base.summarize",
-      "typeVersion": 1,
-      "position": [
-        10720,
-        10580
-      ]
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "0fee6eb4-9862-4619-a904-ede2a98a73ae",
-              "name": "concatenated_date_description",
-              "value": "=<b>Готово:</b>\n\n{{ $json.concatenated_date_description }}\n",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "64eda784-e64d-4279-aada-68ea1411089e",
-      "name": "готово",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.3,
-      "position": [
-        10940,
-        10580
-      ]
-    },
-    {
-      "parameters": {},
-      "id": "c2322756-a237-4419-bb59-7a4db56fd365",
-      "name": "Merge1",
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 2.1,
-      "position": [
-        11200,
-        10400
-      ]
-    },
-    {
       "parameters": {},
       "id": "e5a9dbef-136b-4acb-873e-fa1fbe930465",
       "name": "Merge",
@@ -11315,109 +11219,6 @@
       "position": [
         4800,
         12779.792618661597
-      ]
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "К выполнению",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "84c7a41e-05e5-4497-b42a-1e5102906729",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "В работе",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "dea7aa17-5f44-45d5-a497-9cea75e85820",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "Требуется проверка",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "9a3509f2-94fa-4758-8e0d-d7a9ab5ab2d9",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "Готово",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "9a8c25a5-89ec-4f81-adff-32669be349d2",
-      "name": "Разделяем по статусам",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        10420,
-        10240
       ]
     },
     {
@@ -12238,6 +12039,87 @@
         5000,
         14220
       ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "К выполнению",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "84c7a41e-05e5-4497-b42a-1e5102906729",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "В работе",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "dea7aa17-5f44-45d5-a497-9cea75e85820",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "Требуется проверка",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9a8c25a5-89ec-4f81-adff-32669be349d2",
+      "name": "Разделяем по статусам",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        10420,
+        10240
+      ]
     }
   ],
   "pinData": {},
@@ -12251,6 +12133,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-06-04T13:36:51.000Z",
-  "versionId": "327e181b-2029-4999-af3f-a397e36a946d"
+  "updatedAt": "2024-06-05T13:32:03.000Z",
+  "versionId": "a067dc9c-b2cf-45c2-93de-190f0594f5f7"
 }
