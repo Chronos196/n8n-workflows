@@ -1988,7 +1988,7 @@
         ],
         [
           {
-            "node": "получим все заявки",
+            "node": "получим авто по водителю",
             "type": "main",
             "index": 0
           }
@@ -2446,11 +2446,6 @@
         ]
       ]
     },
-    "заявка взята в работу": {
-      "main": [
-        []
-      ]
-    },
     "данные водителя": {
       "main": [
         [
@@ -2481,6 +2476,35 @@
         [
           {
             "node": "добавим перевод на новую строку2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получим авто по водителю": {
+      "main": [
+        [
+          {
+            "node": "если авто не привязан",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "если авто не привязан": {
+      "main": [
+        [
+          {
+            "node": "получим все заявки",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "не привязан авто",
             "type": "main",
             "index": 0
           }
@@ -7615,8 +7639,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        8360,
-        9880
+        8320,
+        9920
       ],
       "credentials": {
         "telegramApi": {
@@ -10782,8 +10806,8 @@
         "filterRequest": {
           "filter": [
             {
-              "fieldName": "created_by",
-              "value": "={{ $json.odoo_id }}"
+              "fieldName": "car_id",
+              "value": "={{ $json.id }}"
             }
           ]
         }
@@ -11025,7 +11049,7 @@
             {
               "id": "0fee6eb4-9862-4619-a904-ede2a98a73ae",
               "name": "concatenated_date_description",
-              "value": "=<b>К выполнению:</b>\n\n{{ $json.concatenated_date_description }}\n",
+              "value": "=<b>Можно взять в работу:</b>\n\n{{ $json.concatenated_date_description }}\n",
               "type": "string"
             }
           ]
@@ -11186,9 +11210,9 @@
     },
     {
       "parameters": {
-        "content": "## Просто вывод всех заявок",
+        "content": "## Вывод всех заявок",
         "height": 774.298011427,
-        "width": 2976.261702178415,
+        "width": 3433.7723550403643,
         "color": 6
       },
       "id": "0d7dddbb-7e46-46fb-84e5-b68ab6784157",
@@ -11196,7 +11220,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        9136.771944528942,
+        8679.261291666993,
         10000
       ]
     },
@@ -12114,6 +12138,93 @@
         10420,
         10240
       ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "cars.cars",
+        "operation": "getAll",
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "employee_id",
+              "value": "={{ $('проверка статуса авторизации').item.json.odoo_id }}"
+            }
+          ]
+        }
+      },
+      "id": "2c6952ec-24c6-474d-a3a0-39588dd4dde5",
+      "name": "получим авто по водителю",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        8700,
+        10300
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "d2976151-29cb-4bb1-8c9a-c68b3e769f61",
+              "leftValue": "={{ $json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "7dba7403-57fa-4f67-b238-6d62bbb93ad1",
+      "name": "если авто не привязан",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        8920,
+        10300
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.from.id }}",
+        "text": "Чтобы увидеть заявки, нужно быть привязанным к автомобилю",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "1293fea9-6c0b-41ec-a403-a46e8f3fc62d",
+      "name": "не привязан авто",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        9140,
+        10520
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -12127,6 +12238,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-06-05T13:37:47.000Z",
-  "versionId": "93a5de9e-76a2-4189-8e6d-cd422280cd44"
+  "updatedAt": "2024-06-05T14:03:01.000Z",
+  "versionId": "6fe5e23f-30ff-4a3f-b0e3-76b19e6086e3"
 }
