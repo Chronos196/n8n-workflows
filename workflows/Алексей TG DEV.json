@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "добавляет пользователя, если не существует": {
       "main": [
@@ -12043,7 +12043,8 @@
           "mappingMode": "defineBelow",
           "value": {
             "tg_id": "={{ $('Telegram Trigger1').item.json.callback_query.from.id }}",
-            "end_request_id": "={{ null }}"
+            "end_request_id": "={{ null }}",
+            "end_request_hours": "={{ null }}"
           },
           "matchingColumns": [
             "tg_id"
@@ -12102,6 +12103,25 @@
             {
               "id": "end_request_id",
               "displayName": "end_request_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "materials_photo",
+              "displayName": "materials_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_hours",
+              "displayName": "end_request_hours",
               "required": false,
               "defaultMatch": false,
               "display": true,
@@ -12375,6 +12395,7 @@
           "value": {
             "tg_id": "={{ $('проверка статуса').item.json.tg_id }}",
             "status": "authorized",
+            "end_request_hours": "={{ null }}",
             "end_request_id": "={{ null }}"
           },
           "matchingColumns": [
@@ -12408,7 +12429,8 @@
               "defaultMatch": false,
               "display": true,
               "type": "string",
-              "canBeUsedToMatch": true
+              "canBeUsedToMatch": true,
+              "removed": false
             },
             {
               "id": "only_mech",
@@ -12437,7 +12459,28 @@
               "defaultMatch": false,
               "display": true,
               "type": "number",
-              "canBeUsedToMatch": true
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "materials_photo",
+              "displayName": "materials_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_hours",
+              "displayName": "end_request_hours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
             }
           ]
         },
@@ -14400,7 +14443,9 @@
             "status": "authorized",
             "end_request_hours": "={{ $('Telegram Trigger1').item.json.message.text }}"
           },
-          "matchingColumns": [],
+          "matchingColumns": [
+            "tg_id"
+          ],
           "schema": [
             {
               "id": "tg_id",
@@ -14409,7 +14454,8 @@
               "defaultMatch": false,
               "display": true,
               "type": "number",
-              "canBeUsedToMatch": true
+              "canBeUsedToMatch": true,
+              "removed": false
             },
             {
               "id": "odoo_id",
@@ -14934,6 +14980,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-06-10T14:41:37.000Z",
-  "versionId": "e8fa7557-5178-4a84-999f-79da0d76fb37"
+  "updatedAt": "2024-06-10T14:54:25.000Z",
+  "versionId": "b8254c05-8615-4fe5-b853-fd41e141e973"
 }
