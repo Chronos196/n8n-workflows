@@ -2221,31 +2221,6 @@
         ]
       ]
     },
-    "Разделяем по статусам": {
-      "main": [
-        [
-          {
-            "node": "добавим перевод на новую строку",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "добавим перевод на новую строку1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "добавим перевод на новую строку2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "получим авто по водителю": {
       "main": [
         [
@@ -2949,7 +2924,7 @@
       "main": [
         [
           {
-            "node": "Отправка проблемы механикам1",
+            "node": "текст заявки",
             "type": "main",
             "index": 0
           }
@@ -3004,7 +2979,7 @@
       "main": [
         [
           {
-            "node": "Отправка проблемы механикам3",
+            "node": "текст заявки1",
             "type": "main",
             "index": 0
           }
@@ -3065,6 +3040,53 @@
         [
           {
             "node": "обновляем заявку",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Разделяем по статусам": {
+      "main": [
+        [
+          {
+            "node": "добавим перевод на новую строку",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "добавим перевод на новую строку1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "добавим перевод на новую строку2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "текст заявки": {
+      "main": [
+        [
+          {
+            "node": "Отправка проблемы механикам1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "текст заявки1": {
+      "main": [
+        [
+          {
+            "node": "Отправка проблемы механикам3",
             "type": "main",
             "index": 0
           }
@@ -11446,7 +11468,7 @@
     {
       "parameters": {
         "chatId": "={{ $('поиск тг айди механиков1').item.json.tg_id }}",
-        "text": "=Водитель {{ $('данные водителя').item.json[\"display_name\"] }} завершил заявку для автомобиля {{ $json[\"number_car\"] }} и выставил количество часов: <b>{{ $('получаем айди').item.json[\"end_request_hours\"] }}</b>\n\n<b>Требуется проверить корректность выставленных часов</b>\n<a href=\"https://everest.lamart.site/web#id={{ $('получаем айди').item.json[\"end_request_id\"] }}&cids=1&menu_id=343&action=485&model=technical.maintenance&view_type=form\">Ссылка на заявку в Odoo</a> ",
+        "text": "={{ $('данные авто').item.json[\"number_car\"] }} - {{ $('получаем айди').item.json[\"end_request_hours\"] }} ч. - {{ $('данные водителя').item.json[\"display_name\"] }} - {{ $json.description_of_maintenance }}\n\n<b>Требуется проверить корректность выставленных часов</b>\n<a href=\"https://everest.lamart.site/web#id={{ $('получаем айди').item.json[\"end_request_id\"] }}&cids=1&menu_id=343&action=485&model=technical.maintenance&view_type=form\">Ссылка на заявку в Odoo</a>",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -11474,7 +11496,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        6940,
+        7160,
         16604
       ],
       "credentials": {
@@ -11582,7 +11604,7 @@
       "parameters": {
         "content": "## Механик получает уведомление, когда водитель завершает заявку",
         "height": 250.48240620104332,
-        "width": 1349.271954368164,
+        "width": 1538.2139291185106,
         "color": 6
       },
       "id": "ad535937-7b17-4872-852b-63d12183c684",
@@ -11592,87 +11614,6 @@
       "position": [
         5800,
         16540
-      ]
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "К выполнению",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "84c7a41e-05e5-4497-b42a-1e5102906729",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "В работе",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "dea7aa17-5f44-45d5-a497-9cea75e85820",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "Требуется проверка",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "9a8c25a5-89ec-4f81-adff-32669be349d2",
-      "name": "Разделяем по статусам",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        10420,
-        10240
       ]
     },
     {
@@ -14675,7 +14616,7 @@
           ]
         },
         "additionalFields": {
-          "caption": "=Водитель {{ $('данные водителя2').item.json[\"display_name\"] }} завершил заявку для автомобиля {{ $json[\"number_car\"] }} и выставил количество часов: <b>{{ $('получаем айди').item.json[\"end_request_hours\"] }}</b>\n\n<b>Требуется проверить корректность выставленных часов</b> <a href=\"https://everest.lamart.site/web#id={{ $('получаем айди').item.json[\"end_request_id\"] }}&cids=1&menu_id=343&action=485&model=technical.maintenance&view_type=form\">Ссылка на заявку в Odoo</a>   <a href=\"{{ $('получение фото из тг1').item.json.result.file_path }}\">&#8205;</a> ",
+          "caption": "={{ $('данные авто1').item.json[\"number_car\"] }} - {{ $('получаем айди').item.json[\"end_request_hours\"] }} ч. - {{ $('данные водителя2').item.json[\"display_name\"] }} - {{ $json.description_of_maintenance }}\n\n<b>Требуется проверить корректность выставленных часов</b> <a href=\"https://everest.lamart.site/web#id={{ $('получаем айди').item.json[\"end_request_id\"] }}&cids=1&menu_id=343&action=485&model=technical.maintenance&view_type=form\">Ссылка на заявку в Odoo</a>",
           "parse_mode": "HTML"
         }
       },
@@ -14684,7 +14625,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        7320,
+        7540,
         12060
       ],
       "credentials": {
@@ -14964,6 +14905,147 @@
         6840,
         9860
       ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "К выполнению",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "84c7a41e-05e5-4497-b42a-1e5102906729",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "В работе",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "dea7aa17-5f44-45d5-a497-9cea75e85820",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "Требуется проверка",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9a8c25a5-89ec-4f81-adff-32669be349d2",
+      "name": "Разделяем по статусам",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        10420,
+        10240
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "technical.maintenance",
+        "operation": "getAll",
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "id",
+              "value": "={{ $('если айди есть в бд').item.json.end_request_id }}"
+            }
+          ]
+        }
+      },
+      "id": "2c1b082b-2399-4db0-85e3-abd7b3407e05",
+      "name": "текст заявки",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        6940,
+        16600
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "technical.maintenance",
+        "operation": "getAll",
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "id",
+              "value": "={{ $('получаем айди').item.json.end_request_id }}"
+            }
+          ]
+        }
+      },
+      "id": "3527e349-cf42-4e7a-abaf-342587cca802",
+      "name": "текст заявки1",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        7320,
+        12060
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -14980,6 +15062,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-06-10T14:54:25.000Z",
-  "versionId": "b8254c05-8615-4fe5-b853-fd41e141e973"
+  "updatedAt": "2024-06-11T07:30:02.000Z",
+  "versionId": "c2abdac9-6aa5-4a8f-9b6e-e1608badcf88"
 }
