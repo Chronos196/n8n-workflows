@@ -78,7 +78,7 @@
       "main": [
         [
           {
-            "node": "получаем id по mobile_phone",
+            "node": "номер телефона",
             "type": "main",
             "index": 0
           }
@@ -692,31 +692,6 @@
         ]
       ]
     },
-    "ветки для ролей": {
-      "main": [
-        [
-          {
-            "node": "Проверка старта1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "текст для механика",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Проверка типа входных данных",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Extract from File": {
       "main": [
         [
@@ -993,64 +968,6 @@
         [
           {
             "node": "Меню ТО2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "проверка статуса авторизации": {
-      "main": [
-        [
-          {
-            "node": "меняем статус1",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Date & Time",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "проверка нажатия кнопки контакта",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Проверка старта",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Ищем автомобиль по номеру",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "получаем данные автомобиля1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "данные смены введены",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "получаем данные автомобиля",
             "type": "main",
             "index": 0
           }
@@ -1652,6 +1569,100 @@
           }
         ]
       ]
+    },
+    "ветки для ролей": {
+      "main": [
+        [
+          {
+            "node": "Проверка старта1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "текст для механика",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Проверка типа входных данных",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка статуса авторизации": {
+      "main": [
+        [
+          {
+            "node": "меняем статус1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Date & Time",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "проверка нажатия кнопки контакта",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Проверка старта",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ищем автомобиль по номеру",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "получаем данные автомобиля1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "данные смены введены",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "получаем данные автомобиля",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "номер телефона": {
+      "main": [
+        [
+          {
+            "node": "получаем id по mobile_phone",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-05-24T18:08:06.519Z",
@@ -1993,23 +2004,13 @@
           },
           "conditions": [
             {
-              "id": "24ec202f-0645-4527-b391-6bb1bc0ea711",
-              "leftValue": "={{ $('Telegram Trigger1').item.json.message.reply_to_message.text }}",
-              "rightValue": "Чтобы войти, поделитесь контактом",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            },
-            {
               "id": "4d79f0bd-02e2-413a-b219-bfc80a34c855",
-              "leftValue": "={{ $('Telegram Trigger1').item.json.message.reply_to_message.text }}",
+              "leftValue": "={{ $('Telegram Trigger1').item.json.message.contact.phone_number }}",
               "rightValue": "Вы не нажали кнопку \"поделиться контактом\"",
               "operator": {
                 "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
+                "operation": "exists",
+                "singleValue": true
               }
             }
           ],
@@ -2039,7 +2040,7 @@
           "filter": [
             {
               "fieldName": "mobile_phone",
-              "value": "={{ $('Telegram Trigger1').item.json.message.contact.phone_number }}"
+              "value": "={{  $json.str.startsWith('+') ? $json.str : '+' + $json.str; }}"
             }
           ]
         }
@@ -2049,8 +2050,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        2200,
-        1300
+        2560,
+        1280
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -2089,7 +2090,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        2380,
+        2820,
         1300
       ]
     },
@@ -2106,7 +2107,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        2620,
+        3060,
         1420
       ],
       "credentials": {
@@ -2180,7 +2181,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        2800,
+        3240,
         1200
       ],
       "credentials": {
@@ -2205,7 +2206,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        2620,
+        3060,
         1220
       ],
       "credentials": {
@@ -2219,7 +2220,7 @@
       "parameters": {
         "content": "## Блок авторизации\n",
         "height": 623.4771536589793,
-        "width": 1691.8998618323926
+        "width": 1983.879253527953
       },
       "id": "e7d87fc8-c912-49fb-a067-31a279bba1d5",
       "name": "Sticky Note1",
@@ -3967,7 +3968,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3220,
+        3660,
         1000
       ],
       "credentials": {
@@ -4029,7 +4030,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3180,
+        3620,
         1380
       ],
       "credentials": {
@@ -4071,7 +4072,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3220,
+        3660,
         1180
       ],
       "credentials": {
@@ -4158,7 +4159,7 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        2980,
+        3420,
         1200
       ]
     },
@@ -4717,87 +4718,6 @@
       "position": [
         6460,
         4460
-      ]
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.job_id[1] }}",
-                    "rightValue": "Логист",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "8c711320-cf09-453c-9f7f-dd3e02d0d308",
-                    "leftValue": "={{ $json.job_id[1] }}",
-                    "rightValue": "Механик",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "a06fb869-7c18-4036-9ca4-f2f7fa9005d8",
-                    "leftValue": "={{ $json.job_id[1] }}",
-                    "rightValue": "Водитель",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "3384b4c3-a4b1-4304-a7de-06e422427eee",
-      "name": "ветки для ролей",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        -1320,
-        2300
       ]
     },
     {
@@ -5367,7 +5287,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        2220,
+        2660,
         1480
       ],
       "credentials": {
@@ -5711,177 +5631,6 @@
           "name": "Everest production"
         }
       }
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "77fe838f-5f60-44cc-a654-5adcbbebf8bb",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "unauthorized",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "7dc92754-779a-4427-ba34-e7c6a59cb5c6",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "input_number",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "c328907d-5e2f-4059-b43d-dec7c9a2136a",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "authorized",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "ed5a4e82-0574-4022-a4e9-a9e3d492e32f",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "inputing_car_number",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "27af43d5-2d5c-4cf3-9fd6-11b9316f9089",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "inputing_odometer",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "c2794bc8-e2a0-40b4-b9a7-bf906ac1f32b",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "inputing_data_after_work",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "886fe962-d8ac-4fe7-bfc6-53735b1d1c2f",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "inputing_request",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "1ea62b1e-a0d4-4599-a8d6-c82e6a267997",
-      "name": "проверка статуса авторизации",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        1380,
-        2040
-      ]
     },
     {
       "parameters": {
@@ -8694,6 +8443,281 @@
           "name": "Everest production"
         }
       }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.job_id[1] }}",
+                    "rightValue": "Логист",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "8c711320-cf09-453c-9f7f-dd3e02d0d308",
+                    "leftValue": "={{ $json.job_id[1] }}",
+                    "rightValue": "Механик",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "a06fb869-7c18-4036-9ca4-f2f7fa9005d8",
+                    "leftValue": "={{ $json.job_id[1] }}",
+                    "rightValue": "Водитель",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "3384b4c3-a4b1-4304-a7de-06e422427eee",
+      "name": "ветки для ролей",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -1320,
+        2300
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "77fe838f-5f60-44cc-a654-5adcbbebf8bb",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "unauthorized",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "7dc92754-779a-4427-ba34-e7c6a59cb5c6",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "input_number",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "c328907d-5e2f-4059-b43d-dec7c9a2136a",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "authorized",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "ed5a4e82-0574-4022-a4e9-a9e3d492e32f",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "inputing_car_number",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "27af43d5-2d5c-4cf3-9fd6-11b9316f9089",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "inputing_odometer",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "c2794bc8-e2a0-40b4-b9a7-bf906ac1f32b",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "inputing_data_after_work",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "886fe962-d8ac-4fe7-bfc6-53735b1d1c2f",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "inputing_request",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1ea62b1e-a0d4-4599-a8d6-c82e6a267997",
+      "name": "проверка статуса авторизации",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        1380,
+        2040
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "796008a6-26ee-49e7-be10-71ab7dbe89e1",
+              "name": "str",
+              "value": "={{ $('Telegram Trigger1').item.json.message.contact.phone_number }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "98b0d145-8c48-4469-95b4-876674280591",
+      "name": "номер телефона",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        2320,
+        1280
+      ]
     }
   ],
   "pinData": {},
@@ -8703,6 +8727,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-06-05T11:15:23.000Z",
-  "versionId": "6ed6c139-ca51-4ef6-a857-99394b693891"
+  "updatedAt": "2024-06-11T13:19:46.000Z",
+  "versionId": "94099854-d8c3-4436-a182-d58aff6c1313"
 }
