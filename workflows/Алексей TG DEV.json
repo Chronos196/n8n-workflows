@@ -333,17 +333,6 @@
         ]
       ]
     },
-    "Telegram Trigger1": {
-      "main": [
-        [
-          {
-            "node": "получаем айди",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Проверка наличия фото": {
       "main": [
         [
@@ -530,31 +519,6 @@
         [
           {
             "node": "проверка роли после авторизации",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "проверка роли после авторизации": {
-      "main": [
-        [
-          {
-            "node": "логист",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "механик",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "водитель",
             "type": "main",
             "index": 0
           }
@@ -2908,7 +2872,7 @@
         ],
         [
           {
-            "node": "Ищем автомобиль по номеру",
+            "node": "форматируем номер",
             "type": "main",
             "index": 0
           }
@@ -3317,14 +3281,14 @@
       "main": [
         [
           {
-            "node": "заявки \"к выполнению\"",
+            "node": "номер авто",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "заявки \"в работе\"",
+            "node": "номер авто1",
             "type": "main",
             "index": 0
           }
@@ -3411,6 +3375,93 @@
         [
           {
             "node": "комментарий отправлен",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "форматируем номер": {
+      "main": [
+        [
+          {
+            "node": "Ищем автомобиль по номеру",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "отправка весовых справок или ттн при завершении смены": {
+      "main": [
+        [
+          {
+            "node": "отправить весовую или ттн",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка роли после авторизации": {
+      "main": [
+        [
+          {
+            "node": "логист",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "механик",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "водитель",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "нет роли",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger1": {
+      "main": [
+        [
+          {
+            "node": "получаем айди",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "номер авто": {
+      "main": [
+        [
+          {
+            "node": "заявки \"к выполнению\"",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "номер авто1": {
+      "main": [
+        [
+          {
+            "node": "заявки \"в работе\"",
             "type": "main",
             "index": 0
           }
@@ -3887,7 +3938,7 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "tg_id": "={{ $('Telegram Trigger1').item.json.message.reply_to_message.chat.id }}",
+            "tg_id": "={{ $('получаем айди').item.json.tg_id }}",
             "odoo_id": "={{ $('проверяем наличие').item.json.id }}",
             "status": "authorized"
           },
@@ -4500,7 +4551,7 @@
           "filter": [
             {
               "fieldName": "number_car",
-              "value": "={{ $('Telegram Trigger1').item.json.message.text }}"
+              "value": "={{ $json.number }}"
             }
           ]
         }
@@ -4693,7 +4744,7 @@
       "parameters": {
         "content": "## Ввод номера автомобиля",
         "height": 510.0261823387185,
-        "width": 968.976814927086,
+        "width": 1060.8242082088582,
         "color": 6
       },
       "id": "5cc4fbfa-7c6d-489e-afe3-34eff99224b4",
@@ -4701,7 +4752,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        8700,
+        8608.152606718228,
         10860
       ]
     },
@@ -5122,32 +5173,6 @@
         "odooApi": {
           "id": "QXqc61yRCfgVSB3C",
           "name": "new Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "updates": [
-          "message",
-          "callback_query"
-        ],
-        "additionalFields": {
-          "download": true
-        }
-      },
-      "id": "b680fc0b-f6e2-4ae5-b744-de5bc1fb44c7",
-      "name": "Telegram Trigger1",
-      "type": "n8n-nodes-base.telegramTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        2080,
-        10080
-      ],
-      "webhookId": "6829191f-f2cf-41f8-bdd9-6e6890f1ba9b",
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
         }
       }
     },
@@ -5873,7 +5898,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "chatId": "={{ $json.tg_id }}",
         "text": "=Вы авторизовались как логист, <b>{{ $('получаем имя').item.json.name }}</b>",
         "replyMarkup": "replyKeyboard",
         "replyKeyboard": {
@@ -5935,7 +5960,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.reply_to_message.chat.id }}",
+        "chatId": "={{ $json.tg_id }}",
         "text": "=Вы авторизовались как водитель, <b>{{ $('получаем имя').item.json.name }}</b>",
         "replyMarkup": "replyKeyboard",
         "replyKeyboard": {
@@ -6007,7 +6032,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "chatId": "={{ $json.tg_id }}",
         "text": "=Вы авторизовались как механик, <b>{{ $('получаем имя').item.json.name }}</b>",
         "replyMarkup": "replyKeyboard",
         "replyKeyboard": {
@@ -6046,87 +6071,6 @@
           "name": "Алексей dev"
         }
       }
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('получаем имя').item.json.job_id[1] }}",
-                    "rightValue": "Логист",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "15e1453e-b597-4713-8d5b-6f12cf95cdfe",
-                    "leftValue": "={{ $('получаем имя').item.json.job_id[1] }}",
-                    "rightValue": "Механик",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "c007a326-23d6-4d7f-84ee-af7fc0aead66",
-                    "leftValue": "={{ $('получаем имя').item.json.job_id[1] }}",
-                    "rightValue": "Водитель",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "c6873951-e8e3-4280-a6d5-cb7ae013f9ad",
-      "name": "проверка роли после авторизации",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        9160,
-        8320
-      ]
     },
     {
       "parameters": {
@@ -8226,7 +8170,7 @@
     {
       "parameters": {
         "content": "## Блок проверки нажатой водителем кнопки",
-        "height": 4915.384976875754,
+        "height": 5589.183573096278,
         "width": 2241.8033428606927
       },
       "id": "3ce4cfab-e92f-495c-9d92-ec93b7193b41",
@@ -8235,7 +8179,7 @@
       "typeVersion": 1,
       "position": [
         3560,
-        12500
+        12680
       ]
     },
     {
@@ -9174,7 +9118,7 @@
     {
       "parameters": {
         "chatId": "={{ $('Telegram Trigger1').item.json.callback_query.from.id }}",
-        "text": "={{ $('находим перевозки по рейсам').item.json.id }}. {{ $json.departure }} -  {{ $json.arrival }}, материал - {{ $('находим перевозки по рейсам').item.json.product[1] }}, комментарий к перевозке -  {{ $('находим перевозки по рейсам').item.json.comment }}",
+        "text": "={{ $('находим перевозки по рейсам').item.json.id }}. <b>{{ $('находим перевозки по рейсам').item.json[\"sender\"][1] }} - {{ $('находим перевозки по рейсам').item.json[\"partner\"][1] }}\n{{ $json.departure }} - {{ $json.arrival }}</b>\nМатериал - <b>{{ $('находим перевозки по рейсам').item.json.product[1] }}</b>\nКомментарий - <b>{{ $('находим перевозки по рейсам').item.json.comment }}</b>",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -10815,24 +10759,6 @@
     },
     {
       "parameters": {
-        "fieldsToAggregate": {
-          "fieldToAggregate": [
-            {}
-          ]
-        },
-        "options": {}
-      },
-      "id": "1c9c78ca-4e27-4d7f-886e-4434e01574e0",
-      "name": "Aggregate",
-      "type": "n8n-nodes-base.aggregate",
-      "typeVersion": 1,
-      "position": [
-        460,
-        460
-      ]
-    },
-    {
-      "parameters": {
         "assignments": {
           "assignments": [
             {
@@ -11167,8 +11093,8 @@
         "filterRequest": {
           "filter": [
             {
-              "fieldName": "created_by",
-              "value": "={{ $('получаем роль').item.json.id }}"
+              "fieldName": "car_id",
+              "value": "={{ $json.id }}"
             },
             {
               "fieldName": "status",
@@ -11182,7 +11108,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        4620,
+        4840,
         14980
       ],
       "alwaysOutputData": true,
@@ -11202,7 +11128,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        5060,
+        5280,
         14980
       ]
     },
@@ -11220,7 +11146,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        5280,
+        5500,
         14980
       ]
     },
@@ -11235,7 +11161,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5500,
+        5720,
         14980
       ],
       "credentials": {
@@ -11270,7 +11196,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        5060,
+        5280,
         15340
       ]
     },
@@ -11288,7 +11214,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        5280,
+        5500,
         15340
       ]
     },
@@ -11303,7 +11229,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5500,
+        5720,
         15340
       ],
       "credentials": {
@@ -11339,8 +11265,8 @@
         "filterRequest": {
           "filter": [
             {
-              "fieldName": "created_by",
-              "value": "={{ $('получаем роль').item.json.id }}"
+              "fieldName": "car_id",
+              "value": "={{ $json.id }}"
             },
             {
               "fieldName": "status",
@@ -11354,7 +11280,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        4620,
+        4840,
         15340
       ],
       "alwaysOutputData": true,
@@ -11394,7 +11320,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        4840,
+        5060,
         15340
       ]
     },
@@ -11427,7 +11353,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        4840,
+        5060,
         14980
       ]
     },
@@ -11445,7 +11371,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5120,
+        5340,
         15160
       ],
       "credentials": {
@@ -11474,7 +11400,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        4720,
+        4940,
         15620
       ]
     },
@@ -11517,7 +11443,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        5860,
+        6080,
         16624
       ],
       "alwaysOutputData": true,
@@ -11558,7 +11484,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        6055,
+        6275,
         16625
       ],
       "alwaysOutputData": true,
@@ -11598,7 +11524,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        6280,
+        6500,
         16624
       ]
     },
@@ -11622,7 +11548,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        4940,
+        5160,
         15620
       ],
       "credentials": {
@@ -11676,7 +11602,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        7160,
+        7380,
         16604
       ],
       "credentials": {
@@ -11699,7 +11625,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5180,
+        5400,
         15726
       ],
       "credentials": {
@@ -11739,7 +11665,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5180,
+        5400,
         15566
       ],
       "credentials": {
@@ -11770,7 +11696,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        6500,
+        6720,
         16604
       ],
       "credentials": {
@@ -11912,7 +11838,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5140,
+        5360,
         15925
       ],
       "credentials": {
@@ -11941,7 +11867,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        4480,
+        4700,
         16005
       ]
     },
@@ -12039,7 +11965,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        5440,
+        5660,
         15925
       ],
       "credentials": {
@@ -12136,7 +12062,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4800,
+        5020,
         16440
       ],
       "credentials": {
@@ -12258,7 +12184,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        5060,
+        5280,
         16440
       ],
       "credentials": {
@@ -12298,7 +12224,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4800,
+        5020,
         16280
       ],
       "credentials": {
@@ -12401,7 +12327,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        5020,
+        5240,
         16280
       ],
       "credentials": {
@@ -12676,7 +12602,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        4680,
+        4900,
         16005
       ],
       "credentials": {
@@ -12715,7 +12641,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        4900,
+        5120,
         16005
       ]
     },
@@ -12733,7 +12659,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5280,
+        5500,
         16065
       ],
       "credentials": {
@@ -13623,7 +13549,7 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        3680,
+        3900,
         16920
       ]
     },
@@ -13729,7 +13655,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        4420,
+        4860,
         17040
       ],
       "credentials": {
@@ -13752,7 +13678,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4140,
+        4580,
         16785
       ],
       "credentials": {
@@ -13792,7 +13718,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        4380,
+        4820,
         16785
       ],
       "credentials": {
@@ -13823,7 +13749,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        4620,
+        5060,
         16785
       ],
       "credentials": {
@@ -13853,7 +13779,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        4880,
+        5320,
         16785
       ],
       "credentials": {
@@ -13875,7 +13801,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        4080,
+        4280,
         16720
       ]
     },
@@ -13891,7 +13817,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        4080,
+        4240,
         16980
       ]
     },
@@ -14086,7 +14012,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4160,
+        4600,
         17040
       ],
       "credentials": {
@@ -14386,7 +14312,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        6720,
+        6940,
         16604
       ],
       "credentials": {
@@ -14971,7 +14897,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        6940,
+        7160,
         16600
       ],
       "credentials": {
@@ -16114,7 +16040,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4000,
+        4220,
         16500
       ],
       "credentials": {
@@ -16236,7 +16162,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        4220,
+        4440,
         16500
       ],
       "credentials": {
@@ -16428,7 +16354,7 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        3680,
+        3900,
         16380
       ]
     },
@@ -16632,6 +16558,292 @@
         3920,
         8320
       ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\n\nvar data = $('Telegram Trigger1').all()[0].json;\nvar number = data.message.text;\n\nconst cleanedNumber = number.replace(/\\s+/g, '').toUpperCase(); //убираем пробелы и приводим к верхнему регистру\n\nreturn {\"number\": cleanedNumber};"
+      },
+      "id": "1f1f5434-12f9-4024-9b67-bf3cef4d23ef",
+      "name": "форматируем номер",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        8660,
+        11100
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
+                    "rightValue": "weight_or_ttn",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "87cca9fa-7415-4313-9fab-28c7528ccd04",
+      "name": "отправка весовых справок или ттн при завершении смены",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        3700,
+        17600
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Telegram Trigger1').item.json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Telegram Trigger1').item.json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "Для завершения отправьте ",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Да",
+                    "additionalFields": {
+                      "callback_data": "career"
+                    }
+                  },
+                  {
+                    "text": "Нет",
+                    "additionalFields": {
+                      "callback_data": "weight_or_ttn"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "id": "5a0f45a4-6918-4b01-801d-3606aee5cf95",
+      "name": "отправить весовую или ттн",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        4260,
+        17600
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('получаем имя').item.json.job_id[1] }}",
+                    "rightValue": "Логист",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "15e1453e-b597-4713-8d5b-6f12cf95cdfe",
+                    "leftValue": "={{ $('получаем имя').item.json.job_id[1] }}",
+                    "rightValue": "Механик",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "c007a326-23d6-4d7f-84ee-af7fc0aead66",
+                    "leftValue": "={{ $('получаем имя').item.json.job_id[1] }}",
+                    "rightValue": "Водитель",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "c6873951-e8e3-4280-a6d5-cb7ae013f9ad",
+      "name": "проверка роли после авторизации",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        9160,
+        8320
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.tg_id }}",
+        "text": "Вы авторизовались, но у вас не указана роль в Odoo",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "e4b70e15-1752-4a36-8d9c-327e0babcf30",
+      "name": "нет роли",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        9200,
+        8580
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message",
+          "callback_query"
+        ],
+        "additionalFields": {}
+      },
+      "id": "0c4f6498-4d9f-4d40-81af-d694a7689785",
+      "name": "Telegram Trigger1",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        2120,
+        10100
+      ],
+      "webhookId": "ac874252-f638-4deb-8ff5-94d1fec89ed7",
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "cars.cars",
+        "operation": "getAll",
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "employee_id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        }
+      },
+      "id": "8a69f374-2167-48e5-bec3-a6dc85e0d6b3",
+      "name": "номер авто",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        4620,
+        14980
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "cars.cars",
+        "operation": "getAll",
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "employee_id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        }
+      },
+      "id": "e5a9ce76-e71f-46cc-aee0-c1832e6eeed6",
+      "name": "номер авто1",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        4620,
+        15340
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -16648,6 +16860,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-06-18T07:57:43.000Z",
-  "versionId": "a3e29f4d-8221-46b3-8054-f6ae99c9d573"
+  "updatedAt": "2024-06-21T07:11:05.000Z",
+  "versionId": "cf49501d-d7fe-4a4a-9281-f3bf0057abd1"
 }
