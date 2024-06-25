@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "добавляет пользователя, если не существует": {
       "main": [
@@ -3393,13 +3393,7 @@
     },
     "Форматирование даты рейса": {
       "main": [
-        [
-          {
-            "node": "Получение сегодняшней даты",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Получение сегодняшней даты": {
@@ -3417,7 +3411,7 @@
       "main": [
         [
           {
-            "node": "If3",
+            "node": "форматируем в удобный вид3",
             "type": "main",
             "index": 0
           }
@@ -3457,7 +3451,7 @@
       "main": [
         [
           {
-            "node": "находим рейсы по машине2",
+            "node": "Получение сегодняшней даты",
             "type": "main",
             "index": 0
           }
@@ -3468,7 +3462,7 @@
       "main": [
         [
           {
-            "node": "Форматирование даты рейса",
+            "node": "If3",
             "type": "main",
             "index": 0
           }
@@ -3612,6 +3606,17 @@
         [
           {
             "node": "получаем odoo id1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "форматируем в удобный вид3": {
+      "main": [
+        [
+          {
+            "node": "находим рейсы по машине2",
             "type": "main",
             "index": 0
           }
@@ -4686,8 +4691,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        6480,
-        2620
+        6540,
+        2600
       ]
     },
     {
@@ -4942,7 +4947,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        8100,
+        8140,
         4300
       ],
       "credentials": {
@@ -5316,7 +5321,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        8380,
+        8400,
         4300
       ],
       "credentials": {
@@ -9687,20 +9692,20 @@
         "chatId": "={{ $('Telegram Trigger1').item.json.callback_query.message.chat.id }}",
         "messageId": "={{ $('Telegram Trigger1').item.json.callback_query.message.message_id }}",
         "replyMarkup": "inlineKeyboard",
-        "text": "Нужно ли отправить документ?",
+        "text": "Отправить фотографию весовой справки? ",
         "inlineKeyboard": {
           "rows": [
             {
               "row": {
                 "buttons": [
                   {
-                    "text": "Отправить документ",
+                    "text": "Отправить",
                     "additionalFields": {
                       "callback_data": "document"
                     }
                   },
                   {
-                    "text": "Отправка не требуется",
+                    "text": "Отправить в конце смены",
                     "additionalFields": {
                       "callback_data": "final"
                     }
@@ -16764,8 +16769,8 @@
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        2300,
-        7960
+        2180,
+        8200
       ]
     },
     {
@@ -16777,7 +16782,7 @@
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        2500,
+        2160,
         7960
       ]
     },
@@ -16785,7 +16790,7 @@
       "parameters": {
         "operation": "formatDate",
         "date": "={{ $json.currentDate }}",
-        "format": "=yyyy-MM-dd",
+        "format": "=yyyy-MM-dd, 00:00:00",
         "options": {}
       },
       "id": "f1ff399c-7538-4868-962d-89381c7f64ff",
@@ -16793,7 +16798,7 @@
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        2660,
+        2320,
         7960
       ]
     },
@@ -16808,12 +16813,12 @@
           "conditions": [
             {
               "id": "4d23ae04-cccb-42b1-b53e-23ece53e44fb",
-              "leftValue": "={{ $('Форматирование даты рейса').item.json.formattedDate }}",
+              "leftValue": "={{ $('находим рейсы по машине2').item.json }}",
               "rightValue": "={{ $json.formattedDate }}",
               "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
               }
             }
           ],
@@ -16826,7 +16831,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        2860,
+        2840,
         7960
       ]
     },
@@ -16936,7 +16941,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        1940,
+        1980,
         7960
       ],
       "credentials": {
@@ -16957,11 +16962,21 @@
           "filter": [
             {
               "fieldName": "car",
-              "value": "={{ $json.id }}"
+              "value": "={{ $('находим машину по odoo id7').item.json.id }}"
             },
             {
               "fieldName": "status",
               "value": "Назначен"
+            },
+            {
+              "fieldName": "time",
+              "operator": "greaterOrEqual",
+              "value": "={{ $('форматируем в удобный вид1').item.json.formattedDate }}"
+            },
+            {
+              "fieldName": "time",
+              "operator": "lesserOrEqual",
+              "value": "={{ $json.newformattedDate }}"
             }
           ]
         }
@@ -16971,9 +16986,11 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        2100,
+        2640,
         7960
       ],
+      "alwaysOutputData": true,
+      "executeOnce": false,
       "credentials": {
         "odooApi": {
           "id": "QXqc61yRCfgVSB3C",
@@ -16993,6 +17010,10 @@
             {
               "fieldName": "id",
               "value": "={{ $('находим рейсы по машине2').item.json.transportation[0] }}"
+            },
+            {
+              "fieldName": "start_condition",
+              "value": "В начале смены"
             }
           ]
         }
@@ -17397,6 +17418,59 @@
           "name": "new Odoo Алексей"
         }
       }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://everest.lamart.site/take_auto",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number_car",
+              "value": "={{ $('Ищем автомобиль по номеру').item.json.number_car }}"
+            },
+            {
+              "name": "employee_id",
+              "value": "={{ $json.odoo_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "738636f8-283c-4560-b6c8-3173fa58f25d",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        7980,
+        4600
+      ],
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "ZTy41ThKtGddZdrd",
+          "name": "odoo sergey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $('Получение сегодняшней даты').item.json.currentDate }}",
+        "format": "=yyyy-MM-dd, 23:59:59",
+        "outputFieldName": "newformattedDate",
+        "options": {}
+      },
+      "id": "e612f51a-d375-49e3-8098-2f6e56a290cc",
+      "name": "форматируем в удобный вид3",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        2480,
+        7960
+      ]
     }
   ],
   "pinData": {},
@@ -17410,6 +17484,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-06-25T09:57:16.000Z",
-  "versionId": "a972e335-5970-4c8c-9dd4-9d96c86df6ff"
+  "updatedAt": "2024-06-25T13:36:31.000Z",
+  "versionId": "bcb4d2ad-cb53-4f4d-8d5a-8d1fdeaf5f5d"
 }
