@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "добавляет пользователя, если не существует": {
       "main": [
@@ -238,17 +238,6 @@
         ]
       ]
     },
-    "добавляем данные в оду": {
-      "main": [
-        [
-          {
-            "node": "меняем статус машины на Без груза",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Проверка типа входных данных": {
       "main": [
         [
@@ -373,7 +362,7 @@
       "main": [
         [
           {
-            "node": "сохраняем данные смены",
+            "node": "номер автомобиля",
             "type": "main",
             "index": 0
           }
@@ -2505,7 +2494,7 @@
             "index": 0
           },
           {
-            "node": "добавляем данные в оду",
+            "node": "изменяем водителя",
             "type": "main",
             "index": 0
           }
@@ -3399,7 +3388,7 @@
         ],
         [
           {
-            "node": "данные смены введены",
+            "node": "проверка на число1",
             "type": "main",
             "index": 0
           }
@@ -3659,17 +3648,6 @@
         ]
       ]
     },
-    "Schedule Trigger2": {
-      "main": [
-        [
-          {
-            "node": "HTTP Request",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "HTTP Request1": {
       "main": [
         [
@@ -3678,8 +3656,7 @@
             "type": "main",
             "index": 0
           }
-        ],
-        []
+        ]
       ]
     },
     "авторизация": {
@@ -3705,6 +3682,35 @@
         [
           {
             "node": "одометр введён неверно",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка на число1": {
+      "main": [
+        [
+          {
+            "node": "данные смены введены",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "часы введены неверно",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "номер автомобиля": {
+      "main": [
+        [
+          {
+            "node": "сохраняем карьер часы",
             "type": "main",
             "index": 0
           }
@@ -5003,7 +5009,7 @@
       "parameters": {
         "content": "## Изменение водителя в ОДУ\n",
         "height": 258.8309220721088,
-        "width": 664.1493738928001,
+        "width": 421.1900237988659,
         "color": 6
       },
       "id": "7728e4ce-f615-473a-987d-7bc9a9c7c3d5",
@@ -5011,39 +5017,9 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        10620,
-        12140
+        10700,
+        12120
       ]
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "cars.cars",
-        "operation": "update",
-        "customResourceId": "={{ $('Разделение reply-кнопок или иного ввода').item.json.car_id_while_inputing }}",
-        "fieldsToCreateOrUpdate": {
-          "fields": [
-            {
-              "fieldName": "employee_id",
-              "fieldValue": "={{ $('проверка статуса авторизации').item.json.odoo_id }}"
-            }
-          ]
-        }
-      },
-      "id": "d7deb580-3241-4d43-809f-207de4799d97",
-      "name": "добавляем данные в оду",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        10720,
-        12220
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
-        }
-      }
     },
     {
       "parameters": {
@@ -5458,36 +5434,6 @@
     },
     {
       "parameters": {
-        "resource": "custom",
-        "customResource": "cars.cars",
-        "operation": "update",
-        "customResourceId": "={{ $json.id }}",
-        "fieldsToCreateOrUpdate": {
-          "fields": [
-            {
-              "fieldName": "status",
-              "fieldValue": "Нет груза"
-            }
-          ]
-        }
-      },
-      "id": "1fce8d79-415e-4059-ab02-e7b2832da3c5",
-      "name": "меняем статус машины на Без груза",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        11000,
-        12220
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
         "conditions": {
           "options": {
             "caseSensitive": true,
@@ -5632,7 +5578,7 @@
       "parameters": {
         "content": "## Ввод данных смены\nэти данные пока никуда не сохраняются",
         "height": 297.5961132589107,
-        "width": 850.8599160043456,
+        "width": 906.4857111284805,
         "color": 6
       },
       "id": "196ee4a8-b822-4ea6-af66-9a3bfd50cd77",
@@ -5777,76 +5723,6 @@
         3580,
         7040
       ]
-    },
-    {
-      "parameters": {
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "data_after_work",
-          "mode": "list",
-          "cachedResultName": "data_after_work"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "tg_user": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
-            "data": "={{ $('Telegram Trigger1').item.json.message.text }}"
-          },
-          "matchingColumns": [
-            "id"
-          ],
-          "schema": [
-            {
-              "id": "id",
-              "displayName": "id",
-              "required": false,
-              "defaultMatch": true,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "tg_user",
-              "displayName": "tg_user",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "data",
-              "displayName": "data",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "3747249c-b4aa-4c46-959b-146150fbd6ea",
-      "name": "сохраняем данные смены",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.3,
-      "position": [
-        10010,
-        12380
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "Q4ZHMkPf1vzJmsuw",
-          "name": "Postgres account"
-        }
-      }
     },
     {
       "parameters": {
@@ -8710,7 +8586,8 @@
           "id": "Q4ZHMkPf1vzJmsuw",
           "name": "Postgres account"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -8741,7 +8618,8 @@
           "id": "QXqc61yRCfgVSB3C",
           "name": "new Odoo Алексей"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -8774,7 +8652,8 @@
           "id": "QXqc61yRCfgVSB3C",
           "name": "new Odoo Алексей"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -8793,9 +8672,7 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "only_mech": "={{ $('получаем odoo id3').item.json.only_mech }}",
-            "tg_id": "={{ $('получаем odoo id3').item.json.tg_id }}",
-            "odoo_id": "={{ $('получаем odoo id3').item.json.odoo_id }}",
+            "tg_id": "={{ $('получаем айди').item.json.tg_id }}",
             "status": "inputing_data_after_work"
           },
           "matchingColumns": [
@@ -8819,7 +8696,8 @@
               "defaultMatch": false,
               "display": true,
               "type": "number",
-              "canBeUsedToMatch": true
+              "canBeUsedToMatch": true,
+              "removed": true
             },
             {
               "id": "status",
@@ -8837,7 +8715,8 @@
               "defaultMatch": false,
               "display": true,
               "type": "boolean",
-              "canBeUsedToMatch": true
+              "canBeUsedToMatch": true,
+              "removed": true
             }
           ]
         },
@@ -17861,62 +17740,6 @@
     },
     {
       "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "hours"
-            }
-          ]
-        }
-      },
-      "id": "9bf7028c-7f72-453b-ae4d-c4a535a009c7",
-      "name": "Schedule Trigger2",
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        1580,
-        13340
-      ],
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://everest.lamart.site/web/session/authenticate",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"call\",\n    \"params\": {\n        \"db\": \"db\",\n        \"login\": \"lamart-admin\",\n        \"password\": \"lamarlemur\"\n    }\n}",
-        "options": {}
-      },
-      "id": "761ed70b-73e8-4bef-9855-e4c1d59f1e05",
-      "name": "HTTP Request",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        1800,
-        13340
-      ],
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "content": "## Авторизация\nне знаю сколько живёт авторизация, пусть будет каждый час",
-        "height": 290.3729986901596,
-        "width": 502.46143157361064,
-        "color": 6
-      },
-      "id": "ce576e6f-854d-4322-88aa-b1487bd9bccc",
-      "name": "Sticky Note48",
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        1500,
-        13240
-      ],
-      "disabled": true
-    },
-    {
-      "parameters": {
         "method": "POST",
         "url": "https://everest.lamart.site/update_odometer",
         "sendHeaders": true,
@@ -17995,9 +17818,148 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        9160,
-        12000
+        9180,
+        12060
       ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://everest.lamart.site/take_auto",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ \n\"number_car\": {{ '\"' + $('получаем данные автомобиля1').item.json.number_car + '\"' }},\n\"employee_id\": {{ $('проверка статуса авторизации').item.json.odoo_id }}\n}  ",
+        "options": {}
+      },
+      "id": "35742184-0147-42f7-8c32-0619946661ca",
+      "name": "изменяем водителя",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        10800,
+        12220
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://everest.lamart.site/finish_shift",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n\"number_car\": {{ '\"' + $json.number_car + '\"' }}, \n\"quarry_hours\": {{ $('Telegram Trigger1').item.json.message.text }}\n}",
+        "options": {}
+      },
+      "id": "fbc53439-c1e1-410a-9ad7-b20daeb769aa",
+      "name": "сохраняем карьер часы",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        10260,
+        12380
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "44403514-747a-47bf-9419-77944fae7bb7",
+              "leftValue": "={{ $('Telegram Trigger1').item.json.message.text }}",
+              "rightValue": "/^[0-9]+$/",
+              "operator": {
+                "type": "string",
+                "operation": "regex"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "40ef5a54-6e8f-400f-b36f-632a1dcb2891",
+      "name": "проверка на число1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        9160,
+        12340
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "Часы введены неверно, повторите попытку",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "207863c2-bfa2-487b-9138-67433c5dd2a9",
+      "name": "часы введены неверно",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        9600,
+        12540
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "cars.cars",
+        "operation": "getAll",
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "employee_id",
+              "value": "={{ $json.odoo_id }}"
+            }
+          ]
+        }
+      },
+      "id": "7cf66be8-8e41-46f7-83e9-b88e7dc1e8eb",
+      "name": "номер автомобиля",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        10020,
+        12380
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -18017,6 +17979,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-06-25T17:02:18.000Z",
-  "versionId": "e6fdf0ad-e33d-4194-980b-4f45066166bb"
+  "updatedAt": "2024-06-26T07:36:07.000Z",
+  "versionId": "5ea9186b-7113-4a0b-8190-0a98e95b6a11"
 }
