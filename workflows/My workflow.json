@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "добавляет пользователя, если не существует": {
       "main": [
@@ -315,18 +315,7 @@
       "main": [
         [
           {
-            "node": "добавляем данные в оду",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "получаем данные автомобиля1": {
-      "main": [
-        [
-          {
-            "node": "обновляем одометр",
+            "node": "начало рейса1",
             "type": "main",
             "index": 0
           }
@@ -928,24 +917,6 @@
         ]
       ]
     },
-    "обновляем одометр": {
-      "main": [
-        [
-          {
-            "node": "Преобразование одометра в число",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "одометр введён неверно",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "ищем автомобиль с таким же сотрудником": {
       "main": [
         [
@@ -1141,17 +1112,6 @@
         ]
       ]
     },
-    "находим машину по odoo id": {
-      "main": [
-        [
-          {
-            "node": "меняем статус машины на Загружена",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Заказ завершен1": {
       "main": [
         [
@@ -1178,7 +1138,7 @@
       "main": [
         [
           {
-            "node": "меняем статус машины на Нет груза1",
+            "node": "завершение рейса",
             "type": "main",
             "index": 0
           }
@@ -1880,7 +1840,7 @@
       "main": [
         [
           {
-            "node": "получаем odoo id6",
+            "node": "вывод доступных перевозок",
             "type": "main",
             "index": 0
           }
@@ -2802,7 +2762,7 @@
         ],
         [
           {
-            "node": "получаем данные автомобиля1",
+            "node": "проверка на число",
             "type": "main",
             "index": 0
           }
@@ -3384,16 +3344,11 @@
       "main": [
         [
           {
-            "node": "получаем айди",
+            "node": "авторизация",
             "type": "main",
             "index": 0
           }
         ]
-      ]
-    },
-    "Форматирование даты рейса": {
-      "main": [
-        []
       ]
     },
     "Получение сегодняшней даты": {
@@ -3535,17 +3490,6 @@
         ]
       ]
     },
-    "Switch2": {
-      "main": [
-        [
-          {
-            "node": "Меняем статус рейса на выполняется",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "находим рейсы по машине3": {
       "main": [
         [
@@ -3601,22 +3545,95 @@
         ]
       ]
     },
-    "Требуется ли отправка документа": {
+    "форматируем в удобный вид3": {
       "main": [
         [
           {
-            "node": "получаем odoo id1",
+            "node": "находим рейсы по машине2",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "форматируем в удобный вид3": {
+    "Switch2": {
       "main": [
         [
           {
-            "node": "находим рейсы по машине2",
+            "node": "Меняем статус рейса на выполняется",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "вывод доступных перевозок": {
+      "main": [
+        [
+          {
+            "node": "получаем odoo id6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "находим машину по odoo id": {
+      "main": [
+        [
+          {
+            "node": "начало рейса",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "авторизация": {
+      "main": [
+        [
+          {
+            "node": "получаем айди",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получаем данные автомобиля1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка на число": {
+      "main": [
+        [
+          {
+            "node": "получаем данные автомобиля1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "одометр введён неверно1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Преобразование одометра в число",
             "type": "main",
             "index": 0
           }
@@ -4947,7 +4964,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        8140,
+        8400,
         4300
       ],
       "credentials": {
@@ -5259,52 +5276,6 @@
       "parameters": {
         "resource": "custom",
         "customResource": "cars.cars",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "employee_id",
-              "value": "={{ $('проверка статуса авторизации').item.json.odoo_id }}"
-            }
-          ]
-        }
-      },
-      "id": "eeca342b-5349-4248-9f73-81005c3b57f9",
-      "name": "получаем данные автомобиля1",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        6930,
-        5080
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "content": "## Ввод одометра",
-        "height": 271.1847873311224,
-        "width": 511.5414015853248
-      },
-      "id": "88250d8f-3fcb-4146-af33-7ce7a5bce912",
-      "name": "Sticky Note3",
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        6850,
-        5000
-      ]
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "cars.cars",
         "operation": "update",
         "customResourceId": "={{ $json.id }}",
         "fieldsToCreateOrUpdate": {
@@ -5321,7 +5292,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        8400,
+        8660,
         4300
       ],
       "credentials": {
@@ -7456,61 +7427,6 @@
     },
     {
       "parameters": {
-        "resource": "custom",
-        "customResource": "=cars.cars",
-        "operation": "update",
-        "customResourceId": "={{ $json.id }}",
-        "fieldsToCreateOrUpdate": {
-          "fields": [
-            {
-              "fieldName": "odometer",
-              "fieldValue": "={{ $('Telegram Trigger1').item.json.message.text }}"
-            }
-          ]
-        }
-      },
-      "id": "42b72cb7-a6a5-4b79-a672-ba7b01b7ee05",
-      "name": "обновляем одометр",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        7170,
-        5080
-      ],
-      "retryOnFail": false,
-      "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
-        }
-      },
-      "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
-        "text": "Произошла ошибка, повторите ввод данных одометра",
-        "additionalFields": {
-          "appendAttribution": false
-        }
-      },
-      "id": "6a7728c2-8c25-457e-93eb-a5213f49b542",
-      "name": "одометр введён неверно",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        7470,
-        5220
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "ThC2kf8ZCBAO0FBa",
-          "name": "Main Everest"
-        }
-      }
-    },
-    {
-      "parameters": {
         "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
         "text": "Вы не нажали кнопку \"поделиться контактом\"",
         "replyMarkup": "replyKeyboard",
@@ -8954,8 +8870,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        3360,
-        6240
+        3680,
+        6020
       ],
       "credentials": {
         "odooApi": {
@@ -8984,8 +8900,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        3380,
-        5980
+        4140,
+        5840
       ],
       "credentials": {
         "odooApi": {
@@ -16746,7 +16662,7 @@
       "type": "n8n-nodes-base.telegramTrigger",
       "typeVersion": 1.1,
       "position": [
-        40,
+        -220,
         3400
       ],
       "webhookId": "6ba52821-cdc8-4a9a-ac78-e8c2dbcbfaec",
@@ -16782,7 +16698,7 @@
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        2160,
+        2520,
         7960
       ]
     },
@@ -16798,7 +16714,7 @@
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        2320,
+        2680,
         7960
       ]
     },
@@ -16831,7 +16747,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        2840,
+        3200,
         7960
       ]
     },
@@ -16871,7 +16787,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3060,
+        3420,
         8080
       ],
       "credentials": {
@@ -16910,7 +16826,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        1780,
+        2180,
         7960
       ],
       "credentials": {
@@ -16941,7 +16857,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        1980,
+        2340,
         7960
       ],
       "credentials": {
@@ -16986,7 +16902,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        2640,
+        3000,
         7960
       ],
       "alwaysOutputData": true,
@@ -17023,7 +16939,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        3100,
+        3460,
         7920
       ],
       "credentials": {
@@ -17040,7 +16956,7 @@
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        3280,
+        3640,
         7920
       ]
     },
@@ -17065,7 +16981,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        3460,
+        3820,
         7920
       ],
       "credentials": {
@@ -17078,7 +16994,7 @@
     {
       "parameters": {
         "chatId": "={{ $('Telegram Trigger1').item.json.callback_query.from.id }}",
-        "text": "=Вам доступна следующая перевозка:{{ $('находим перевозки по рейсам2').item.json.id }}. {{ $json.departure }} -  {{ $json.arrival }}, материал - {{ $('находим перевозки по рейсам2').item.json.product[1] }}, комментарий к перевозке -  {{ $('находим перевозки по рейсам2').item.json.comment }}",
+        "text": "={{ $('находим перевозки по рейсам2').item.json.id }}. <b>{{ $('находим перевозки по рейсам2').item.json[\"sender\"][1] }} - {{ $('находим перевозки по рейсам2').item.json[\"partner\"][1] }}\n{{ $json.departure }} - {{ $json.arrival }}</b>\nМатериал - <b>{{ $('находим перевозки по рейсам2').item.json.product[1] }}</b>\nКомментарий - <b>{{ $('находим перевозки по рейсам2').item.json.comment }}</b>",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -17106,7 +17022,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3620,
+        3980,
         7920
       ],
       "credentials": {
@@ -17128,8 +17044,8 @@
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        3720,
-        5980
+        4480,
+        5840
       ]
     },
     {
@@ -17141,8 +17057,8 @@
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        3860,
-        5980
+        4620,
+        5840
       ]
     },
     {
@@ -17157,8 +17073,8 @@
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        4000,
-        5980
+        4760,
+        5840
       ]
     },
     {
@@ -17181,8 +17097,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        4320,
-        5980
+        5080,
+        5840
       ],
       "credentials": {
         "odooApi": {
@@ -17190,64 +17106,6 @@
           "name": "new Odoo Алексей"
         }
       }
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.formattedDate }}",
-                    "rightValue": "={{ $('Date & Time3').item.json.formattedDate }}",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "5d1d7c89-619d-4089-821c-bad312961509",
-                    "leftValue": "={{ $json.formattedDate }}",
-                    "rightValue": "={{ $('Date & Time3').item.json.formattedDate }}",
-                    "operator": {
-                      "type": "string",
-                      "operation": "notEquals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "c6a4e94d-108e-4e87-be65-3209966315f1",
-      "name": "Switch2",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        4140,
-        5980
-      ]
     },
     {
       "parameters": {
@@ -17274,8 +17132,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        3580,
-        5980
+        4340,
+        5840
       ],
       "credentials": {
         "odooApi": {
@@ -17421,42 +17279,6 @@
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "https://everest.lamart.site/take_auto",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpBasicAuth",
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "number_car",
-              "value": "={{ $('Ищем автомобиль по номеру').item.json.number_car }}"
-            },
-            {
-              "name": "employee_id",
-              "value": "={{ $json.odoo_id }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "738636f8-283c-4560-b6c8-3173fa58f25d",
-      "name": "HTTP Request",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        7980,
-        4600
-      ],
-      "credentials": {
-        "httpBasicAuth": {
-          "id": "ZTy41ThKtGddZdrd",
-          "name": "odoo sergey"
-        }
-      }
-    },
-    {
-      "parameters": {
         "operation": "formatDate",
         "date": "={{ $('Получение сегодняшней даты').item.json.currentDate }}",
         "format": "=yyyy-MM-dd, 23:59:59",
@@ -17468,8 +17290,327 @@
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        2480,
+        2840,
         7960
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.formattedDate }}",
+                    "rightValue": "={{ $('Date & Time3').item.json.formattedDate }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "5d1d7c89-619d-4089-821c-bad312961509",
+                    "leftValue": "={{ $json.formattedDate }}",
+                    "rightValue": "={{ $('Date & Time3').item.json.formattedDate }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notEquals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c6a4e94d-108e-4e87-be65-3209966315f1",
+      "name": "Switch2",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        4900,
+        5840
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Telegram Trigger1').item.json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Telegram Trigger1').item.json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "Вам назначена следующая перевозка:",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "0ac3d6ec-7b50-4978-977a-e02a37509976",
+      "name": "вывод доступных перевозок",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        1900,
+        7960
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ThC2kf8ZCBAO0FBa",
+          "name": "Main Everest"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://everest.lamart.site/web/session/authenticate",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"call\",\n    \"params\": {\n        \"db\": \"db\",\n        \"login\": \"alexey.goremykin@urfu.me\",\n        \"password\": \"D4AcDsvTq6gPc5P\"\n    }\n}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "id": "880e62de-9a59-4e40-8871-2464b3583d01",
+      "name": "авторизация",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        20,
+        3400
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://everest.lamart.site/accept_order",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"number_car\": {{'\"'+ $json.number_car +'\"'}}\n}",
+        "options": {}
+      },
+      "id": "738636f8-283c-4560-b6c8-3173fa58f25d",
+      "name": "начало рейса",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        3420,
+        5980
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://everest.lamart.site/complete_round",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"number_car\": {{'\"'+ $json.number_car +'\"'}}\n}",
+        "options": {}
+      },
+      "id": "8701a585-531c-4e3a-b9ee-a92a3c26cfc7",
+      "name": "завершение рейса",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        3400,
+        6240
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "cars.cars",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "employee_id",
+              "value": "={{ $json.odoo_id }}"
+            }
+          ]
+        }
+      },
+      "id": "da28b69f-c5f8-466c-90b2-d421cc94c5f0",
+      "name": "получаем данные автомобиля1",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        6930,
+        4980
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Ввод одометра",
+        "height": 271.1847873311224,
+        "width": 511.5414015853248
+      },
+      "id": "e3a0d425-81ed-426d-8812-b4ebbe4e5c18",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        6820,
+        4900
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://everest.lamart.site/update_odometer",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"number_car\": {{ '\"' + $json.number_car + '\"' }}, \"odometer\": {{ $('Telegram Trigger1').item.json.message.text }}}",
+        "options": {}
+      },
+      "id": "72bff255-5a27-458d-bff3-d1726053cd76",
+      "name": "HTTP Request1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        7160,
+        4980
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "44403514-747a-47bf-9419-77944fae7bb7",
+              "leftValue": "={{ $('Telegram Trigger1').item.json.message.text }}",
+              "rightValue": "/^[0-9]+$/",
+              "operator": {
+                "type": "string",
+                "operation": "regex"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "078cc3a3-1eaa-4a1e-a735-51c0fdb880a6",
+      "name": "проверка на число",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        6700,
+        5080
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "Произошла ошибка, повторите ввод данных одометра",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "22d710c6-40a2-4d96-a248-43bdd35300d9",
+      "name": "одометр введён неверно1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        7060,
+        5200
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://everest.lamart.site/take_auto",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"number_car\": {{ '\"'+$('Ищем автомобиль по номеру').item.json.number_car +'\"'}},\n  \"employee_id\":  {{ $('получаем айди').item.json.odoo_id }}\n}",
+        "options": {}
+      },
+      "id": "08ffe2d1-612e-4060-8908-69bd89d5c56e",
+      "name": "начало рейса1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        8080,
+        4300
       ]
     }
   ],
@@ -17484,6 +17625,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-06-25T13:36:31.000Z",
-  "versionId": "bcb4d2ad-cb53-4f4d-8d5a-8d1fdeaf5f5d"
+  "updatedAt": "2024-06-25T21:15:07.000Z",
+  "versionId": "f39a40c3-9490-442f-b8dc-d54f8bdf89c4"
 }
