@@ -3943,6 +3943,11 @@
             "node": "находим перевозки по рейсам7",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Postgres3",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -4096,9 +4101,26 @@
             "node": "получаем название маршрута из перевозки7",
             "type": "main",
             "index": 0
-          },
+          }
+        ]
+      ]
+    },
+    "Выводим информацию о перевозке2": {
+      "main": [
+        [
           {
-            "node": "находим рейсы по машине5",
+            "node": "Postgres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Выводим информацию о перевозке": {
+      "main": [
+        [
+          {
+            "node": "Postgres2",
             "type": "main",
             "index": 0
           }
@@ -19099,7 +19121,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        7460,
+        7440,
         2300
       ],
       "alwaysOutputData": true,
@@ -19314,7 +19336,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        7620,
+        7840,
         2300
       ],
       "alwaysOutputData": true,
@@ -19351,7 +19373,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        7940,
+        8160,
         2540
       ],
       "credentials": {
@@ -19585,58 +19607,259 @@
       "type": "n8n-nodes-base.removeDuplicates",
       "typeVersion": 1,
       "position": [
-        7780,
+        8000,
         2300
       ]
     },
     {
       "parameters": {
-        "resource": "custom",
-        "customResource": "transportation.round",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list",
+          "cachedResultName": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "transportation",
+          "mode": "list",
+          "cachedResultName": "transportation"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('перевозка со статусом \"В начале смены\"').item.json.id }}",
+            "name": "={{ $('находим перевозки по рейсам2').item.json.route[1] }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
             {
-              "fieldName": "car",
-              "value": "={{ $('находим машину по odoo id10').item.json.id }}"
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
             },
             {
-              "fieldName": "status",
-              "value": "Завершен"
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
             },
             {
-              "fieldName": "time",
-              "operator": "greaterOrEqual",
-              "value": "={{ $('получаем дату и время 00:1').item.json.formattedDate }}"
+              "id": "count",
+              "displayName": "count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
             },
             {
-              "fieldName": "time",
-              "operator": "lesserOrEqual",
-              "value": "={{ $json.newformattedDate }}"
-            },
-            {}
+              "id": "weigth",
+              "displayName": "weigth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
           ]
-        }
+        },
+        "options": {}
       },
-      "id": "04df9bb3-070f-4962-940f-754146ca2bfe",
-      "name": "находим рейсы по машине5",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
+      "id": "450a0726-3a87-4c86-a0cb-f2e854b14ab7",
+      "name": "Postgres",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
       "position": [
-        7980,
-        2260
+        4860,
+        7880
       ],
-      "alwaysOutputData": true,
-      "executeOnce": false,
       "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list",
+          "cachedResultName": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "transportation",
+          "mode": "list",
+          "cachedResultName": "transportation"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('перевозка со статусом \"В начале смены\"').item.json.id }}",
+            "name": "={{ $('находим перевозки по рейсам2').item.json.route[1] }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "count",
+              "displayName": "count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "weigth",
+              "displayName": "weigth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "973eb922-80a5-4dee-90a4-3ba9342eb074",
+      "name": "Postgres2",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        4860,
+        8100
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
         }
       },
       "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "transportation",
+          "mode": "list",
+          "cachedResultName": "transportation"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.transportation[0] }}",
+            "count": "={{  1 }}",
+            "weigth": 1
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "count",
+              "displayName": "count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "weigth",
+              "displayName": "weigth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ea5133b2-314b-4df1-94c8-779e6017e5ef",
+      "name": "Postgres3",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        7820,
+        2120
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -19650,6 +19873,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-07-02T12:09:00.000Z",
-  "versionId": "2aec3d04-2062-4989-b3c2-8a902e019235"
+  "updatedAt": "2024-07-03T10:05:15.000Z",
+  "versionId": "873e8c12-cbd0-4028-8a35-8c2506620d37"
 }
