@@ -2892,31 +2892,6 @@
         ]
       ]
     },
-    "Разделяем по статусам": {
-      "main": [
-        [
-          {
-            "node": "добавим перевод на новую строку",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "добавим перевод на новую строку1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "добавим перевод на новую строку2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "номер телефона": {
       "main": [
         [
@@ -3965,16 +3940,6 @@
       "main": [
         [
           {
-            "node": "Summarize3",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Summarize2",
-            "type": "main",
-            "index": 0
-          },
-          {
             "node": "находим перевозки по рейсам7",
             "type": "main",
             "index": 0
@@ -4044,33 +4009,11 @@
         ]
       ]
     },
-    "Remove Duplicates": {
-      "main": [
-        [
-          {
-            "node": "получаем название маршрута из перевозки7",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "получаем название маршрута из перевозки7": {
-      "main": [
-        [
-          {
-            "node": "Merge5",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
     "Merge5": {
       "main": [
         [
           {
-            "node": "Вывод статистики1",
+            "node": "в один текст объединяем1",
             "type": "main",
             "index": 0
           }
@@ -4106,6 +4049,58 @@
             "node": "Merge6",
             "type": "main",
             "index": 1
+          }
+        ]
+      ]
+    },
+    "Разделяем по статусам": {
+      "main": [
+        [
+          {
+            "node": "добавим перевод на новую строку",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "добавим перевод на новую строку1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "добавим перевод на новую строку2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "в один текст объединяем1": {
+      "main": [
+        [
+          {
+            "node": "Вывод статистики1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove Duplicates": {
+      "main": [
+        [
+          {
+            "node": "получаем название маршрута из перевозки7",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "находим рейсы по машине5",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -15449,87 +15444,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "К выполнению",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "84c7a41e-05e5-4497-b42a-1e5102906729",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "В работе",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "dea7aa17-5f44-45d5-a497-9cea75e85820",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "Требуется проверка",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "8c8f569f-beac-4a5d-ae1b-15f6f2445c23",
-      "name": "Разделяем по статусам",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        8260,
-        3560
-      ]
-    },
-    {
-      "parameters": {
         "assignments": {
           "assignments": [
             {
@@ -19202,7 +19116,7 @@
         "fieldsToSummarize": {
           "values": [
             {
-              "field": "id"
+              "field": "={{ $('находим рейсы по машине4').item.json.id }}"
             },
             {}
           ]
@@ -19214,7 +19128,7 @@
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        7740,
+        8380,
         2140
       ]
     },
@@ -19224,7 +19138,7 @@
           "values": [
             {
               "aggregation": "sum",
-              "field": "cargo_netto"
+              "field": "={{ $('находим рейсы по машине4').item.json.cargo_netto }}"
             }
           ]
         },
@@ -19235,8 +19149,8 @@
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        7720,
-        2320
+        8360,
+        2400
       ]
     },
     {
@@ -19250,7 +19164,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        8080,
+        8560,
         2280
       ]
     },
@@ -19285,7 +19199,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        8600,
+        9180,
         2280
       ],
       "credentials": {
@@ -19381,7 +19295,11 @@
         "customResource": "transportation.transportation",
         "operation": "getAll",
         "returnAll": true,
-        "options": {},
+        "options": {
+          "fieldsList": [
+            "route"
+          ]
+        },
         "filterRequest": {
           "filter": [
             {
@@ -19396,8 +19314,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        7660,
-        2500
+        7620,
+        2300
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -19413,7 +19331,12 @@
         "customResource": "transportation.route",
         "operation": "getAll",
         "returnAll": true,
-        "options": {},
+        "options": {
+          "fieldsList": [
+            "arrival",
+            "departure"
+          ]
+        },
         "filterRequest": {
           "filter": [
             {
@@ -19428,8 +19351,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        7980,
-        2480
+        7940,
+        2540
       ],
       "credentials": {
         "odooApi": {
@@ -19437,17 +19360,6 @@
           "name": "new Odoo Алексей"
         }
       }
-    },
-    {
-      "parameters": {},
-      "id": "2292e0b9-a4a2-48b4-a16b-43034f09f1bb",
-      "name": "Remove Duplicates",
-      "type": "n8n-nodes-base.removeDuplicates",
-      "typeVersion": 1,
-      "position": [
-        7800,
-        2500
-      ]
     },
     {
       "parameters": {
@@ -19460,7 +19372,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        8340,
+        8740,
         2300
       ]
     },
@@ -19562,6 +19474,169 @@
           "name": "Main Everest"
         }
       }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "К выполнению",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "84c7a41e-05e5-4497-b42a-1e5102906729",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "В работе",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "dea7aa17-5f44-45d5-a497-9cea75e85820",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "Требуется проверка",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8c8f569f-beac-4a5d-ae1b-15f6f2445c23",
+      "name": "Разделяем по статусам",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        8260,
+        3560
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "concatenate",
+              "field": "count_id",
+              "separateBy": "\n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f9e71e87-232e-42d8-9be8-e351c4151183",
+      "name": "в один текст объединяем1",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        8960,
+        2280
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "e17fa0cb-19f3-4b99-8330-ab6b05408b13",
+      "name": "Remove Duplicates",
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 1,
+      "position": [
+        7780,
+        2300
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "transportation.round",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "car",
+              "value": "={{ $('находим машину по odoo id10').item.json.id }}"
+            },
+            {
+              "fieldName": "status",
+              "value": "Завершен"
+            },
+            {
+              "fieldName": "time",
+              "operator": "greaterOrEqual",
+              "value": "={{ $('получаем дату и время 00:1').item.json.formattedDate }}"
+            },
+            {
+              "fieldName": "time",
+              "operator": "lesserOrEqual",
+              "value": "={{ $json.newformattedDate }}"
+            },
+            {}
+          ]
+        }
+      },
+      "id": "04df9bb3-070f-4962-940f-754146ca2bfe",
+      "name": "находим рейсы по машине5",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        7980,
+        2260
+      ],
+      "alwaysOutputData": true,
+      "executeOnce": false,
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      },
+      "disabled": true
     }
   ],
   "pinData": {},
@@ -19575,6 +19650,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-07-01T14:11:58.000Z",
-  "versionId": "0bd289b3-1f16-41f1-87ad-dab464be8ad6"
+  "updatedAt": "2024-07-02T12:09:00.000Z",
+  "versionId": "2aec3d04-2062-4989-b3c2-8a902e019235"
 }
