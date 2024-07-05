@@ -3945,40 +3945,7 @@
             "index": 0
           },
           {
-            "node": "Postgres3",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Summarize2": {
-      "main": [
-        [
-          {
-            "node": "Merge4",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Summarize3": {
-      "main": [
-        [
-          {
-            "node": "Merge4",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
-    "Merge4": {
-      "main": [
-        [
-          {
-            "node": "Merge5",
+            "node": "Merge7",
             "type": "main",
             "index": 0
           }
@@ -4018,7 +3985,7 @@
       "main": [
         [
           {
-            "node": "в один текст объединяем1",
+            "node": "Postgres4",
             "type": "main",
             "index": 0
           }
@@ -4083,17 +4050,6 @@
         ]
       ]
     },
-    "в один текст объединяем1": {
-      "main": [
-        [
-          {
-            "node": "Вывод статистики1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Remove Duplicates": {
       "main": [
         [
@@ -4109,7 +4065,7 @@
       "main": [
         [
           {
-            "node": "Postgres",
+            "node": "Добавление перевозки в бд",
             "type": "main",
             "index": 0
           }
@@ -4120,7 +4076,95 @@
       "main": [
         [
           {
-            "node": "Postgres2",
+            "node": "Добавление перевозки в бд1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получаем название маршрута из перевозки7": {
+      "main": [
+        [
+          {
+            "node": "Merge7",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge7": {
+      "main": [
+        [
+          {
+            "node": "Remove Duplicates2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres4": {
+      "main": [
+        [
+          {
+            "node": "Postgres3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize4": {
+      "main": [
+        [
+          {
+            "node": "Merge5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize5": {
+      "main": [
+        [
+          {
+            "node": "Merge5",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Remove Duplicates2": {
+      "main": [
+        [
+          {
+            "node": "Split Out2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Добавление перевозки в бд1": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
             "type": "main",
             "index": 0
           }
@@ -16637,7 +16681,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://everest.lamart.site/web/session/authenticate",
+        "url": "http://dev.everest.lamart.site:8069/web/session/authenticate",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"call\",\n    \"params\": {\n        \"db\": \"db\",\n        \"login\": \"alexey.goremykin@urfu.me\",\n        \"password\": \"D4AcDsvTq6gPc5P\"\n    }\n}",
@@ -16661,7 +16705,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://everest.lamart.site/accept_order",
+        "url": "http://dev.everest.lamart.site:8069/accept_order",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
@@ -16688,7 +16732,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://everest.lamart.site/complete_round",
+        "url": "http://dev.everest.lamart.site:8069/complete_round",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
@@ -16761,7 +16805,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://everest.lamart.site/update_odometer",
+        "url": "http://dev.everest.lamart.site:8069/update_odometer",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
@@ -17888,7 +17932,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://everest.lamart.site/take_auto",
+        "url": "http://dev.everest.lamart.site:8069/take_auto",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
@@ -18114,8 +18158,7 @@
           "id": "Q4ZHMkPf1vzJmsuw",
           "name": "Postgres account"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -18207,8 +18250,7 @@
           "id": "Q4ZHMkPf1vzJmsuw",
           "name": "Postgres account"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -18353,7 +18395,7 @@
             },
             {
               "name": "files",
-              "value": "={{ $('Convert to File'). }}"
+              "value": "="
             },
             {
               "name": "transportation_id",
@@ -18686,8 +18728,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        1620,
-        6000
+        900,
+        5980
       ]
     },
     {
@@ -19135,104 +19177,6 @@
     },
     {
       "parameters": {
-        "fieldsToSummarize": {
-          "values": [
-            {
-              "field": "={{ $('находим рейсы по машине4').item.json.id }}"
-            },
-            {}
-          ]
-        },
-        "options": {}
-      },
-      "id": "e101395c-8eed-4d91-bc32-04105b07833e",
-      "name": "Summarize2",
-      "type": "n8n-nodes-base.summarize",
-      "typeVersion": 1,
-      "position": [
-        8380,
-        2140
-      ]
-    },
-    {
-      "parameters": {
-        "fieldsToSummarize": {
-          "values": [
-            {
-              "aggregation": "sum",
-              "field": "={{ $('находим рейсы по машине4').item.json.cargo_netto }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "b3ad9abe-316f-4e4a-9e3e-1e577de923d3",
-      "name": "Summarize3",
-      "type": "n8n-nodes-base.summarize",
-      "typeVersion": 1,
-      "position": [
-        8360,
-        2400
-      ]
-    },
-    {
-      "parameters": {
-        "mode": "combine",
-        "combinationMode": "multiplex",
-        "options": {}
-      },
-      "id": "c3a73a64-dde8-4f21-a03a-1c9824c18f0d",
-      "name": "Merge4",
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 2.1,
-      "position": [
-        8560,
-        2280
-      ]
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.from.id }}",
-        "text": "=Во время смены:\nПеревозка {{ $json.display_name }}\nКоличество выполненых рейсов: {{ $json.count_id }} \nСумма нетто: {{ $json.sum_cargo_netto }}    ",
-        "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Назад",
-                    "additionalFields": {
-                      "callback_data": "after_stats"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {
-          "appendAttribution": false,
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "db0a61cc-e5f1-48e4-810e-fc195f085c50",
-      "name": "Вывод статистики1",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        9180,
-        2280
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "ThC2kf8ZCBAO0FBa",
-          "name": "Main Everest"
-        }
-      }
-    },
-    {
-      "parameters": {
         "operation": "deleteMessage",
         "chatId": "={{ $('Telegram Trigger1').item.json.callback_query.from.id }}",
         "messageId": "={{ $('Telegram Trigger1').item.json.callback_query.message.message_id }}"
@@ -19336,8 +19280,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        7840,
-        2300
+        7640,
+        2420
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -19373,8 +19317,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        8160,
-        2540
+        8020,
+        2400
       ],
       "credentials": {
         "odooApi": {
@@ -19394,8 +19338,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        8740,
-        2300
+        8840,
+        2280
       ]
     },
     {
@@ -19579,36 +19523,204 @@
       ]
     },
     {
-      "parameters": {
-        "fieldsToSummarize": {
-          "values": [
-            {
-              "aggregation": "concatenate",
-              "field": "count_id",
-              "separateBy": "\n"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "f9e71e87-232e-42d8-9be8-e351c4151183",
-      "name": "в один текст объединяем1",
-      "type": "n8n-nodes-base.summarize",
-      "typeVersion": 1,
-      "position": [
-        8960,
-        2280
-      ]
-    },
-    {
       "parameters": {},
       "id": "e17fa0cb-19f3-4b99-8330-ab6b05408b13",
       "name": "Remove Duplicates",
       "type": "n8n-nodes-base.removeDuplicates",
       "typeVersion": 1,
       "position": [
-        8000,
-        2300
+        7820,
+        2420
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "transportation",
+          "mode": "list",
+          "cachedResultName": "transportation"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.id }}",
+            "weigth": "={{ $('Merge5').item.json.sum_cargo_netto }}",
+            "count": "={{ $('Merge5').item.json.count_id }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "count",
+              "displayName": "count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "weigth",
+              "displayName": "weigth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ea5133b2-314b-4df1-94c8-779e6017e5ef",
+      "name": "Postgres3",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        9200,
+        2280
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "multiplex",
+        "options": {}
+      },
+      "id": "6b085d64-b035-49e0-9d82-a61b329e901b",
+      "name": "Merge7",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        8180,
+        2280
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "transportation",
+          "mode": "list",
+          "cachedResultName": "transportation"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "id",
+              "value": "={{ $('находим рейсы по машине4').item.json.transportation[0] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "88ac2512-6a36-4a8d-9756-315fadd52ed8",
+      "name": "Postgres4",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        9020,
+        2280
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "sum",
+              "field": "cargo_netto"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ff76bb03-df30-4373-9b86-a7a0dd6cac64",
+      "name": "Summarize4",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        8680,
+        2160
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "field": "id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7ffe1bc4-466e-4540-b33f-d26e1d5e2612",
+      "name": "Summarize5",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        8700,
+        2460
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "1492d63a-d6c6-40ed-9130-b55f30c33703",
+      "name": "Remove Duplicates2",
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 1,
+      "position": [
+        8360,
+        2280
       ]
     },
     {
@@ -19680,7 +19792,7 @@
         "options": {}
       },
       "id": "450a0726-3a87-4c86-a0cb-f2e854b14ab7",
-      "name": "Postgres",
+      "name": "Добавление перевозки в бд",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
@@ -19696,7 +19808,6 @@
     },
     {
       "parameters": {
-        "operation": "update",
         "schema": {
           "__rl": true,
           "value": "public",
@@ -19712,31 +19823,30 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "id": "={{ $('перевозка со статусом \"В начале смены\"').item.json.id }}",
-            "name": "={{ $('находим перевозки по рейсам2').item.json.route[1] }}"
+            "name": "={{ $('получаем название маршрута из перевозки').item.json.display_name }}",
+            "id": "={{ $('есть ли рейсы на сегодня?').item.json.transportation[0] }}"
           },
           "matchingColumns": [
             "id"
           ],
           "schema": [
             {
+              "id": "id",
+              "displayName": "id",
+              "required": true,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
               "id": "name",
               "displayName": "name",
-              "required": false,
+              "required": true,
               "defaultMatch": false,
               "display": true,
               "type": "string",
               "canBeUsedToMatch": true
-            },
-            {
-              "id": "id",
-              "displayName": "id",
-              "required": false,
-              "defaultMatch": true,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": false
             },
             {
               "id": "count",
@@ -19763,7 +19873,7 @@
         "options": {}
       },
       "id": "973eb922-80a5-4dee-90a4-3ba9342eb074",
-      "name": "Postgres2",
+      "name": "Добавление перевозки в бд1",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
@@ -19775,91 +19885,47 @@
           "id": "Q4ZHMkPf1vzJmsuw",
           "name": "Postgres account"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
-        "operation": "update",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "transportation",
-          "mode": "list",
-          "cachedResultName": "transportation"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "id": "={{ $json.transportation[0] }}",
-            "count": "={{  1 }}",
-            "weigth": 1
-          },
-          "matchingColumns": [
-            "id"
-          ],
-          "schema": [
-            {
-              "id": "name",
-              "displayName": "name",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "id",
-              "displayName": "id",
-              "required": false,
-              "defaultMatch": true,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "count",
-              "displayName": "count",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "weigth",
-              "displayName": "weigth",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": false
-            }
-          ]
-        },
         "options": {}
       },
-      "id": "ea5133b2-314b-4df1-94c8-779e6017e5ef",
-      "name": "Postgres3",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.3,
+      "id": "6c6108ae-9273-4165-a2e3-074a75a43e79",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
       "position": [
-        7820,
-        2120
+        5080,
+        8100
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "676b597c-8297-42e9-b5b4-226dfdd0186e",
+      "name": "Split Out1",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        5300,
+        8100
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "7b8d9ca6-9880-49c1-b2bf-cef4c2544cc5",
+      "name": "Split Out2",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        8540,
+        2280
       ],
-      "credentials": {
-        "postgres": {
-          "id": "Q4ZHMkPf1vzJmsuw",
-          "name": "Postgres account"
-        }
-      }
+      "disabled": true
     }
   ],
   "pinData": {},
@@ -19873,6 +19939,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-07-03T10:05:15.000Z",
-  "versionId": "873e8c12-cbd0-4028-8a35-8c2506620d37"
+  "updatedAt": "2024-07-04T17:37:12.000Z",
+  "versionId": "6740f125-bdfb-47fc-933b-179673842477"
 }
