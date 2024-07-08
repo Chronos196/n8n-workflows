@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "добавляет пользователя, если не существует": {
       "main": [
@@ -4481,17 +4481,6 @@
         ]
       ]
     },
-    "Telegram Trigger1": {
-      "main": [
-        [
-          {
-            "node": "авторизация",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "фото чека": {
       "main": [
         [
@@ -4939,6 +4928,17 @@
         [
           {
             "node": "кнопки меню ТО",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger2": {
+      "main": [
+        [
+          {
+            "node": "авторизация",
             "type": "main",
             "index": 0
           }
@@ -7145,6 +7145,7 @@
         460,
         3520
       ],
+      "alwaysOutputData": true,
       "credentials": {
         "odooApi": {
           "id": "QXqc61yRCfgVSB3C",
@@ -22030,30 +22031,6 @@
     },
     {
       "parameters": {
-        "updates": [
-          "message",
-          "callback_query"
-        ],
-        "additionalFields": {}
-      },
-      "id": "d788e2b5-64fc-4a89-911e-675d2428cbb9",
-      "name": "Telegram Trigger1",
-      "type": "n8n-nodes-base.telegramTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        -620,
-        3740
-      ],
-      "webhookId": "e1525a06-a383-4d42-80a9-632c866ebe11",
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
-        }
-      }
-    },
-    {
-      "parameters": {
         "operation": "editMessageText",
         "chatId": "={{ $('Telegram Trigger1').item.json.callback_query.from.id }}",
         "messageId": "={{ $('Telegram Trigger1').item.json.callback_query.message.message_id }}",
@@ -24536,6 +24513,30 @@
           "name": "Алексей dev"
         }
       }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message",
+          "callback_query"
+        ],
+        "additionalFields": {}
+      },
+      "id": "714ad244-2085-4702-880d-68fd33e9bb58",
+      "name": "Telegram Trigger2",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -580,
+        3740
+      ],
+      "webhookId": "b89650b2-a8bb-4a27-8633-05098d198de8",
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -24549,6 +24550,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-07-05T11:29:43.000Z",
-  "versionId": "1a3ff816-cd42-4ac4-9b03-ded50a267327"
+  "updatedAt": "2024-07-08T07:17:19.000Z",
+  "versionId": "ab4a7aa7-68b2-47f3-a891-c2c8f0c04e8d"
 }
