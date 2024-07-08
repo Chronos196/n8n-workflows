@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "добавляет пользователя, если не существует": {
       "main": [
@@ -385,17 +385,6 @@
         [
           {
             "node": "Вывод свободных машин",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "находим данные": {
-      "main": [
-        [
-          {
-            "node": "есть ли данные",
             "type": "main",
             "index": 0
           }
@@ -1227,24 +1216,6 @@
         [
           {
             "node": "принятие заказа",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "есть ли данные": {
-      "main": [
-        [
-          {
-            "node": "отправляем статистику",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "нет статистики",
             "type": "main",
             "index": 0
           }
@@ -3936,22 +3907,6 @@
         ]
       ]
     },
-    "находим рейсы по машине4": {
-      "main": [
-        [
-          {
-            "node": "находим перевозки по рейсам7",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Merge7",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Статистика1": {
       "main": [
         [
@@ -3964,17 +3919,6 @@
         [
           {
             "node": "Удаление статистики",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "находим перевозки по рейсам7": {
-      "main": [
-        [
-          {
-            "node": "Remove Duplicates",
             "type": "main",
             "index": 0
           }
@@ -4050,17 +3994,6 @@
         ]
       ]
     },
-    "Remove Duplicates": {
-      "main": [
-        [
-          {
-            "node": "получаем название маршрута из перевозки7",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Выводим информацию о перевозке2": {
       "main": [
         [
@@ -4077,28 +4010,6 @@
         [
           {
             "node": "Добавление перевозки в бд1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "получаем название маршрута из перевозки7": {
-      "main": [
-        [
-          {
-            "node": "Merge7",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
-    "Merge7": {
-      "main": [
-        [
-          {
-            "node": "Remove Duplicates2",
             "type": "main",
             "index": 0
           }
@@ -4138,11 +4049,60 @@
         ]
       ]
     },
-    "Remove Duplicates2": {
+    "находим рейсы по машине4": {
       "main": [
         [
           {
-            "node": "Split Out2",
+            "node": "Summarize4",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Summarize5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "начало рейса": {
+      "main": [
+        [
+          {
+            "node": "находим рейсы по машине5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "находим рейсы по машине5": {
+      "main": [
+        [
+          {
+            "node": "Postgres2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres2": {
+      "main": [
+        [
+          {
+            "node": "Postgres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Добавление перевозки в бд": {
+      "main": [
+        [
+          {
+            "node": "Postgres5",
             "type": "main",
             "index": 0
           }
@@ -4153,18 +4113,29 @@
       "main": [
         [
           {
-            "node": "Split Out",
+            "node": "Postgres6",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Split Out": {
+    "статус ввода данных после смены": {
       "main": [
         [
           {
-            "node": "Split Out1",
+            "node": "Postgres7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "меняем статус машины на Нет водителя1": {
+      "main": [
+        [
+          {
+            "node": "Postgres8",
             "type": "main",
             "index": 0
           }
@@ -6197,71 +6168,6 @@
     },
     {
       "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "data_after_work",
-          "mode": "list",
-          "cachedResultName": "data_after_work"
-        },
-        "returnAll": true,
-        "where": {
-          "values": [
-            {
-              "column": "tg_user",
-              "value": "={{ $('Telegram Trigger1').item.json.message.chat.id }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "7e7f0344-fc76-4f11-a6c3-f1e0059df974",
-      "name": "находим данные",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.3,
-      "position": [
-        8000,
-        1800
-      ],
-      "alwaysOutputData": true,
-      "credentials": {
-        "postgres": {
-          "id": "Q4ZHMkPf1vzJmsuw",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.from.id }}",
-        "text": "={{ $json.data }}",
-        "additionalFields": {
-          "appendAttribution": false,
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "61198144-725a-4429-b4d0-0d747cda36d1",
-      "name": "отправляем статистику",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        8420,
-        1660
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "ThC2kf8ZCBAO0FBa",
-          "name": "Main Everest"
-        }
-      }
-    },
-    {
-      "parameters": {
         "conditions": {
           "options": {
             "caseSensitive": true,
@@ -7962,29 +7868,6 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.from.id }}",
-        "text": "Нет статистики",
-        "additionalFields": {
-          "appendAttribution": false
-        }
-      },
-      "id": "31d4884f-be35-4e8b-844b-1a770a15374a",
-      "name": "нет статистики",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        8440,
-        1860
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "ThC2kf8ZCBAO0FBa",
-          "name": "Main Everest"
-        }
-      }
-    },
-    {
-      "parameters": {
         "resource": "custom",
         "customResource": "cars.cars",
         "operation": "getAll",
@@ -7993,7 +7876,7 @@
         "filterRequest": {
           "filter": [
             {
-              "fieldName": "employee_id",
+              "fieldName": "driver_id",
               "value": "={{ $json.odoo_id }}"
             }
           ]
@@ -8082,11 +7965,11 @@
           "conditions": [
             {
               "id": "eb8f3a86-31ee-4b61-9746-eff045d2ed87",
-              "leftValue": "={{ $json.employee_id[1] }}",
+              "leftValue": "={{ $json.driver_id }}",
               "rightValue": "",
               "operator": {
-                "type": "string",
-                "operation": "exists",
+                "type": "boolean",
+                "operation": "true",
                 "singleValue": true
               }
             }
@@ -8880,7 +8763,7 @@
         "filterRequest": {
           "filter": [
             {
-              "fieldName": "employee_id",
+              "fieldName": "driver_id",
               "value": "={{ $json.odoo_id }}"
             }
           ]
@@ -9018,7 +8901,7 @@
         "filterRequest": {
           "filter": [
             {
-              "fieldName": "employee_id",
+              "fieldName": "driver_id",
               "value": "={{ $json.odoo_id }}"
             }
           ]
@@ -9206,7 +9089,7 @@
         "filterRequest": {
           "filter": [
             {
-              "fieldName": "employee_id",
+              "fieldName": "driver_id",
               "value": "={{ $json.odoo_id }}"
             }
           ]
@@ -9636,7 +9519,7 @@
         "filterRequest": {
           "filter": [
             {
-              "fieldName": "employee_id",
+              "fieldName": "driver_id",
               "value": "={{ $json.odoo_id }}"
             }
           ]
@@ -9815,39 +9698,6 @@
           "name": "Main Everest"
         }
       }
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "b6a80687-cfaa-4708-87bf-a0fe1ac9f502",
-              "leftValue": "={{ $json.data }}",
-              "rightValue": "",
-              "operator": {
-                "type": "string",
-                "operation": "exists",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "37d90649-8bea-47de-acbb-cc4dac8c0cd9",
-      "name": "есть ли данные",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [
-        8220,
-        1800
-      ]
     },
     {
       "parameters": {
@@ -16436,7 +16286,7 @@
         "filterRequest": {
           "filter": [
             {
-              "fieldName": "employee_id",
+              "fieldName": "driver_id",
               "value": "={{ $json.odoo_id }}"
             }
           ]
@@ -16766,7 +16616,7 @@
         "filterRequest": {
           "filter": [
             {
-              "fieldName": "employee_id",
+              "fieldName": "driver_id",
               "value": "={{ $json.odoo_id }}"
             }
           ]
@@ -17741,7 +17591,7 @@
         "filterRequest": {
           "filter": [
             {
-              "fieldName": "employee_id",
+              "fieldName": "driver_id",
               "value": "={{ $json.odoo_id }}"
             }
           ]
@@ -17944,7 +17794,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"number_car\": {{ '\"'+$('Ищем автомобиль по номеру').item.json.number_car +'\"'}},\n  \"employee_id\":  {{ $('получаем айди').item.json.odoo_id }}\n}",
+        "jsonBody": "={\n  \"number_car\": {{ '\"'+$('Ищем автомобиль по номеру').item.json.number_car +'\"'}},\n  \"driver_id\":  {{ $('получаем айди').item.json.odoo_id }}\n}",
         "options": {}
       },
       "id": "08ffe2d1-612e-4060-8908-69bd89d5c56e",
@@ -19061,7 +18911,7 @@
         "filterRequest": {
           "filter": [
             {
-              "fieldName": "employee_id",
+              "fieldName": "driver_id",
               "value": "={{ $json.odoo_id }}"
             }
           ]
@@ -19257,78 +19107,6 @@
     },
     {
       "parameters": {
-        "resource": "custom",
-        "customResource": "transportation.transportation",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {
-          "fieldsList": [
-            "route"
-          ]
-        },
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "id",
-              "value": "={{ $json.transportation[0] }}"
-            }
-          ]
-        }
-      },
-      "id": "2a6920b4-e59a-4097-b0ef-d28acf988eb9",
-      "name": "находим перевозки по рейсам7",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        7640,
-        2420
-      ],
-      "alwaysOutputData": true,
-      "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "transportation.route",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {
-          "fieldsList": [
-            "arrival",
-            "departure"
-          ]
-        },
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "id",
-              "value": "={{ $json.route[0] }}"
-            }
-          ]
-        }
-      },
-      "id": "229f4b78-cf5d-481e-a2ed-8b311e07ec36",
-      "name": "получаем название маршрута из перевозки7",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        8020,
-        2400
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
         "mode": "combine",
         "combinationMode": "multiplex",
         "options": {}
@@ -19338,8 +19116,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        8840,
-        2280
+        8100,
+        2320
       ]
     },
     {
@@ -19523,17 +19301,6 @@
       ]
     },
     {
-      "parameters": {},
-      "id": "e17fa0cb-19f3-4b99-8330-ab6b05408b13",
-      "name": "Remove Duplicates",
-      "type": "n8n-nodes-base.removeDuplicates",
-      "typeVersion": 1,
-      "position": [
-        7820,
-        2420
-      ]
-    },
-    {
       "parameters": {
         "operation": "update",
         "schema": {
@@ -19551,8 +19318,8 @@
           "mappingMode": "defineBelow",
           "value": {
             "id": "={{ $json.id }}",
-            "weigth": "={{ $('Merge5').item.json.sum_cargo_netto }}",
-            "count": "={{ $('Merge5').item.json.count_id }}"
+            "weigth": "={{ $('Summarize4').item.json.sum_cargo_netto }}",
+            "count": "={{ $('Summarize5').item.json.count_id }}"
           },
           "matchingColumns": [
             "id"
@@ -19606,8 +19373,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        9200,
-        2280
+        8520,
+        2320
       ],
       "credentials": {
         "postgres": {
@@ -19615,21 +19382,6 @@
           "name": "Postgres account"
         }
       }
-    },
-    {
-      "parameters": {
-        "mode": "combine",
-        "combinationMode": "multiplex",
-        "options": {}
-      },
-      "id": "6b085d64-b035-49e0-9d82-a61b329e901b",
-      "name": "Merge7",
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 2.1,
-      "position": [
-        8180,
-        2280
-      ]
     },
     {
       "parameters": {
@@ -19661,8 +19413,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        9020,
-        2280
+        8320,
+        2320
       ],
       "credentials": {
         "postgres": {
@@ -19688,8 +19440,8 @@
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        8680,
-        2160
+        7940,
+        2180
       ]
     },
     {
@@ -19708,19 +19460,8 @@
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        8700,
-        2460
-      ]
-    },
-    {
-      "parameters": {},
-      "id": "1492d63a-d6c6-40ed-9130-b55f30c33703",
-      "name": "Remove Duplicates2",
-      "type": "n8n-nodes-base.removeDuplicates",
-      "typeVersion": 1,
-      "position": [
-        8360,
-        2280
+        7880,
+        2500
       ]
     },
     {
@@ -19804,7 +19545,8 @@
           "id": "Q4ZHMkPf1vzJmsuw",
           "name": "Postgres account"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -19889,42 +19631,437 @@
     },
     {
       "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "transportation",
+          "mode": "list",
+          "cachedResultName": "transportation"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('начало рейса').item.json.id }}",
+            "count": "={{ $json.count +1 }}",
+            "driver_id": "={{ $('получаем odoo id').item.json.odoo_id }}",
+            "weigth": "={{ $json.weigth +  $('находим рейсы по машине5').item.json.cargo_netto }}"
+          },
+          "matchingColumns": [
+            "id",
+            "driver_id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": true,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "count",
+              "displayName": "count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "weigth",
+              "displayName": "weigth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "driver_id",
+              "displayName": "driver_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ]
+        },
         "options": {}
       },
-      "id": "6c6108ae-9273-4165-a2e3-074a75a43e79",
-      "name": "Split Out",
-      "type": "n8n-nodes-base.splitOut",
+      "id": "0ca78a22-e2e6-4c7f-ab29-edffc0277676",
+      "name": "Postgres",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        4360,
+        5980
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "transportation.round",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "transportation",
+              "value": "={{ $('находим машину по odoo id').item.json.current_transportation[0] }}"
+            },
+            {
+              "fieldName": "car",
+              "value": "={{ $('находим машину по odoo id').item.json.id }}"
+            },
+            {
+              "fieldName": "status",
+              "value": "Выполняется"
+            }
+          ]
+        }
+      },
+      "id": "c2bf23ec-da7a-4416-bb03-499f417da68a",
+      "name": "находим рейсы по машине5",
+      "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
+      "position": [
+        3940,
+        5980
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "transportation",
+          "mode": "list",
+          "cachedResultName": "transportation"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "id",
+              "value": "={{ $('начало рейса').item.json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "96ac8272-0066-4815-a373-bb03da4f7e05",
+      "name": "Postgres2",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        4160,
+        5980
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "transportation",
+          "mode": "list",
+          "cachedResultName": "transportation"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "name": "={{ $('получаем название маршрута из перевозки2').item.json.display_name }}",
+            "id": "={{ $('перевозка со статусом \"В начале смены\"').item.json.id }}",
+            "driver_id": "={{ $('получаем odoo id6').item.json.odoo_id }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": true,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "count",
+              "displayName": "count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "weigth",
+              "displayName": "weigth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "driver_id",
+              "displayName": "driver_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6e4cdc15-07e5-4682-91b8-b3c2a16de20e",
+      "name": "Postgres5",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
       "position": [
         5080,
-        8100
-      ]
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "id": "676b597c-8297-42e9-b5b4-226dfdd0186e",
-      "name": "Split Out1",
-      "type": "n8n-nodes-base.splitOut",
-      "typeVersion": 1,
-      "position": [
-        5300,
-        8100
-      ]
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "id": "7b8d9ca6-9880-49c1-b2bf-cef4c2544cc5",
-      "name": "Split Out2",
-      "type": "n8n-nodes-base.splitOut",
-      "typeVersion": 1,
-      "position": [
-        8540,
-        2280
+        7880
       ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "transportation",
+          "mode": "list",
+          "cachedResultName": "transportation"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "driver_id": 0
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": true,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "count",
+              "displayName": "count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "weigth",
+              "displayName": "weigth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "driver_id",
+              "displayName": "driver_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b5324f80-1f6c-4707-a451-7cdd05f50f11",
+      "name": "Postgres6",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        5060,
+        8100
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "deleteTable",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "transportation",
+          "mode": "list",
+          "cachedResultName": "transportation"
+        },
+        "deleteCommand": "delete",
+        "where": {
+          "values": [
+            {
+              "column": "driver_id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9cfeb0fb-eed1-4579-8e58-71ac5a2ffc8d",
+      "name": "Postgres7",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        3220,
+        7540
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "deleteTable",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "transportation",
+          "mode": "list",
+          "cachedResultName": "transportation"
+        },
+        "deleteCommand": "delete",
+        "where": {
+          "values": [
+            {
+              "column": "driver_id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "01c640ea-80f5-43a3-8755-ca406d4bf927",
+      "name": "Postgres8",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        2760,
+        7720
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      },
       "disabled": true
     }
   ],
@@ -19939,6 +20076,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-07-04T17:37:12.000Z",
-  "versionId": "6740f125-bdfb-47fc-933b-179673842477"
+  "updatedAt": "2024-07-07T19:38:15.000Z",
+  "versionId": "4e42a68b-e84c-4db7-816e-7c80774a751c"
 }
