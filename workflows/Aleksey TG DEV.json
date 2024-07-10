@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "добавляет пользователя, если не существует": {
       "main": [
@@ -2433,45 +2433,6 @@
         ]
       ]
     },
-    "обработка кнопок ТО": {
-      "main": [
-        [
-          {
-            "node": "номер авто",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "номер авто1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "номер выбранной заявки",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "номер выбранной заявки1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "фото завершения заявки",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "фото завершения заявки": {
       "main": [
         [
@@ -4535,17 +4496,6 @@
         ]
       ]
     },
-    "Telegram Trigger1": {
-      "main": [
-        [
-          {
-            "node": "авторизация",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Edit Fields5": {
       "main": [
         [
@@ -4612,6 +4562,56 @@
         [
           {
             "node": "воркфлоу МЕХАНИК",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "обработка кнопок ТО": {
+      "main": [
+        [
+          {
+            "node": "номер авто",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "номер авто1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "номер выбранной заявки",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "номер выбранной заявки1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "фото завершения заявки",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger1": {
+      "main": [
+        [
+          {
+            "node": "авторизация",
             "type": "main",
             "index": 0
           }
@@ -14390,109 +14390,6 @@
                 "conditions": [
                   {
                     "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
-                    "rightValue": "take_to",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "535cadc8-a70a-4a72-a932-a352cc94843b",
-                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
-                    "rightValue": "finish_to",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "4a9a6c70-e2e7-4ac3-ad3b-9b2fc779f25d",
-                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
-                    "rightValue": "={{ \"TR_\" }}",
-                    "operator": {
-                      "type": "string",
-                      "operation": "startsWith"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "9c15e9b8-76c9-4f34-96af-cf0008354db6",
-                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
-                    "rightValue": "={{ \"ER_\" }}",
-                    "operator": {
-                      "type": "string",
-                      "operation": "startsWith"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {
-          "fallbackOutput": "extra"
-        }
-      },
-      "id": "45275b7d-654f-416e-8c1e-b9a9dd3226e2",
-      "name": "обработка кнопок ТО",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        1540,
-        9640
-      ]
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
                     "rightValue": "yes_request_photo",
                     "operator": {
                       "type": "string",
@@ -22674,30 +22571,6 @@
     },
     {
       "parameters": {
-        "updates": [
-          "message",
-          "callback_query"
-        ],
-        "additionalFields": {}
-      },
-      "id": "714ad244-2085-4702-880d-68fd33e9bb58",
-      "name": "Telegram Trigger1",
-      "type": "n8n-nodes-base.telegramTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        -580,
-        3740
-      ],
-      "webhookId": "b89650b2-a8bb-4a27-8633-05098d198de8",
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
-        }
-      }
-    },
-    {
-      "parameters": {
         "assignments": {
           "assignments": [
             {
@@ -23010,6 +22883,133 @@
         1320,
         2960
       ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
+                    "rightValue": "take_to",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "535cadc8-a70a-4a72-a932-a352cc94843b",
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
+                    "rightValue": "finish_to",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "4a9a6c70-e2e7-4ac3-ad3b-9b2fc779f25d",
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
+                    "rightValue": "={{ \"TR_\" }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "9c15e9b8-76c9-4f34-96af-cf0008354db6",
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
+                    "rightValue": "={{ \"ER_\" }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "45275b7d-654f-416e-8c1e-b9a9dd3226e2",
+      "name": "обработка кнопок ТО",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        1540,
+        9640
+      ]
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message",
+          "callback_query"
+        ],
+        "additionalFields": {}
+      },
+      "id": "59d7d003-247c-466a-8646-501ffdf310c7",
+      "name": "Telegram Trigger1",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -580,
+        3740
+      ],
+      "webhookId": "72da6cd8-54c1-4d0e-b37b-1c739f987570",
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -23023,6 +23023,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-07-10T08:04:13.000Z",
-  "versionId": "5b8e1b14-9112-4df8-8034-c83a049ed63b"
+  "updatedAt": "2024-07-10T09:42:22.000Z",
+  "versionId": "6a7804ae-e842-4d3a-9bb4-aee738380275"
 }
