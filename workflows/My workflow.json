@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "добавляет пользователя, если не существует": {
       "main": [
@@ -3828,7 +3828,7 @@
       "main": [
         [
           {
-            "node": "Postgres",
+            "node": "Получение перевозок",
             "type": "main",
             "index": 0
           }
@@ -3967,22 +3967,6 @@
         ]
       ]
     },
-    "Postgres": {
-      "main": [
-        [
-          {
-            "node": "Summarize8",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Aggregate",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Разделяем по статусам": {
       "main": [
         [
@@ -4034,7 +4018,7 @@
       "main": [
         [
           {
-            "node": "Code",
+            "node": "Формирование вывода",
             "type": "main",
             "index": 0
           }
@@ -4185,13 +4169,7 @@
     },
     "Code": {
       "main": [
-        [
-          {
-            "node": "Вывод статистики",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Статистика1": {
@@ -4206,6 +4184,51 @@
         [
           {
             "node": "Удаление статистики",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Проверка есть ли рейсы": {
+      "main": [
+        [
+          {
+            "node": "Summarize8",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Вывод, если нет перевозок",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Получение перевозок": {
+      "main": [
+        [
+          {
+            "node": "Проверка есть ли рейсы",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Формирование вывода": {
+      "main": [
+        [
+          {
+            "node": "Вывод статистики",
             "type": "main",
             "index": 0
           }
@@ -18889,7 +18912,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        6660,
+        6640,
         2320
       ],
       "credentials": {
@@ -19647,46 +19670,6 @@
     },
     {
       "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "transportation",
-          "mode": "list",
-          "cachedResultName": "transportation"
-        },
-        "where": {
-          "values": [
-            {
-              "column": "driver_id",
-              "value": "={{ $('получаем odoo id9').item.json.odoo_id }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "574e4a7d-4bbd-4751-b8b4-937ef3ba5544",
-      "name": "Postgres",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.3,
-      "position": [
-        6840,
-        2320
-      ],
-      "alwaysOutputData": false,
-      "credentials": {
-        "postgres": {
-          "id": "Q4ZHMkPf1vzJmsuw",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "rules": {
           "values": [
             {
@@ -19782,8 +19765,8 @@
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        7080,
-        2220
+        7440,
+        2160
       ]
     },
     {
@@ -19808,8 +19791,8 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        7080,
-        2400
+        7440,
+        2320
       ]
     },
     {
@@ -19823,8 +19806,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        7340,
-        2300
+        7720,
+        2240
       ]
     },
     {
@@ -20476,15 +20459,15 @@
     },
     {
       "parameters": {
-        "jsCode": "// Получаем входные данные\nconst inputData = items[0].json;\n\n// Инициализация переменных\nconst { count_id, name, count, weigth } = inputData;\nconst result = [];\n\n// Функция для определения правильного склонения слова \"перевозка\"\nfunction getDeclension(num) {\n    if (num === 1) return 'перевозка';\n    if (num > 1 && num < 5) return 'перевозки';\n    return 'перевозок';\n}\n\n// Проверка на количество перевозок\nif (count_id === 0) {\n    result.push(`<b>Сегодня не было выполненных рейсов</b>`);\n} else {\n    result.push(`<b>В работе было ${count_id} ${getDeclension(count_id)}:</b>\\n`);\n\n    for (let i = 0; i < count_id; i++) {\n        result.push(`<b>${i + 1}) ${name[i]}:</b>\\nКоличество рейсов: ${count[i]}\\nСумма нетто: ${weigth[i]}\\n`);\n    }\n}\n\n// Объединяем строки в одну\nconst output = result.join('\\n');\n\n// Возвращаем результат\nreturn [{ json: { output } }];"
+        "jsCode": "// Получаем входные данные\nconst inputData = items[0].json;\n\n// Инициализация переменных\nconst { count_id, name, count, weigth } = inputData;\nconst result = [];\n\n// Функция для определения правильного склонения слова \"перевозка\"\nfunction getDeclension(num) {\n    if (num === 1) return 'перевозка';\n    if (num > 1 && num < 5) return 'перевозки';\n    return 'перевозок';\n}\n\n\n\nresult.push(`<b>В работе было ${count_id} ${getDeclension(count_id)}:</b>\\n`);\n\nfor (let i = 0; i < count_id; i++) {\n    result.push(`<b>${i + 1}) ${name[i]}:</b>\\nКоличество рейсов: ${count[i]}\\nСумма нетто: ${weigth[i]}\\n`);\n    }\n\n\n// Объединяем строки в одну\nconst output = result.join('\\n');\n\n// Возвращаем результат\nreturn [{ json: { output } }];"
       },
       "id": "52c7e4af-57d4-4dfe-b9f2-f7b1f2ad1939",
       "name": "Code",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        7680,
-        2280
+        7940,
+        2040
       ]
     },
     {
@@ -20518,8 +20501,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        8060,
-        2280
+        8160,
+        2240
       ],
       "credentials": {
         "telegramApi": {
@@ -20530,15 +20513,15 @@
     },
     {
       "parameters": {
-        "jsCode": "// Получаем входные данные\nconst inputData = items[0].json;\n\n// Инициализация переменных\nconst { count_id, name, count, weigth } = inputData;\nconst result = [];\n\n// Формируем вывод\nresult.push(`<b>В работе было ${count_id} перевозок:</b>\\n`);\n\nfor (let i = 0; i < count_id; i++) {\n    result.push(`<b>${i + 1}) ${name[i]}:</b>\\nКоличество рейсов: ${count[i]}\\nСумма нетто: ${weigth[i]}\\n`);\n}\n\n// Объединяем строки в одну\nconst output = result.join('\\n');\n\n// Возвращаем результат\nreturn [{ json: { output } }];"
+        "jsCode": "// Получаем входные данные\nconst inputData = items[0].json;\n\n// Инициализация переменных\nconst { count_id, name, count, weigth } = inputData;\nconst result = [];\n\n// Функция для определения правильного склонения слова \"перевозка\"\nfunction getDeclension(num) {\n    if (num === 1) return 'перевозка';\n    if (num > 1 && num < 5) return 'перевозки';\n    return 'перевозок';\n}\n\n// Определение глагола в зависимости от числа перевозок\nconst verb = count_id === 1 ? 'была' : 'было';\n\n// Проверка на количество перевозок\nif (count_id === 0) {\n    result.push(`<b>Сегодня не было выполненных рейсов</b>`);\n} else {\n    result.push(`<b>В работе ${verb} ${count_id} ${getDeclension(count_id)}:</b>\\n`);\n    for (let i = 0; i < count_id; i++) {\n        result.push(`<b>${i + 1}) ${name[i]}:</b>\\nКоличество рейсов: ${count[i]}\\nСумма нетто: ${weigth[i]}\\n`);\n    }\n}\n\n// Объединяем строки в одну\nconst output = result.join('\\n');\n\n// Возвращаем результат\nreturn [{ json: { output } }];"
       },
       "id": "4a60ba62-c449-4ae7-af17-caa608a083d9",
       "name": "Формирование вывода",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        7700,
-        2460
+        7940,
+        2240
       ]
     },
     {
@@ -20599,6 +20582,119 @@
         1500,
         10720
       ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "b5f1da75-8dfd-49fb-a0b2-6f4ee54f73b2",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "e9e03d0c-230e-40cf-a197-d7463dc69839",
+      "name": "Проверка есть ли рейсы",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        7000,
+        2320
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "transportation",
+          "mode": "list",
+          "cachedResultName": "transportation"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "driver_id",
+              "value": "={{ $('получаем odoo id9').item.json.odoo_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "574e4a7d-4bbd-4751-b8b4-937ef3ba5544",
+      "name": "Получение перевозок",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        6820,
+        2320
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.from.id }}",
+        "text": "За смену ещё нет выполненных рейсов",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Назад",
+                    "additionalFields": {
+                      "callback_data": "after_stats"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "922af71b-659a-4463-8ec8-c3962b831d74",
+      "name": "Вывод, если нет перевозок",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        7260,
+        2440
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ThC2kf8ZCBAO0FBa",
+          "name": "Main Everest"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -20612,6 +20708,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-07-10T07:39:21.000Z",
-  "versionId": "e58f8075-d211-49c9-9cc4-5889c447d343"
+  "updatedAt": "2024-07-10T07:56:42.000Z",
+  "versionId": "51adc38b-0777-4ef9-a03a-bdeaf6888f7e"
 }
