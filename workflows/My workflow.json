@@ -4003,17 +4003,6 @@
         ]
       ]
     },
-    "Aggregate": {
-      "main": [
-        [
-          {
-            "node": "Merge8",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
     "Merge8": {
       "main": [
         [
@@ -4167,11 +4156,6 @@
         ]
       ]
     },
-    "Code": {
-      "main": [
-        []
-      ]
-    },
     "Статистика1": {
       "main": [
         [
@@ -4199,7 +4183,7 @@
             "index": 0
           },
           {
-            "node": "Aggregate",
+            "node": "Объединение в json",
             "type": "main",
             "index": 0
           }
@@ -4231,6 +4215,17 @@
             "node": "Вывод статистики",
             "type": "main",
             "index": 0
+          }
+        ]
+      ]
+    },
+    "Объединение в json": {
+      "main": [
+        [
+          {
+            "node": "Merge8",
+            "type": "main",
+            "index": 1
           }
         ]
       ]
@@ -16521,7 +16516,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "http://dev.everest.lamart.site:8069/web/session/authenticate",
+        "url": "https://dev.everest.lamart.site/web/session/authenticate",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"call\",\n    \"params\": {\n        \"db\": \"db\",\n        \"login\": \"alexey.goremykin@urfu.me\",\n        \"password\": \"D4AcDsvTq6gPc5P\"\n    }\n}",
@@ -18882,7 +18877,7 @@
       "typeVersion": 2.3,
       "position": [
         6460,
-        2320
+        2280
       ],
       "credentials": {
         "postgres": {
@@ -18913,7 +18908,7 @@
       "typeVersion": 1,
       "position": [
         6640,
-        2320
+        2280
       ],
       "credentials": {
         "odooApi": {
@@ -19765,34 +19760,8 @@
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        7440,
-        2160
-      ]
-    },
-    {
-      "parameters": {
-        "fieldsToAggregate": {
-          "fieldToAggregate": [
-            {
-              "fieldToAggregate": "name"
-            },
-            {
-              "fieldToAggregate": "count"
-            },
-            {
-              "fieldToAggregate": "weigth"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "a4cf1181-f642-4bd5-9a76-c567f2e014b3",
-      "name": "Aggregate",
-      "type": "n8n-nodes-base.aggregate",
-      "typeVersion": 1,
-      "position": [
-        7440,
-        2320
+        7500,
+        2140
       ]
     },
     {
@@ -19806,7 +19775,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        7720,
+        7780,
         2240
       ]
     },
@@ -20501,7 +20470,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        8160,
+        8240,
         2240
       ],
       "credentials": {
@@ -20513,14 +20482,14 @@
     },
     {
       "parameters": {
-        "jsCode": "// Получаем входные данные\nconst inputData = items[0].json;\n\n// Инициализация переменных\nconst { count_id, name, count, weigth } = inputData;\nconst result = [];\n\n// Функция для определения правильного склонения слова \"перевозка\"\nfunction getDeclension(num) {\n    if (num === 1) return 'перевозка';\n    if (num > 1 && num < 5) return 'перевозки';\n    return 'перевозок';\n}\n\n// Определение глагола в зависимости от числа перевозок\nconst verb = count_id === 1 ? 'была' : 'было';\n\n// Проверка на количество перевозок\nif (count_id === 0) {\n    result.push(`<b>Сегодня не было выполненных рейсов</b>`);\n} else {\n    result.push(`<b>В работе ${verb} ${count_id} ${getDeclension(count_id)}:</b>\\n`);\n    for (let i = 0; i < count_id; i++) {\n        result.push(`<b>${i + 1}) ${name[i]}:</b>\\nКоличество рейсов: ${count[i]}\\nСумма нетто: ${weigth[i]}\\n`);\n    }\n}\n\n// Объединяем строки в одну\nconst output = result.join('\\n');\n\n// Возвращаем результат\nreturn [{ json: { output } }];"
+        "jsCode": "// Получаем входные данные\nconst inputData = items[0].json;\n\n// Инициализация переменных\nconst { count_id, name, count, weigth } = inputData;\nconst result = [];\n\n// Функция для определения правильного склонения слова \"перевозка\"\nfunction getDeclension(num) {\n    if (num === 1) return 'перевозка';\n    if (num > 1 && num < 5) return 'перевозки';\n    return 'перевозок';\n}\n\n// Определение глагола в зависимости от числа перевозок\nconst verb = count_id === 1 ? 'была' : 'было';\n\n\nresult.push(`<b>В работе ${verb} ${count_id} ${getDeclension(count_id)}:</b>\\n`);\nfor (let i = 0; i < count_id; i++) {\n    result.push(`<b>${i + 1}) ${name[i]}:</b>\\nКоличество рейсов: ${count[i]}\\nСумма нетто: ${weigth[i]}\\n`);\n    }\n\n\n// Объединяем строки в одну\nconst output = result.join('\\n');\n\n// Возвращаем результат\nreturn [{ json: { output } }];"
       },
       "id": "4a60ba62-c449-4ae7-af17-caa608a083d9",
       "name": "Формирование вывода",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        7940,
+        8020,
         2240
       ]
     },
@@ -20612,8 +20581,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        7000,
-        2320
+        7060,
+        2260
       ]
     },
     {
@@ -20646,7 +20615,7 @@
       "typeVersion": 2.3,
       "position": [
         6820,
-        2320
+        2280
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -20686,7 +20655,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        7260,
+        7340,
         2440
       ],
       "credentials": {
@@ -20695,6 +20664,32 @@
           "name": "Main Everest"
         }
       }
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "name"
+            },
+            {
+              "fieldToAggregate": "count"
+            },
+            {
+              "fieldToAggregate": "weigth"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a4cf1181-f642-4bd5-9a76-c567f2e014b3",
+      "name": "Объединение в json",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        7480,
+        2300
+      ]
     }
   ],
   "pinData": {},
@@ -20708,6 +20703,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-07-10T07:56:42.000Z",
-  "versionId": "51adc38b-0777-4ef9-a03a-bdeaf6888f7e"
+  "updatedAt": "2024-07-10T11:40:02.000Z",
+  "versionId": "78f07b02-03fb-4468-8a44-117ec7d07a6e"
 }
