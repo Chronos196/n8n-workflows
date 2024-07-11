@@ -125,22 +125,11 @@
         ]
       ]
     },
-    "Telegram2": {
-      "main": [
-        [
-          {
-            "node": "возвращаем дефолтный статус",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "поиск айди водителя": {
       "main": [
         [
           {
-            "node": "Telegram2",
+            "node": "отправка водителю комментария",
             "type": "main",
             "index": 0
           }
@@ -300,6 +289,17 @@
           }
         ]
       ]
+    },
+    "отправка водителю комментария": {
+      "main": [
+        [
+          {
+            "node": "возвращаем дефолтный статус",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-07-09T05:50:40.158Z",
@@ -326,7 +326,7 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "tg_id": "={{ $('Telegram Trigger1').item.json.callback_query.from.id }}",
+            "tg_id": "={{ $('Execute Workflow Trigger').item.json.inline_chat_id }}",
             "status": "inputing_reject_text",
             "end_request_id": "={{ $('номер заявки').item.json.TO_number }}"
           },
@@ -436,8 +436,8 @@
     {
       "parameters": {
         "operation": "sendPhoto",
-        "chatId": "={{ $('Telegram Trigger1').item.json.callback_query.from.id }}",
-        "file": "={{ $('Telegram Trigger1').item.json.callback_query.message.photo[3].file_id }}",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.inline_chat_id }}",
+        "file": "={{ $('Execute Workflow Trigger').item.json.inline_photo_id }}",
         "additionalFields": {
           "caption": "Напишите для водителя комментарий к заявке:"
         }
@@ -460,8 +460,8 @@
     {
       "parameters": {
         "operation": "deleteMessage",
-        "chatId": "={{ $('Telegram Trigger1').item.json.callback_query.from.id }}",
-        "messageId": "={{ $('Telegram Trigger1').item.json.callback_query.message.message_id }}"
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.inline_chat_id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.inline_message_id }}"
       },
       "id": "370ed13c-a4f1-4711-bef4-f6e9dece1383",
       "name": "удаляем старое сообщение",
@@ -501,7 +501,7 @@
             {
               "id": "7157f53b-6dc0-408e-b176-20681be56507",
               "name": "TO_number",
-              "value": "={{ $('Telegram Trigger1').item.json.callback_query.message.reply_markup.inline_keyboard[0][0].callback_data.substring(10) }}",
+              "value": "={{ $json.inline_TO_number_for_mech }}",
               "type": "string"
             }
           ]
@@ -583,7 +583,7 @@
     {
       "parameters": {
         "resource": "callback",
-        "queryId": "={{ $('Telegram Trigger1').item.json.callback_query.id }}",
+        "queryId": "={{ $('Execute Workflow Trigger').item.json.inline_query_id }}",
         "additionalFields": {
           "show_alert": true,
           "text": "Заявка уже была обработана"
@@ -615,7 +615,7 @@
           "conditions": [
             {
               "id": "8573591f-d67f-46fb-a1bc-d3a70cd9bc6c",
-              "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.message.photo[0].file_id }}",
+              "leftValue": "={{ $('Execute Workflow Trigger').item.json.inline_photo_id }}",
               "rightValue": "",
               "operator": {
                 "type": "string",
@@ -640,8 +640,8 @@
     {
       "parameters": {
         "operation": "editMessageText",
-        "chatId": "={{ $('Telegram Trigger1').item.json.callback_query.from.id }}",
-        "messageId": "={{ $('Telegram Trigger1').item.json.callback_query.message.message_id }}",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.inline_chat_id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.inline_message_id }}",
         "text": "Напишите для водителя комментарий к заявке:",
         "additionalFields": {}
       },
@@ -688,7 +688,8 @@
           "id": "QXqc61yRCfgVSB3C",
           "name": "new Odoo Алексей"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -718,7 +719,7 @@
         "resource": "custom",
         "customResource": "technical.maintenance",
         "operation": "get",
-        "customResourceId": "={{ $('получаем айди').item.json.end_request_id }}",
+        "customResourceId": "={{ $('Execute Workflow Trigger').item.json.pg_request_id }}",
         "options": {
           "fieldsList": []
         }
@@ -735,30 +736,6 @@
         "odooApi": {
           "id": "QXqc61yRCfgVSB3C",
           "name": "new Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $json.tg_id }}",
-        "text": "=<b>Работа не принята</b>\n\n<i>{{ $('поиск водителя по заявке').item.json.description_of_maintenance }}</i>\n\nКомментарий механика: {{ $('Telegram Trigger1').item.json.message.text }} ",
-        "additionalFields": {
-          "appendAttribution": false,
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "78d7bc2a-59d2-4e09-885e-4dc82d13c0ed",
-      "name": "Telegram2",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        2020,
-        -460
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
         }
       }
     },
@@ -820,8 +797,8 @@
     {
       "parameters": {
         "operation": "sendPhoto",
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
-        "file": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.photo[3].file_id }}",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.inline_chat_id }}",
+        "file": "={{ $('Execute Workflow Trigger').item.json.inline_photo_id }}",
         "additionalFields": {
           "caption": "Заявка подтверждена, водитель получит уведомление"
         }
@@ -844,8 +821,8 @@
     {
       "parameters": {
         "operation": "deleteMessage",
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
-        "messageId": "={{ $('Telegram Trigger1').item.json.callback_query.message.message_id }}"
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.inline_chat_id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.inline_message_id }}"
       },
       "id": "63cc3314-caf7-4e4d-8b11-288c7c515b46",
       "name": "удаляем старое сообщение1",
@@ -999,7 +976,7 @@
           "conditions": [
             {
               "id": "8573591f-d67f-46fb-a1bc-d3a70cd9bc6c",
-              "leftValue": "={{ $('Execute Workflow Trigger').item.json.inline_photo1_for_mech }}",
+              "leftValue": "={{ $('Execute Workflow Trigger').item.json.inline_photo_id }}",
               "rightValue": "",
               "operator": {
                 "type": "string",
@@ -1072,7 +1049,8 @@
           "id": "QXqc61yRCfgVSB3C",
           "name": "new Odoo Алексей"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -1091,11 +1069,11 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "odoo_id": "={{ $('статус механика').item.json.id }}",
-            "status": "authorized"
+            "status": "authorized",
+            "tg_id": "={{ $('Execute Workflow Trigger').item.json.chat_id }}"
           },
           "matchingColumns": [
-            "odoo_id"
+            "tg_id"
           ],
           "schema": [
             {
@@ -1106,7 +1084,7 @@
               "display": true,
               "type": "number",
               "canBeUsedToMatch": true,
-              "removed": true
+              "removed": false
             },
             {
               "id": "odoo_id",
@@ -1116,7 +1094,7 @@
               "display": true,
               "type": "number",
               "canBeUsedToMatch": true,
-              "removed": false
+              "removed": true
             },
             {
               "id": "status",
@@ -1290,7 +1268,8 @@
       "position": [
         620,
         400
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -1351,6 +1330,30 @@
         880,
         520
       ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.tg_id }}",
+        "text": "=<b>Работа не принята</b>\n\n<i>{{ $('поиск водителя по заявке').item.json.description_of_maintenance }}</i>\n\nКомментарий механика: {{ $('Execute Workflow Trigger').item.json.chat_text }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "78d7bc2a-59d2-4e09-885e-4dc82d13c0ed",
+      "name": "отправка водителю комментария",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2020,
+        -460
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -1360,6 +1363,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2024-07-10T14:46:47.000Z",
-  "versionId": "ed61ef9e-8894-4b09-b8f1-679641953116"
+  "updatedAt": "2024-07-11T06:15:01.000Z",
+  "versionId": "de27d825-6cbb-4520-8dd2-9f42fcfe82c0"
 }
