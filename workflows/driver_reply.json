@@ -1615,38 +1615,6 @@
         ]
       ]
     },
-    "Разделяем по статусам": {
-      "main": [
-        [
-          {
-            "node": "добавим перевод на новую строку",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "добавим перевод на новую строку1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "добавим перевод на новую строку2",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Aggregate",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Aggregate": {
       "main": [
         [
@@ -1746,6 +1714,31 @@
         [
           {
             "node": "проверка на число3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Разделяем по статусам": {
+      "main": [
+        [
+          {
+            "node": "добавим перевод на новую строку",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "добавим перевод на новую строку1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "добавим перевод на новую строку2",
             "type": "main",
             "index": 0
           }
@@ -4456,7 +4449,8 @@
       "position": [
         -500,
         4380
-      ]
+      ],
+      "alwaysOutputData": false
     },
     {
       "parameters": {
@@ -4604,7 +4598,7 @@
           "filter": [
             {
               "fieldName": "driver_id",
-              "value": "={{ $json.odoo_id }}"
+              "value": "={{ $('Execute Workflow Trigger').item.json.pg_odoo_id }}"
             }
           ]
         }
@@ -4660,7 +4654,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.from.id }}",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.chat_id }}",
         "text": "Чтобы увидеть заявки, нужно быть привязанным к автомобилю",
         "additionalFields": {
           "appendAttribution": false
@@ -7382,89 +7376,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "К выполнению",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "84c7a41e-05e5-4497-b42a-1e5102906729",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "В работе",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "dea7aa17-5f44-45d5-a497-9cea75e85820",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "Требуется проверка",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {
-          "fallbackOutput": "extra"
-        }
-      },
-      "id": "9192fa89-75fa-4989-bcfc-0048b9db7323",
-      "name": "Разделяем по статусам",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        -1220,
-        4420
-      ]
-    },
-    {
-      "parameters": {
         "chatId": "={{ $('Execute Workflow Trigger').item.json.chat_id }}",
         "text": "Нет заявок для отображения",
         "additionalFields": {
@@ -7525,7 +7436,8 @@
       "position": [
         -5520,
         3900
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -7758,6 +7670,89 @@
         -4760,
         6580
       ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "К выполнению",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "84c7a41e-05e5-4497-b42a-1e5102906729",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "В работе",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "dea7aa17-5f44-45d5-a497-9cea75e85820",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "Требуется проверка",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "none"
+        }
+      },
+      "id": "9192fa89-75fa-4989-bcfc-0048b9db7323",
+      "name": "Разделяем по статусам",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -1220,
+        4420
+      ]
     }
   ],
   "pinData": {
@@ -7765,13 +7760,13 @@
       {
         "json": {
           "chat_id": "700956969",
-          "chat_text": "123",
+          "chat_text": "Заявки на ТО",
           "inline_data": null,
           "inline_chat_id": null,
           "inline_query_id": null,
           "inline_message_id": null,
-          "pg_status": "inputing_request",
-          "chat_message_id": "10236",
+          "pg_status": "authorized",
+          "chat_message_id": "10248",
           "pg_odoo_id": 2,
           "pg_only_mech": false
         }
@@ -7791,6 +7786,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-11T12:29:54.000Z",
-  "versionId": "786e6ae1-7101-4386-bdf4-d3c0a4e221b3"
+  "updatedAt": "2024-07-11T12:40:34.000Z",
+  "versionId": "10378c12-b388-4f24-b509-d9630395859b"
 }
