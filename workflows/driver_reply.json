@@ -1414,115 +1414,11 @@
         ]
       ]
     },
-    "получаем odoo id9": {
-      "main": [
-        [
-          {
-            "node": "находим машину по odoo id11",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Получение сегодняшней даты2": {
-      "main": [
-        [
-          {
-            "node": "получаем дату и время 00:1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "получаем дату и время 00:1": {
-      "main": [
-        [
-          {
-            "node": "дата и время 23:1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "дата и время 23:1": {
-      "main": [
-        [
-          {
-            "node": "находим рейсы по машине6",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Summarize2": {
-      "main": [
-        [
-          {
-            "node": "Merge4",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Summarize3": {
-      "main": [
-        [
-          {
-            "node": "Merge4",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
-    "Merge4": {
-      "main": [
-        [
-          {
-            "node": "Вывод статистики1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "находим машину по odoo id11": {
-      "main": [
-        [
-          {
-            "node": "Получение сегодняшней даты2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "находим рейсы по машине6": {
-      "main": [
-        [
-          {
-            "node": "Summarize2",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Summarize3",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Разделение reply-кнопок или иного ввода": {
       "main": [
         [
           {
-            "node": "получаем odoo id9",
+            "node": "находим машину по odoo id13",
             "type": "main",
             "index": 0
           }
@@ -1744,6 +1640,95 @@
           }
         ]
       ]
+    },
+    "Получение перевозок": {
+      "main": [
+        [
+          {
+            "node": "Проверка есть ли рейсы",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Проверка есть ли рейсы": {
+      "main": [
+        [
+          {
+            "node": "Summarize8",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Объединение в json",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Вывод, если нет перевозок",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Объединение в json": {
+      "main": [
+        [
+          {
+            "node": "Merge8",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Summarize8": {
+      "main": [
+        [
+          {
+            "node": "Merge8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge8": {
+      "main": [
+        [
+          {
+            "node": "Формирование вывода",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Формирование вывода": {
+      "main": [
+        [
+          {
+            "node": "Вывод статистики2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "находим машину по odoo id13": {
+      "main": [
+        [
+          {
+            "node": "Получение перевозок",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-07-11T08:41:44.925Z",
@@ -1753,22 +1738,6 @@
   },
   "name": "driver_reply",
   "nodes": [
-    {
-      "parameters": {
-        "content": "## Вывод статистики \nПока данные берутся из Postgres",
-        "height": 401.9779681145926,
-        "width": 1583.6275775611143,
-        "color": 6
-      },
-      "id": "10092481-d686-41c2-babe-c718b9f0a0e5",
-      "name": "Sticky Note",
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -3965.3024439904602,
-        3020
-      ]
-    },
     {
       "parameters": {
         "chatId": "={{ $('Execute Workflow Trigger').item.json.chat_id }}",
@@ -6427,266 +6396,6 @@
     },
     {
       "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "tg_users",
-          "mode": "list",
-          "cachedResultName": "tg_users"
-        },
-        "where": {
-          "values": [
-            {
-              "column": "tg_id",
-              "value": "={{ $('Telegram Trigger1').item.json.message.from.id }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "78376908-dc15-43b7-b379-c74212dae8b5",
-      "name": "получаем odoo id9",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.3,
-      "position": [
-        -3940,
-        3180
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "Q4ZHMkPf1vzJmsuw",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "id": "07c05f8e-8649-4788-a74f-a5585f6c975d",
-      "name": "Получение сегодняшней даты2",
-      "type": "n8n-nodes-base.dateTime",
-      "typeVersion": 2,
-      "position": [
-        -3620,
-        3180
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "formatDate",
-        "date": "={{ $json.currentDate }}",
-        "format": "=yyyy-MM-dd, 00:00:00",
-        "options": {}
-      },
-      "id": "b3dab7a0-8551-476b-9f13-517f3ea2f84a",
-      "name": "получаем дату и время 00:1",
-      "type": "n8n-nodes-base.dateTime",
-      "typeVersion": 2,
-      "position": [
-        -3460,
-        3180
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "formatDate",
-        "date": "={{ $('Получение сегодняшней даты2').item.json.currentDate }}",
-        "format": "=yyyy-MM-dd, 23:59:59",
-        "outputFieldName": "newformattedDate",
-        "options": {}
-      },
-      "id": "58e803a3-722c-4dd3-aac4-1a563dffae04",
-      "name": "дата и время 23:1",
-      "type": "n8n-nodes-base.dateTime",
-      "typeVersion": 2,
-      "position": [
-        -3320,
-        3180
-      ]
-    },
-    {
-      "parameters": {
-        "fieldsToSummarize": {
-          "values": [
-            {
-              "field": "id"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "84020219-6b7b-44a1-b22a-031465fe6c22",
-      "name": "Summarize2",
-      "type": "n8n-nodes-base.summarize",
-      "typeVersion": 1,
-      "position": [
-        -2940,
-        3100
-      ]
-    },
-    {
-      "parameters": {
-        "fieldsToSummarize": {
-          "values": [
-            {
-              "aggregation": "sum",
-              "field": "cargo_netto"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "dda13488-4998-4a40-91ee-a9b0708f348f",
-      "name": "Summarize3",
-      "type": "n8n-nodes-base.summarize",
-      "typeVersion": 1,
-      "position": [
-        -2960,
-        3300
-      ]
-    },
-    {
-      "parameters": {
-        "mode": "combine",
-        "combinationMode": "multiplex",
-        "options": {}
-      },
-      "id": "04eb1529-fb8e-410b-8267-dc14b59c9203",
-      "name": "Merge4",
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 2.1,
-      "position": [
-        -2740,
-        3200
-      ]
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.from.id }}",
-        "text": "=Во время смены: \nКоличество выполненых рейсов: {{ $json.count_id }}\nСумма нетто: {{ $json.sum_cargo_netto }}",
-        "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Назад",
-                    "additionalFields": {
-                      "callback_data": "after_stats"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {
-          "appendAttribution": false,
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "bbf4e292-3bf1-4711-bea0-f98d61329285",
-      "name": "Вывод статистики1",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        -2540,
-        3180
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "cars.cars",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "driver_id",
-              "value": "={{ $json.odoo_id }}"
-            }
-          ]
-        }
-      },
-      "id": "76f6fb00-4707-42d1-a66f-49d894a73b45",
-      "name": "находим машину по odoo id11",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        -3760,
-        3180
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "transportation.round",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "car",
-              "value": "={{ $('находим машину по odoo id11').item.json.id }}"
-            },
-            {
-              "fieldName": "status",
-              "value": "Завершен"
-            },
-            {
-              "fieldName": "time",
-              "operator": "greaterOrEqual",
-              "value": "={{ $('получаем дату и время 00:1').item.json.formattedDate }}"
-            },
-            {
-              "fieldName": "time",
-              "operator": "lesserOrEqual",
-              "value": "={{ $json.newformattedDate }}"
-            }
-          ]
-        }
-      },
-      "id": "859fa9ec-3653-4a8e-937a-fb2eb2ad4c86",
-      "name": "находим рейсы по машине6",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        -3180,
-        3180
-      ],
-      "alwaysOutputData": true,
-      "executeOnce": false,
-      "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
         "rules": {
           "values": [
             {
@@ -7436,8 +7145,7 @@
       "position": [
         -5520,
         3900
-      ],
-      "disabled": true
+      ]
     },
     {
       "parameters": {
@@ -7753,6 +7461,281 @@
         -1220,
         4420
       ]
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "transportation",
+          "mode": "list",
+          "cachedResultName": "transportation"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "driver_id",
+              "value": "={{ $('Execute Workflow Trigger').item.json.pg_odoo_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a42df075-b963-4e2e-884e-ef37fd57d088",
+      "name": "Получение перевозок",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        -3715,
+        3180
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "b5f1da75-8dfd-49fb-a0b2-6f4ee54f73b2",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "0f722cd6-c3d5-4432-928b-e5c502aeded1",
+      "name": "Проверка есть ли рейсы",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -3515,
+        3180
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.chat_id }}",
+        "text": "За смену ещё нет выполненных рейсов",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Назад",
+                    "additionalFields": {
+                      "callback_data": "after_stats"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "d101c9f9-62c0-4dfe-ac74-51732ce6e43c",
+      "name": "Вывод, если нет перевозок",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        -3235,
+        3260
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "name"
+            },
+            {
+              "fieldToAggregate": "count"
+            },
+            {
+              "fieldToAggregate": "weigth"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0f99ec7e-55ae-40e8-bbc2-976d506f84a7",
+      "name": "Объединение в json",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        -3095,
+        3140
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "field": "id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "39f56c8d-12f9-4e18-8dab-8c66ee7eae37",
+      "name": "Summarize8",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        -3155,
+        2980
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "multiplex",
+        "options": {}
+      },
+      "id": "b667d790-c928-470b-ae3c-4c7e563f75dd",
+      "name": "Merge8",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        -2875,
+        3120
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Получаем входные данные\nconst inputData = items[0].json;\n\n// Инициализация переменных\nconst { count_id, name, count, weigth } = inputData;\nconst result = [];\n\n// Функция для определения правильного склонения слова \"перевозка\"\nfunction getDeclension(num) {\n    if (num === 1) return 'перевозка';\n    if (num > 1 && num < 5) return 'перевозки';\n    return 'перевозок';\n}\n\n// Определение глагола в зависимости от числа перевозок\nconst verb = count_id === 1 ? 'была' : 'было';\n\n\nresult.push(`<b>В работе ${verb} ${count_id} ${getDeclension(count_id)}:</b>\\n`);\nfor (let i = 0; i < count_id; i++) {\n    result.push(`<b>${i + 1}) ${name[i]}:</b>\\nКоличество рейсов: ${count[i]}\\nСумма нетто: ${weigth[i]}\\n`);\n    }\n\n\n// Объединяем строки в одну\nconst output = result.join('\\n');\n\n// Возвращаем результат\nreturn [{ json: { output } }];"
+      },
+      "id": "fb791070-d1fc-44e6-a2d3-934824d324ff",
+      "name": "Формирование вывода",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2695,
+        3100
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "cars.cars",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "driver_id",
+              "value": "={{ $json.pg_odoo_id }}"
+            }
+          ]
+        }
+      },
+      "id": "aef80d53-bb73-4e1c-bf84-54032e635858",
+      "name": "находим машину по odoo id13",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        -3980,
+        3180
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.chat_id }}",
+        "text": "={{ $json.output }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Назад",
+                    "additionalFields": {
+                      "callback_data": "after_stats"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "b612f30a-9494-40c0-9602-741f2e7ebf52",
+      "name": "Вывод статистики2",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        -2455,
+        3080
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Вывод статистики \nПока данные берутся из Postgres",
+        "height": 401.9779681145926,
+        "width": 1756.8129908500564,
+        "color": 6
+      },
+      "id": "4b0eda63-ab6f-4afe-ad6c-126056065fa2",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -4040,
+        3020
+      ]
     }
   ],
   "pinData": {
@@ -7760,13 +7743,13 @@
       {
         "json": {
           "chat_id": "700956969",
-          "chat_text": "Заявки на ТО",
+          "chat_text": "Моя статистика",
           "inline_data": null,
           "inline_chat_id": null,
           "inline_query_id": null,
           "inline_message_id": null,
           "pg_status": "authorized",
-          "chat_message_id": "10248",
+          "chat_message_id": "10256",
           "pg_odoo_id": 2,
           "pg_only_mech": false
         }
@@ -7786,6 +7769,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-11T12:40:34.000Z",
-  "versionId": "10378c12-b388-4f24-b509-d9630395859b"
+  "updatedAt": "2024-07-11T12:50:42.000Z",
+  "versionId": "8caaff05-411e-4a1b-96a9-00f63e24d6f0"
 }
