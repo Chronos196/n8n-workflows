@@ -2408,45 +2408,6 @@
         ]
       ]
     },
-    "обработка кнопок ТО": {
-      "main": [
-        [
-          {
-            "node": "номер авто",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "номер авто1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "номер выбранной заявки",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "номер выбранной заявки1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "фото завершения заявки",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "фото завершения заявки": {
       "main": [
         [
@@ -4625,11 +4586,156 @@
         ]
       ]
     },
+    "заявки \"к выполнению\"1": {
+      "main": [
+        [
+          {
+            "node": "проверка наличия заявок2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "создаём динамически инлайн кнопки2": {
+      "main": [
+        [
+          {
+            "node": "отправляем сообщение 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "номер авто2": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "находим рейсы по машине8": {
+      "main": [
+        [
+          {
+            "node": "Remove Duplicates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "находим рейсы по машине8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove Duplicates": {
+      "main": [
+        [
+          {
+            "node": "находим перевозки по рейсам8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "находим перевозки по рейсам8": {
+      "main": [
+        [
+          {
+            "node": "создаём динамически инлайн кнопки2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "обработка кнопок ТО": {
+      "main": [
+        [
+          {
+            "node": "номер авто",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "номер авто1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "номер выбранной заявки",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "номер выбранной заявки1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "фото завершения заявки",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "весовые в конце смены": {
       "main": [
         [
           {
-            "node": "данные о литрах1",
+            "node": "номер авто2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "номер выбранной перевозки",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "номер выбранной перевозки": {
+      "main": [
+        [
+          {
+            "node": "загрузите ттн или весовые",
             "type": "main",
             "index": 0
           }
@@ -11300,8 +11406,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -2155,
-        9755
+        -2180,
+        9760
       ]
     },
     {
@@ -14327,109 +14433,6 @@
                 "conditions": [
                   {
                     "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
-                    "rightValue": "take_to",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "535cadc8-a70a-4a72-a932-a352cc94843b",
-                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
-                    "rightValue": "finish_to",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "4a9a6c70-e2e7-4ac3-ad3b-9b2fc779f25d",
-                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
-                    "rightValue": "={{ \"TR_\" }}",
-                    "operator": {
-                      "type": "string",
-                      "operation": "startsWith"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "9c15e9b8-76c9-4f34-96af-cf0008354db6",
-                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
-                    "rightValue": "={{ \"ER_\" }}",
-                    "operator": {
-                      "type": "string",
-                      "operation": "startsWith"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {
-          "fallbackOutput": "extra"
-        }
-      },
-      "id": "6ff58809-bc0e-457c-9c18-70919bbe5d47",
-      "name": "обработка кнопок ТО",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        -4380,
-        8580
-      ]
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
                     "rightValue": "yes_request_photo",
                     "operator": {
                       "type": "string",
@@ -15793,10 +15796,10 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "http://dev.everest.lamart.site/web/session/authenticate",
+        "url": "https://dev.everest.lamart.site/web/session/authenticate",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"call\",\n    \"params\": {\n        \"db\": \"db\",\n        \"login\": \"lamart-admin\",\n        \"password\": \"lamarlemur\"\n    }\n}",
+        "jsonBody": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"call\",\n    \"params\": {\n        \"db\": \"db\",\n        \"login\": \"sergey.kosolapov@urfu.me\",\n        \"password\": \"sergei_12012004\"\n    }\n}",
         "options": {
           "response": {
             "response": {
@@ -23034,18 +23037,18 @@
         "operation": "editMessageText",
         "chatId": "={{ $('Telegram Trigger1').item.json.callback_query.message.chat.id }}",
         "messageId": "={{ $('Telegram Trigger1').item.json.callback_query.message.message_id }}",
-        "text": "Сколько литров вы заправили в автомобиль? Введите число, например: 100",
+        "text": "Выберите документ который хотите отправить",
         "additionalFields": {
           "parse_mode": "HTML"
         }
       },
       "id": "3db3c1df-eb90-4c5e-841b-f518e7bea366",
-      "name": "данные о литрах1",
+      "name": "загрузите ттн или весовые",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        -4060,
-        13340
+        -3820,
+        13600
       ],
       "credentials": {
         "telegramApi": {
@@ -23053,6 +23056,427 @@
           "name": "Sergey Bot"
         }
       }
+    },
+    {
+      "parameters": {
+        "url": "http://dev.everest.lamart.site/transportations_by_car",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"number_car\": {{'\"'+ $json.number_car +'\"'}}\n} ",
+        "options": {}
+      },
+      "id": "1b5bf313-e4b5-4624-8f80-72b80c80aef5",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -3820,
+        13380
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "technical.maintenance",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "car_id",
+              "value": "={{ $json.id }}"
+            },
+            {
+              "fieldName": "status",
+              "value": "={{ \"К выполнению\" }}"
+            }
+          ]
+        }
+      },
+      "id": "d76dc3b5-d402-4203-9ef7-24a67b1f0809",
+      "name": "заявки \"к выполнению\"1",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        -3640,
+        14080
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst buttons = items.map((item, index) => ({\n    text: `${item.json.route[1]}`,\n    callback_data: `TS_${item.json.id}` // TR - take request\n}));\n\nconst inlineKeyboard = {\n    inline_keyboard: buttons.map(button => [button])\n};\n\nconst chatId = $('Telegram Trigger1').all()[0].json.callback_query.from.id;\nconst token = '6999092112:AAE0sJ-UZeXwAbOEbQfLWJRL_aK5wTG3Mfo';\nconst url = `https://api.telegram.org/bot${token}/sendMessage`;\n\nconst message = {\n    chat_id: chatId,\n    text: \"Для завершения необходимо загрузить ТТН и весовые справки\\nВыберите перевозку, в которую нужно загрузить документы\",\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n"
+      },
+      "id": "c9b37064-470e-49b2-86d4-3867e5e0118a",
+      "name": "создаём динамически инлайн кнопки2",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2720,
+        13380
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.message }}",
+        "options": {}
+      },
+      "id": "db1b47f2-f9fe-49cf-958e-8db843114b0e",
+      "name": "отправляем сообщение 2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -2500,
+        13380
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "deleteMessage",
+        "chatId": "={{ $('Telegram Trigger1').all()[0].json.callback_query.from.id }}",
+        "messageId": "={{ $('Telegram Trigger1').all()[0].json.callback_query.message.message_id }}"
+      },
+      "id": "568a9e41-5431-4557-8271-4b770e27d467",
+      "name": "удаляем прошлое сообщение с заявками2",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        -2760,
+        14080
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "R2ipKSfc6dad40P9",
+          "name": "Sergey Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Вывод кнопок для принятия заявки",
+        "height": 257.97529446338507,
+        "width": 1077.334745180572,
+        "color": 6
+      },
+      "id": "16f7e7fb-26ec-4e56-82f2-8348d37bf90c",
+      "name": "Sticky Note41",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -3900,
+        14000
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "6d3ef479-f9d1-4c48-9141-f8120a69fece",
+              "leftValue": "={{ $json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "2f1a9eb4-ca87-43ea-a4b0-bdf827d3fd53",
+      "name": "проверка наличия заявок2",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -3420,
+        14080
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "cars.cars",
+        "operation": "getAll",
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "driver_id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        }
+      },
+      "id": "22aecd23-6cfc-4956-8d29-4aff73b6e97c",
+      "name": "номер авто2",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        -4080,
+        13380
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "transportation.round",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "transportation",
+              "value": "={{ $json.transportations.id }}"
+            },
+            {
+              "fieldName": "status",
+              "value": "Завершен"
+            },
+            {
+              "fieldName": "ttn"
+            }
+          ]
+        }
+      },
+      "id": "5237f4f6-c4f0-47c9-99e2-af44c7151102",
+      "name": "находим рейсы по машине8",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        -3320,
+        13380
+      ],
+      "alwaysOutputData": true,
+      "executeOnce": false,
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "transportations",
+        "include": "allOtherFields",
+        "options": {}
+      },
+      "id": "fe6ccfec-f0dc-4f5a-a140-97edd794462c",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -3560,
+        13380
+      ]
+    },
+    {
+      "parameters": {
+        "compare": "selectedFields",
+        "fieldsToCompare": "transportation[0]",
+        "options": {}
+      },
+      "id": "5c7fce3a-0ab5-42e7-a699-40e3f37cf032",
+      "name": "Remove Duplicates",
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 1,
+      "position": [
+        -3100,
+        13380
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "transportation.transportation",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "id",
+              "value": "={{ $json.transportation[0] }}"
+            }
+          ]
+        }
+      },
+      "id": "5fccd107-dbdc-4419-be77-85744ec1bb40",
+      "name": "находим перевозки по рейсам8",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        -2920,
+        13380
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
+                    "rightValue": "take_to",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "535cadc8-a70a-4a72-a932-a352cc94843b",
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
+                    "rightValue": "finish_to",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "4a9a6c70-e2e7-4ac3-ad3b-9b2fc779f25d",
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
+                    "rightValue": "={{ \"TR_\" }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "9c15e9b8-76c9-4f34-96af-cf0008354db6",
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
+                    "rightValue": "={{ \"ER_\" }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "6ff58809-bc0e-457c-9c18-70919bbe5d47",
+      "name": "обработка кнопок ТО",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -4380,
+        8580
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "92ad7c1c-cd84-4fc3-bf35-ca59aedad2a0",
+              "name": "TS_number",
+              "value": "={{ $('Telegram Trigger1').item.json.callback_query.data.substring(3) }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2fb23ef1-9933-4abe-b35e-04c8e2487d49",
+      "name": "номер выбранной перевозки",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        -4060,
+        13600
+      ]
     },
     {
       "parameters": {
@@ -23072,6 +23496,27 @@
                     "operator": {
                       "type": "string",
                       "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "aa099f5f-3f70-427e-b099-02df695e132f",
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.callback_query.data }}",
+                    "rightValue": "={{ \"TS_\" }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
                     }
                   }
                 ],
@@ -23103,6 +23548,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-07-10T09:48:46.000Z",
-  "versionId": "43ad84ce-b66b-4dce-9d2a-8b3ca376c26c"
+  "updatedAt": "2024-07-10T11:30:06.000Z",
+  "versionId": "8f9ccadd-a9e9-4e58-b53e-6359388d6cea"
 }
