@@ -3872,7 +3872,7 @@
       "main": [
         [
           {
-            "node": "Добавление перевозки в бд",
+            "node": "Добавление перевозки в бд2",
             "type": "main",
             "index": 0
           }
@@ -3883,7 +3883,7 @@
       "main": [
         [
           {
-            "node": "Добавление перевозки в бд1",
+            "node": "Добавление перевозки в бд3",
             "type": "main",
             "index": 0
           }
@@ -3905,40 +3905,7 @@
       "main": [
         [
           {
-            "node": "Postgres2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Postgres2": {
-      "main": [
-        [
-          {
-            "node": "Добавление веса и количества рейсов",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Добавление перевозки в бд": {
-      "main": [
-        [
-          {
-            "node": "Добавление перевозки в бд2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Добавление перевозки в бд1": {
-      "main": [
-        [
-          {
-            "node": "Добавление перевозки в бд3",
+            "node": "получаем не обновленные данные",
             "type": "main",
             "index": 0
           }
@@ -4226,6 +4193,17 @@
             "node": "Merge8",
             "type": "main",
             "index": 1
+          }
+        ]
+      ]
+    },
+    "получаем не обновленные данные": {
+      "main": [
+        [
+          {
+            "node": "Добавление веса и количества рейсов",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -16007,8 +15985,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        2040,
-        11460
+        1500,
+        11660
       ],
       "credentials": {
         "telegramApi": {
@@ -18928,8 +18906,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        2040,
-        11100
+        1660,
+        11280
       ],
       "credentials": {
         "telegramApi": {
@@ -19039,172 +19017,6 @@
     },
     {
       "parameters": {
-        "operation": "update",
-        "schema": {
-          "__rl": true,
-          "value": "public",
-          "mode": "list",
-          "cachedResultName": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "transportation",
-          "mode": "list",
-          "cachedResultName": "transportation"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "id": "={{ $('перевозка со статусом \"В начале смены\"').item.json.id }}",
-            "name": "={{ $('находим перевозки по рейсам2').item.json.route[1] }}"
-          },
-          "matchingColumns": [
-            "id"
-          ],
-          "schema": [
-            {
-              "id": "name",
-              "displayName": "name",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "id",
-              "displayName": "id",
-              "required": false,
-              "defaultMatch": true,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "count",
-              "displayName": "count",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "weigth",
-              "displayName": "weigth",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": true
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "450a0726-3a87-4c86-a0cb-f2e854b14ab7",
-      "name": "Добавление перевозки в бд",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.3,
-      "position": [
-        4860,
-        7880
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "Q4ZHMkPf1vzJmsuw",
-          "name": "Postgres account"
-        }
-      },
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "schema": {
-          "__rl": true,
-          "value": "public",
-          "mode": "list",
-          "cachedResultName": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "transportation",
-          "mode": "list",
-          "cachedResultName": "transportation"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "name": "={{ $('получаем название маршрута из перевозки').item.json.display_name }}",
-            "id": "={{ $('есть ли рейсы на сегодня?').item.json.transportation[0] }}"
-          },
-          "matchingColumns": [
-            "id"
-          ],
-          "schema": [
-            {
-              "id": "id",
-              "displayName": "id",
-              "required": true,
-              "defaultMatch": true,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "name",
-              "displayName": "name",
-              "required": true,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "count",
-              "displayName": "count",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "weigth",
-              "displayName": "weigth",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": true
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "973eb922-80a5-4dee-90a4-3ba9342eb074",
-      "name": "Добавление перевозки в бд1",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.3,
-      "position": [
-        4860,
-        8100
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "Q4ZHMkPf1vzJmsuw",
-          "name": "Postgres account"
-        }
-      },
-      "disabled": true
-    },
-    {
-      "parameters": {
         "resource": "custom",
         "customResource": "transportation.round",
         "operation": "getAll",
@@ -19240,45 +19052,6 @@
         "odooApi": {
           "id": "QXqc61yRCfgVSB3C",
           "name": "new Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "transportation",
-          "mode": "list",
-          "cachedResultName": "transportation"
-        },
-        "where": {
-          "values": [
-            {
-              "column": "id",
-              "value": "={{ $('начало рейса').item.json.id }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "96ac8272-0066-4815-a373-bb03da4f7e05",
-      "name": "Postgres2",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.3,
-      "position": [
-        3900,
-        5980
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "Q4ZHMkPf1vzJmsuw",
-          "name": "Postgres account"
         }
       }
     },
@@ -19483,7 +19256,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        5080,
+        4920,
         7880
       ],
       "credentials": {
@@ -19573,7 +19346,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        5060,
+        4920,
         8100
       ],
       "credentials": {
@@ -19893,7 +19666,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        9180,
+        9440,
         1600
       ],
       "credentials": {
@@ -19917,7 +19690,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        9400,
+        9660,
         1620
       ],
       "credentials": {
@@ -19941,7 +19714,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        9580,
+        9840,
         1700
       ],
       "credentials": {
@@ -19965,7 +19738,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        9740,
+        10000,
         1800
       ],
       "credentials": {
@@ -20050,8 +19823,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        9060,
-        2480
+        9360,
+        2660
       ]
     },
     {
@@ -20068,7 +19841,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        9860,
+        10120,
         1920
       ],
       "credentials": {
@@ -20092,8 +19865,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        9340,
-        2700
+        9640,
+        2880
       ],
       "credentials": {
         "telegramApi": {
@@ -20116,8 +19889,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        9560,
-        2640
+        9860,
+        2820
       ],
       "credentials": {
         "telegramApi": {
@@ -20140,8 +19913,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        9740,
-        2540
+        10040,
+        2720
       ],
       "credentials": {
         "telegramApi": {
@@ -20164,8 +19937,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        9880,
-        2400
+        10140,
+        2440
       ],
       "credentials": {
         "telegramApi": {
@@ -20188,8 +19961,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        9940,
-        2220
+        10200,
+        2260
       ],
       "credentials": {
         "telegramApi": {
@@ -20212,8 +19985,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        9900,
-        2060
+        10160,
+        2100
       ],
       "credentials": {
         "telegramApi": {
@@ -20299,8 +20072,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        9020,
-        2240
+        9360,
+        2340
       ]
     },
     {
@@ -20422,21 +20195,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        9000,
+        9260,
         1900
-      ]
-    },
-    {
-      "parameters": {
-        "jsCode": "// Получаем входные данные\nconst inputData = items[0].json;\n\n// Инициализация переменных\nconst { count_id, name, count, weigth } = inputData;\nconst result = [];\n\n// Функция для определения правильного склонения слова \"перевозка\"\nfunction getDeclension(num) {\n    if (num === 1) return 'перевозка';\n    if (num > 1 && num < 5) return 'перевозки';\n    return 'перевозок';\n}\n\n\n\nresult.push(`<b>В работе было ${count_id} ${getDeclension(count_id)}:</b>\\n`);\n\nfor (let i = 0; i < count_id; i++) {\n    result.push(`<b>${i + 1}) ${name[i]}:</b>\\nКоличество рейсов: ${count[i]}\\nСумма нетто: ${weigth[i]}\\n`);\n    }\n\n\n// Объединяем строки в одну\nconst output = result.join('\\n');\n\n// Возвращаем результат\nreturn [{ json: { output } }];"
-      },
-      "id": "52c7e4af-57d4-4dfe-b9f2-f7b1f2ad1939",
-      "name": "Code",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        7940,
-        2040
       ]
     },
     {
@@ -20470,7 +20230,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        8240,
+        8300,
         2240
       ],
       "credentials": {
@@ -20489,8 +20249,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        8020,
-        2240
+        7980,
+        2220
       ]
     },
     {
@@ -20690,6 +20450,45 @@
         7480,
         2300
       ]
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "transportation",
+          "mode": "list",
+          "cachedResultName": "transportation"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "id",
+              "value": "={{ $('начало рейса').item.json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "96ac8272-0066-4815-a373-bb03da4f7e05",
+      "name": "получаем не обновленные данные",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        3900,
+        5980
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -20703,6 +20502,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-07-10T11:40:02.000Z",
-  "versionId": "78f07b02-03fb-4468-8a44-117ec7d07a6e"
+  "updatedAt": "2024-07-11T09:32:37.000Z",
+  "versionId": "66ebceb5-1c9d-40e9-b25e-dda6573ab74d"
 }
