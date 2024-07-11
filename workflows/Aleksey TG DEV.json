@@ -2386,31 +2386,6 @@
         ]
       ]
     },
-    "Разделяем по статусам": {
-      "main": [
-        [
-          {
-            "node": "добавим перевод на новую строку",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "добавим перевод на новую строку1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "добавим перевод на новую строку2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "номер телефона": {
       "main": [
         [
@@ -4612,6 +4587,49 @@
         [
           {
             "node": "авторизация",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Разделяем по статусам": {
+      "main": [
+        [
+          {
+            "node": "добавим перевод на новую строку",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "добавим перевод на новую строку1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "добавим перевод на новую строку2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Нет заявок для отображения",
             "type": "main",
             "index": 0
           }
@@ -10402,7 +10420,7 @@
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        9340,
+        9560,
         3480
       ]
     },
@@ -10424,7 +10442,7 @@
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        9420,
+        9640,
         3660
       ]
     },
@@ -10446,7 +10464,7 @@
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        9420,
+        9640,
         3840
       ]
     },
@@ -10469,7 +10487,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        9560,
+        9780,
         3480
       ]
     },
@@ -10492,7 +10510,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        9640,
+        9860,
         3660
       ]
     },
@@ -10515,7 +10533,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        9640,
+        9860,
         3840
       ]
     },
@@ -10526,7 +10544,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        9900,
+        10120,
         3620
       ]
     },
@@ -10537,7 +10555,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        10140,
+        10360,
         3680
       ]
     },
@@ -10584,7 +10602,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        10580,
+        10800,
         3680
       ],
       "credentials": {
@@ -10612,7 +10630,7 @@
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        10360,
+        10580,
         3680
       ]
     },
@@ -11918,7 +11936,7 @@
     {
       "parameters": {
         "resource": "file",
-        "fileId": "={{ $('Telegram Trigger1').item.json.message.photo[3].file_id }}"
+        "fileId": "={{ $('Telegram Trigger1').item.json.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}"
       },
       "id": "7932b337-d3f3-4f7f-a748-327cb9045126",
       "name": "получение фото из тг1",
@@ -14106,87 +14124,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "К выполнению",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "84c7a41e-05e5-4497-b42a-1e5102906729",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "В работе",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "dea7aa17-5f44-45d5-a497-9cea75e85820",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "Требуется проверка",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "5d61559d-aaba-419f-9b87-ddf340c6e6cc",
-      "name": "Разделяем по статусам",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        9140,
-        3700
-      ]
-    },
-    {
-      "parameters": {
         "assignments": {
           "assignments": [
             {
@@ -15753,7 +15690,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "http://dev.everest.lamart.site/web/session/authenticate",
+        "url": "https://dev.everest.lamart.site/web/session/authenticate",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"call\",\n    \"params\": {\n        \"db\": \"db\",\n        \"login\": \"lamart-admin\",\n        \"password\": \"lamarlemur\"\n    }\n}",
@@ -22839,8 +22776,8 @@
             },
             {
               "id": "86e34b35-1856-40ab-926d-a24bc16f5106",
-              "name": "inline_photo1_for_mech",
-              "value": "={{ $('Telegram Trigger1').item.json.callback_query.message.photo[0].file_id }}",
+              "name": "inline_photo_for_mech",
+              "value": "={{ $('Telegram Trigger1').item.json.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}",
               "type": "string"
             }
           ]
@@ -23010,6 +22947,129 @@
           "name": "Алексей dev"
         }
       }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "К выполнению",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "84c7a41e-05e5-4497-b42a-1e5102906729",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "В работе",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "dea7aa17-5f44-45d5-a497-9cea75e85820",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "Требуется проверка",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "5d61559d-aaba-419f-9b87-ddf340c6e6cc",
+      "name": "Разделяем по статусам",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        9140,
+        3700
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "Нет заявок для отображения",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "eb8c24b3-a7a1-4400-a237-d1674d9b68e2",
+      "name": "Нет заявок для отображения",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        9560,
+        4040
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "id": "cb1aaf41-420a-4d80-99fa-882edd48de12",
+      "name": "Aggregate",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        9360,
+        3940
+      ],
+      "disabled": true
     }
   ],
   "pinData": {},
@@ -23023,6 +23083,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-07-10T09:42:22.000Z",
-  "versionId": "6a7804ae-e842-4d3a-9bb4-aee738380275"
+  "updatedAt": "2024-07-10T15:05:39.000Z",
+  "versionId": "a8daeff1-394a-4871-91db-0036f0b80e78"
 }
