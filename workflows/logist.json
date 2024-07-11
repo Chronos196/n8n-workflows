@@ -90,7 +90,7 @@
       "main": [
         [
           {
-            "node": "сохраним текст логиста",
+            "node": "убираем кнопку назад",
             "type": "main",
             "index": 0
           }
@@ -141,17 +141,6 @@
         [
           {
             "node": "рассылка",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "текст логиста": {
-      "main": [
-        [
-          {
-            "node": "поиск машин на смене",
             "type": "main",
             "index": 0
           }
@@ -297,7 +286,7 @@
       "main": [
         [
           {
-            "node": "сохраним текст логиста",
+            "node": "убираем кнопку назад1",
             "type": "main",
             "index": 0
           }
@@ -329,7 +318,7 @@
         ],
         [
           {
-            "node": "текст логиста",
+            "node": "поиск машин на смене",
             "type": "main",
             "index": 0
           }
@@ -337,35 +326,6 @@
         [
           {
             "node": "выбор получателя",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "выбор получателя": {
-      "main": [
-        [
-          {
-            "node": "название получателя",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "текст логиста и название компании",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "текст логиста и название компании": {
-      "main": [
-        [
-          {
-            "node": "перевозки по получателю",
             "type": "main",
             "index": 0
           }
@@ -443,6 +403,46 @@
         [
           {
             "node": "изменяем сообщение1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "убираем кнопку назад": {
+      "main": [
+        [
+          {
+            "node": "сохраним текст логиста",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "убираем кнопку назад1": {
+      "main": [
+        [
+          {
+            "node": "сохраним текст логиста",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "выбор получателя": {
+      "main": [
+        [
+          {
+            "node": "название получателя",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "перевозки по получателю",
             "type": "main",
             "index": 0
           }
@@ -722,7 +722,7 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "Оповестить по выбранной перевозке",
+                    "text": "Оповестить по выбранному получателю",
                     "additionalFields": {
                       "callback_data": "logist_alert_transportation"
                     }
@@ -795,8 +795,7 @@
       "position": [
         420,
         1000
-      ],
-      "disabled": true
+      ]
     },
     {
       "parameters": {
@@ -1270,7 +1269,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        1500,
+        1260,
         1760
       ],
       "credentials": {
@@ -1283,7 +1282,7 @@
     {
       "parameters": {
         "chatId": "={{ $('айди водителей').item.json.tg_id }}",
-        "text": "=Оповещение от логиста:\n<i>{{ $('текст логиста').item.json[\"logist_alert_text\"] }}</i>",
+        "text": "=Оповещение от логиста:\n<i>{{ $('Execute Workflow Trigger').item.json.pg_alert_text }}</i>",
         "additionalFields": {
           "appendAttribution": false,
           "parse_mode": "HTML"
@@ -1294,52 +1293,13 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        1740,
+        1500,
         1760
       ],
       "credentials": {
         "telegramApi": {
           "id": "cg3DBo1aKun5qfRh",
           "name": "Алексей dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "tg_users",
-          "mode": "list",
-          "cachedResultName": "tg_users"
-        },
-        "where": {
-          "values": [
-            {
-              "column": "tg_id",
-              "value": "={{ $('Execute Workflow Trigger').item.json.inline_chat_id }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "6c654bed-be42-4971-b44a-1a959e112251",
-      "name": "текст логиста",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.3,
-      "position": [
-        1060,
-        1760
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "Q4ZHMkPf1vzJmsuw",
-          "name": "Postgres account"
         }
       }
     },
@@ -1495,7 +1455,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        2920,
+        3200,
         960
       ],
       "credentials": {
@@ -1531,7 +1491,7 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        1940,
+        1740,
         1760
       ]
     },
@@ -1548,7 +1508,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        2140,
+        1960,
         1760
       ],
       "credentials": {
@@ -2366,6 +2326,288 @@
     },
     {
       "parameters": {
+        "resource": "custom",
+        "customResource": "transportation.transportation",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "date",
+              "value": "={{ $today }}"
+            },
+            {
+              "fieldName": "partner",
+              "value": "={{ $('Execute Workflow Trigger').item.json.pg_recipient_name }}"
+            }
+          ]
+        }
+      },
+      "id": "744f9c8a-fbaa-4e4e-87c0-7b22ed779792",
+      "name": "перевозки по получателю",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        2280
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nvar rounds = [];\nfor (const item of $input.all()) {\n  for(const round of item.json.rounds) {\n    rounds.push(round);\n  }\n}\n\nreturn {\"rounds\": rounds};"
+      },
+      "id": "62460da5-978c-4456-9681-7961d18d3fb6",
+      "name": "все рейсы",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1280,
+        2280
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "cars.cars",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "driver_id",
+              "operator": "notEqual",
+              "value": "={{ false }}"
+            }
+          ]
+        }
+      },
+      "id": "9d693305-e41d-4310-86dd-ee81b6096699",
+      "name": "поиск машин на смене",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        1760
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "cars.cars",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "rounds",
+              "value": "={{ $json.rounds }}"
+            },
+            {
+              "fieldName": "driver_id",
+              "operator": "notEqual",
+              "value": "={{ false }}"
+            }
+          ]
+        }
+      },
+      "id": "c4c41cb4-bfc5-413a-ba16-fbb72cf05c02",
+      "name": "автомобили по рейсу на смене",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1500,
+        2280
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "odoo_id",
+              "value": "={{ $json.driver_id[0] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5e8c464c-99fb-463d-a96c-c4900876abc7",
+      "name": "айди водителей1",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        1740,
+        2280
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('айди водителей1').item.json.tg_id }}",
+        "text": "=Оповещение от логиста:\n<i>{{ $('Execute Workflow Trigger').all()[0].json.pg_alert_text }}</i> ",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "61b12e83-81b5-44fc-8026-7aa395418571",
+      "name": "рассылка1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        1960,
+        2280
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "id": "1787393f-82bd-44b5-aed9-cb73a35bf77a",
+      "name": "преобразуем в 1 переменную1",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        2200,
+        2280
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.inline_chat_id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').all()[0].json.inline_message_id }}",
+        "text": "Сообщение будет доставлено всем водителям с выбранным получателем",
+        "additionalFields": {}
+      },
+      "id": "f3e47058-69cd-455a-9ab0-d54c2e886f26",
+      "name": "изменяем сообщение1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2420,
+        2280
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Оповещения по получателю",
+        "height": 496.20554104438617,
+        "width": 1722.0426037145492,
+        "color": 6
+      },
+      "id": "921a180a-d10f-46d1-ab87-b2b16958a597",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        980,
+        1980
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.chat_id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.chat_message_id -1 }}",
+        "text": "Введите текст сообщения для всех водителей:",
+        "additionalFields": {}
+      },
+      "id": "b5959048-db37-4e84-b647-8d7cf24a96bc",
+      "name": "убираем кнопку назад",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2920,
+        960
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.chat_id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.chat_message_id - 1 }}",
+        "text": "=Вы выбрали получателя <b>{{ $('Execute Workflow Trigger').item.json[\"pg_recipient_name\"] }}</b>. Введите текст сообщения для водителей:",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "6eb2fed4-589e-4d60-896a-1c1b3f65b80f",
+      "name": "убираем кнопку назад1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2920,
+        1160
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
         "rules": {
           "values": [
             {
@@ -2422,288 +2664,32 @@
         820,
         2060
       ]
-    },
-    {
-      "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "tg_users",
-          "mode": "list",
-          "cachedResultName": "tg_users"
-        },
-        "where": {
-          "values": [
-            {
-              "column": "tg_id",
-              "value": "={{ $('Execute Workflow Trigger').item.json.inline_chat_id }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "9e56b2a9-a4a7-4c72-a2bc-66b2b33ec041",
-      "name": "текст логиста и название компании",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.3,
-      "position": [
-        1040,
-        2280
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "Q4ZHMkPf1vzJmsuw",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "transportation.transportation",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "date",
-              "value": "={{ $today }}"
-            },
-            {
-              "fieldName": "partner",
-              "value": "={{ $json.logist_recipient_name }}"
-            }
-          ]
-        }
-      },
-      "id": "744f9c8a-fbaa-4e4e-87c0-7b22ed779792",
-      "name": "перевозки по получателю",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        1260,
-        2280
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nvar rounds = [];\nfor (const item of $input.all()) {\n  for(const round of item.json.rounds) {\n    rounds.push(round);\n  }\n}\n\nreturn {\"rounds\": rounds};"
-      },
-      "id": "62460da5-978c-4456-9681-7961d18d3fb6",
-      "name": "все рейсы",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1480,
-        2280
-      ]
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "cars.cars",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "driver_id",
-              "operator": "notEqual",
-              "value": "={{ false }}"
-            }
-          ]
-        }
-      },
-      "id": "9d693305-e41d-4310-86dd-ee81b6096699",
-      "name": "поиск машин на смене",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        1260,
-        1760
-      ],
-      "alwaysOutputData": true,
-      "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "cars.cars",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "rounds",
-              "value": "={{ $json.rounds }}"
-            },
-            {
-              "fieldName": "driver_id",
-              "operator": "notEqual",
-              "value": "={{ false }}"
-            }
-          ]
-        }
-      },
-      "id": "c4c41cb4-bfc5-413a-ba16-fbb72cf05c02",
-      "name": "автомобили по рейсу на смене",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        1700,
-        2280
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "tg_users",
-          "mode": "list",
-          "cachedResultName": "tg_users"
-        },
-        "returnAll": true,
-        "where": {
-          "values": [
-            {
-              "column": "odoo_id",
-              "value": "={{ $json.driver_id[0] }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "5e8c464c-99fb-463d-a96c-c4900876abc7",
-      "name": "айди водителей1",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.3,
-      "position": [
-        1900,
-        2280
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "Q4ZHMkPf1vzJmsuw",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $('айди водителей1').item.json.tg_id }}",
-        "text": "=Оповещение от логиста:\n<i>{{ $('текст логиста и название компании').all()[0].json.logist_alert_text }}</i>",
-        "additionalFields": {
-          "appendAttribution": false,
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "61b12e83-81b5-44fc-8026-7aa395418571",
-      "name": "рассылка1",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        2100,
-        2280
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "aggregate": "aggregateAllItemData",
-        "options": {}
-      },
-      "id": "1787393f-82bd-44b5-aed9-cb73a35bf77a",
-      "name": "преобразуем в 1 переменную1",
-      "type": "n8n-nodes-base.aggregate",
-      "typeVersion": 1,
-      "position": [
-        2300,
-        2280
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "editMessageText",
-        "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.inline_chat_id }}",
-        "messageId": "={{ $('Execute Workflow Trigger').all()[0].json.inline_message_id }}",
-        "text": "Сообщение будет доставлено всем водителям с выбранным получателем",
-        "additionalFields": {}
-      },
-      "id": "f3e47058-69cd-455a-9ab0-d54c2e886f26",
-      "name": "изменяем сообщение1",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        2500,
-        2280
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "content": "## Оповещения по получателю",
-        "height": 496.20554104438617,
-        "width": 1722.0426037145492,
-        "color": 6
-      },
-      "id": "921a180a-d10f-46d1-ab87-b2b16958a597",
-      "name": "Sticky Note1",
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        980,
-        1980
-      ]
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Execute Workflow Trigger": [
+      {
+        "json": {
+          "chat_id": null,
+          "chat_text": null,
+          "inline_data": "alert_transportation",
+          "inline_chat_id": "7090302459",
+          "inline_query_id": "2782501072734331729",
+          "inline_message_id": "10126",
+          "pg_status": "authorized",
+          "chat_message_id": null,
+          "pg_alert_text": "сообщение по получателю",
+          "pg_recipient_name": "My Company"
+        }
+      }
+    ]
+  },
   "settings": {
     "executionOrder": "v1"
   },
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2024-07-11T06:15:38.000Z",
-  "versionId": "14929442-8af1-47b1-8e0a-7741f6731c49"
+  "updatedAt": "2024-07-11T06:46:38.000Z",
+  "versionId": "e12c3e6c-0f5c-4668-9021-eac4675b6d1e"
 }
