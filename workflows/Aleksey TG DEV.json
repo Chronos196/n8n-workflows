@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "добавляет пользователя, если не существует": {
       "main": [
@@ -4634,6 +4634,11 @@
             "index": 0
           }
         ]
+      ]
+    },
+    "заявка уже изменена": {
+      "main": [
+        []
       ]
     }
   },
@@ -22776,8 +22781,14 @@
             },
             {
               "id": "86e34b35-1856-40ab-926d-a24bc16f5106",
-              "name": "inline_photo_for_mech",
-              "value": "={{ $('Telegram Trigger1').item.json.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}",
+              "name": "inline_photo_id",
+              "value": "={{ $('Telegram Trigger1').item.json.callback_query.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}",
+              "type": "string"
+            },
+            {
+              "id": "b5dc13ad-8972-4da4-9ee8-4f7a3ba69185",
+              "name": "pg_request_id",
+              "value": "={{ $('получаем айди').item.json.end_request_id }}",
               "type": "string"
             }
           ]
@@ -23083,6 +23094,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-07-10T15:05:39.000Z",
-  "versionId": "a8daeff1-394a-4871-91db-0036f0b80e78"
+  "updatedAt": "2024-07-11T06:13:19.000Z",
+  "versionId": "ed13c2aa-4b88-47df-8387-964e478c28c2"
 }
