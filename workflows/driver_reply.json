@@ -100,7 +100,7 @@
       "main": [
         [
           {
-            "node": "HTTP Request1",
+            "node": "запись одометра",
             "type": "main",
             "index": 0
           }
@@ -1155,17 +1155,6 @@
         ]
       ]
     },
-    "HTTP Request1": {
-      "main": [
-        [
-          {
-            "node": "Преобразование одометра в число",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "проверка на число": {
       "main": [
         [
@@ -1729,6 +1718,17 @@
           }
         ]
       ]
+    },
+    "запись одометра": {
+      "main": [
+        [
+          {
+            "node": "Преобразование одометра в число",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-07-11T08:41:44.925Z",
@@ -1940,7 +1940,7 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "tg_id": "={{ $json.result.chat.id }}",
+            "tg_id": "={{ $('Execute Workflow Trigger').item.json.chat_id }}",
             "status": "=inputing_car_number"
           },
           "matchingColumns": [
@@ -2089,7 +2089,7 @@
     {
       "parameters": {
         "chatId": "={{ $('Execute Workflow Trigger').item.json.chat_id }}",
-        "text": "=<b>Документы на автомобиль:</b>\n\n{{ $('соединяем в единое сообщение').item.json[\"concatenated_status\"] }}\n\n<b>Пожалуйста, проведите осмотр авто перед началом работы!</b>\n\nАвтомобиль: <b>{{ $('получаем данные автомобиля1').item.json[\"model\"] }}</b>\nНомер: <b>{{ $('получаем данные автомобиля1').item.json[\"number_car\"] }}</b>\nПробег: <b>{{ $('Telegram Trigger1').item.json[\"message\"][\"text\"] }} км</b>\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n</b>\n{{ $('преобразуем инф. о масле в единое для меню ТО').item.json.concatenated_my_field_2 }}",
+        "text": "=<b>Документы на автомобиль:</b>\n\n{{ $('соединяем в единое сообщение').item.json[\"concatenated_status\"] }}\n\n<b>Пожалуйста, проведите осмотр авто перед началом работы!</b>\n\nАвтомобиль: <b>{{ $('получаем данные автомобиля1').item.json[\"model\"] }}</b>\nНомер: <b>{{ $('получаем данные автомобиля1').item.json[\"number_car\"] }}</b>\nПробег: <b>{{ $('Execute Workflow Trigger').item.json.chat_text }} км</b>\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n</b>\n{{ $('преобразуем инф. о масле в единое для меню ТО').item.json.concatenated_my_field_2 }}",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -2156,9 +2156,7 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "only_mech": "={{ $('проверка статуса авторизации').item.json.only_mech }}",
-            "odoo_id": "={{ $('проверка статуса авторизации').item.json.odoo_id }}",
-            "tg_id": "={{ $('проверка статуса авторизации').item.json.tg_id }}",
+            "tg_id": "={{ $('Execute Workflow Trigger').item.json.chat_id }}",
             "status": "authorized"
           },
           "matchingColumns": [
@@ -2182,7 +2180,8 @@
               "defaultMatch": false,
               "display": true,
               "type": "number",
-              "canBeUsedToMatch": true
+              "canBeUsedToMatch": true,
+              "removed": true
             },
             {
               "id": "status",
@@ -2200,7 +2199,8 @@
               "defaultMatch": false,
               "display": true,
               "type": "boolean",
-              "canBeUsedToMatch": true
+              "canBeUsedToMatch": true,
+              "removed": true
             }
           ]
         },
@@ -2493,7 +2493,7 @@
           "filter": [
             {
               "fieldName": "id",
-              "value": "={{ $json.car_id_while_inputing }}"
+              "value": "={{ $json.pg_car_id_while_inputing }}"
             }
           ]
         }
@@ -2584,9 +2584,7 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "only_mech": "={{ $('проверка статуса авторизации').item.json.only_mech }}",
-            "odoo_id": "={{ $('проверка статуса авторизации').item.json.odoo_id }}",
-            "tg_id": "={{ $('проверка статуса авторизации').item.json.tg_id }}",
+            "tg_id": "={{ $('Execute Workflow Trigger').item.json.chat_id }}",
             "status": "authorized"
           },
           "matchingColumns": [
@@ -2610,7 +2608,8 @@
               "defaultMatch": false,
               "display": true,
               "type": "number",
-              "canBeUsedToMatch": true
+              "canBeUsedToMatch": true,
+              "removed": true
             },
             {
               "id": "status",
@@ -2628,7 +2627,8 @@
               "defaultMatch": false,
               "display": true,
               "type": "boolean",
-              "canBeUsedToMatch": true
+              "canBeUsedToMatch": true,
+              "removed": true
             }
           ]
         },
@@ -3202,7 +3202,7 @@
           "filter": [
             {
               "fieldName": "driver_id",
-              "value": "={{ $json.odoo_id }}"
+              "value": "={{ $('Execute Workflow Trigger').item.json.pg_odoo_id }}"
             }
           ]
         }
@@ -3333,7 +3333,7 @@
     {
       "parameters": {
         "chatId": "={{ $('Execute Workflow Trigger').item.json.chat_id }}",
-        "text": "=<b>Документы на автомобиль:</b>\n\n{{ $('соединяем в единое сообщение').item.json[\"concatenated_status\"] }}\n\n<b>Найдены заявки на техобслуживание:</b>\n\n{{ $json[\"concatenated_dateAndText\"] }}\n\n<b>Пожалуйста, проведите осмотр авто перед началом работы!</b>\n\nАвтомобиль: <b>{{ $('получаем данные автомобиля1').item.json[\"model\"] }}</b>\nНомер: <b>{{ $('получаем данные автомобиля1').item.json[\"number_car\"] }}</b>\nПробег: <b>{{ $('Telegram Trigger1').item.json[\"message\"][\"text\"] }} км</b>\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n</b>\n{{ $('преобразуем инф. о масле в единое для меню ТО').item.json.concatenated_my_field_2 }}",
+        "text": "=<b>Документы на автомобиль:</b>\n\n{{ $('соединяем в единое сообщение').item.json[\"concatenated_status\"] }}\n\n<b>Найдены заявки на техобслуживание:</b>\n\n{{ $json[\"concatenated_dateAndText\"] }}\n\n<b>Пожалуйста, проведите осмотр авто перед началом работы!</b>\n\nАвтомобиль: <b>{{ $('получаем данные автомобиля1').item.json[\"model\"] }}</b>\nНомер: <b>{{ $('получаем данные автомобиля1').item.json[\"number_car\"] }}</b>\nПробег: <b>{{ $('Execute Workflow Trigger').item.json.chat_text }} км</b>\n______________________\n<b>⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n</b>\n{{ $('преобразуем инф. о масле в единое для меню ТО').item.json.concatenated_my_field_2 }}",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -4648,7 +4648,7 @@
       "parameters": {
         "operation": "editMessageText",
         "chatId": "={{ $('Execute Workflow Trigger').item.json.chat_id }}",
-        "messageId": "={{ $('Telegram Trigger1').item.json.message.message_id -1 }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.chat_message_id -1}}",
         "text": "=Ошибка Odoo: {{ $json.error }}\n\nВведите количество часов заново",
         "additionalFields": {}
       },
@@ -4775,7 +4775,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.from.id }}",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.chat_id }}",
         "text": "Дорогой водитель, показания вашего одометра говорят о том, что пора заменить масло",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
@@ -5050,7 +5050,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\n\nvar data = $('Telegram Trigger1').all()[0].json;\nvar number = data.message.text;\n\nconst cleanedNumber = number.replace(/\\s+/g, '').toUpperCase(); //убираем пробелы и приводим к верхнему регистру\n\nreturn {\"number\": cleanedNumber};"
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\n\nvar data = $('Execute Workflow Trigger').all()[0].json;\nvar number = data.chat_text;\n\nconst cleanedNumber = number.replace(/\\s+/g, '').toUpperCase(); //убираем пробелы и приводим к верхнему регистру\nconst withSpaces = cleanedNumber[0] + ' ' + cleanedNumber.slice(1, 4) + ' ' + cleanedNumber.slice(4); //добавляем пробелы\nreturn {\"number\": withSpaces};"
       },
       "id": "74a0ebf7-ef86-4ef3-ae6f-0f77aae4951a",
       "name": "форматируем номер",
@@ -5530,34 +5530,6 @@
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "http://dev.everest.lamart.site:8069/update_odometer",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "cookie",
-              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\"number_car\": {{ '\"' + $json.number_car + '\"' }}, \"odometer\": {{ $('Execute Workflow Trigger').item.json.chat_text }}}",
-        "options": {}
-      },
-      "id": "1a07ec1d-4e13-475e-a126-45809a12dfca",
-      "name": "HTTP Request1",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        -3380,
-        6140
-      ],
-      "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
         "conditions": {
           "options": {
             "caseSensitive": true,
@@ -5597,13 +5569,13 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
             }
           ]
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={ \n\"number_car\": {{ '\"' + $('получаем данные автомобиля1').item.json.number_car + '\"' }},\n\"driver_id\": {{ $('проверка статуса авторизации').item.json.odoo_id }}\n}  ",
+        "jsonBody": "={ \n\"number_car\": {{ '\"' + $('получаем данные автомобиля1').item.json.number_car + '\"' }},\n\"driver_id\": {{ $('Execute Workflow Trigger').item.json.pg_odoo_id }}\n}   ",
         "options": {}
       },
       "id": "e6a8a4d4-66ad-479d-a52b-497b504d8332",
@@ -5618,13 +5590,13 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://everest.lamart.site/finish_shift",
+        "url": "https://dev.everest.lamart.site/finish_shift",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
             {
               "name": "cookie",
-              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
             }
           ]
         },
@@ -5841,7 +5813,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('получаем айди').item.json.tg_id }}",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.chat_id }}",
         "text": "=Ваша текущая перевозка:\n\n{{ $('находим перевозки по рейсам3').item.json.id }}. <b>{{ $('находим перевозки по рейсам3').item.json[\"sender\"][1] }} - {{ $('находим перевозки по рейсам3').item.json[\"partner\"][1] }}\n{{ $json.departure }} - {{ $json.arrival }}</b>\nМатериал - <b>{{ $('находим перевозки по рейсам3').item.json.product[1] }}</b>\nКомментарий - <b>{{ $('находим перевозки по рейсам3').item.json.comment }}</b>",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
@@ -5923,7 +5895,7 @@
           "filter": [
             {
               "fieldName": "driver_id",
-              "value": "={{ $('Разделение reply-кнопок или иного ввода').item.json.odoo_id }}"
+              "value": "={{ $('Execute Workflow Trigger').item.json.pg_odoo_id }}"
             }
           ]
         }
@@ -6171,7 +6143,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.from.id }}",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.chat_id }}",
         "text": "Вам назначена следующая перевозка:",
         "additionalFields": {
           "appendAttribution": false
@@ -6194,7 +6166,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.from.id }}",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.chat_id }}",
         "text": "=Отправитель - <b>{{ $('находим перевозки по рейсам5').item.json[\"sender\"][1] }}</b>\nПолучатель - <b>{{ $('находим перевозки по рейсам5').item.json[\"partner\"][1] }}</b>\nМаршрут - <b>{{ $('получаем название маршрута из перевозки5').item.json.departure }} - {{ $('получаем название маршрута из перевозки5').item.json.arrival }}</b>\nМатериал - <b>{{ $('находим перевозки по рейсам5').item.json.product[1] }}</b>\nКомментарий - <b>{{ $('находим перевозки по рейсам5').item.json.comment }}</b>",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
@@ -6302,7 +6274,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.from.id }}",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.chat_id }}",
         "text": "Вам назначена следующая перевозка:",
         "additionalFields": {
           "appendAttribution": false
@@ -6325,7 +6297,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.from.id }}",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.chat_id }}",
         "text": "=Отправитель - <b>{{ $('находим перевозки по рейсам6').item.json[\"sender\"][1] }}</b>\nПолучатель - <b>{{ $('находим перевозки по рейсам6').item.json[\"partner\"][1] }}</b>\nМаршрут - <b>{{ $('получаем название маршрута из перевозки6').item.json.departure }} - {{ $('получаем название маршрута из перевозки6').item.json.arrival }}</b>\nМатериал - <b>{{ $('находим перевозки по рейсам6').item.json.product[1] }}</b>\nКомментарий - <b>{{ $('находим перевозки по рейсам6').item.json.comment }}</b>",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
@@ -6501,7 +6473,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.from.id }}",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.chat_id }}",
         "text": "На данный момент нет назначенных перевозок!",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
@@ -6691,7 +6663,7 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "tg_id": "={{ $('проверка статуса авторизации').item.json.tg_id }}",
+            "tg_id": "={{ $('Execute Workflow Trigger').item.json.chat_id }}",
             "fuel_liters": "={{ $('Execute Workflow Trigger').item.json.chat_text }}",
             "status": "authorized"
           },
@@ -6808,7 +6780,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        -3890,
+        -3900,
         7140
       ],
       "credentials": {
@@ -6946,9 +6918,9 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "tg_id": "={{ $('проверка статуса авторизации').item.json.tg_id }}",
+            "tg_id": "={{ $('Execute Workflow Trigger').item.json.chat_id }}",
             "status": "authorized",
-            "weight_measure": "={{ $('Execute Workflow Trigger').item.json.chat_text }} {{ $('проверка статуса авторизации').item.json.weight_measure }} "
+            "weight_measure": "={{ $('Execute Workflow Trigger').item.json.chat_text }} {{ $('Execute Workflow Trigger').item.json.pg_weight_measure}} "
           },
           "matchingColumns": [
             "tg_id"
@@ -7736,6 +7708,34 @@
         -4040,
         3020
       ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://dev.everest.lamart.site:8069/update_odometer",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"number_car\": {{ '\"' + $json.number_car + '\"' }}, \"odometer\": {{ $('Execute Workflow Trigger').item.json.chat_text }}}",
+        "options": {}
+      },
+      "id": "1a07ec1d-4e13-475e-a126-45809a12dfca",
+      "name": "запись одометра",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -3380,
+        6140
+      ],
+      "onError": "continueErrorOutput"
     }
   ],
   "pinData": {
@@ -7743,15 +7743,18 @@
       {
         "json": {
           "chat_id": "700956969",
-          "chat_text": "Моя статистика",
+          "chat_text": "4",
           "inline_data": null,
           "inline_chat_id": null,
           "inline_query_id": null,
           "inline_message_id": null,
-          "pg_status": "authorized",
-          "chat_message_id": "10256",
+          "pg_status": "inputing_data_after_work",
+          "chat_message_id": "10307",
           "pg_odoo_id": 2,
-          "pg_only_mech": false
+          "pg_only_mech": false,
+          "pg_car_id_while_inputing": 18,
+          "cookie": "session_id=f1d37f3ea82fb1a37fccbc285e01f4231c5ecb7c; Expires=Sat, 12 Jul 2025 10:53:52 GMT; Max-Age=604800; HttpOnly; Path=/",
+          "pg_weight_measure": "50 Тонны "
         }
       }
     ]
@@ -7769,6 +7772,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-11T12:50:42.000Z",
-  "versionId": "8caaff05-411e-4a1b-96a9-00f63e24d6f0"
+  "updatedAt": "2024-07-12T10:56:30.000Z",
+  "versionId": "2033a002-4567-4477-9205-9c8d6a5bf61f"
 }
