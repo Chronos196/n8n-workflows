@@ -810,11 +810,6 @@
             "node": "находим машину по odoo id9",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "получение перевозок1",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -6247,7 +6242,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
             }
           ]
         },
@@ -9812,7 +9807,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\n\nconst buttons = items.map((item, index) => ({\n    text: `${item.json.route[1]}`,\n    callback_data: `TS_${item.json.id}` // TR - take request\n}));\n\nconst inlineKeyboard = {\n    inline_keyboard: [\n        ...buttons.map(button => [button]), // динамические кнопки, каждая строка содержит одну кнопку\n        [{ text: \"Завершить проверку\", callback_data: \"check_fuel\" }] // постоянная кнопка\n    ]\n};\n\nconsole.log(JSON.stringify(inlineKeyboard, null, 2));\n\nconst chatId = $('Execute Workflow Trigger').all()[0].json.callback_query.from.id;\nconst token = '6999092112:AAE0sJ-UZeXwAbOEbQfLWJRL_aK5wTG3Mfo';\nconst url = `https://api.telegram.org/bot${token}/sendMessage`;\n\nconst message = {\n    chat_id: chatId,\n    text: \"Проверьте наличие ТТН и Весовых справок в перевозке.\\nВыберите необходимую перевозку🛻\",\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n"
+        "jsCode": "const items = $input.all();\n\nconst buttons = items.map((item, index) => ({\n    text: `${item.json.route[1]}`,\n    callback_data: `TS_${item.json.id}` // TR - take request\n}));\n\nconst inlineKeyboard = {\n    inline_keyboard: [\n        ...buttons.map(button => [button]), // динамические кнопки, каждая строка содержит одну кнопку\n        [{ text: \"Завершить проверку\", callback_data: \"check_fuel\" }] // постоянная кнопка\n    ]\n};\n\nconsole.log(JSON.stringify(inlineKeyboard, null, 2));\n\nconst chatId = $('Execute Workflow Trigger').all()[0].json.callback_query.from.id;\nconst token = '7063451965:AAGARL6Eluwh3zgS84WnaZozqdz6-m0RLzg';\nconst url = `https://api.telegram.org/bot${token}/sendMessage`;\n\nconst message = {\n    chat_id: chatId,\n    text: \"Проверьте наличие ТТН и Весовых справок в перевозке.\\nВыберите необходимую перевозку🛻\",\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n"
       },
       "id": "a9cd0a44-51c5-4346-b758-81f6c29fdb6d",
       "name": "создаём динамически инлайн кнопки2",
@@ -11613,7 +11608,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
             }
           ]
         },
@@ -11655,7 +11650,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
             }
           ]
         },
@@ -11681,7 +11676,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
             }
           ]
         },
@@ -11835,7 +11830,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
             }
           ]
         },
@@ -12056,7 +12051,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
             }
           ]
         },
@@ -12118,7 +12113,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
             }
           ]
         },
@@ -12258,7 +12253,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
             }
           ]
         },
@@ -12891,6 +12886,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-16T10:40:42.000Z",
-  "versionId": "3c10899d-06f7-4d26-a074-25173e6a6534"
+  "updatedAt": "2024-07-16T11:15:38.000Z",
+  "versionId": "4f573a96-ef77-457a-9f00-aace15bd5db8"
 }
