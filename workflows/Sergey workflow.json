@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "добавляет пользователя, если не существует": {
       "main": [
@@ -3171,12 +3171,6 @@
         ]
       ]
     },
-    "есть ли рейсы на сегодня?1": {
-      "main": [
-        [],
-        []
-      ]
-    },
     "перевозка со статусом \"В начале смены\"1": {
       "main": [
         [
@@ -5123,7 +5117,7 @@
       "main": [
         [
           {
-            "node": "есть ли срочная перевозка",
+            "node": "находим рейсы по машине9",
             "type": "main",
             "index": 0
           }
@@ -5190,20 +5184,8 @@
     },
     "есть ли срочная перевозка": {
       "main": [
-        [
-          {
-            "node": "находим рейсы по машине9",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "находим рейсы по машине4",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        [],
+        []
       ]
     },
     "Remove Duplicates": {
@@ -5321,20 +5303,14 @@
     },
     "находим рейсы по машине8": {
       "main": [
-        [
-          {
-            "node": "Summarize5",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Summarize5": {
       "main": [
         [
           {
-            "node": "If1",
+            "node": "есть ли еще рейсы по этой перевозке?1",
             "type": "main",
             "index": 0
           }
@@ -5356,7 +5332,7 @@
       "main": [
         [
           {
-            "node": "есть ли еще рейсы по этой перевозке?1",
+            "node": "Summarize5",
             "type": "main",
             "index": 0
           }
@@ -26377,7 +26353,7 @@
     {
       "parameters": {
         "chatId": "={{ $('Telegram Trigger1').item.json.callback_query.from.id }}",
-        "text": "=Отправитель - <b>{{ $('есть ли срочная перевозка').item.json.transportations[\"sender\"][1] }}</b>\nПолучатель - <b>{{ $('есть ли срочная перевозка').item.json.transportations[\"partner\"][1] }}</b>\nМаршрут - <b>{{ $('есть ли срочная перевозка').item.json.transportations.route[1] }}</b>\nМатериал - <b>{{ $('есть ли срочная перевозка').item.json.transportations.product[1] }}</b>\nКомментарий - <b>{{ $('есть ли срочная перевозка').item.json.transportations.comment }}</b> ",
+        "text": "=Отправитель - <b>{{ $('Filter1').item.json.transportations[\"sender\"][1] }}</b>\nПолучатель - <b>{{ $('Filter1').item.json.transportations[\"partner\"][1] }}</b>\nМаршрут - <b>{{ $('Filter1').item.json.transportations.route[1] }}</b>\nМатериал - <b>{{ $('Filter1').item.json.transportations.product[1] }}</b>\nКомментарий - <b>{{ $('Filter1').item.json.transportations.comment }}</b> ",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -26634,6 +26610,16 @@
                 "type": "string",
                 "operation": "notEquals"
               }
+            },
+            {
+              "id": "c13864ae-1b43-4753-8bc4-c9ff57ddd70e",
+              "leftValue": "={{ $json.transportations.status }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
             }
           ],
           "combinator": "and"
@@ -26645,8 +26631,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -2780,
-        6360
+        -2720,
+        5940
       ]
     },
     {
@@ -27046,8 +27032,8 @@
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        -2260,
-        6840
+        -2580,
+        6360
       ]
     },
     {
@@ -27078,8 +27064,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -2140,
-        6860
+        -1940,
+        6840
       ]
     },
     {
@@ -27155,7 +27141,7 @@
       "typeVersion": 1,
       "position": [
         -2800,
-        6180
+        6360
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -27194,8 +27180,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -2620,
-        6180
+        -2740,
+        6140
       ]
     },
     {
@@ -27444,6 +27430,6 @@
     }
   ],
   "triggerCount": 2,
-  "updatedAt": "2024-07-15T13:54:53.000Z",
-  "versionId": "fb1c7dea-7547-4548-a26a-8f1aa9439539"
+  "updatedAt": "2024-07-16T12:14:12.000Z",
+  "versionId": "ce4a66af-9c45-4264-85c3-b56e81b425e5"
 }
