@@ -1265,7 +1265,7 @@
       "main": [
         [
           {
-            "node": "записываем объём материала",
+            "node": "убираем кнопку назад",
             "type": "main",
             "index": 0
           }
@@ -1424,17 +1424,6 @@
         ]
       ]
     },
-    "перевозка со статусом \"В начале смены\"": {
-      "main": [
-        [
-          {
-            "node": "вывод доступных перевозок",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "вывод доступных перевозок": {
       "main": [
         [
@@ -1468,7 +1457,7 @@
       "main": [
         [
           {
-            "node": "перевозка со статусом \"В начале смены\"",
+            "node": "Filter",
             "type": "main",
             "index": 0
           }
@@ -1547,6 +1536,46 @@
         [
           {
             "node": "Разделение reply-кнопок или иного ввода",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "есть ли незавершённые перевозки?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "есть ли незавершённые перевозки?": {
+      "main": [
+        [
+          {
+            "node": "вывод доступных перевозок",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Нет доступных перевозок",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "убираем кнопку назад": {
+      "main": [
+        [
+          {
+            "node": "записываем объём материала",
             "type": "main",
             "index": 0
           }
@@ -5858,7 +5887,7 @@
       "parameters": {
         "content": "## Ввод объёма материала",
         "height": 385.7962170846879,
-        "width": 536.8852760490331,
+        "width": 668.8360671263226,
         "color": 6
       },
       "id": "f22228e2-a226-4c0a-883e-a2178fc7c3a2",
@@ -6077,7 +6106,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        -275,
+        -55,
         5080
       ],
       "credentials": {
@@ -6149,7 +6178,8 @@
       "position": [
         -1905,
         1380
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -6585,8 +6615,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        2415,
-        860
+        3160,
+        780
       ],
       "credentials": {
         "telegramApi": {
@@ -6594,38 +6624,6 @@
           "name": "Алексей dev"
         }
       }
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "63c1d6fc-2466-4e19-b4ac-7ecc2f051e09",
-              "leftValue": "={{ $json.start_condition }}",
-              "rightValue": "В начале смены",
-              "operator": {
-                "type": "string",
-                "operation": "equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "5b49afaf-bc56-43ca-ac70-4c81faac0ab2",
-      "name": "перевозка со статусом \"В начале смены\"",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [
-        2655,
-        640
-      ]
     },
     {
       "parameters": {
@@ -6640,8 +6638,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        2975,
-        640
+        3420,
+        560
       ],
       "credentials": {
         "telegramApi": {
@@ -6681,8 +6679,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3255,
-        640
+        3700,
+        560
       ],
       "credentials": {
         "telegramApi": {
@@ -6963,15 +6961,105 @@
         -1605,
         1100
       ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "3aa20f64-4a32-42c1-90ec-5f7a72f300c7",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "Завершена",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "42b37375-4898-42a0-9e1a-6431bebe63ee",
+      "name": "Filter",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [
+        2680,
+        640
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "9cbc0def-828e-4388-951a-2994666af518",
+              "leftValue": "={{ $json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "1b188186-2a1b-42a4-9e5d-73e2ac3d7c2a",
+      "name": "есть ли незавершённые перевозки?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        2900,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.message.message_id - 1}}",
+        "text": "Введите количество перевозимого материала: Пример: 57,2",
+        "additionalFields": {}
+      },
+      "id": "a2a3cd0e-6589-448f-97e8-660278d0a445",
+      "name": "убираем кнопку назад",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        -280,
+        5080
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      },
+      "onError": "continueRegularOutput"
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100619729,
+          "update_id": 100619777,
           "message": {
-            "message_id": 10858,
+            "message_id": 10908,
             "from": {
               "id": 700956969,
               "is_bot": false,
@@ -6985,12 +7073,12 @@
               "username": "Chronos196",
               "type": "private"
             },
-            "date": 1721127731,
-            "text": "а459те"
+            "date": 1721131607,
+            "text": "10"
           },
           "tg_id": "700956969",
           "odoo_id": 2,
-          "status": "inputing_car_number",
+          "status": "inputing_material_volume",
           "only_mech": false,
           "mech_photo": true,
           "end_request_id": null,
@@ -6998,13 +7086,13 @@
           "end_request_hours": null,
           "car_id_while_inputing": 18,
           "fuel_liters": null,
-          "weight_measure": null,
+          "weight_measure": "м3",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
           "count_weight_photo": null,
           "count_weight_photo_sent": null,
-          "cookie": "session_id=8a37b6b0daa9bac571eeb577373034664cd71da0; Expires=Wed, 16 Jul 2025 11:02:20 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=b316b35f73f594746e6eb99fb5f242057f3e3994; Expires=Wed, 16 Jul 2025 12:06:49 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -7022,6 +7110,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-16T11:13:59.000Z",
-  "versionId": "bb27830f-5b84-488e-9cc1-f45786a84502"
+  "updatedAt": "2024-07-16T12:11:05.000Z",
+  "versionId": "1eb88103-c1dc-4be0-8115-071de29ccfcd"
 }
