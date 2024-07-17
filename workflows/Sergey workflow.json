@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "добавляет пользователя, если не существует": {
       "main": [
@@ -5003,17 +5003,6 @@
         ]
       ]
     },
-    "достаточно ли загружено весовых": {
-      "main": [
-        [
-          {
-            "node": "меняем статус на дефолтный6",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "получение перевозок": {
       "main": [
         [
@@ -5117,7 +5106,7 @@
       "main": [
         [
           {
-            "node": "находим рейсы по машине9",
+            "node": "есть ли срочная перевозка",
             "type": "main",
             "index": 0
           }
@@ -5180,12 +5169,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "есть ли срочная перевозка": {
-      "main": [
-        [],
-        []
       ]
     },
     "Remove Duplicates": {
@@ -5257,17 +5240,6 @@
         ]
       ]
     },
-    "находим рейсы по машине4": {
-      "main": [
-        [
-          {
-            "node": "есть ли еще рейсы по этой перевозке?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "получение перевозок3": {
       "main": [
         [
@@ -5301,38 +5273,11 @@
         ]
       ]
     },
-    "находим рейсы по машине8": {
-      "main": [
-        []
-      ]
-    },
-    "Summarize5": {
-      "main": [
-        [
-          {
-            "node": "есть ли еще рейсы по этой перевозке?1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "находим прошлую перевозку": {
       "main": [
         [
           {
             "node": "находим рейсы по машине10",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "находим рейсы по машине9": {
-      "main": [
-        [
-          {
-            "node": "Summarize5",
             "type": "main",
             "index": 0
           }
@@ -5478,6 +5423,68 @@
         [
           {
             "node": "Нет доступных перевозок2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "находим рейсы по машине9": {
+      "main": [
+        [
+          {
+            "node": "Summarize5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "есть ли срочная перевозка": {
+      "main": [
+        [
+          {
+            "node": "находим рейсы по машине9",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "находим рейсы по машине4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize5": {
+      "main": [
+        [
+          {
+            "node": "есть ли еще рейсы по этой перевозке?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "находим рейсы по машине4": {
+      "main": [
+        [
+          {
+            "node": "есть ли еще рейсы по этой перевозке?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "достаточно ли загружено весовых": {
+      "main": [
+        [
+          {
+            "node": "меняем статус на дефолтный6",
             "type": "main",
             "index": 0
           }
@@ -26151,38 +26158,6 @@
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "0227b6fb-80e4-412f-90b6-53caed638271",
-              "leftValue": "={{ $('сколько рейсов без весовой1').item.json.count_weight_certificate }}",
-              "rightValue": 1,
-              "operator": {
-                "type": "number",
-                "operation": "equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "ac7c2b7f-6fd2-48d4-b9fb-248ddeda127f",
-      "name": "достаточно ли загружено весовых",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [
-        -1480,
-        5040
-      ]
-    },
-    {
-      "parameters": {
         "errorMessage": "444"
       },
       "id": "84a15443-ef26-4adc-b1ac-a652b9c2c145",
@@ -26585,58 +26560,6 @@
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "e24d83cc-dc2d-4d01-8af3-ff146b515d82",
-              "leftValue": "={{ $('Filter1').item.json }}",
-              "rightValue": "Срочная",
-              "operator": {
-                "type": "object",
-                "operation": "notEmpty",
-                "singleValue": true
-              }
-            },
-            {
-              "id": "83a6ae50-6200-469d-b0bf-1bfbf8a6dab8",
-              "leftValue": "={{ $json.transportations.status }}",
-              "rightValue": "Завершена",
-              "operator": {
-                "type": "string",
-                "operation": "notEquals"
-              }
-            },
-            {
-              "id": "c13864ae-1b43-4753-8bc4-c9ff57ddd70e",
-              "leftValue": "={{ $json.transportations.status }}",
-              "rightValue": "",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "ab7500eb-e2d9-4400-b272-0ea5dd74c918",
-      "name": "есть ли срочная перевозка",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [
-        -2720,
-        5940
-      ]
-    },
-    {
-      "parameters": {
         "compare": "selectedFields",
         "fieldsToCompare": "transportation[0]",
         "options": {}
@@ -26803,46 +26726,6 @@
         -1860,
         6540
       ]
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "transportation.round",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "transportation",
-              "value": "={{ $('завершение рейса').item.json.current_transportation[0] }}"
-            },
-            {
-              "fieldName": "car",
-              "value": "={{ $('завершение рейса').item.json.id }}"
-            },
-            {
-              "fieldName": "status",
-              "value": "Назначен"
-            }
-          ]
-        }
-      },
-      "id": "d2e08103-b646-42fb-8b86-63a5a4d7aebf",
-      "name": "находим рейсы по машине4",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        -2080,
-        6540
-      ],
-      "alwaysOutputData": true,
-      "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
-        }
-      }
     },
     {
       "parameters": {
@@ -27018,26 +26901,6 @@
     },
     {
       "parameters": {
-        "fieldsToSummarize": {
-          "values": [
-            {
-              "field": "id"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "5201be84-7b7f-4378-a338-4080180f0ece",
-      "name": "Summarize5",
-      "type": "n8n-nodes-base.summarize",
-      "typeVersion": 1,
-      "position": [
-        -2580,
-        6360
-      ]
-    },
-    {
-      "parameters": {
         "conditions": {
           "options": {
             "caseSensitive": true,
@@ -27113,46 +26976,6 @@
     },
     {
       "parameters": {
-        "resource": "custom",
-        "customResource": "transportation.round",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "transportation",
-              "value": "={{ $('Filter1').item.json.transportations.id }}"
-            },
-            {
-              "fieldName": "car",
-              "value": "={{ $('находим машину по odoo id2').item.json.id }}"
-            },
-            {
-              "fieldName": "status",
-              "value": "Назначен"
-            }
-          ]
-        }
-      },
-      "id": "d4f11948-f9e4-4b84-a0da-4403e3463283",
-      "name": "находим рейсы по машине9",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        -2800,
-        6360
-      ],
-      "alwaysOutputData": true,
-      "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
         "conditions": {
           "options": {
             "caseSensitive": true,
@@ -27162,12 +26985,11 @@
           "conditions": [
             {
               "id": "dc2c4b42-32a5-4439-bfc6-f23aa5c47e03",
-              "leftValue": "={{ $('находим рейсы по машине9').item.json }}",
-              "rightValue": "",
+              "leftValue": "={{ $json.count_id }}",
+              "rightValue": 1,
               "operator": {
-                "type": "object",
-                "operation": "empty",
-                "singleValue": true
+                "type": "number",
+                "operation": "gt"
               }
             }
           ],
@@ -27410,6 +27232,168 @@
         4300,
         1240
       ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "transportation.round",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "transportation",
+              "value": "={{ $('Filter1').item.json.transportations.id }}"
+            },
+            {
+              "fieldName": "car",
+              "value": "={{ $('находим машину по odoo id2').item.json.id }}"
+            }
+          ]
+        }
+      },
+      "id": "d4f11948-f9e4-4b84-a0da-4403e3463283",
+      "name": "находим рейсы по машине9",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        -2620,
+        6360
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "e24d83cc-dc2d-4d01-8af3-ff146b515d82",
+              "leftValue": "={{ $('Filter1').item.json }}",
+              "rightValue": "Срочная",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "ab7500eb-e2d9-4400-b272-0ea5dd74c918",
+      "name": "есть ли срочная перевозка",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -2840,
+        6360
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "field": "id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5201be84-7b7f-4378-a338-4080180f0ece",
+      "name": "Summarize5",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        -2420,
+        6360
+      ],
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "transportation.round",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "transportation",
+              "value": "={{ $('завершение рейса').item.json.current_transportation[0] }}"
+            },
+            {
+              "fieldName": "car",
+              "value": "={{ $('завершение рейса').item.json.id }}"
+            },
+            {
+              "fieldName": "status",
+              "value": "Назначен"
+            }
+          ]
+        }
+      },
+      "id": "d2e08103-b646-42fb-8b86-63a5a4d7aebf",
+      "name": "находим рейсы по машине4",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        -2080,
+        6540
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "0227b6fb-80e4-412f-90b6-53caed638271",
+              "leftValue": "={{ $('сколько рейсов без весовой1').item.json.count_weight_certificate }}",
+              "rightValue": 1,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "ac7c2b7f-6fd2-48d4-b9fb-248ddeda127f",
+      "name": "достаточно ли загружено весовых",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -1480,
+        5040
+      ]
     }
   ],
   "pinData": {},
@@ -27430,6 +27414,6 @@
     }
   ],
   "triggerCount": 2,
-  "updatedAt": "2024-07-16T12:14:12.000Z",
-  "versionId": "ce4a66af-9c45-4264-85c3-b56e81b425e5"
+  "updatedAt": "2024-07-16T13:32:16.000Z",
+  "versionId": "ef2b0094-fcd7-47aa-a5c0-4204d4882d9f"
 }
