@@ -1473,7 +1473,7 @@
       "main": [
         [
           {
-            "node": "Получение перевозок",
+            "node": "привязан к машине",
             "type": "main",
             "index": 0
           }
@@ -1576,6 +1576,24 @@
         [
           {
             "node": "записываем объём материала",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "привязан к машине": {
+      "main": [
+        [
+          {
+            "node": "Получение перевозок",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "нужно привязать авто",
             "type": "main",
             "index": 0
           }
@@ -6673,7 +6691,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -3880,
+        -3940,
         540
       ],
       "credentials": {
@@ -7067,6 +7085,60 @@
         }
       },
       "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "56c8725f-4c62-422e-ad57-befc2a524f74",
+              "leftValue": "={{ $json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "1fae0d68-371d-4069-9a17-5fc3ad80039b",
+      "name": "привязан к машине",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -3720,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "text": "Вы не привязаны к авто",
+        "additionalFields": {}
+      },
+      "id": "d04a04f8-c337-41bf-81fb-fb64b015e1df",
+      "name": "нужно привязать авто",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        -3540,
+        820
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "yJVsCMzutOZvA2Re",
+          "name": "Everest production"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -7083,6 +7155,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-17T06:45:42.000Z",
-  "versionId": "9eaf0a3e-86da-440c-92f2-4a6c10be2e66"
+  "updatedAt": "2024-07-17T16:01:35.000Z",
+  "versionId": "09e84f3b-0115-4b05-b352-2fba486145e0"
 }
