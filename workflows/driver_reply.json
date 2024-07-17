@@ -12,11 +12,6 @@
         ]
       ]
     },
-    "Сообщение для описания проблемы": {
-      "main": [
-        []
-      ]
-    },
     "сообщение ввода автомобиля": {
       "main": [
         [
@@ -1477,6 +1472,45 @@
         ]
       ]
     },
+    "Разделение reply-кнопок или иного ввода": {
+      "main": [
+        [
+          {
+            "node": "находим машину по odoo id13",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ищем автомобиль с таким же сотрудником",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Сообщение для описания проблемы",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "получим авто по водителю",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "проверка статуса авторизации",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "проверка статуса авторизации": {
       "main": [
         [
@@ -1534,42 +1568,116 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "проверка статуса2",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
-    "Разделение reply-кнопок или иного ввода": {
+    "проверка статуса2": {
       "main": [
         [
           {
-            "node": "находим машину по odoo id13",
+            "node": "данные сотрудника",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "данные сотрудника": {
+      "main": [
+        [
+          {
+            "node": "номер авто",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "номер авто": {
+      "main": [
+        [
+          {
+            "node": "авто привязан?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "авто привязан?": {
+      "main": [
+        [
+          {
+            "node": "текст сообщения",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "ищем автомобиль с таким же сотрудником",
+            "node": "текст сообщения1",
             "type": "main",
             "index": 0
           }
-        ],
+        ]
+      ]
+    },
+    "текст сообщения": {
+      "main": [
         [
           {
-            "node": "Сообщение для описания проблемы",
+            "node": "итоговое сообщение",
             "type": "main",
             "index": 0
           }
-        ],
+        ]
+      ]
+    },
+    "текст сообщения1": {
+      "main": [
         [
           {
-            "node": "получим авто по водителю",
+            "node": "итоговое сообщение",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "итоговое сообщение": {
+      "main": [
+        [
+          {
+            "node": "водители и логисты",
             "type": "main",
             "index": 0
           }
-        ],
+        ]
+      ]
+    },
+    "водители и логисты": {
+      "main": [
         [
           {
-            "node": "проверка статуса авторизации",
+            "node": "айди для отправки сообщения",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "айди для отправки сообщения": {
+      "main": [
+        [
+          {
+            "node": "отправка сообщения",
             "type": "main",
             "index": 0
           }
@@ -3371,7 +3479,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.from.id }}",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.from.id }}",
         "text": "Неизвестная команда",
         "additionalFields": {
           "appendAttribution": false
@@ -6726,6 +6834,111 @@
                 },
                 "conditions": [
                   {
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
+                    "rightValue": "Моя статистика",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "46700892-d6f7-4494-9b30-6e3a9344bc28",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
+                    "rightValue": "Приступить к работе",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "e9d1379d-cad3-4666-a782-5366de1a5ead",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
+                    "rightValue": "Срочно",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "41f0fd84-a2a8-4d16-8bd0-ea0e5824d5dc",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
+                    "rightValue": "Заявки на ТО",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "48333fe0-9561-43b6-a189-3e2b9b7efa93",
+      "name": "Разделение reply-кнопок или иного ввода",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -1385,
+        1500
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
                     "id": "c328907d-5e2f-4059-b43d-dec7c9a2136a",
                     "leftValue": "={{ $json.status }}",
                     "rightValue": "authorized",
@@ -6895,7 +7108,9 @@
             }
           ]
         },
-        "options": {}
+        "options": {
+          "fallbackOutput": "extra"
+        }
       },
       "id": "02312f97-cfde-49be-b31e-b803fcc6b4a3",
       "name": "проверка статуса авторизации",
@@ -6919,8 +7134,8 @@
                 },
                 "conditions": [
                   {
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
-                    "rightValue": "Моя статистика",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "inputing_warn_message",
                     "operator": {
                       "type": "string",
                       "operation": "equals"
@@ -6929,96 +7144,286 @@
                 ],
                 "combinator": "and"
               }
-            },
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "59851adc-6460-4224-9002-b5b716f91ed7",
+      "name": "проверка статуса2",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -1180,
+        5740
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "hr.employee",
+        "operation": "get",
+        "customResourceId": "={{ $json.odoo_id }}",
+        "options": {}
+      },
+      "id": "4773baec-3ea9-40fe-9f16-abfcc27e2d42",
+      "name": "данные сотрудника",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        -960,
+        5740
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "cars.cars",
+        "operation": "getAll",
+        "options": {},
+        "filterRequest": {
+          "filter": [
             {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "46700892-d6f7-4494-9b30-6e3a9344bc28",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
-                    "rightValue": "Приступить к работе",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
+              "fieldName": "driver_id",
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
+            }
+          ]
+        }
+      },
+      "id": "8d21cac3-32e2-4f1f-8408-68168d816c0d",
+      "name": "номер авто",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        -740,
+        5740
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "2a5d44f6-7b7d-4402-abdc-f0f1ca00161f",
+              "leftValue": "={{ $json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
               }
-            },
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "4b3af023-af9f-4d13-b3ec-c4bda570f4aa",
+      "name": "авто привязан?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -520,
+        5740
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
             {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
+              "id": "11238dbf-0053-4c72-b5be-0eb945c88e81",
+              "name": "text_for_mech_and_logist",
+              "value": "=У водителя {{ $('данные сотрудника').item.json.resource_id[1] }} <a href=\"tel:{{ $('данные сотрудника').item.json.mobile_phone }}\">{{ $('данные сотрудника').item.json.mobile_phone }}</a> проблема с авто {{ $json[\"number_car\"] }}:\n\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i> ",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7da938cd-064b-45a9-bb3b-0ffcd1312b0f",
+      "name": "текст сообщения",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        -300,
+        5620
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6176a33e-0be0-4891-97e3-ffb3f6e9955b",
+              "name": "text_for_mech_and_logist",
+              "value": "=У водителя {{ $('данные сотрудника').item.json.resource_id[1] }} <a href=\"tel:{{ $('данные сотрудника').item.json.mobile_phone }}\">{{ $('данные сотрудника').item.json.mobile_phone }}</a> проблема(автомобиль не указан):  \n\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i> ",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "371a06d0-17ef-438c-b2fb-19fdfa60b535",
+      "name": "текст сообщения1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        -300,
+        5820
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "18ae1dfe-0f69-4c80-ae92-8beb7e528b99",
+      "name": "итоговое сообщение",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        -60,
+        5740
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "hr.employee",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "job_id",
+              "operator": "in",
+              "value": "={{ [\"Механик\", \"Логист\"] }}"
+            }
+          ]
+        }
+      },
+      "id": "4beac286-beda-4afc-80dc-6faf81cf9e7b",
+      "name": "водители и логисты",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        160,
+        5740
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "odoo_id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b5743106-a3cf-46e5-a29f-142ddfaed395",
+      "name": "айди для отправки сообщения",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        380,
+        5740
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.tg_id }}",
+        "text": "={{ $('итоговое сообщение').item.json.text_for_mech_and_logist }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
                   {
-                    "id": "e9d1379d-cad3-4666-a782-5366de1a5ead",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
-                    "rightValue": "Срочно",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
+                    "text": "Перейти к диалогу",
+                    "additionalFields": {
+                      "url": "=tg://user?id={{ $('Execute Workflow Trigger').item.json.tg_id }}"
                     }
                   }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "41f0fd84-a2a8-4d16-8bd0-ea0e5824d5dc",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
-                    "rightValue": "Заявки на ТО",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
+                ]
               }
             }
           ]
         },
-        "options": {
-          "fallbackOutput": "extra"
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
         }
       },
-      "id": "48333fe0-9561-43b6-a189-3e2b9b7efa93",
-      "name": "Разделение reply-кнопок или иного ввода",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
+      "id": "9bbdbde8-bb95-47e0-a9ef-c4a380dcabb5",
+      "name": "отправка сообщения",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
       "position": [
-        -1385,
-        1500
-      ]
+        600,
+        5740
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100619777,
+          "update_id": 100620029,
           "message": {
-            "message_id": 10908,
+            "message_id": 11115,
             "from": {
               "id": 700956969,
               "is_bot": false,
@@ -7032,26 +7437,26 @@
               "username": "Chronos196",
               "type": "private"
             },
-            "date": 1721131607,
-            "text": "10"
+            "date": 1721220403,
+            "text": "123"
           },
           "tg_id": "700956969",
           "odoo_id": 2,
-          "status": "inputing_material_volume",
+          "status": "inputing_warn_message",
           "only_mech": false,
           "mech_photo": true,
           "end_request_id": null,
           "materials_photo": false,
           "end_request_hours": null,
           "car_id_while_inputing": 18,
-          "fuel_liters": null,
-          "weight_measure": "м3",
+          "fuel_liters": 50,
+          "weight_measure": "10 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
           "count_weight_photo": null,
           "count_weight_photo_sent": null,
-          "cookie": "session_id=b316b35f73f594746e6eb99fb5f242057f3e3994; Expires=Wed, 16 Jul 2025 12:06:49 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=230fc32f02193453cf110bd74643e5b89931ec49; Expires=Thu, 17 Jul 2025 12:46:44 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -7069,6 +7474,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-17T06:58:56.000Z",
-  "versionId": "fd9f0e4b-a935-45ab-9ae9-d5ab44fbfe1c"
+  "updatedAt": "2024-07-17T13:24:09.000Z",
+  "versionId": "704e55c7-5c4c-4fc4-9311-09fbe24c99be"
 }
