@@ -14,13 +14,7 @@
     },
     "Сообщение для описания проблемы": {
       "main": [
-        [
-          {
-            "node": "статус - ввод текста запроса",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "сообщение ввода автомобиля": {
@@ -1175,45 +1169,6 @@
         ]
       ]
     },
-    "Разделение reply-кнопок или иного ввода": {
-      "main": [
-        [
-          {
-            "node": "находим машину по odoo id13",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "ищем автомобиль с таким же сотрудником",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Сообщение для описания проблемы",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "получим авто по водителю",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "проверка статуса авторизации",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "проверка на число2": {
       "main": [
         [
@@ -1464,6 +1419,64 @@
         ]
       ]
     },
+    "Проверка старта": {
+      "main": [
+        [
+          {
+            "node": "/start",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Разделение reply-кнопок или иного ввода",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "есть ли незавершённые перевозки?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "есть ли незавершённые перевозки?": {
+      "main": [
+        [
+          {
+            "node": "вывод доступных перевозок",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Нет доступных перевозок",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "убираем кнопку назад": {
+      "main": [
+        [
+          {
+            "node": "записываем объём материала",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "проверка статуса авторизации": {
       "main": [
         [
@@ -1524,58 +1537,39 @@
         ]
       ]
     },
-    "Проверка старта": {
+    "Разделение reply-кнопок или иного ввода": {
       "main": [
         [
           {
-            "node": "/start",
+            "node": "находим машину по odoo id13",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Разделение reply-кнопок или иного ввода",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Filter": {
-      "main": [
-        [
-          {
-            "node": "есть ли незавершённые перевозки?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "есть ли незавершённые перевозки?": {
-      "main": [
-        [
-          {
-            "node": "вывод доступных перевозок",
+            "node": "ищем автомобиль с таким же сотрудником",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Нет доступных перевозок",
+            "node": "Сообщение для описания проблемы",
             "type": "main",
             "index": 0
           }
-        ]
-      ]
-    },
-    "убираем кнопку назад": {
-      "main": [
+        ],
         [
           {
-            "node": "записываем объём материала",
+            "node": "получим авто по водителю",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "проверка статуса авторизации",
             "type": "main",
             "index": 0
           }
@@ -1611,7 +1605,7 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "Сообщение механику и логисту",
+                    "text": "Срочно",
                     "additionalFields": {}
                   }
                 ]
@@ -1732,7 +1726,48 @@
     {
       "parameters": {
         "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
-        "text": "Опишите вашу проблему, доставим ее механику и логисту",
+        "text": "Дорогой водитель, с чем у вас возникла проблема?",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "С Автомобилем",
+                    "additionalFields": {
+                      "callback_data": "warn_problem_auto"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "С Маршрутом",
+                    "additionalFields": {
+                      "callback_data": "warn_problem_route"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "С Документами",
+                    "additionalFields": {
+                      "callback_data": "warn_problem_document"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
         "additionalFields": {
           "appendAttribution": false
         }
@@ -3320,99 +3355,7 @@
     },
     {
       "parameters": {
-        "operation": "update",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "tg_users",
-          "mode": "list",
-          "cachedResultName": "tg_users"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "tg_id": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
-            "status": "inputing_request"
-          },
-          "matchingColumns": [
-            "tg_id"
-          ],
-          "schema": [
-            {
-              "id": "tg_id",
-              "displayName": "tg_id",
-              "required": true,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "odoo_id",
-              "displayName": "odoo_id",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "status",
-              "displayName": "status",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "only_mech",
-              "displayName": "only_mech",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "boolean",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "mech_photo",
-              "displayName": "mech_photo",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "boolean",
-              "canBeUsedToMatch": true,
-              "removed": true
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "b9189e38-d590-4009-8bb6-dd096ff842e8",
-      "name": "статус - ввод текста запроса",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.3,
-      "position": [
-        1375,
-        1463
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "Q4ZHMkPf1vzJmsuw",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "content": "## Водитель вводит данные запроса\n",
+        "content": "## Срочно",
         "height": 256.48901597526793,
         "width": 538.9510110344839,
         "color": 6
@@ -5487,111 +5430,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
-                    "rightValue": "Моя статистика",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "46700892-d6f7-4494-9b30-6e3a9344bc28",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
-                    "rightValue": "Приступить к работе",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "e9d1379d-cad3-4666-a782-5366de1a5ead",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
-                    "rightValue": "Сообщение механику и логисту",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "41f0fd84-a2a8-4d16-8bd0-ea0e5824d5dc",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
-                    "rightValue": "Заявки на ТО",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {
-          "fallbackOutput": "extra"
-        }
-      },
-      "id": "48333fe0-9561-43b6-a189-3e2b9b7efa93",
-      "name": "Разделение reply-кнопок или иного ввода",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        -1385,
-        1500
-      ]
-    },
-    {
-      "parameters": {
         "conditions": {
           "options": {
             "caseSensitive": true,
@@ -6743,6 +6581,151 @@
                 },
                 "conditions": [
                   {
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
+                    "rightValue": "/start",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "373ca8e6-354d-46cd-9f35-4c8282800d00",
+      "name": "Проверка старта",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -1605,
+        1100
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "3aa20f64-4a32-42c1-90ec-5f7a72f300c7",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "Завершена",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "42b37375-4898-42a0-9e1a-6431bebe63ee",
+      "name": "Filter",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [
+        2680,
+        640
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "9cbc0def-828e-4388-951a-2994666af518",
+              "leftValue": "={{ $json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "1b188186-2a1b-42a4-9e5d-73e2ac3d7c2a",
+      "name": "есть ли незавершённые перевозки?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        2900,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.message.message_id - 1}}",
+        "text": "Введите количество перевозимого материала: Пример: 57,2",
+        "additionalFields": {}
+      },
+      "id": "a2a3cd0e-6589-448f-97e8-660278d0a445",
+      "name": "убираем кнопку назад",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        -280,
+        5080
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "content": "## перевозка",
+        "height": 411.90296942910163,
+        "width": 2173.458383986746,
+        "color": 6
+      },
+      "id": "39509392-d47d-4b5f-9d04-ba34347e05e1",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1740,
+        531.9358073446227
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
                     "id": "c328907d-5e2f-4059-b43d-dec7c9a2136a",
                     "leftValue": "={{ $json.status }}",
                     "rightValue": "authorized",
@@ -6937,10 +6920,76 @@
                 "conditions": [
                   {
                     "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
-                    "rightValue": "/start",
+                    "rightValue": "Моя статистика",
                     "operator": {
                       "type": "string",
                       "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "46700892-d6f7-4494-9b30-6e3a9344bc28",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
+                    "rightValue": "Приступить к работе",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "e9d1379d-cad3-4666-a782-5366de1a5ead",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
+                    "rightValue": "Срочно",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "41f0fd84-a2a8-4d16-8bd0-ea0e5824d5dc",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
+                    "rightValue": "Заявки на ТО",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
                     }
                   }
                 ],
@@ -6953,119 +7002,13 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "373ca8e6-354d-46cd-9f35-4c8282800d00",
-      "name": "Проверка старта",
+      "id": "48333fe0-9561-43b6-a189-3e2b9b7efa93",
+      "name": "Разделение reply-кнопок или иного ввода",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        -1605,
-        1100
-      ]
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "3aa20f64-4a32-42c1-90ec-5f7a72f300c7",
-              "leftValue": "={{ $json.status }}",
-              "rightValue": "Завершена",
-              "operator": {
-                "type": "string",
-                "operation": "notEquals"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "42b37375-4898-42a0-9e1a-6431bebe63ee",
-      "name": "Filter",
-      "type": "n8n-nodes-base.filter",
-      "typeVersion": 2,
-      "position": [
-        2680,
-        640
-      ],
-      "alwaysOutputData": true
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "9cbc0def-828e-4388-951a-2994666af518",
-              "leftValue": "={{ $json }}",
-              "rightValue": "",
-              "operator": {
-                "type": "object",
-                "operation": "notEmpty",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "1b188186-2a1b-42a4-9e5d-73e2ac3d7c2a",
-      "name": "есть ли незавершённые перевозки?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [
-        2900,
-        640
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "editMessageText",
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
-        "messageId": "={{ $('Execute Workflow Trigger').item.json.message.message_id - 1}}",
-        "text": "Введите количество перевозимого материала: Пример: 57,2",
-        "additionalFields": {}
-      },
-      "id": "a2a3cd0e-6589-448f-97e8-660278d0a445",
-      "name": "убираем кнопку назад",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        -280,
-        5080
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
-        }
-      },
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "content": "## перевозка",
-        "height": 411.90296942910163,
-        "width": 2173.458383986746,
-        "color": 6
-      },
-      "id": "39509392-d47d-4b5f-9d04-ba34347e05e1",
-      "name": "Sticky Note",
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        1740,
-        531.9358073446227
+        -1385,
+        1500
       ]
     }
   ],
@@ -7126,6 +7069,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-17T05:44:19.000Z",
-  "versionId": "4720d3d9-1112-4823-ac72-301ad2178a48"
+  "updatedAt": "2024-07-17T06:58:56.000Z",
+  "versionId": "fd9f0e4b-a935-45ab-9ae9-d5ab44fbfe1c"
 }
