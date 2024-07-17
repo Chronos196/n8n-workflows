@@ -1285,17 +1285,6 @@
         ]
       ]
     },
-    "начало рейса2": {
-      "main": [
-        [
-          {
-            "node": "завершение рейса1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "находим машину по odoo id8": {
       "main": [
         [
@@ -2459,17 +2448,6 @@
         ]
       ]
     },
-    "завершение рейса1": {
-      "main": [
-        [
-          {
-            "node": "получаем odoo id8",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "получение перевозок2": {
       "main": [
         [
@@ -2525,40 +2503,11 @@
         ]
       ]
     },
-    "завершение рейса": {
-      "main": [
-        [
-          {
-            "node": "находим какая сейчас перевозка",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "находим какая сейчас перевозка": {
       "main": [
         [
           {
             "node": "выполняется сейчас срочная?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "перевозка со статусом \"В начале смены\"": {
-      "main": [
-        [
-          {
-            "node": "получаем название маршрута из перевозки4",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "находим перевозки по рейсам",
             "type": "main",
             "index": 0
           }
@@ -2627,7 +2576,7 @@
       "main": [
         [
           {
-            "node": "есть ли перевозки",
+            "node": "Sort",
             "type": "main",
             "index": 0
           }
@@ -2824,6 +2773,68 @@
         [
           {
             "node": "есть ли еще рейсы по этой перевозке?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "перевозка со статусом \"В начале смены\"": {
+      "main": [
+        [
+          {
+            "node": "получаем название маршрута из перевозки4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "находим перевозки по рейсам",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort": {
+      "main": [
+        [
+          {
+            "node": "есть ли перевозки",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "завершение рейса": {
+      "main": [
+        [
+          {
+            "node": "находим какая сейчас перевозка",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "завершение рейса1": {
+      "main": [
+        [
+          {
+            "node": "получаем odoo id8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "начало рейса2": {
+      "main": [
+        [
+          {
+            "node": "завершение рейса1",
             "type": "main",
             "index": 0
           }
@@ -8879,8 +8890,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        -1500,
-        5840
+        -1140,
+        5880
       ],
       "credentials": {
         "telegramApi": {
@@ -8901,8 +8912,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        -1260,
-        5860
+        -920,
+        5900
       ],
       "credentials": {
         "telegramApi": {
@@ -8959,8 +8970,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        -1060,
-        5860
+        -740,
+        5900
       ],
       "credentials": {
         "telegramApi": {
@@ -8985,7 +8996,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        -380,
+        -160,
         5600
       ],
       "credentials": {
@@ -8994,33 +9005,6 @@
           "name": "Everest production"
         }
       }
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "http://80.87.105.202:8069/accept_order",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "cookie",
-              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"number_car\": {{'\"'+ $json.number_car +'\"'}}\n}",
-        "options": {}
-      },
-      "id": "e573f98a-835a-4218-b3d4-396ac56fae82",
-      "name": "начало рейса2",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        -2740,
-        5980
-      ]
     },
     {
       "parameters": {
@@ -9129,7 +9113,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -760,
+        -540,
         5600
       ],
       "credentials": {
@@ -9156,7 +9140,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        -300,
+        -80,
         5820
       ],
       "credentials": {
@@ -9197,7 +9181,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        -80,
+        140,
         5600
       ],
       "credentials": {
@@ -9348,7 +9332,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -760,
+        -540,
         5820
       ],
       "alwaysOutputData": true,
@@ -9381,7 +9365,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -520,
+        -300,
         5820
       ],
       "credentials": {
@@ -9423,7 +9407,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        -40,
+        180,
         5820
       ],
       "credentials": {
@@ -14517,33 +14501,6 @@
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "http://80.87.105.202:8069/complete_round",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "cookie",
-              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"number_car\": {{'\"'+ $('находим машину по odoo id8').item.json.number_car +'\"'}}\n}",
-        "options": {}
-      },
-      "id": "052877e6-cc40-4b46-8420-5ccb52b60eb9",
-      "name": "завершение рейса1",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        -2560,
-        5980
-      ]
-    },
-    {
-      "parameters": {
         "url": "http://80.87.105.202:8069/transportations_by_car",
         "sendHeaders": true,
         "headerParameters": {
@@ -14657,8 +14614,8 @@
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        -1540,
-        5700
+        -1180,
+        5680
       ]
     },
     {
@@ -14697,33 +14654,6 @@
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "http://80.87.105.202:8069/complete_round",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "cookie",
-              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"number_car\": {{'\"'+ $json.number_car +'\"'}}\n}",
-        "options": {}
-      },
-      "id": "c17becc4-7565-4508-93ec-461878468e76",
-      "name": "завершение рейса",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        -2200,
-        3400
-      ]
-    },
-    {
-      "parameters": {
         "resource": "custom",
         "customResource": "transportation.transportation",
         "operation": "getAll",
@@ -14753,38 +14683,6 @@
           "name": "Everest prod"
         }
       }
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "63c1d6fc-2466-4e19-b4ac-7ecc2f051e09",
-              "leftValue": "={{ $json.transportations.start_condition }}",
-              "rightValue": "В начале",
-              "operator": {
-                "type": "string",
-                "operation": "startsWith"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "cc74a65f-7333-4a13-a6f9-e813fafe9aba",
-      "name": "перевозка со статусом \"В начале смены\"",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [
-        -1060,
-        5700
-      ]
     },
     {
       "parameters": {
@@ -15260,9 +15158,19 @@
                 "type": "number",
                 "operation": "gt"
               }
+            },
+            {
+              "id": "a76c3b28-4700-4506-86d6-7c09b6f48e56",
+              "leftValue": "={{ $('есть ли срочная перевозка').item.json.transportations.status }}",
+              "rightValue": "Завершена",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
             }
           ],
-          "combinator": "and"
+          "combinator": "or"
         },
         "options": {}
       },
@@ -15378,8 +15286,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -1840,
-        5720
+        -1440,
+        5680
       ]
     },
     {
@@ -15483,7 +15391,7 @@
           "filter": [
             {
               "fieldName": "transportation",
-              "value": "={{ $('завершение рейса').item.json.current_transportation[0] }}"
+              "value": "={{ $('находим машину по odoo id2').item.json.current_transportation[0] }}"
             },
             {
               "fieldName": "car",
@@ -15526,6 +15434,140 @@
         -3080,
         10900
       ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "63c1d6fc-2466-4e19-b4ac-7ecc2f051e09",
+              "leftValue": "={{ $json.transportations.start_condition }}",
+              "rightValue": "В начале",
+              "operator": {
+                "type": "string",
+                "operation": "startsWith"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "3fb34202-d4a6-47b3-a783-e81839373fdc",
+      "name": "перевозка со статусом \"В начале смены\"",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -960,
+        5680
+      ]
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "transportations.start_condition"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2e448d99-d37e-4c7e-ac1f-f97918a30742",
+      "name": "Sort",
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        -1820,
+        5720
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://80.87.105.202:8069/complete_round",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"number_car\": {{'\"'+ $json.number_car +'\"'}}\n}",
+        "options": {}
+      },
+      "id": "c17becc4-7565-4508-93ec-461878468e76",
+      "name": "завершение рейса",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -2200,
+        3400
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://80.87.105.202:8069/complete_round",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"number_car\": {{'\"'+ $('находим машину по odoo id8').item.json.number_car +'\"'}}\n}",
+        "options": {}
+      },
+      "id": "052877e6-cc40-4b46-8420-5ccb52b60eb9",
+      "name": "завершение рейса1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -2560,
+        5980
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://80.87.105.202:8069/accept_order",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"number_car\": {{'\"'+ $json.number_car +'\"'}}\n}",
+        "options": {}
+      },
+      "id": "e573f98a-835a-4218-b3d4-396ac56fae82",
+      "name": "начало рейса2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -2740,
+        5980
+      ]
     }
   ],
   "pinData": {},
@@ -15546,6 +15588,6 @@
     }
   ],
   "triggerCount": 2,
-  "updatedAt": "2024-07-17T06:18:47.000Z",
-  "versionId": "b0236705-44cf-4bdc-951f-213ab5adbff7"
+  "updatedAt": "2024-07-17T10:58:10.000Z",
+  "versionId": "2d793d45-af52-45a5-ae15-886aec5447be"
 }
