@@ -1630,45 +1630,6 @@
         ]
       ]
     },
-    "ТТН и весовые в конце смены": {
-      "main": [
-        [
-          {
-            "node": "удаляем прошлое сообщение с завершением смены",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "удаляем прошлое сообщение с выбором",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "номер выбранной перевозки",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "номер авто3",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "номер авто4",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "находим рейсы без ттн": {
       "main": [
         [
@@ -2324,6 +2285,63 @@
         [
           {
             "node": "находим рейсы по машине4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ТТН и весовые в конце смены": {
+      "main": [
+        [
+          {
+            "node": "удаляем прошлое сообщение с завершением смены",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "удаляем прошлое сообщение с выбором",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "номер выбранной перевозки",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "номер авто3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "номер авто4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "отправьте данные",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "отправьте данные": {
+      "main": [
+        [
+          {
+            "node": "статус=отправка срочно",
             "type": "main",
             "index": 0
           }
@@ -6750,8 +6768,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        6800,
-        9240
+        6260,
+        9120
       ],
       "credentials": {
         "postgres": {
@@ -6781,8 +6799,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        7020,
-        9240
+        6480,
+        9120
       ],
       "credentials": {
         "odooApi": {
@@ -6803,8 +6821,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        6540,
-        9180
+        6000,
+        9060
       ]
     },
     {
@@ -9385,7 +9403,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        9400,
+        8460,
         9600
       ],
       "credentials": {
@@ -9427,8 +9445,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        6580,
-        9240
+        6040,
+        9120
       ],
       "credentials": {
         "telegramApi": {
@@ -9468,8 +9486,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        9500,
-        9720
+        8460,
+        9760
       ],
       "credentials": {
         "telegramApi": {
@@ -10403,129 +10421,6 @@
           "name": "Алексей dev"
         }
       }
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "upload_sertificate",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "aa099f5f-3f70-427e-b099-02df695e132f",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "back_certificate",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "aa099f5f-3f70-427e-b099-02df695e132f",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "={{ \"TS_\" }}",
-                    "operator": {
-                      "type": "string",
-                      "operation": "startsWith"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "3ef15479-f781-4cf6-8452-ac25023ba248",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "check_TTN",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "5daaa096-aa68-4239-be97-b65bd575add0",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "check_weight",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "3ce842d4-866a-49d0-9cf8-93f0d394713b",
-      "name": "ТТН и весовые в конце смены",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        5900,
-        17340
-      ]
     },
     {
       "parameters": {
@@ -11679,8 +11574,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        7060,
-        9460
+        6580,
+        9380
       ]
     },
     {
@@ -11699,7 +11594,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        8480,
+        8060,
         9380
       ],
       "credentials": {
@@ -11740,7 +11635,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        8780,
+        8240,
         9380
       ],
       "credentials": {
@@ -11761,8 +11656,8 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        7260,
-        9460
+        6780,
+        9380
       ]
     },
     {
@@ -11805,8 +11700,8 @@
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2,
       "position": [
-        7460,
-        9460
+        6980,
+        9380
       ],
       "alwaysOutputData": true
     },
@@ -12074,8 +11969,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        7280,
-        9240
+        6740,
+        9120
       ]
     },
     {
@@ -12107,7 +12002,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        9080,
+        8140,
         9660
       ]
     },
@@ -12140,7 +12035,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        8840,
+        7900,
         9660
       ],
       "alwaysOutputData": true,
@@ -12182,8 +12077,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        9780,
-        9200
+        9620,
+        9100
       ],
       "credentials": {
         "telegramApi": {
@@ -12214,8 +12109,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        8580,
-        9200
+        8440,
+        9100
       ]
     },
     {
@@ -12229,8 +12124,8 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        8780,
-        9200
+        8620,
+        9100
       ]
     },
     {
@@ -12249,8 +12144,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        9580,
-        9200
+        9420,
+        9100
       ],
       "credentials": {
         "telegramApi": {
@@ -12297,8 +12192,8 @@
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2,
       "position": [
-        8980,
-        9200
+        8800,
+        9100
       ],
       "alwaysOutputData": true
     },
@@ -12331,8 +12226,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        9180,
-        9200
+        9000,
+        9100
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -12371,8 +12266,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        9360,
-        9200
+        9180,
+        9100
       ],
       "executeOnce": true
     },
@@ -12589,8 +12484,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        8340,
-        9160
+        8240,
+        9120
       ]
     },
     {
@@ -12621,8 +12516,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        8040,
-        9220
+        7800,
+        9360
       ]
     },
     {
@@ -12650,8 +12545,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        7860,
-        9440
+        7380,
+        9360
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -12690,8 +12585,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        7640,
-        9440
+        7160,
+        9380
       ]
     },
     {
@@ -12710,10 +12605,421 @@
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        8060,
-        9440
+        7580,
+        9360
       ],
       "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "content": "## Меню выполнения следующего рейса, либо перевозка выполнена",
+        "height": 341.19002379886626,
+        "width": 787.6880264829362
+      },
+      "id": "cc8ea596-05a4-4b62-97a8-a6e229b720c2",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        7860,
+        9560
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Проверка наличия срочной перевозки",
+        "height": 247.41739908870431,
+        "width": 1442.4015836918002
+      },
+      "id": "d3daa8d1-4910-4e2d-b3d2-a0ef1ecf0895",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        6540,
+        9321.856766226874
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Вывод срочной перевозки",
+        "height": 209.4815466539836,
+        "width": 401.6397190696796,
+        "color": 5
+      },
+      "id": "b0ed504a-37db-4707-a562-36afa01c35d9",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        8000,
+        9340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Завершена ли срочная перевозка и возврат к предыдущей",
+        "height": 227.6247804271108,
+        "width": 1543.0140618882333
+      },
+      "id": "df2c009a-cfe9-4fb2-a177-2ca5037bb678",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        8220,
+        9040
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "upload_sertificate",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "aa099f5f-3f70-427e-b099-02df695e132f",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "back_certificate",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "aa099f5f-3f70-427e-b099-02df695e132f",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "={{ \"TS_\" }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "3ef15479-f781-4cf6-8452-ac25023ba248",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "check_TTN",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "5daaa096-aa68-4239-be97-b65bd575add0",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "check_weight",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "3ce842d4-866a-49d0-9cf8-93f0d394713b",
+      "name": "ТТН и весовые в конце смены",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        5900,
+        17340
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
+        "text": "Отправьте сообщение, фото, видео, запись диктофона или кружок",
+        "additionalFields": {}
+      },
+      "id": "d455fcae-4929-4f93-911d-045aa6becb2f",
+      "name": "отправьте данные",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        5100,
+        18100
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tg_id": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
+            "status": "inputing_warn_message"
+          },
+          "matchingColumns": [
+            "tg_id"
+          ],
+          "schema": [
+            {
+              "id": "tg_id",
+              "displayName": "tg_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "only_mech",
+              "displayName": "only_mech",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mech_photo",
+              "displayName": "mech_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_id",
+              "displayName": "end_request_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "materials_photo",
+              "displayName": "materials_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_hours",
+              "displayName": "end_request_hours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "car_id_while_inputing",
+              "displayName": "car_id_while_inputing",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "fuel_liters",
+              "displayName": "fuel_liters",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "weight_measure",
+              "displayName": "weight_measure",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "logist_alert_text",
+              "displayName": "logist_alert_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "logist_recipient_name",
+              "displayName": "logist_recipient_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "transportation_for_certificate",
+              "displayName": "transportation_for_certificate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "count_weight_photo",
+              "displayName": "count_weight_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "count_weight_photo_sent",
+              "displayName": "count_weight_photo_sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "742467ba-2c85-4209-9724-e6b9beccda93",
+      "name": "статус=отправка срочно",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        5320,
+        18100
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
     }
   ],
   "pinData": {
@@ -12798,6 +13104,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-16T13:50:29.000Z",
-  "versionId": "9f1f73fd-a7c3-484e-bba3-e15dbba74ed4"
+  "updatedAt": "2024-07-17T12:51:16.000Z",
+  "versionId": "456618c7-d8a9-4b90-a839-f8643ea03052"
 }
