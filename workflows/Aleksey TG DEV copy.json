@@ -158,7 +158,7 @@
       "main": [
         [
           {
-            "node": "Проверка наличия фото",
+            "node": "Проверка медиа",
             "type": "main",
             "index": 0
           }
@@ -188,24 +188,6 @@
         [
           {
             "node": "Вывод статуса карточки",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Проверка наличия фото": {
-      "main": [
-        [
-          {
-            "node": "воркфлоу ВОДИТЕЛЬ ФОТО",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "воркфлоу ВОДИТЕЛЬ_РЕПЛАЙ",
             "type": "main",
             "index": 0
           }
@@ -395,6 +377,24 @@
         [
           {
             "node": "ветки для ролей",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Проверка медиа": {
+      "main": [
+        [
+          {
+            "node": "воркфлоу ВОДИТЕЛЬ МЕДИА",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "воркфлоу ВОДИТЕЛЬ_РЕПЛАЙ",
             "type": "main",
             "index": 0
           }
@@ -1198,39 +1198,6 @@
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "2bd61e7b-a58d-4c5d-81d2-ec5f92c0ee0d",
-              "leftValue": "={{ $('Telegram Trigger1').item.json.message.photo[0].file_unique_id }}",
-              "rightValue": "",
-              "operator": {
-                "type": "string",
-                "operation": "exists",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "9e341090-728f-42ac-b08c-2c315f245cef",
-      "name": "Проверка наличия фото",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [
-        5120,
-        4600
-      ]
-    },
-    {
-      "parameters": {
         "resource": "custom",
         "customResource": "hr.employee",
         "operation": "get",
@@ -1859,25 +1826,13 @@
     },
     {
       "parameters": {
-        "workflowId": "x2YXD7TXL9IQMsbj",
-        "options": {}
-      },
-      "id": "b0adae67-45d6-4944-9cb9-5d6036a43f11",
-      "name": "воркфлоу ВОДИТЕЛЬ ФОТО",
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1,
-      "position": [
-        5520,
-        4540
-      ]
-    },
-    {
-      "parameters": {
         "updates": [
           "message",
           "callback_query"
         ],
-        "additionalFields": {}
+        "additionalFields": {
+          "download": false
+        }
       },
       "id": "d9f094fd-6b68-4e1e-9123-02c51a450972",
       "name": "Telegram Trigger1",
@@ -2086,6 +2041,83 @@
     },
     {
       "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "2bd61e7b-a58d-4c5d-81d2-ec5f92c0ee0d",
+              "leftValue": "={{ $json.message.photo[0].file_unique_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "beb896d6-88c5-4a2c-8278-489d76a2eca6",
+              "leftValue": "={{ $json.message.voice.file_unique_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "0228f7b6-101d-46f6-98b3-0fa3b02263be",
+              "leftValue": "={{ $json.message.video_note.file_unique_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "0bd83324-348f-4eae-aa8b-5f00ce5638ee",
+              "leftValue": "={{ $json.message.video.file_unique_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "id": "9e341090-728f-42ac-b08c-2c315f245cef",
+      "name": "Проверка медиа",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        5120,
+        4600
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": "x2YXD7TXL9IQMsbj",
+        "options": {}
+      },
+      "id": "b0adae67-45d6-4944-9cb9-5d6036a43f11",
+      "name": "воркфлоу ВОДИТЕЛЬ МЕДИА",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        5520,
+        4540
+      ]
+    },
+    {
+      "parameters": {
         "rules": {
           "values": [
             {
@@ -2186,6 +2218,6 @@
     }
   ],
   "triggerCount": 2,
-  "updatedAt": "2024-07-17T06:48:53.000Z",
-  "versionId": "830676d0-c957-4a66-8966-24825e3e7c5b"
+  "updatedAt": "2024-07-17T13:46:39.000Z",
+  "versionId": "492ddda1-ab53-404f-a72a-170d7bc45d72"
 }
