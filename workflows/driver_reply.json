@@ -1356,7 +1356,7 @@
       "main": [
         [
           {
-            "node": "Получение перевозок",
+            "node": "привязан к машине",
             "type": "main",
             "index": 0
           }
@@ -1678,6 +1678,24 @@
         [
           {
             "node": "отправка сообщения",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "привязан к машине": {
+      "main": [
+        [
+          {
+            "node": "Получение перевозок",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "нужно привязать авто",
             "type": "main",
             "index": 0
           }
@@ -6239,7 +6257,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        -100,
+        120,
         660
       ],
       "alwaysOutputData": true,
@@ -6279,7 +6297,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        100,
+        320,
         660
       ]
     },
@@ -6313,7 +6331,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        380,
+        600,
         740
       ],
       "credentials": {
@@ -6345,7 +6363,7 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        520,
+        740,
         620
       ]
     },
@@ -6365,7 +6383,7 @@
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        460,
+        680,
         460
       ]
     },
@@ -6380,7 +6398,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        740,
+        960,
         600
       ]
     },
@@ -6393,7 +6411,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        920,
+        1140,
         580
       ]
     },
@@ -6421,6 +6439,7 @@
         -365,
         660
       ],
+      "alwaysOutputData": true,
       "credentials": {
         "odooApi": {
           "id": "QXqc61yRCfgVSB3C",
@@ -6459,7 +6478,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        1160,
+        1380,
         560
       ],
       "credentials": {
@@ -6473,7 +6492,7 @@
       "parameters": {
         "content": "## Вывод статистики \nПока данные берутся из Postgres",
         "height": 401.9779681145926,
-        "width": 1756.8129908500564,
+        "width": 1972.7168944478303,
         "color": 6
       },
       "id": "758330f1-79a5-4753-ad1f-55ab10b89029",
@@ -7415,6 +7434,60 @@
           "name": "Алексей dev"
         }
       }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "56c8725f-4c62-422e-ad57-befc2a524f74",
+              "leftValue": "={{ $json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "d72572b2-8874-4650-a83c-0a083a17f06b",
+      "name": "привязан к машине",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -160,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "text": "Вы не привязаны к авто",
+        "additionalFields": {}
+      },
+      "id": "37638186-d319-4c9f-8d64-c8c0995b67e5",
+      "name": "нужно привязать авто",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        20,
+        780
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
     }
   ],
   "pinData": {
@@ -7474,6 +7547,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-17T13:24:09.000Z",
-  "versionId": "704e55c7-5c4c-4fc4-9311-09fbe24c99be"
+  "updatedAt": "2024-07-17T15:23:05.000Z",
+  "versionId": "60c7b3d4-deed-4bfc-8c11-c63e43e8bb99"
 }
