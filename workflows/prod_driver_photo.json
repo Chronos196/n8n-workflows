@@ -675,6 +675,17 @@
           }
         ]
       ]
+    },
+    "меняем статус на обычный1": {
+      "main": [
+        [
+          {
+            "node": "убираем кнопку назад",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-07-15T05:29:45.526Z",
@@ -2257,7 +2268,7 @@
       "parameters": {
         "content": "## Отправка фото чека логисту",
         "height": 340.04935999199654,
-        "width": 1584.447064897881,
+        "width": 1752.316928328234,
         "color": 6
       },
       "id": "63cecdd7-486b-45a4-8cb8-70231d84b5ab",
@@ -3000,6 +3011,30 @@
         }
       },
       "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.message.message_id - 1}}",
+        "text": "Отправьте фотографию чека с заправки:",
+        "additionalFields": {}
+      },
+      "id": "9bf4fbca-2287-4bce-ac3e-38a0bca6623a",
+      "name": "убираем кнопку назад",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2160,
+        580
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "yJVsCMzutOZvA2Re",
+          "name": "Everest production"
+        }
+      },
+      "onError": "continueRegularOutput"
     }
   ],
   "pinData": {
@@ -3041,6 +3076,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-15T05:30:02.000Z",
-  "versionId": "38fbc8b6-bf63-49e3-92c2-ff0c3b2c99eb"
+  "updatedAt": "2024-07-17T06:47:16.000Z",
+  "versionId": "d27aa636-c41f-47a9-8568-f1f50d254afa"
 }
