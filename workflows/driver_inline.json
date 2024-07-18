@@ -1441,17 +1441,6 @@
         ]
       ]
     },
-    "создаём динамически инлайн кнопки2": {
-      "main": [
-        [
-          {
-            "node": "отправляем сообщение 2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "номер авто2": {
       "main": [
         [
@@ -1746,17 +1735,6 @@
         [
           {
             "node": "загрузите весовые",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "получение перевозок": {
-      "main": [
-        [
-          {
-            "node": "Split Out",
             "type": "main",
             "index": 0
           }
@@ -2451,6 +2429,35 @@
         [
           {
             "node": "Добавление перевозки в бд2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получение перевозок": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "сегодня не было перевозок",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "создаём динамически инлайн кнопки2": {
+      "main": [
+        [
+          {
+            "node": "отправляем сообщение 2",
             "type": "main",
             "index": 0
           }
@@ -8184,7 +8191,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
         "text": "Не удалось отправить информацию, логист не найден",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
@@ -9494,8 +9501,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5240,
-        13640
+        4860,
+        13660
       ],
       "credentials": {
         "telegramApi": {
@@ -9577,8 +9584,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5340,
-        13760
+        4860,
+        13820
       ],
       "credentials": {
         "telegramApi": {
@@ -9902,19 +9909,6 @@
           "name": "Алексей dev"
         }
       }
-    },
-    {
-      "parameters": {
-        "jsCode": "const items = $input.all();\n\nconst buttons = items.map((item, index) => ({\n    text: `${item.json.route[1]}`,\n    callback_data: `TS_${item.json.id}` // TR - take request\n}));\n\nconst inlineKeyboard = {\n    inline_keyboard: [\n        ...buttons.map(button => [button]), // динамические кнопки, каждая строка содержит одну кнопку\n        [{ text: \"Завершить проверку\", callback_data: \"check_fuel\" }] // постоянная кнопка\n    ]\n};\n\nconsole.log(JSON.stringify(inlineKeyboard, null, 2));\n\nconst chatId = $('Execute Workflow Trigger').all()[0].json.callback_query.from.id;\nconst token = '7063451965:AAGARL6Eluwh3zgS84WnaZozqdz6-m0RLzg';\nconst url = `https://api.telegram.org/bot${token}/sendMessage`;\n\nconst message = {\n    chat_id: chatId,\n    text: \"Проверьте наличие ТТН и Весовых справок в перевозке.\\nВыберите необходимую перевозку🛻\",\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n"
-      },
-      "id": "b844fac2-0bf2-4931-9aa1-e1c6327867f6",
-      "name": "создаём динамически инлайн кнопки2",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        3960,
-        21280
-      ]
     },
     {
       "parameters": {
@@ -11556,32 +11550,6 @@
     },
     {
       "parameters": {
-        "url": "https://dev.everest.lamart.site/transportations_by_car",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "cookie",
-              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"number_car\": {{'\"'+ $json.number_car +'\"'}}\n} ",
-        "options": {}
-      },
-      "id": "6307cbf4-196b-405a-b9d6-53377abb8725",
-      "name": "получение перевозок",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        2960,
-        21280
-      ]
-    },
-    {
-      "parameters": {
         "fieldToSplitOut": "transportations",
         "include": "allOtherFields",
         "options": {}
@@ -11644,8 +11612,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        3360,
-        13520
+        3180,
+        13460
       ]
     },
     {
@@ -11664,7 +11632,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4600,
+        4560,
         13440
       ],
       "credentials": {
@@ -11705,7 +11673,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4900,
+        4780,
         13440
       ],
       "credentials": {
@@ -11726,8 +11694,8 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        3560,
-        13520
+        3380,
+        13460
       ]
     },
     {
@@ -11759,8 +11727,8 @@
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2,
       "position": [
-        3760,
-        13520
+        3580,
+        13460
       ],
       "alwaysOutputData": true
     },
@@ -12029,7 +11997,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        4920,
+        4600,
         13700
       ]
     },
@@ -12065,7 +12033,7 @@
       "typeVersion": 1.1,
       "position": [
         5780,
-        13260
+        13220
       ],
       "credentials": {
         "telegramApi": {
@@ -12097,7 +12065,7 @@
       "typeVersion": 4.1,
       "position": [
         4580,
-        13260
+        13220
       ]
     },
     {
@@ -12112,7 +12080,7 @@
       "typeVersion": 1,
       "position": [
         4780,
-        13260
+        13220
       ]
     },
     {
@@ -12144,7 +12112,7 @@
       "typeVersion": 2,
       "position": [
         4340,
-        13240
+        13220
       ]
     },
     {
@@ -12164,7 +12132,7 @@
       "typeVersion": 1.1,
       "position": [
         5580,
-        13260
+        13220
       ],
       "credentials": {
         "telegramApi": {
@@ -12172,70 +12140,6 @@
           "name": "Алексей dev"
         }
       }
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "transportation.round",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "transportation",
-              "value": "={{ $json.id }}"
-            }
-          ]
-        }
-      },
-      "id": "96ef3a29-6b1b-4583-93e4-bd562cb437f2",
-      "name": "находим рейсы по машине8",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        4340,
-        13960
-      ],
-      "alwaysOutputData": true,
-      "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "53aeace2-189c-46ef-a6e0-cc6e063e9cb7",
-              "leftValue": "={{ $json.count_id }}",
-              "rightValue": "={{ $('находим какая сейчас перевозка').item.json.round_quantity_for_car }}",
-              "operator": {
-                "type": "number",
-                "operation": "lte"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "72af7d28-4289-467b-bf0b-1339f7e44e5a",
-      "name": "If1",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [
-        4840,
-        14000
-      ]
     },
     {
       "parameters": {
@@ -12276,7 +12180,7 @@
       "typeVersion": 2,
       "position": [
         4980,
-        13260
+        13220
       ],
       "alwaysOutputData": true
     },
@@ -12308,8 +12212,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        4040,
-        13300
+        4360,
+        13460
       ]
     },
     {
@@ -12342,7 +12246,7 @@
       "typeVersion": 1,
       "position": [
         5180,
-        13260
+        13220
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -12382,7 +12286,7 @@
       "typeVersion": 2,
       "position": [
         5360,
-        13260
+        13220
       ],
       "executeOnce": true
     },
@@ -12411,8 +12315,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        4160,
-        13520
+        3980,
+        13460
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -12451,8 +12355,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        3940,
-        13520
+        3760,
+        13460
       ]
     },
     {
@@ -12471,8 +12375,8 @@
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        4360,
-        13520
+        4180,
+        13460
       ],
       "alwaysOutputData": false
     },
@@ -12505,7 +12409,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        4700,
+        4380,
         13700
       ],
       "alwaysOutputData": true,
@@ -12821,8 +12725,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        3860,
-        13140
+        3800,
+        13080
       ],
       "credentials": {
         "postgres": {
@@ -12916,8 +12820,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        4040,
-        13140
+        3980,
+        13080
       ],
       "credentials": {
         "postgres": {
@@ -12955,8 +12859,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        3660,
-        13140
+        3600,
+        13080
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -13887,6 +13791,147 @@
           "name": "Postgres account"
         }
       }
+    },
+    {
+      "parameters": {
+        "content": "## Меню выполнения следующего рейса, либо перевозка заверена",
+        "height": 326.33462121963237,
+        "width": 711.5058573856858
+      },
+      "id": "4e2e3e11-7466-423b-aa90-97a16c6d0630",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        4300,
+        13620
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Проверка наличия срочной перевозки",
+        "height": 190.88466314753396,
+        "width": 1374.4966262860821
+      },
+      "id": "8194e7a6-8adc-4292-9779-cdf2324229eb",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3140,
+        13425.587157197817
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Вывод срочной перевозки",
+        "height": 210.2083569266656,
+        "width": 451.40360811227606,
+        "color": 5
+      },
+      "id": "e315fd20-8156-4711-be6e-c7575cdce774",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        4520,
+        13400
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Завершена ли срочная еревозка и возврат к предыдущей",
+        "height": 223.82830383823693,
+        "width": 1656.5765497002262
+      },
+      "id": "42ac4063-1a64-43c1-94d3-2844e5e08839",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        4280,
+        13181.469202111479
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/transportations_by_car",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"number_car\": {{'\"'+ $json.number_car +'\"'}}\n} ",
+        "options": {}
+      },
+      "id": "6307cbf4-196b-405a-b9d6-53377abb8725",
+      "name": "получение перевозок",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        2960,
+        21280
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst buttons = items.map((item, index) => ({\n    text: `${item.json.route[1]}`,\n    callback_data: `TS_${item.json.id}` // TR - take request\n}));\n\nconst inlineKeyboard = {\n    inline_keyboard: [\n        ...buttons.map(button => [button]), // динамические кнопки, каждая строка содержит одну кнопку\n        [{ text: \"Завершить проверку\", callback_data: \"check_fuel\" }] // постоянная кнопка\n    ]\n};\n\nconsole.log(JSON.stringify(inlineKeyboard, null, 2));\n\nconst chatId = $('Execute Workflow Trigger').all()[0].json.callback_query.from.id;\nconst token = '7063451965:AAGARL6Eluwh3zgS84WnaZozqdz6-m0RLzg';\nconst url = `https://api.telegram.org/bot${token}/sendMessage`;\n\nconst message = {\n    chat_id: chatId,\n    text: \"Проверьте наличие ТТН и Весовых справок в перевозке.\\nВыберите необходимую перевозку🛻\",\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n"
+      },
+      "id": "b844fac2-0bf2-4931-9aa1-e1c6327867f6",
+      "name": "создаём динамически инлайн кнопки2",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3960,
+        21280
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
+        "text": "За эту смену у Вас не было перевозок",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Продолжить",
+                    "additionalFields": {
+                      "callback_data": "check_fuel"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "5470f371-a6ea-4e29-a5fe-cfdf06725bb2",
+      "name": "сегодня не было перевозок",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        3240,
+        21460
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
     }
   ],
   "pinData": {
@@ -13972,6 +14017,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-17T15:52:44.000Z",
-  "versionId": "97238e43-ea3c-4503-9729-75ee333435e7"
+  "updatedAt": "2024-07-18T09:21:29.000Z",
+  "versionId": "f3bcf753-9497-4ac9-acef-e068503ddd96"
 }
