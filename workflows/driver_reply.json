@@ -1622,18 +1622,7 @@
         ],
         [
           {
-            "node": "водители и логисты",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "водители и логисты": {
-      "main": [
-        [
-          {
-            "node": "айди для отправки сообщения",
+            "node": "механики и логисты",
             "type": "main",
             "index": 0
           }
@@ -1855,6 +1844,39 @@
         [
           {
             "node": "Сообщение отправлено",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Сообщение отправлено": {
+      "main": [
+        [
+          {
+            "node": "возвращаем статус3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "сообщение отправлено1": {
+      "main": [
+        [
+          {
+            "node": "возвращаем статус3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "механики и логисты": {
+      "main": [
+        [
+          {
+            "node": "айди для отправки сообщения",
             "type": "main",
             "index": 0
           }
@@ -7425,39 +7447,6 @@
     },
     {
       "parameters": {
-        "resource": "custom",
-        "customResource": "hr.employee",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "job_id",
-              "operator": "in",
-              "value": "={{ [\"Механик\", \"Логист\"] }}"
-            }
-          ]
-        }
-      },
-      "id": "4beac286-beda-4afc-80dc-6faf81cf9e7b",
-      "name": "водители и логисты",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        -300,
-        6180
-      ],
-      "alwaysOutputData": true,
-      "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
         "operation": "select",
         "schema": {
           "__rl": true,
@@ -8139,6 +8128,161 @@
           "name": "Алексей dev"
         }
       }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tg_id": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+            "status": "authorized"
+          },
+          "matchingColumns": [
+            "tg_id"
+          ],
+          "schema": [
+            {
+              "id": "tg_id",
+              "displayName": "tg_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "only_mech",
+              "displayName": "only_mech",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mech_photo",
+              "displayName": "mech_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_id",
+              "displayName": "end_request_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "materials_photo",
+              "displayName": "materials_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_hours",
+              "displayName": "end_request_hours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6e0b1984-be94-4110-9d89-2fdee94a17c8",
+      "name": "возвращаем статус3",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        1540,
+        6220
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "hr.employee",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "job_id",
+              "operator": "in",
+              "value": "={{ [\"Механик\", \"Логист\"] }}"
+            }
+          ]
+        }
+      },
+      "id": "4beac286-beda-4afc-80dc-6faf81cf9e7b",
+      "name": "механики и логисты",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        -300,
+        6180
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
     }
   ],
   "pinData": {
@@ -8198,6 +8342,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-18T15:01:30.000Z",
-  "versionId": "49f54bf2-5030-475f-ba0f-020a42c70963"
+  "updatedAt": "2024-07-19T07:24:32.000Z",
+  "versionId": "4f9ade0d-11ce-4f17-86ef-91a3edd87879"
 }
