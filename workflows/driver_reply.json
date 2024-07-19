@@ -1689,17 +1689,6 @@
       "main": [
         [
           {
-            "node": "проверка наличия механиков1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "проверка наличия механиков1": {
-      "main": [
-        [
-          {
             "node": "Отправка проблемы механикам1",
             "type": "main",
             "index": 0
@@ -1741,17 +1730,6 @@
       ]
     },
     "поиск тг айди логистов1": {
-      "main": [
-        [
-          {
-            "node": "проверка наличия логистов1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "проверка наличия логистов1": {
       "main": [
         [
           {
@@ -7707,39 +7685,6 @@
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "40eca1c8-25ce-4538-9aec-0b10b421179f",
-              "leftValue": "={{ $json }}",
-              "rightValue": "",
-              "operator": {
-                "type": "object",
-                "operation": "notEmpty",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "8866d971-970b-4e83-bc14-7b8d2a97949a",
-      "name": "проверка наличия механиков1",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [
-        340,
-        5760
-      ]
-    },
-    {
-      "parameters": {
         "chatId": "={{ $json.tg_id }}",
         "text": "=У водителя <b>{{ $('данные сотрудника').item.json[\"display_name\"] }}</b> <a href=\"tel:{{ $('данные сотрудника').item.json.mobile_phone }}\">{{ $('данные сотрудника').item.json.mobile_phone }}</a> проблема с авто <b>{{ $('номер авто').item.json[\"number_car\"] }}</b>: \n\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i>\n\n<a href=\"https://dev.everest.lamart.site/web#id={{ $('создание заявки 1').item.json.id }}&cids=1&menu_id=343&action=485&model=technical.maintenance&view_type=form\">Ссылка на заявку в Odoo</a>\n\n",
         "replyMarkup": "inlineKeyboard",
@@ -7769,8 +7714,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        580,
-        5740
+        340,
+        5760
       ],
       "credentials": {
         "telegramApi": {
@@ -7789,8 +7734,8 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        780,
-        5740
+        520,
+        5760
       ]
     },
     {
@@ -7814,7 +7759,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -60,
+        -80,
         5980
       ],
       "alwaysOutputData": true,
@@ -7868,39 +7813,6 @@
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "40eca1c8-25ce-4538-9aec-0b10b421179f",
-              "leftValue": "={{ $json }}",
-              "rightValue": "",
-              "operator": {
-                "type": "object",
-                "operation": "notEmpty",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "755810cf-67bb-4b67-9750-3aac338f1f63",
-      "name": "проверка наличия логистов1",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [
-        340,
-        5980
-      ]
-    },
-    {
-      "parameters": {
         "chatId": "={{ $json.tg_id }}",
         "text": "=У водителя <b>{{ $('данные сотрудника').item.json[\"display_name\"] }}</b> <a href=\"tel:{{ $('данные сотрудника').item.json.mobile_phone }}\">{{ $('данные сотрудника').item.json.mobile_phone }}</a> проблема с авто <b>{{ $('номер авто').item.json[\"number_car\"] }}</b>: \n\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i>",
         "replyMarkup": "inlineKeyboard",
@@ -7930,8 +7842,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        580,
-        5960
+        340,
+        5980
       ],
       "credentials": {
         "telegramApi": {
@@ -7997,7 +7909,7 @@
       "parameters": {
         "content": "## Если номер авто указан",
         "height": 471.2307801590043,
-        "width": 1934.1469038426435,
+        "width": 1809.1469038426435,
         "color": 7
       },
       "id": "1bd4bf8a-0b5c-449c-97b2-cc95e7c4a280",
@@ -8023,8 +7935,8 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        800,
-        5960
+        540,
+        5980
       ]
     },
     {
@@ -8046,8 +7958,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        1000,
-        5740
+        720,
+        5760
       ]
     },
     {
@@ -8069,8 +7981,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        1000,
-        5960
+        700,
+        5980
       ]
     },
     {
@@ -8080,7 +7992,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        1180,
+        920,
         5860
       ]
     },
@@ -8102,7 +8014,7 @@
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        1360,
+        1100,
         5860
       ]
     },
@@ -8119,7 +8031,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        1560,
+        1300,
         5860
       ],
       "credentials": {
@@ -8342,6 +8254,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-19T07:24:32.000Z",
-  "versionId": "4f9ade0d-11ce-4f17-86ef-91a3edd87879"
+  "updatedAt": "2024-07-19T08:55:17.000Z",
+  "versionId": "00148e35-51b6-4102-a49e-5c34fb79bf90"
 }
