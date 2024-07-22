@@ -1490,8 +1490,8 @@
     {
       "parameters": {
         "operation": "deleteMessage",
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
-        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}"
+        "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.message.message_id }}"
       },
       "id": "bf660dfa-9d83-4c2a-9dad-be55c7661bc1",
       "name": "удаляем прошлое сообщение с заявками",
@@ -1557,7 +1557,7 @@
             {
               "id": "92ad7c1c-cd84-4fc3-bf35-ca59aedad2a0",
               "name": "AT_name",
-              "value": "={{ $json.inline_data.substring(3) }}",
+              "value": "={{ $json.callback_query.data.substring(3) }}",
               "type": "string"
             }
           ]
@@ -1963,12 +1963,12 @@
         "filterRequest": {
           "filter": [
             {
-              "fieldName": "date",
-              "value": "={{ $today }}"
+              "fieldName": "partner",
+              "value": "={{ $('Execute Workflow Trigger').item.json.logist_recipient_name }}"
             },
             {
-              "fieldName": "partner",
-              "value": "={{ $('Execute Workflow Trigger').item.json.pg_recipient_name }}"
+              "fieldName": "date",
+              "value": "={{ $today }}"
             }
           ]
         }
@@ -2113,7 +2113,7 @@
     {
       "parameters": {
         "chatId": "={{ $('айди водителей1').item.json.tg_id }}",
-        "text": "=Оповещение от логиста:\n<i>{{ $('Execute Workflow Trigger').item.json.logist_alert_text }}</i>",
+        "text": "=Оповещение от логиста:\n<i>{{ $('Execute Workflow Trigger').all()[0].json.logist_alert_text }}</i>",
         "additionalFields": {
           "appendAttribution": false,
           "parse_mode": "HTML"
@@ -2151,8 +2151,8 @@
     {
       "parameters": {
         "operation": "editMessageText",
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
-        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
+        "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.message.message_id }}",
         "text": "Сообщение будет доставлено всем водителям с выбранным получателем",
         "additionalFields": {}
       },
@@ -2607,73 +2607,81 @@
     "Execute Workflow Trigger": [
       {
         "json": {
-          "cookie": "session_id=c554e448649a81d5cccacb539ad5df43a3c745f2; Expires=Wed, 16 Jul 2025 07:44:22 GMT; Max-Age=604800; HttpOnly; Path=/",
-          "pg": {
-            "tg_id": "7090302459",
-            "odoo_id": 19,
-            "status": "authorized",
-            "only_mech": false,
-            "mech_photo": false,
-            "end_request_id": 274,
-            "materials_photo": false,
-            "end_request_hours": null,
-            "car_id_while_inputing": null,
-            "fuel_liters": null,
-            "weight_measure": null,
-            "logist_alert_text": "12345",
-            "logist_recipient_name": "ТЕСТ-КОМПАНИЯ",
-            "transportation_for_certificate": null,
-            "count_weight_photo": null,
-            "count_weight_photo_sent": null
-          },
-          "tt": {
-            "update_id": 100619625,
-            "callback_query": {
-              "id": "2782501072747681022",
+          "update_id": 100620595,
+          "callback_query": {
+            "id": "2782501070774049582",
+            "from": {
+              "id": 7090302459,
+              "is_bot": false,
+              "first_name": "Al",
+              "last_name": "Go",
+              "language_code": "ru"
+            },
+            "message": {
+              "message_id": 11858,
               "from": {
+                "id": 7063451965,
+                "is_bot": true,
+                "first_name": "Everest n8n",
+                "username": "myn8nbotbot"
+              },
+              "chat": {
                 "id": 7090302459,
-                "is_bot": false,
                 "first_name": "Al",
                 "last_name": "Go",
-                "language_code": "ru"
+                "type": "private"
               },
-              "message": {
-                "message_id": 10660,
-                "from": {
-                  "id": 7063451965,
-                  "is_bot": true,
-                  "first_name": "Everest n8n",
-                  "username": "myn8nbotbot"
+              "date": 1721398166,
+              "text": "Действительно хотите оповестить всех водителей по выбранному получателю?\n\nВаше сообщение:\n123",
+              "entities": [
+                {
+                  "offset": 0,
+                  "length": 72,
+                  "type": "bold"
                 },
-                "chat": {
-                  "id": 7090302459,
-                  "first_name": "Al",
-                  "last_name": "Go",
-                  "type": "private"
-                },
-                "date": 1721115810,
-                "text": "Выберите вариант оповещения водителей:",
-                "reply_markup": {
-                  "inline_keyboard": [
-                    [
-                      {
-                        "text": "Оповестить всех",
-                        "callback_data": "logist_alert_all"
-                      }
-                    ],
-                    [
-                      {
-                        "text": "Оповестить по выбранному получателю",
-                        "callback_data": "logist_alert_transportation"
-                      }
-                    ]
-                  ]
+                {
+                  "offset": 90,
+                  "length": 3,
+                  "type": "italic"
                 }
-              },
-              "chat_instance": "4841481297779052467",
-              "data": "logist_alert_all"
-            }
-          }
+              ],
+              "reply_markup": {
+                "inline_keyboard": [
+                  [
+                    {
+                      "text": "Оповестить",
+                      "callback_data": "alert_transportation"
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Вернуться к выбору",
+                      "callback_data": "back_to_alert_menu"
+                    }
+                  ]
+                ]
+              }
+            },
+            "chat_instance": "4841481297779052467",
+            "data": "alert_transportation"
+          },
+          "tg_id": "7090302459",
+          "odoo_id": 19,
+          "status": "authorized",
+          "only_mech": false,
+          "mech_photo": false,
+          "end_request_id": 285,
+          "materials_photo": false,
+          "end_request_hours": null,
+          "car_id_while_inputing": null,
+          "fuel_liters": null,
+          "weight_measure": null,
+          "logist_alert_text": "123",
+          "logist_recipient_name": "My Company",
+          "transportation_for_certificate": null,
+          "count_weight_photo": null,
+          "count_weight_photo_sent": null,
+          "cookie": "session_id=a8eb48844833d4f68c47e770110d5fa578481bf3; Expires=Sat, 19 Jul 2025 14:09:48 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -2691,6 +2699,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-16T09:55:56.000Z",
-  "versionId": "95273a10-21b9-4a19-871d-d58ce6e3616f"
+  "updatedAt": "2024-07-22T06:17:26.000Z",
+  "versionId": "14676859-5cf5-401a-ab11-75532bd2eeca"
 }
