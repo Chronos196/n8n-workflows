@@ -1696,17 +1696,6 @@
         ]
       ]
     },
-    "Отправка проблемы механикам1": {
-      "main": [
-        [
-          {
-            "node": "преобразуем в 1 переменную2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "преобразуем в 1 переменную2": {
       "main": [
         [
@@ -1734,17 +1723,6 @@
         [
           {
             "node": "Отправка проблемы логистам1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Отправка проблемы логистам1": {
-      "main": [
-        [
-          {
-            "node": "Aggregate1",
             "type": "main",
             "index": 0
           }
@@ -1855,6 +1833,28 @@
         [
           {
             "node": "айди для отправки сообщения",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Отправка проблемы механикам1": {
+      "main": [
+        [
+          {
+            "node": "преобразуем в 1 переменную2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Отправка проблемы логистам1": {
+      "main": [
+        [
+          {
+            "node": "Aggregate1",
             "type": "main",
             "index": 0
           }
@@ -7685,47 +7685,6 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $json.tg_id }}",
-        "text": "=У водителя <b>{{ $('данные сотрудника').item.json[\"display_name\"] }}</b> <a href=\"tel:{{ $('данные сотрудника').item.json.mobile_phone }}\">{{ $('данные сотрудника').item.json.mobile_phone }}</a> проблема с авто <b>{{ $('номер авто').item.json[\"number_car\"] }}</b>: \n\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i>\n\n<a href=\"https://dev.everest.lamart.site/web#id={{ $('создание заявки 1').item.json.id }}&cids=1&menu_id=343&action=485&model=technical.maintenance&view_type=form\">Ссылка на заявку в Odoo</a>\n\n",
-        "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Перейти к диалогу",
-                    "additionalFields": {
-                      "url": "=tg://user?id={{ $('Execute Workflow Trigger').item.json.tg_id }}"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {
-          "appendAttribution": false,
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "845fbc57-84c3-48d9-b855-5ab679cf4e81",
-      "name": "Отправка проблемы механикам1",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        340,
-        5760
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
-        }
-      }
-    },
-    {
-      "parameters": {
         "aggregate": "aggregateAllItemData",
         "options": {}
       },
@@ -7808,47 +7767,6 @@
         "postgres": {
           "id": "Q4ZHMkPf1vzJmsuw",
           "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $json.tg_id }}",
-        "text": "=У водителя <b>{{ $('данные сотрудника').item.json[\"display_name\"] }}</b> <a href=\"tel:{{ $('данные сотрудника').item.json.mobile_phone }}\">{{ $('данные сотрудника').item.json.mobile_phone }}</a> проблема с авто <b>{{ $('номер авто').item.json[\"number_car\"] }}</b>: \n\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i>",
-        "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Перейти к диалогу",
-                    "additionalFields": {
-                      "url": "=tg://user?id={{ $('Execute Workflow Trigger').item.json.tg_id }}"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {
-          "appendAttribution": false,
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "1f734708-22ee-4524-9716-2b01e90b9133",
-      "name": "Отправка проблемы логистам1",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        340,
-        5980
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
         }
       }
     },
@@ -8195,6 +8113,90 @@
           "name": "new Odoo Алексей"
         }
       }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.tg_id }}",
+        "text": "=У водителя <b>{{ $('данные сотрудника').item.json[\"display_name\"] }}</b> <a href=\"tel:{{ $('данные сотрудника').item.json.mobile_phone }}\">{{ $('данные сотрудника').item.json.mobile_phone }}</a> проблема с авто <b>{{ $('номер авто').item.json[\"number_car\"] }}</b>: \n\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i>\n\n<a href=\"https://dev.everest.lamart.site/web#id={{ $('создание заявки 1').item.json.id }}&cids=1&menu_id=343&action=485&model=technical.maintenance&view_type=form\">Ссылка на заявку в Odoo</a>\n\n",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Перейти к диалогу",
+                    "additionalFields": {
+                      "url": "=tg://user?id={{ $('Execute Workflow Trigger').item.json.tg_id }}"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "845fbc57-84c3-48d9-b855-5ab679cf4e81",
+      "name": "Отправка проблемы механикам1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        340,
+        5760
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.tg_id }}",
+        "text": "=У водителя <b>{{ $('данные сотрудника').item.json[\"display_name\"] }}</b> <a href=\"tel:{{ $('данные сотрудника').item.json.mobile_phone }}\">{{ $('данные сотрудника').item.json.mobile_phone }}</a> проблема с авто <b>{{ $('номер авто').item.json[\"number_car\"] }}</b>: \n\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i>",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Перейти к диалогу",
+                    "additionalFields": {
+                      "url": "=tg://user?id={{ $('Execute Workflow Trigger').item.json.tg_id }}"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "1f734708-22ee-4524-9716-2b01e90b9133",
+      "name": "Отправка проблемы логистам1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        340,
+        5980
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      },
+      "onError": "continueRegularOutput"
     }
   ],
   "pinData": {
@@ -8254,6 +8256,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-19T08:55:17.000Z",
-  "versionId": "00148e35-51b6-4102-a49e-5c34fb79bf90"
+  "updatedAt": "2024-07-19T14:47:09.000Z",
+  "versionId": "7fbb2b71-cbd0-4372-a04f-e28e5b42b683"
 }
