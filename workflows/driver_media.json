@@ -606,22 +606,6 @@
         ]
       ]
     },
-    "Execute Workflow Trigger": {
-      "main": [
-        [
-          {
-            "node": "Stop and Error",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "проверка статуса",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "преобразуем в 1 переменную": {
       "main": [
         [
@@ -1398,17 +1382,6 @@
         ]
       ]
     },
-    "отправка фото1": {
-      "main": [
-        [
-          {
-            "node": "преобразуем в 1 переменную10",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "создание заявки ": {
       "main": [
         [
@@ -1425,11 +1398,38 @@
         ]
       ]
     },
+    "отправка фото1": {
+      "main": [
+        [
+          {
+            "node": "преобразуем в 1 переменную10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "отправка фото3": {
       "main": [
         [
           {
             "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Stop and Error",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "проверка статуса",
             "type": "main",
             "index": 0
           }
@@ -3615,17 +3615,6 @@
       }
     },
     {
-      "parameters": {},
-      "id": "3f8e9721-ada3-4918-832f-c4fda29965ab",
-      "name": "Execute Workflow Trigger",
-      "type": "n8n-nodes-base.executeWorkflowTrigger",
-      "typeVersion": 1,
-      "position": [
-        1260,
-        2480
-      ]
-    },
-    {
       "parameters": {
         "errorMessage": "444"
       },
@@ -3636,7 +3625,8 @@
       "position": [
         1460,
         2880
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -6092,48 +6082,6 @@
     },
     {
       "parameters": {
-        "operation": "sendPhoto",
-        "chatId": "={{ $json.tg_id }}",
-        "file": "={{ $('Execute Workflow Trigger').item.json.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}",
-        "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Перейти к диалогу",
-                    "additionalFields": {
-                      "url": "=tg://user?id={{ $('Execute Workflow Trigger').item.json.tg_id }}"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {
-          "caption": "=У водителя <b>{{ $('данные сотрудника1').item.json[\"display_name\"] }}</b> <a href=\"tel:{{ $('данные сотрудника1').item.json.mobile_phone }}\">{{ $('данные сотрудника1').item.json.mobile_phone }}</a> проблема с авто <b>{{ $('номер авто1').item.json[\"number_car\"] }}</b>:\n\n<i>{{ $('Execute Workflow Trigger').item.json[\"message\"][\"caption\"] }}</i>  \n\n<a href=\"https://dev.everest.lamart.site/web#id={{ $('создание заявки ').item.json[\"id\"] }}&cids=1&menu_id=343&action=485&model=technical.maintenance&view_type=form\">Ссылка на заявку в Odoo</a>",
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "39dd37d7-93f8-4999-acb9-642a2ab2b123",
-      "name": "отправка фото1",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        5097,
-        2771
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
-        }
-      }
-    },
-    {
-      "parameters": {
         "resource": "custom",
         "customResource": "technical.maintenance",
         "fieldsToCreateOrUpdate": {
@@ -6215,20 +6163,21 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "91baeb20-0b44-4fa7-9283-955472ec60a5",
-      "name": "отправка фото2",
+      "id": "39dd37d7-93f8-4999-acb9-642a2ab2b123",
+      "name": "отправка фото1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3860,
-        2200
+        5097,
+        2771
       ],
       "credentials": {
         "telegramApi": {
           "id": "cg3DBo1aKun5qfRh",
           "name": "Алексей dev"
         }
-      }
+      },
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -6270,16 +6219,28 @@
           "id": "cg3DBo1aKun5qfRh",
           "name": "Алексей dev"
         }
-      }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {},
+      "id": "3f8e9721-ada3-4918-832f-c4fda29965ab",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        1260,
+        2480
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100620513,
+          "update_id": 100620733,
           "message": {
-            "message_id": 11747,
+            "message_id": 11957,
             "from": {
               "id": 700956969,
               "is_bot": false,
@@ -6293,31 +6254,31 @@
               "username": "Chronos196",
               "type": "private"
             },
-            "date": 1721393715,
+            "date": 1721400060,
             "photo": [
               {
-                "file_id": "AgACAgIAAxkBAAIt42aaYjM3g067NK-qfDE3HYuzJUjJAALB2DEb34fRSPCKF_6oWTyhAQADAgADcwADNQQ",
+                "file_id": "AgACAgIAAxkBAAIutWaaevwaKqBtTIe0dLPAraUt5NDMAALB2DEb34fRSPCKF_6oWTyhAQADAgADcwADNQQ",
                 "file_unique_id": "AQADwdgxG9-H0Uh4",
                 "file_size": 713,
                 "width": 90,
                 "height": 34
               },
               {
-                "file_id": "AgACAgIAAxkBAAIt42aaYjM3g067NK-qfDE3HYuzJUjJAALB2DEb34fRSPCKF_6oWTyhAQADAgADbQADNQQ",
+                "file_id": "AgACAgIAAxkBAAIutWaaevwaKqBtTIe0dLPAraUt5NDMAALB2DEb34fRSPCKF_6oWTyhAQADAgADbQADNQQ",
                 "file_unique_id": "AQADwdgxG9-H0Uhy",
                 "file_size": 10258,
                 "width": 320,
                 "height": 122
               },
               {
-                "file_id": "AgACAgIAAxkBAAIt42aaYjM3g067NK-qfDE3HYuzJUjJAALB2DEb34fRSPCKF_6oWTyhAQADAgADeAADNQQ",
+                "file_id": "AgACAgIAAxkBAAIutWaaevwaKqBtTIe0dLPAraUt5NDMAALB2DEb34fRSPCKF_6oWTyhAQADAgADeAADNQQ",
                 "file_unique_id": "AQADwdgxG9-H0Uh9",
                 "file_size": 17408,
                 "width": 499,
                 "height": 190
               }
             ],
-            "caption": "что-то сломано в ато"
+            "caption": "123"
           },
           "tg_id": "700956969",
           "odoo_id": 2,
@@ -6329,13 +6290,13 @@
           "end_request_hours": null,
           "car_id_while_inputing": 18,
           "fuel_liters": 50,
-          "weight_measure": "10 м3 ",
+          "weight_measure": "40 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
           "count_weight_photo": null,
           "count_weight_photo_sent": null,
-          "cookie": "session_id=c16b0e6b3f89c942c4a61216d4d46d34d7d14166; Expires=Sat, 19 Jul 2025 12:55:16 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=20a052a092438185a76dc50712e07c4513f769aa; Expires=Sat, 19 Jul 2025 14:41:01 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -6353,6 +6314,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-19T13:09:10.000Z",
-  "versionId": "5f21d592-2c53-4edf-9887-38e302c31a2a"
+  "updatedAt": "2024-07-22T06:16:58.000Z",
+  "versionId": "e0ceafcc-1f91-49aa-973e-e2529f1b6486"
 }
