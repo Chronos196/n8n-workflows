@@ -1578,17 +1578,6 @@
         ]
       ]
     },
-    "проверка статуса2": {
-      "main": [
-        [
-          {
-            "node": "данные сотрудника",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "данные сотрудника": {
       "main": [
         [
@@ -1860,6 +1849,145 @@
           }
         ]
       ]
+    },
+    "проверка статуса2": {
+      "main": [
+        [
+          {
+            "node": "данные сотрудника",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "номер авто1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "номер авто1": {
+      "main": [
+        [
+          {
+            "node": "рейсы",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "рейсы": {
+      "main": [
+        [
+          {
+            "node": "актуальный рейс",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "актуальный рейс": {
+      "main": [
+        [
+          {
+            "node": "получим перевозку",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получим перевозку": {
+      "main": [
+        [
+          {
+            "node": "поиск логистов2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "поиск логистов2": {
+      "main": [
+        [
+          {
+            "node": "поиск тг айди логистов2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "поиск тг айди логистов2": {
+      "main": [
+        [
+          {
+            "node": "айди логистов",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "айди логистов": {
+      "main": [
+        [
+          {
+            "node": "в один текст",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "в один текст": {
+      "main": [
+        [
+          {
+            "node": "отправка в чат",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "отправка в чат": {
+      "main": [
+        [
+          {
+            "node": "убираем кнопку назад1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Сообщение отправлено1": {
+      "main": [
+        [
+          {
+            "node": "возвращаем статус4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "убираем кнопку назад1": {
+      "main": [
+        [
+          {
+            "node": "Сообщение отправлено1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-07-11T08:41:44.925Z",
@@ -2046,6 +2174,18 @@
                     "text": "С Документами",
                     "additionalFields": {
                       "callback_data": "warn_problem_document"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Назад",
+                    "additionalFields": {
+                      "callback_data": "warn_back_to_menu"
                     }
                   }
                 ]
@@ -4344,6 +4484,11 @@
             {
               "fieldName": "car_id",
               "value": "={{ $json.id }}"
+            },
+            {
+              "fieldName": "status",
+              "operator": "notEqual",
+              "value": "Готово"
             }
           ]
         }
@@ -5628,7 +5773,7 @@
     {
       "parameters": {
         "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
-        "text": "=Ваша текущая перевозка:\n\n{{ $('находим перевозки по рейсам3').item.json.id }}. <b>{{ $('находим перевозки по рейсам3').item.json[\"sender\"][1] }} - {{ $('находим перевозки по рейсам3').item.json[\"partner\"][1] }}\n{{ $json.departure }} - {{ $json.arrival }}</b>\nМатериал - <b>{{ $('находим перевозки по рейсам3').item.json.product[1] }}</b>\nКомментарий - <b>{{ $('находим перевозки по рейсам3').item.json.comment }}</b>",
+        "text": "=Ваша текущая перевозка:\n\n{{ $('находим перевозки по рейсам3').item.json.id }}. <b>{{ $('находим перевозки по рейсам3').item.json[\"sender\"][1] }} - {{ $('находим перевозки по рейсам3').item.json[\"partner\"][1] }}\n{{ $json.departure }} - {{ $json.arrival }}</b>\nМатериал - <b>{{ $('находим перевозки по рейсам3').item.json.material[1] }}</b>\nКомментарий - <b>{{ $('находим перевозки по рейсам3').item.json.comment }}</b>",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -7301,43 +7446,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "inputing_warn_message",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "59851adc-6460-4224-9002-b5b716f91ed7",
-      "name": "проверка статуса2",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        -1180,
-        6000
-      ]
-    },
-    {
-      "parameters": {
         "resource": "custom",
         "customResource": "hr.employee",
         "operation": "get",
@@ -7541,7 +7649,9 @@
       "parameters": {
         "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
         "text": "Вы не привязаны к авто",
-        "additionalFields": {}
+        "additionalFields": {
+          "appendAttribution": false
+        }
       },
       "id": "37638186-d319-4c9f-8d64-c8c0995b67e5",
       "name": "нужно привязать авто",
@@ -7810,7 +7920,7 @@
     {
       "parameters": {
         "content": "## Срочно: автомобиль: просто текст",
-        "height": 876.9588278506494,
+        "height": 736.9588278506494,
         "width": 2722.997550923746,
         "color": 6
       },
@@ -7819,8 +7929,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -1020,
-        5560
+        -1000,
+        5640
       ]
     },
     {
@@ -7835,8 +7945,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -300,
-        5660
+        -340,
+        5680
       ]
     },
     {
@@ -8197,15 +8307,518 @@
         }
       },
       "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "inputing_warn_message",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "118dbd21-b8c1-438d-94c4-f1c6def1922c",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "inputing_warn_message_route",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "59851adc-6460-4224-9002-b5b716f91ed7",
+      "name": "проверка статуса2",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -1180,
+        6460
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "cars.cars",
+        "operation": "getAll",
+        "options": {
+          "fieldsList": [
+            "number_car"
+          ]
+        },
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "driver_id",
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
+            }
+          ]
+        }
+      },
+      "id": "88f4ba38-39ec-4874-89d8-b5eb072b0201",
+      "name": "номер авто1",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        -980,
+        6480
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "transportation.round",
+        "operation": "getAll",
+        "options": {
+          "fieldsList": [
+            "transportation"
+          ]
+        },
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "car",
+              "value": "={{ $json.id }}"
+            },
+            {
+              "fieldName": "status",
+              "value": "Выполняется"
+            }
+          ]
+        }
+      },
+      "id": "cb06fb03-47e5-4f0d-9b5d-ec0049a0450a",
+      "name": "рейсы",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        -760,
+        6480
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "keep": "lastItems"
+      },
+      "id": "9383295d-6d84-47ee-9f86-2df751e88d4b",
+      "name": "актуальный рейс",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        -540,
+        6480
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "transportation.transportation",
+        "operation": "get",
+        "customResourceId": "={{ $json.transportation[0] }}",
+        "options": {
+          "fieldsList": [
+            "route"
+          ]
+        }
+      },
+      "id": "4dbed686-5351-4528-8d5a-93196cd0ef61",
+      "name": "получим перевозку",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        6480
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "hr.employee",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {
+          "fieldsList": [
+            "id"
+          ]
+        },
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "job_title",
+              "value": "Логист"
+            }
+          ]
+        }
+      },
+      "id": "58326214-dafe-4f21-a520-13e85faed0f6",
+      "name": "поиск логистов2",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        6480
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "odoo_id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "87c1e7d2-1449-4f19-bca5-e25e0614a114",
+      "name": "поиск тг айди логистов2",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        140,
+        6480
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "06957abc-1855-46f6-ba1a-7207cb6c3a81",
+              "name": "logists",
+              "value": "=@<a href=\"tg://user?id={{ $json.tg_id }}\">Логист</a>",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "441028a5-7f5a-43e1-ab4c-094d074449c2",
+      "name": "айди логистов",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        360,
+        6480
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "concatenate",
+              "field": "logists",
+              "separateBy": "\n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b8a5ed32-bfc9-463c-8008-685ab1b3bd30",
+      "name": "в один текст",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        580,
+        6480
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "-4161741739",
+        "text": "=У водителя с авто {{ $('номер авто1').all()[0].json.number_car }} проблема на маршруте <b>{{ $('получим перевозку').all()[0].json.route[1] }}</b>:\n\n<i>{{ $('Execute Workflow Trigger').all()[0].json[\"message\"][\"text\"] }}</i>\n\n{{ $json.concatenated_logists }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "8bd58c1a-b325-4495-adef-81d925192397",
+      "name": "отправка в чат",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        800,
+        6480
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "text": "Вы отправили информацию о маршруте логистам",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "a8c4142d-517d-4f9f-bea6-c15fb35d98b3",
+      "name": "Сообщение отправлено1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        1240,
+        6480
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tg_id": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+            "status": "authorized"
+          },
+          "matchingColumns": [
+            "tg_id"
+          ],
+          "schema": [
+            {
+              "id": "tg_id",
+              "displayName": "tg_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "only_mech",
+              "displayName": "only_mech",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mech_photo",
+              "displayName": "mech_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_id",
+              "displayName": "end_request_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "materials_photo",
+              "displayName": "materials_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_hours",
+              "displayName": "end_request_hours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "778d4a08-68b9-4181-b6cf-32dc23a147a5",
+      "name": "возвращаем статус4",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        1480,
+        6480
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.message.message_id -1}}",
+        "text": "Проблема с маршрутом\nОтправьте сообщение, фото, видео, запись диктофона или кружок:",
+        "additionalFields": {}
+      },
+      "id": "6cb221c3-0049-4a38-95e3-90bf445285bb",
+      "name": "убираем кнопку назад1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        1020,
+        6480
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "content": "## Срочно (маршрут: только текст)",
+        "height": 244.31760296409618,
+        "width": 2726.527526022389,
+        "color": 6
+      },
+      "id": "7e1370f7-6323-4994-8c9e-906731826d88",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1001.5275260223889,
+        6430.682397035905
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100620207,
+          "update_id": 100621695,
           "message": {
-            "message_id": 11400,
+            "message_id": 12838,
             "from": {
               "id": 700956969,
               "is_bot": false,
@@ -8219,26 +8832,26 @@
               "username": "Chronos196",
               "type": "private"
             },
-            "date": 1721296316,
-            "text": "36"
+            "date": 1721807631,
+            "text": "123"
           },
           "tg_id": "700956969",
           "odoo_id": 2,
-          "status": "inputing_warn_message",
+          "status": "inputing_warn_message_route",
           "only_mech": false,
-          "mech_photo": true,
+          "mech_photo": false,
           "end_request_id": null,
           "materials_photo": false,
           "end_request_hours": null,
           "car_id_while_inputing": 18,
           "fuel_liters": 50,
-          "weight_measure": "40 м3 ",
+          "weight_measure": "10 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
           "count_weight_photo": null,
           "count_weight_photo_sent": null,
-          "cookie": "session_id=ae1f1204473755d07a60921d0ba10cc36f46e11d; Expires=Fri, 18 Jul 2025 09:51:57 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=0f1db32218e10992bcb58c2a900564e26fd0b563; Expires=Thu, 24 Jul 2025 07:53:52 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -8256,6 +8869,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-19T14:47:09.000Z",
-  "versionId": "7fbb2b71-cbd0-4372-a04f-e28e5b42b683"
+  "updatedAt": "2024-07-24T08:00:36.000Z",
+  "versionId": "a3ee8b52-17e1-4a0b-9fea-82077e862eda"
 }
