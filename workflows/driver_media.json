@@ -1436,24 +1436,6 @@
         ]
       ]
     },
-    "с чем проблема": {
-      "main": [
-        [
-          {
-            "node": "рейсы",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "тип медиа",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "рейсы": {
       "main": [
         [
@@ -1623,6 +1605,24 @@
         [
           {
             "node": "убираем кнопку назад1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "с чем проблема": {
+      "main": [
+        [
+          {
+            "node": "тип медиа",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "рейсы",
             "type": "main",
             "index": 0
           }
@@ -6427,45 +6427,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.status.substring(22) }}",
-                    "rightValue": "route",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {
-          "fallbackOutput": "extra"
-        }
-      },
-      "id": "e5edb552-ab2f-42b5-94b7-9d67949a330d",
-      "name": "с чем проблема",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        3100,
-        2560
-      ]
-    },
-    {
-      "parameters": {
         "resource": "custom",
         "customResource": "transportation.round",
         "operation": "getAll",
@@ -6670,7 +6631,7 @@
         "chatId": "-4161741739",
         "file": "={{ $('Execute Workflow Trigger').item.json.message.voice.file_id }}",
         "additionalFields": {
-          "caption": "=У водителя с авто {{ $('номер авто1').all()[0].json.number_car }} проблема на маршруте <b>{{ $('получим перевозку').all()[0].json.route[1] }}</b> \n{{ $json.concatenated_logists }}",
+          "caption": "=У водителя <a href=\"tg://user?id={{ $('Execute Workflow Trigger').all()[0].json.message.chat.id }}\">{{ $('данные сотрудника1').all()[0].json.name }}</a>(авто {{ $('номер авто1').all()[0].json.number_car }}) проблема на маршруте <b>{{ $('получим перевозку').all()[0].json.route[1] }}</b> \n{{ $json.concatenated_logists }}",
           "parse_mode": "HTML"
         }
       },
@@ -6845,7 +6806,7 @@
     {
       "parameters": {
         "chatId": "=-4161741739",
-        "text": "=У водителя с авто {{ $('номер авто1').all()[0].json.number_car }} проблема на маршруте <b>{{ $('получим перевозку').all()[0].json.route[1] }}</b> \n{{ $('в один текст').item.json.concatenated_logists }}",
+        "text": "=У водителя <a href=\"tg://user?id={{ $('Execute Workflow Trigger').all()[0].json.message.chat.id }}\">{{ $('данные сотрудника1').all()[0].json.name }}</a>(авто {{ $('номер авто1').all()[0].json.number_car }}) проблема на маршруте <b>{{ $('получим перевозку').all()[0].json.route[1] }}</b> \n{{ $json.concatenated_logists }}",
         "additionalFields": {
           "appendAttribution": false,
           "parse_mode": "HTML",
@@ -6873,7 +6834,7 @@
         "chatId": "=-4161741739",
         "file": "={{ $('Execute Workflow Trigger').item.json.message.video.file_id }}",
         "additionalFields": {
-          "caption": "=У водителя с авто {{ $('номер авто1').all()[0].json.number_car }} проблема на маршруте <b>{{ $('получим перевозку').all()[0].json.route[1] }}</b>:\n<i>{{ $('Execute Workflow Trigger').item.json.message.caption }}</i>\n{{ $('в один текст').item.json.concatenated_logists }} ",
+          "caption": "=У водителя <a href=\"tg://user?id={{ $('Execute Workflow Trigger').all()[0].json.message.chat.id }}\">{{ $('данные сотрудника1').all()[0].json.name }}</a>(авто {{ $('номер авто1').all()[0].json.number_car }}) проблема на маршруте <b>{{ $('получим перевозку').all()[0].json.route[1] }}</b>: <i>{{ $('Execute Workflow Trigger').item.json.message.caption }}</i>\n\n{{ $('в один текст').item.json.concatenated_logists }} ",
           "parse_mode": "HTML"
         }
       },
@@ -6898,7 +6859,7 @@
         "chatId": "=-4161741739",
         "file": "={{ $('Execute Workflow Trigger').item.json.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}",
         "additionalFields": {
-          "caption": "=У водителя с авто {{ $('номер авто1').all()[0].json.number_car }} проблема на маршруте <b>{{ $('получим перевозку').all()[0].json.route[1] }}</b>:\n<i>{{ $('Execute Workflow Trigger').item.json.message.caption }}</i>\n{{ $('в один текст').item.json.concatenated_logists }} ",
+          "caption": "=У водителя <a href=\"tg://user?id={{ $('Execute Workflow Trigger').all()[0].json.message.chat.id }}\">{{ $('данные сотрудника1').all()[0].json.name }}</a>(авто {{ $('номер авто1').all()[0].json.number_car }}) проблема на маршруте <b>{{ $('получим перевозку').all()[0].json.route[1] }}</b>: <i>{{ $('Execute Workflow Trigger').item.json.message.caption }}</i>\n\n{{ $('в один текст').item.json.concatenated_logists }} ",
           "parse_mode": "HTML"
         }
       },
@@ -6932,15 +6893,76 @@
         4360,
         2935
       ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.status.substring(22) }}",
+                    "rightValue": "={{ \"\" }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "af622009-b908-4e28-b719-16255adb190f",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.status.substring(22) }}",
+                    "rightValue": "route",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "e5edb552-ab2f-42b5-94b7-9d67949a330d",
+      "name": "с чем проблема",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        3100,
+        2560
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100621716,
+          "update_id": 100621798,
           "message": {
-            "message_id": 12887,
+            "message_id": 12993,
             "from": {
               "id": 700956969,
               "is_bot": false,
@@ -6954,31 +6976,31 @@
               "username": "Chronos196",
               "type": "private"
             },
-            "date": 1721810023,
-            "video": {
-              "duration": 4,
-              "width": 720,
-              "height": 1280,
-              "mime_type": "video/mp4",
-              "thumbnail": {
-                "file_id": "AAMCAgADGQEAAjJXZqC8Zq7OuhpWSGwF6t7gBMf-PRkAAgRGAAJUeQhJMEvgmIlyH8QBAAdtAAM1BA",
-                "file_unique_id": "AQADBEYAAlR5CEly",
-                "file_size": 9908,
-                "width": 180,
-                "height": 320
+            "date": 1721838469,
+            "photo": [
+              {
+                "file_id": "AgACAgIAAxkBAAIywWahK4VWYkSTdSmijQxZFt-FVbZMAAKZ4DEbVHkISWA0AAEoTBl0WQEAAwIAA3MAAzUE",
+                "file_unique_id": "AQADmeAxG1R5CEl4",
+                "file_size": 713,
+                "width": 90,
+                "height": 34
               },
-              "thumb": {
-                "file_id": "AAMCAgADGQEAAjJXZqC8Zq7OuhpWSGwF6t7gBMf-PRkAAgRGAAJUeQhJMEvgmIlyH8QBAAdtAAM1BA",
-                "file_unique_id": "AQADBEYAAlR5CEly",
-                "file_size": 9908,
-                "width": 180,
-                "height": 320
+              {
+                "file_id": "AgACAgIAAxkBAAIywWahK4VWYkSTdSmijQxZFt-FVbZMAAKZ4DEbVHkISWA0AAEoTBl0WQEAAwIAA20AAzUE",
+                "file_unique_id": "AQADmeAxG1R5CEly",
+                "file_size": 10258,
+                "width": 320,
+                "height": 122
               },
-              "file_id": "BAACAgIAAxkBAAIyV2agvGauzroaVkhsBere4ATH_j0ZAAIERgACVHkISTBL4JiJch_ENQQ",
-              "file_unique_id": "AgADBEYAAlR5CEk",
-              "file_size": 1188892
-            },
-            "caption": "123"
+              {
+                "file_id": "AgACAgIAAxkBAAIywWahK4VWYkSTdSmijQxZFt-FVbZMAAKZ4DEbVHkISWA0AAEoTBl0WQEAAwIAA3gAAzUE",
+                "file_unique_id": "AQADmeAxG1R5CEl9",
+                "file_size": 17408,
+                "width": 499,
+                "height": 190
+              }
+            ],
+            "caption": "пример с фото"
           },
           "tg_id": "700956969",
           "odoo_id": 2,
@@ -6996,7 +7018,7 @@
           "transportation_for_certificate": null,
           "count_weight_photo": null,
           "count_weight_photo_sent": null,
-          "cookie": "session_id=34fbac4a4e276b6e47f7887c552f00944ed1e851; Expires=Thu, 24 Jul 2025 08:33:44 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=bd04f172d4cda9aaeaa06f84fa6b325e6771ff9c; Expires=Thu, 24 Jul 2025 16:27:50 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -7014,6 +7036,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-24T08:47:03.000Z",
-  "versionId": "026f981e-383c-42e2-9358-a5d160ad539f"
+  "updatedAt": "2024-07-24T16:30:07.000Z",
+  "versionId": "3ac11057-619c-43db-bdf5-0896ee591555"
 }
