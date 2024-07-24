@@ -16,7 +16,7 @@
       "main": [
         [
           {
-            "node": "загрузка фото в карточку",
+            "node": "загрузка фото неисправности",
             "type": "main",
             "index": 0
           }
@@ -28,17 +28,6 @@
         [
           {
             "node": "Limit",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "загрузка фото в карточку": {
-      "main": [
-        [
-          {
-            "node": "возвращение статуса фото для ТО",
             "type": "main",
             "index": 0
           }
@@ -173,7 +162,7 @@
       "main": [
         [
           {
-            "node": "загрузка фото в карточку1",
+            "node": "загрузка фото неисправности1",
             "type": "main",
             "index": 0
           }
@@ -193,13 +182,7 @@
     },
     "загрузка фото в карточку1": {
       "main": [
-        [
-          {
-            "node": "Фото доставлено2",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Фото доставлено2": {
@@ -1435,6 +1418,28 @@
           }
         ]
       ]
+    },
+    "загрузка фото неисправности": {
+      "main": [
+        [
+          {
+            "node": "возвращение статуса фото для ТО",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "загрузка фото неисправности1": {
+      "main": [
+        [
+          {
+            "node": "Фото доставлено2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-07-22T11:16:13.042Z",
@@ -1525,8 +1530,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        5700,
-        5160
+        5640,
+        4820
       ],
       "credentials": {
         "odooApi": {
@@ -2016,8 +2021,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        6155,
-        1660
+        6320,
+        1360
       ],
       "credentials": {
         "odooApi": {
@@ -3625,7 +3630,8 @@
       "position": [
         3880,
         4980
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -6231,71 +6237,132 @@
         3680,
         4580
       ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://dev.everest.lamart.site/add_breakage_photo",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"maintenance_id\": {{ $json.id }},\n    \"image\":  {{'\"'+ $('Extract from File').item.json.data + '\"'}}\n}",
+        "options": {}
+      },
+      "id": "c1b7622e-ad95-4475-abe2-70bc0e6a0eed",
+      "name": "загрузка фото неисправности",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        5680,
+        5160
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://dev.everest.lamart.site/add_repaired_photo",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"maintenance_id\": {{ $('Execute Workflow Trigger').item.json.end_request_id }},\n    \"image\":  {{'\"'+ $('Extract from File1').item.json.data + '\"'}}\n}",
+        "options": {}
+      },
+      "id": "36df3d5e-6e58-4806-b022-b0dfcb7bd76e",
+      "name": "загрузка фото неисправности1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        6160,
+        1660
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100620733,
+          "update_id": 226802937,
           "message": {
-            "message_id": 11957,
+            "message_id": 2074,
             "from": {
-              "id": 700956969,
+              "id": 467549384,
               "is_bot": false,
-              "first_name": "Алексей",
-              "username": "Chronos196",
-              "language_code": "ru"
+              "first_name": "Sergio",
+              "username": "sergo_kf",
+              "language_code": "ru",
+              "is_premium": true
             },
             "chat": {
-              "id": 700956969,
-              "first_name": "Алексей",
-              "username": "Chronos196",
+              "id": 467549384,
+              "first_name": "Sergio",
+              "username": "sergo_kf",
               "type": "private"
             },
-            "date": 1721400060,
+            "date": 1721821372,
             "photo": [
               {
-                "file_id": "AgACAgIAAxkBAAIutWaaevwaKqBtTIe0dLPAraUt5NDMAALB2DEb34fRSPCKF_6oWTyhAQADAgADcwADNQQ",
-                "file_unique_id": "AQADwdgxG9-H0Uh4",
-                "file_size": 713,
+                "file_id": "AgACAgIAAxkBAAIIGmag6LvvWaLHp-pw0Y48eTDnk8ZmAAI64jEbbhgBSTTWX1YjeXwKAQADAgADcwADNQQ",
+                "file_unique_id": "AQADOuIxG24YAUl4",
+                "file_size": 905,
                 "width": 90,
-                "height": 34
+                "height": 51
               },
               {
-                "file_id": "AgACAgIAAxkBAAIutWaaevwaKqBtTIe0dLPAraUt5NDMAALB2DEb34fRSPCKF_6oWTyhAQADAgADbQADNQQ",
-                "file_unique_id": "AQADwdgxG9-H0Uhy",
-                "file_size": 10258,
+                "file_id": "AgACAgIAAxkBAAIIGmag6LvvWaLHp-pw0Y48eTDnk8ZmAAI64jEbbhgBSTTWX1YjeXwKAQADAgADbQADNQQ",
+                "file_unique_id": "AQADOuIxG24YAUly",
+                "file_size": 12073,
                 "width": 320,
-                "height": 122
+                "height": 180
               },
               {
-                "file_id": "AgACAgIAAxkBAAIutWaaevwaKqBtTIe0dLPAraUt5NDMAALB2DEb34fRSPCKF_6oWTyhAQADAgADeAADNQQ",
-                "file_unique_id": "AQADwdgxG9-H0Uh9",
-                "file_size": 17408,
-                "width": 499,
-                "height": 190
+                "file_id": "AgACAgIAAxkBAAIIGmag6LvvWaLHp-pw0Y48eTDnk8ZmAAI64jEbbhgBSTTWX1YjeXwKAQADAgADeAADNQQ",
+                "file_unique_id": "AQADOuIxG24YAUl9",
+                "file_size": 42784,
+                "width": 800,
+                "height": 450
+              },
+              {
+                "file_id": "AgACAgIAAxkBAAIIGmag6LvvWaLHp-pw0Y48eTDnk8ZmAAI64jEbbhgBSTTWX1YjeXwKAQADAgADeQADNQQ",
+                "file_unique_id": "AQADOuIxG24YAUl-",
+                "file_size": 72639,
+                "width": 1280,
+                "height": 720
               }
-            ],
-            "caption": "123"
+            ]
           },
-          "tg_id": "700956969",
-          "odoo_id": 2,
-          "status": "inputing_warn_message",
+          "tg_id": "467549384",
+          "odoo_id": 4,
+          "status": "adding_end_request_photo",
           "only_mech": false,
           "mech_photo": false,
-          "end_request_id": null,
+          "end_request_id": 348,
           "materials_photo": false,
-          "end_request_hours": null,
-          "car_id_while_inputing": 18,
-          "fuel_liters": 50,
-          "weight_measure": "40 м3 ",
+          "end_request_hours": 2,
+          "car_id_while_inputing": 25,
+          "fuel_liters": null,
+          "weight_measure": "5 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
-          "count_weight_photo": null,
-          "count_weight_photo_sent": null,
-          "cookie": "session_id=20a052a092438185a76dc50712e07c4513f769aa; Expires=Sat, 19 Jul 2025 14:41:01 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "count_weight_photo": 1,
+          "count_weight_photo_sent": 0,
+          "cookie": "session_id=dba7ea229b8f512c5fe1e390db80fb61b1774a45; Expires=Thu, 24 Jul 2025 11:42:53 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -6313,6 +6380,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-23T10:57:04.000Z",
-  "versionId": "cacd8f62-0d48-4a51-b8e3-8620b5d58a40"
+  "updatedAt": "2024-07-24T11:47:00.000Z",
+  "versionId": "568af530-2a29-4597-8bee-170d58ed0bce"
 }
