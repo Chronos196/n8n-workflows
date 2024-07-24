@@ -5,7 +5,7 @@
       "main": [
         [
           {
-            "node": "обновим статус заявки",
+            "node": "отклонение заявки",
             "type": "main",
             "index": 0
           }
@@ -151,7 +151,7 @@
       "main": [
         [
           {
-            "node": "обновим статус заявки1",
+            "node": "принятие заявки",
             "type": "main",
             "index": 0
           }
@@ -220,7 +220,7 @@
       "main": [
         [
           {
-            "node": "обновим статус заявки1",
+            "node": "принятие заявки",
             "type": "main",
             "index": 0
           }
@@ -437,7 +437,7 @@
       "parameters": {
         "operation": "sendPhoto",
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
-        "file": "={{ $('Execute Workflow Trigger').item.json.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}",
+        "file": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}",
         "additionalFields": {
           "caption": "Напишите для водителя комментарий к заявке:"
         }
@@ -615,7 +615,7 @@
           "conditions": [
             {
               "id": "8573591f-d67f-46fb-a1bc-d3a70cd9bc6c",
-              "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}",
+              "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}",
               "rightValue": "",
               "operator": {
                 "type": "string",
@@ -680,8 +680,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        2680,
-        480
+        2960,
+        360
       ],
       "credentials": {
         "odooApi": {
@@ -797,7 +797,7 @@
       "parameters": {
         "operation": "sendPhoto",
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
-        "file": "={{ $('Execute Workflow Trigger').item.json.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}",
+        "file": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}",
         "additionalFields": {
           "caption": "Заявка подтверждена, водитель получит уведомление"
         }
@@ -975,7 +975,7 @@
           "conditions": [
             {
               "id": "8573591f-d67f-46fb-a1bc-d3a70cd9bc6c",
-              "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}",
+              "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}",
               "rightValue": "",
               "operator": {
                 "type": "string",
@@ -1040,8 +1040,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        2420,
-        1060
+        2720,
+        900
       ],
       "credentials": {
         "odooApi": {
@@ -1227,8 +1227,7 @@
       "position": [
         700,
         800
-      ],
-      "disabled": true
+      ]
     },
     {
       "parameters": {
@@ -1352,49 +1351,131 @@
         960,
         920
       ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://dev.everest.lamart.site/reject_maintenance_by_mechanic",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n   \"maintenance_id\": {{ $('номер заявки').item.json.TO_number }}\n}",
+        "options": {}
+      },
+      "id": "ec3c59bd-edb0-4c06-948f-007c34848658",
+      "name": "отклонение заявки",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        2660,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://dev.everest.lamart.site/accept_maintenance_by_mechanic",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n   \"maintenance_id\": {{ $('номер заявки1').item.json.TO_number }}\n}",
+        "options": {}
+      },
+      "id": "f25e8116-0fbb-4526-9741-b57be02c3317",
+      "name": "принятие заявки",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        2440,
+        1060
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100619712,
+          "update_id": 226802938,
           "callback_query": {
-            "id": "2782501073243697329",
+            "id": "2800172963351015299",
             "from": {
-              "id": 7090302459,
+              "id": 7094417017,
               "is_bot": false,
-              "first_name": "Al",
-              "last_name": "Go",
+              "first_name": "Сергей",
               "language_code": "ru"
             },
             "message": {
-              "message_id": 10826,
+              "message_id": 2077,
               "from": {
-                "id": 7063451965,
+                "id": 6999092112,
                 "is_bot": true,
-                "first_name": "Everest n8n",
-                "username": "myn8nbotbot"
+                "first_name": "test_bot1",
+                "username": "Driver_1_bot"
               },
               "chat": {
-                "id": 7090302459,
-                "first_name": "Al",
-                "last_name": "Go",
+                "id": 7094417017,
+                "first_name": "Сергей",
                 "type": "private"
               },
-              "date": 1721126613,
-              "text": "А 459 ТЕ - 1 ч. - Алексей Горемыкин - 159\n\nТребуется проверить корректность выставленных часов\nСсылка на заявку в Odoo",
-              "entities": [
+              "date": 1721821608,
+              "photo": [
                 {
-                  "offset": 43,
+                  "file_id": "AgACAgIAAxkDAAIIHWag6ajTy8y-xokY3SI1D0nIpz8eAAI64jEbbhgBSTTWX1YjeXwKAQADAgADcwADNQQ",
+                  "file_unique_id": "AQADOuIxG24YAUl4",
+                  "file_size": 905,
+                  "width": 90,
+                  "height": 51
+                },
+                {
+                  "file_id": "AgACAgIAAxkDAAIIHWag6ajTy8y-xokY3SI1D0nIpz8eAAI64jEbbhgBSTTWX1YjeXwKAQADAgADbQADNQQ",
+                  "file_unique_id": "AQADOuIxG24YAUly",
+                  "file_size": 12073,
+                  "width": 320,
+                  "height": 180
+                },
+                {
+                  "file_id": "AgACAgIAAxkDAAIIHWag6ajTy8y-xokY3SI1D0nIpz8eAAI64jEbbhgBSTTWX1YjeXwKAQADAgADeAADNQQ",
+                  "file_unique_id": "AQADOuIxG24YAUl9",
+                  "file_size": 42784,
+                  "width": 800,
+                  "height": 450
+                },
+                {
+                  "file_id": "AgACAgIAAxkDAAIIHWag6ajTy8y-xokY3SI1D0nIpz8eAAI64jEbbhgBSTTWX1YjeXwKAQADAgADeQADNQQ",
+                  "file_unique_id": "AQADOuIxG24YAUl-",
+                  "file_size": 72639,
+                  "width": 1280,
+                  "height": 720
+                }
+              ],
+              "caption": "А 657 АА - 2 ч. - Сергей Косолапов - оторвало колесо Требуется проверить корректность выставленных часов Ссылка на заявку в Odoo",
+              "caption_entities": [
+                {
+                  "offset": 54,
                   "length": 51,
                   "type": "bold"
                 },
                 {
-                  "offset": 95,
+                  "offset": 106,
                   "length": 23,
                   "type": "text_link",
-                  "url": "https://everest.lamart.site/web#id=284&cids=1&menu_id=343&action=485&model=technical.maintenance&view_type=form"
+                  "url": "https://everest.lamart.site/web#id=348&cids=1&menu_id=343&action=485&model=technical.maintenance&view_type=form"
                 }
               ],
               "reply_markup": {
@@ -1402,38 +1483,38 @@
                   [
                     {
                       "text": "Принять заявку✅",
-                      "callback_data": "accept_TO_284"
+                      "callback_data": "accept_TO_348"
                     }
                   ],
                   [
                     {
-                      "text": "Отклонить заявку ❌",
-                      "callback_data": "reject_TO_284"
+                      "text": "Отклонить заявку❌",
+                      "callback_data": "reject_TO_348"
                     }
                   ]
                 ]
               }
             },
-            "chat_instance": "4841481297779052467",
-            "data": "accept_TO_284"
+            "chat_instance": "-2375819166689551170",
+            "data": "accept_TO_348"
           },
-          "tg_id": "7090302459",
-          "odoo_id": 19,
+          "tg_id": "7094417017",
+          "odoo_id": 22,
           "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
-          "end_request_id": 274,
+          "end_request_id": 344,
           "materials_photo": false,
           "end_request_hours": null,
-          "car_id_while_inputing": null,
+          "car_id_while_inputing": 19,
           "fuel_liters": null,
-          "weight_measure": null,
-          "logist_alert_text": "123",
-          "logist_recipient_name": "ТЕСТ-КОМПАНИЯ",
+          "weight_measure": "5 м3 ",
+          "logist_alert_text": null,
+          "logist_recipient_name": null,
           "transportation_for_certificate": null,
           "count_weight_photo": null,
           "count_weight_photo_sent": null,
-          "cookie": "session_id=66f27178ac5abc2c297b70a146ea2fdd35907a02; Expires=Wed, 16 Jul 2025 10:43:53 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=4ffa188f1b26dd7905759716a5a6cdc47d0a18e4; Expires=Thu, 24 Jul 2025 11:47:26 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -1451,6 +1532,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-22T11:44:16.000Z",
-  "versionId": "a1e7b327-7e85-4d06-bd18-fd4f95106ae2"
+  "updatedAt": "2024-07-24T11:57:30.000Z",
+  "versionId": "8a91ea85-570c-4fcc-a526-58ffb1757d0e"
 }
