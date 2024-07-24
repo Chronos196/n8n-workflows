@@ -1328,7 +1328,7 @@
       "main": [
         [
           {
-            "node": "Формирование вывода",
+            "node": "Формирование вывода1",
             "type": "main",
             "index": 0
           }
@@ -1337,13 +1337,7 @@
     },
     "Формирование вывода": {
       "main": [
-        [
-          {
-            "node": "Вывод статистики2",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "находим машину по odoo id13": {
@@ -1931,6 +1925,61 @@
           }
         ]
       ]
+    },
+    "поиск текущего авто1": {
+      "main": [
+        [
+          {
+            "node": "выполняющиеся рейсы1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "записываем объём материала": {
+      "main": [
+        [
+          {
+            "node": "поиск текущего авто1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "выполняющиеся рейсы1": {
+      "main": [
+        [
+          {
+            "node": "Postgres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres": {
+      "main": [
+        [
+          {
+            "node": "Postgres1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Формирование вывода1": {
+      "main": [
+        [
+          {
+            "node": "Вывод статистики2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-07-23T07:46:18.789Z",
@@ -2158,7 +2207,7 @@
     {
       "parameters": {
         "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
-        "text": "=По графику для вас заготовлен автомобиль  {{ $json.car[1] }}",
+        "text": "=По графику ваш автомобиль  \n{{ $json.car[1] }}",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -2183,7 +2232,8 @@
           ]
         },
         "additionalFields": {
-          "appendAttribution": false
+          "appendAttribution": false,
+          "parse_mode": "HTML"
         }
       },
       "id": "55dafe29-3467-40a6-acc8-270d7eecb2df",
@@ -6335,7 +6385,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        -235,
+        -280,
         4720
       ],
       "credentials": {
@@ -6618,6 +6668,9 @@
             },
             {
               "fieldToAggregate": "weigth"
+            },
+            {
+              "fieldToAggregate": "volume"
             }
           ]
         },
@@ -6669,7 +6722,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Получаем входные данные\nconst inputData = items[0].json;\n\n// Инициализация переменных\nconst { count_id, name, count, weigth } = inputData;\nconst result = [];\n\n// Функция для определения правильного склонения слова \"перевозка\"\nfunction getDeclension(num) {\n    if (num === 1) return 'перевозка';\n    if (num > 1 && num < 5) return 'перевозки';\n    return 'перевозок';\n}\n\n// Определение глагола в зависимости от числа перевозок\nconst verb = count_id === 1 ? 'была' : 'было';\n\n\nresult.push(`<b>В работе ${verb} ${count_id} ${getDeclension(count_id)}:</b>\\n`);\nfor (let i = 0; i < count_id; i++) {\n    result.push(`<b>${i + 1}) ${name[i]}:</b>\\nКоличество рейсов: ${count[i]}\\nСумма нетто: ${weigth[i]}\\n`);\n    }\n\n\n// Объединяем строки в одну\nconst output = result.join('\\n');\n\n// Возвращаем результат\nreturn [{ json: { output } }];"
+        "jsCode": "// Получаем входные данные\nconst inputData = items[0].json;\n\n// Инициализация переменных\nconst { count_id, name, count, weigth, volume } = inputData;\nconst result = [];\n\n// Функция для определения правильного склонения слова \"перевозка\"\nfunction getDeclension(num) {\n    if (num === 1) return 'перевозка';\n    if (num > 1 && num < 5) return 'перевозки';\n    return 'перевозок';\n}\n\n// Определение глагола в зависимости от числа перевозок\nconst verb = count_id === 1 ? 'была' : 'было';\n\n\nresult.push(`<b>В работе ${verb} ${count_id} ${getDeclension(count_id)}:</b>\\n`);\nfor (let i = 0; i < count_id; i++) {\n    result.push(`<b>${i + 1}) ${name[i]}:</b>\\nКоличество рейсов: ${count[i]}\\nСумма нетто: ${weigth[i]}\\n`);\n    }\n\n\n// Объединяем строки в одну\nconst output = result.join('\\n');\n\n// Возвращаем результат\nreturn [{ json: { output } }];"
       },
       "id": "a4b6100a-138f-4ed5-afcf-0de158c24707",
       "name": "Формирование вывода",
@@ -7413,7 +7466,9 @@
       "parameters": {
         "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
         "text": "Вы не привязаны к авто",
-        "additionalFields": {}
+        "additionalFields": {
+          "appendAttribution": false
+        }
       },
       "id": "8aaea398-8958-4c22-b90e-42fed90b6c58",
       "name": "нужно привязать авто",
@@ -8480,6 +8535,230 @@
         -1325,
         3700
       ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "cars.cars",
+        "operation": "getAll",
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "driver_id",
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
+            }
+          ]
+        }
+      },
+      "id": "f4a54205-1747-412b-914c-9e0a14acf413",
+      "name": "поиск текущего авто1",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        -100,
+        4720
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "transportation.round",
+        "operation": "getAll",
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "car",
+              "value": "={{ $json.id }}"
+            },
+            {
+              "fieldName": "status",
+              "value": "Выполняется"
+            }
+          ]
+        }
+      },
+      "id": "2d81f20b-a3dc-4d27-beec-1c21cc99c6e9",
+      "name": "выполняющиеся рейсы1",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        80,
+        4720
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "transportation",
+          "mode": "list",
+          "cachedResultName": "transportation"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "id",
+              "value": "={{ $json.transportation[0] }}"
+            },
+            {
+              "column": "driver_id",
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b0443214-83a1-405e-b44d-d487cf68e1f3",
+      "name": "Postgres",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        260,
+        4720
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "transportation",
+          "mode": "list",
+          "cachedResultName": "transportation"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.id }}",
+            "driver_id": "={{ $json.driver_id }}",
+            "volume": "={{ $json.volume + $('записываем объём материала').item.json.weight_measure }}",
+            "count": 0,
+            "weigth": 0
+          },
+          "matchingColumns": [
+            "id",
+            "driver_id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": true,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "count",
+              "displayName": "count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "weigth",
+              "displayName": "weigth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "driver_id",
+              "displayName": "driver_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "volume",
+              "displayName": "volume",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00a38fa8-a267-4163-8245-218a34fecaba",
+      "name": "Postgres1",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        480,
+        4720
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Получаем входные данные\nconst inputData = items[0].json;\n\n// Инициализация переменных\nconst { count_id, name, count, weigth, volume } = inputData;\nconst result = [];\n\n// Функция для определения правильного склонения слова \"перевозка\"\nfunction getDeclension(num) {\n    if (num === 1) return 'перевозка';\n    if (num > 1 && num < 5) return 'перевозки';\n    return 'перевозок';\n}\n\n// Определение глагола в зависимости от числа перевозок\nconst verb = count_id === 1 ? 'была' : 'было';\n\nresult.push(`<b>В работе ${verb} ${count_id} ${getDeclension(count_id)}:</b>\\n`);\nfor (let i = 0; i < count_id; i++) {\n    result.push(\n        `<b>${i + 1}) ${name[i]}:</b>\\n` +\n        `Количество рейсов: ${count[i]}\\n` +\n        `Сумма нетто: ${weigth[i]}\\n` +\n        `Общий объем: ${volume[i]}\\n`\n    );\n}\n\n// Объединяем строки в одну\nconst output = result.join('\\n');\n\n// Возвращаем результат\nreturn [{ json: { output } }];"
+      },
+      "id": "562a9eec-ff8d-4d5f-bf73-ab43583273e2",
+      "name": "Формирование вывода1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        0
+      ]
     }
   ],
   "pinData": {},
@@ -8496,6 +8775,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-23T13:00:06.000Z",
-  "versionId": "e3cbd5ba-293b-41a3-9869-1941eb9e6be1"
+  "updatedAt": "2024-07-24T11:32:11.000Z",
+  "versionId": "ec9716ea-9479-48ab-a907-b7702cac3f43"
 }
