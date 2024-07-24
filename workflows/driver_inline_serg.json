@@ -306,24 +306,6 @@
         ]
       ]
     },
-    "обновим статус на \"в работе\"": {
-      "main": [
-        [
-          {
-            "node": "заявка взята в работу",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "если есть ошибки",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "данные водителя": {
       "main": [
         [
@@ -1741,11 +1723,6 @@
         ]
       ]
     },
-    "завершение рейса1": {
-      "main": [
-        []
-      ]
-    },
     "получение перевозок2": {
       "main": [
         [
@@ -2637,6 +2614,24 @@
         [
           {
             "node": "Replace Me",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "обновим статус на \"в работе\"": {
+      "main": [
+        [
+          {
+            "node": "заявка взята в работу",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "если есть ошибки",
             "type": "main",
             "index": 0
           }
@@ -4355,39 +4350,8 @@
     },
     {
       "parameters": {
-        "resource": "custom",
-        "customResource": "technical.maintenance",
-        "operation": "update",
-        "customResourceId": "={{ $json.TO_number }}",
-        "fieldsToCreateOrUpdate": {
-          "fields": [
-            {
-              "fieldName": "status",
-              "fieldValue": "В работе"
-            }
-          ]
-        }
-      },
-      "id": "9c6fc848-53d2-4d34-8f87-3e5d4c642c22",
-      "name": "обновим статус на \"в работе\"",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        6360,
-        18440
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
-        }
-      },
-      "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
         "chatId": "={{ $('поиск тг айди механиков1').item.json.tg_id }}",
-        "text": "={{ $('данные авто').item.json[\"number_car\"] }} - {{ $('Execute Workflow Trigger').item.json[\"end_request_hours\"] }} ч. - {{ $('данные водителя').item.json[\"display_name\"] }} - {{ $json.description_of_maintenance }}\n\n<b>Требуется проверить корректность выставленных часов</b>\n<a href=\"https://everest.lamart.site/web#id={{ $('Execute Workflow Trigger').item.json[\"end_request_id\"] }}&cids=1&menu_id=343&action=485&model=technical.maintenance&view_type=form\">Ссылка на заявку в Odoo</a>",
+        "text": "={{ $('данные авто').item.json[\"number_car\"] }} - {{ $('Execute Workflow Trigger').item.json[\"end_request_hours\"] }} ч. - {{ $('данные водителя').item.json[\"display_name\"] }} - {{ $json.description_of_maintenance }}\n\n<b>Требуется проверить корректность выставленных часов</b>\n<a href=\"https://dev.everest.lamart.site/web#id={{ $('Execute Workflow Trigger').item.json[\"end_request_id\"] }}&cids=1&menu_id=343&action=485&model=technical.maintenance&view_type=form\">Ссылка на заявку в Odoo</a>",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -6172,7 +6136,7 @@
           "filter": [
             {
               "fieldName": "driver_id",
-              "value": "={{ $json.id }}"
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
             }
           ]
         }
@@ -6202,7 +6166,7 @@
           "filter": [
             {
               "fieldName": "driver_id",
-              "value": "={{ $json.id }}"
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
             }
           ]
         }
@@ -14816,15 +14780,74 @@
           "name": "new Odoo Алексей"
         }
       }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "technical.maintenance",
+        "operation": "update",
+        "customResourceId": "={{ $json.TO_number }}",
+        "fieldsToCreateOrUpdate": {
+          "fields": [
+            {
+              "fieldName": "status",
+              "fieldValue": "В работе"
+            }
+          ]
+        }
+      },
+      "id": "9c6fc848-53d2-4d34-8f87-3e5d4c642c22",
+      "name": "обновим статус на \"в работе\"1",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        7000,
+        18440
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://dev.everest.lamart.site/take_maintenance_by_driver",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"maintenance_id\": {{ $json.TO_number }}\n}",
+        "options": {}
+      },
+      "id": "2fd77d8c-6091-4a47-92c9-69dfabc610c5",
+      "name": "обновим статус на \"в работе\"",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        6340,
+        18440
+      ],
+      "onError": "continueErrorOutput"
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 226802774,
+          "update_id": 226802861,
           "callback_query": {
-            "id": "2008109316882851120",
+            "id": "2008109315139041834",
             "from": {
               "id": 467549384,
               "is_bot": false,
@@ -14834,7 +14857,7 @@
               "is_premium": true
             },
             "message": {
-              "message_id": 1926,
+              "message_id": 1986,
               "from": {
                 "id": 6999092112,
                 "is_bot": true,
@@ -14847,44 +14870,43 @@
                 "username": "sergo_kf",
                 "type": "private"
               },
-              "date": 1721661380,
-              "edit_date": 1721663646,
-              "text": "Выберите меру исчисления перевозимого материала:",
+              "date": 1721814707,
+              "text": "Нужно приложить фото исправления?",
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "м3",
-                      "callback_data": "measure_m3"
+                      "text": "Да",
+                      "callback_data": "yes_request_photo"
                     },
                     {
-                      "text": "Тонны",
-                      "callback_data": "measure_t"
+                      "text": "Нет",
+                      "callback_data": "no_request_photo"
                     }
                   ]
                 ]
               }
             },
             "chat_instance": "497180759143853887",
-            "data": "measure_m3"
+            "data": "yes_request_photo"
           },
           "tg_id": "467549384",
           "odoo_id": 4,
           "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
-          "end_request_id": null,
+          "end_request_id": 340,
           "materials_photo": false,
-          "end_request_hours": null,
+          "end_request_hours": 2,
           "car_id_while_inputing": 25,
           "fuel_liters": null,
           "weight_measure": "5 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
-          "count_weight_photo": 2,
+          "count_weight_photo": 1,
           "count_weight_photo_sent": 0,
-          "cookie": "session_id=7210f251c57581619fd5deb15356f0075f2c018c; Expires=Tue, 22 Jul 2025 15:55:23 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=8151c3ce72dc131608f48b1bca34f4ed7fb3f6a3; Expires=Thu, 24 Jul 2025 09:54:09 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -14902,6 +14924,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-23T11:33:45.000Z",
-  "versionId": "4dcf22b5-d8bd-4783-a483-6e2a1bbd91e0"
+  "updatedAt": "2024-07-24T10:51:32.000Z",
+  "versionId": "478375a2-5074-4bed-993d-daee0af03bfa"
 }
