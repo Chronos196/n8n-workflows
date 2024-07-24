@@ -2653,6 +2653,50 @@
         ]
       ]
     },
+    "отправьте данные1": {
+      "main": [
+        [
+          {
+            "node": "статус=отправка срочно маршрут",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Выводим информацию о перевозке3": {
+      "main": [
+        [
+          {
+            "node": "Добавление перевозки в бд1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "рейсы": {
+      "main": [
+        [
+          {
+            "node": "актуальный рейс",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "номер авто5": {
+      "main": [
+        [
+          {
+            "node": "рейсы",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "срочно": {
       "main": [
         [
@@ -2678,29 +2722,36 @@
         ],
         [
           {
+            "node": "номер авто5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "актуальный рейс": {
+      "main": [
+        [
+          {
+            "node": "есть рейс?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "есть рейс?": {
+      "main": [
+        [
+          {
             "node": "отправьте данные1",
             "type": "main",
             "index": 0
           }
-        ]
-      ]
-    },
-    "отправьте данные1": {
-      "main": [
+        ],
         [
           {
-            "node": "статус=отправка срочно маршрут",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Выводим информацию о перевозке3": {
-      "main": [
-        [
-          {
-            "node": "Добавление перевозки в бд1",
+            "node": "Telegram",
             "type": "main",
             "index": 0
           }
@@ -15065,109 +15116,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "warn_problem_auto",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "ab2599b7-d238-4b88-bb49-bd3904b8bd0e",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "warn_back_to_menu",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "32f5ff63-66c6-41ab-b8ae-31db4b91a594",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "back_to_choise_warn",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "5458e8a5-336f-4d88-b337-020b31a58c52",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "warn_problem_route",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "8b436d30-8236-4770-8550-e6494427256e",
-      "name": "срочно",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        1720,
-        22080
-      ]
-    },
-    {
-      "parameters": {
         "operation": "editMessageText",
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
@@ -15552,16 +15500,260 @@
       "position": [
         1480,
         14140
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "transportation.round",
+        "operation": "getAll",
+        "options": {
+          "fieldsList": [
+            "transportation"
+          ]
+        },
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "car",
+              "value": "={{ $json.id }}"
+            },
+            {
+              "fieldName": "status",
+              "value": "Выполняется"
+            }
+          ]
+        }
+      },
+      "id": "767fcd24-b1a6-407b-a64b-d19ca2806396",
+      "name": "рейсы",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1320,
+        22560
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "keep": "lastItems"
+      },
+      "id": "52b9649d-0553-4614-ad95-97ac456f9d7e",
+      "name": "актуальный рейс",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        1500,
+        22560
       ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "cars.cars",
+        "operation": "getAll",
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "driver_id",
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
+            }
+          ]
+        }
+      },
+      "id": "310d9d7c-a268-4d61-9043-3f5c3192b6cd",
+      "name": "номер авто5",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1140,
+        22560
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "warn_problem_auto",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "ab2599b7-d238-4b88-bb49-bd3904b8bd0e",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "warn_back_to_menu",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "32f5ff63-66c6-41ab-b8ae-31db4b91a594",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "back_to_choise_warn",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "5458e8a5-336f-4d88-b337-020b31a58c52",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "warn_problem_route",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8b436d30-8236-4770-8550-e6494427256e",
+      "name": "срочно",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        1260,
+        22180
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "5b5a301a-c219-41f3-a4c1-9ceb5ecbe763",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "e6bc2bde-12b4-4e2e-b076-cf840a87af86",
+      "name": "есть рейс?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1700,
+        22560
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "callback",
+        "queryId": "={{ $('Execute Workflow Trigger').item.json.callback_query.id }}",
+        "additionalFields": {
+          "show_alert": true,
+          "text": "У вас нет начатого рейса, вы не можете указать проблему с маршрутом"
+        }
+      },
+      "id": "37293ee8-d317-4aa2-bc2b-854301a2e640",
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        1940,
+        22720
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100621679,
+          "update_id": 100621812,
           "callback_query": {
-            "id": "3010587260896569551",
+            "id": "3010587259669634398",
             "from": {
               "id": 700956969,
               "is_bot": false,
@@ -15570,7 +15762,7 @@
               "language_code": "ru"
             },
             "message": {
-              "message_id": 12813,
+              "message_id": 13018,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -15583,21 +15775,39 @@
                 "username": "Chronos196",
                 "type": "private"
               },
-              "date": 1721806710,
-              "text": "Привет дорогой водитель!",
+              "date": 1721839293,
+              "text": "Дорогой водитель, с чем у вас возникла проблема?",
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "Посмотреть назначенную перевозку",
-                      "callback_data": "перевозки"
+                      "text": "С Автомобилем",
+                      "callback_data": "warn_problem_auto"
+                    }
+                  ],
+                  [
+                    {
+                      "text": "С Маршрутом",
+                      "callback_data": "warn_problem_route"
+                    }
+                  ],
+                  [
+                    {
+                      "text": "С Документами",
+                      "callback_data": "warn_problem_document"
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Назад",
+                      "callback_data": "warn_back_to_menu"
                     }
                   ]
                 ]
               }
             },
             "chat_instance": "1908726007480408494",
-            "data": "перевозки"
+            "data": "warn_problem_route"
           },
           "tg_id": "700956969",
           "odoo_id": 2,
@@ -15615,7 +15825,7 @@
           "transportation_for_certificate": null,
           "count_weight_photo": null,
           "count_weight_photo_sent": null,
-          "cookie": "session_id=5372ea22c3427188ff88e1692b24d1589d786532; Expires=Thu, 24 Jul 2025 07:38:53 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=874e2936c027e5d159f4b0e3dcd69d8b55376e78; Expires=Thu, 24 Jul 2025 16:41:35 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -15633,6 +15843,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-24T07:49:38.000Z",
-  "versionId": "2e578f7f-819a-4505-8216-e47be74e8356"
+  "updatedAt": "2024-07-24T16:48:25.000Z",
+  "versionId": "eae17288-71fe-4cdb-acda-c5baa8754939"
 }
