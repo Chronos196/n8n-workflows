@@ -1593,7 +1593,7 @@
       "main": [
         [
           {
-            "node": "авто привязан?",
+            "node": "срочно",
             "type": "main",
             "index": 0
           }
@@ -1850,35 +1850,6 @@
         ]
       ]
     },
-    "проверка статуса2": {
-      "main": [
-        [
-          {
-            "node": "данные сотрудника",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "номер авто1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "номер авто1": {
-      "main": [
-        [
-          {
-            "node": "рейсы",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "рейсы": {
       "main": [
         [
@@ -1983,6 +1954,35 @@
         [
           {
             "node": "Сообщение отправлено1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка статуса2": {
+      "main": [
+        [
+          {
+            "node": "данные сотрудника",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "срочно": {
+      "main": [
+        [
+          {
+            "node": "авто привязан?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "рейсы",
             "type": "main",
             "index": 0
           }
@@ -7457,8 +7457,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -960,
-        6000
+        -1380,
+        6520
       ],
       "credentials": {
         "odooApi": {
@@ -7487,8 +7487,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -740,
-        6000
+        -1160,
+        6520
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -7921,7 +7921,7 @@
       "parameters": {
         "content": "## Срочно: автомобиль: просто текст",
         "height": 736.9588278506494,
-        "width": 2722.997550923746,
+        "width": 2285.9105554802254,
         "color": 6
       },
       "id": "cc65923a-927f-46b0-96fb-576682a53fa1",
@@ -7929,7 +7929,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -1000,
+        -562.9130045564793,
         5640
       ]
     },
@@ -8310,100 +8310,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "inputing_warn_message",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "118dbd21-b8c1-438d-94c4-f1c6def1922c",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "inputing_warn_message_route",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "59851adc-6460-4224-9002-b5b716f91ed7",
-      "name": "проверка статуса2",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        -1180,
-        6460
-      ]
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "cars.cars",
-        "operation": "getAll",
-        "options": {
-          "fieldsList": [
-            "number_car"
-          ]
-        },
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "driver_id",
-              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
-            }
-          ]
-        }
-      },
-      "id": "88f4ba38-39ec-4874-89d8-b5eb072b0201",
-      "name": "номер авто1",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        -980,
-        6480
-      ],
-      "alwaysOutputData": true,
-      "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
-        }
-      }
-    },
-    {
-      "parameters": {
         "resource": "custom",
         "customResource": "transportation.round",
         "operation": "getAll",
@@ -8605,7 +8511,7 @@
     {
       "parameters": {
         "chatId": "-4161741739",
-        "text": "=У водителя с авто {{ $('номер авто1').all()[0].json.number_car }} проблема на маршруте <b>{{ $('получим перевозку').all()[0].json.route[1] }}</b>:\n\n<i>{{ $('Execute Workflow Trigger').all()[0].json[\"message\"][\"text\"] }}</i>\n\n{{ $json.concatenated_logists }}",
+        "text": "=У водителя <a href=\"tg://user?id={{ $('Execute Workflow Trigger').item.json.message.chat.id }}\">{{ $('данные сотрудника').all()[0].json.name }}</a>(авто {{ $('номер авто').all()[0].json.number_car }}) проблема на маршруте <b>{{ $('получим перевозку').all()[0].json.route[1] }}</b>: <i>{{ $('Execute Workflow Trigger').all()[0].json[\"message\"][\"text\"] }}</i>\n\n{{ $json.concatenated_logists }} ",
         "additionalFields": {
           "appendAttribution": false,
           "parse_mode": "HTML"
@@ -8799,7 +8705,7 @@
       "parameters": {
         "content": "## Срочно (маршрут: только текст)",
         "height": 244.31760296409618,
-        "width": 2726.527526022389,
+        "width": 2551.6927278449803,
         "color": 6
       },
       "id": "7e1370f7-6323-4994-8c9e-906731826d88",
@@ -8807,8 +8713,106 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -1001.5275260223889,
+        -826.6927278449803,
         6430.682397035905
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "inputing_warn_message",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "59851adc-6460-4224-9002-b5b716f91ed7",
+      "name": "проверка статуса2",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -1580,
+        6740
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.status.substring(22) }}",
+                    "rightValue": "={{ \"\" }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "2e41041c-7fc2-4bc3-9d62-0e5f7ab7d40b",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.status.substring(22) }}",
+                    "rightValue": "route",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "15b0f741-f199-4624-b5a6-36a00a119571",
+      "name": "срочно",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -1000,
+        6260
       ]
     }
   ],
@@ -8816,9 +8820,9 @@
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100621695,
+          "update_id": 100621791,
           "message": {
-            "message_id": 12838,
+            "message_id": 12979,
             "from": {
               "id": 700956969,
               "is_bot": false,
@@ -8832,7 +8836,7 @@
               "username": "Chronos196",
               "type": "private"
             },
-            "date": 1721807631,
+            "date": 1721836847,
             "text": "123"
           },
           "tg_id": "700956969",
@@ -8851,7 +8855,7 @@
           "transportation_for_certificate": null,
           "count_weight_photo": null,
           "count_weight_photo_sent": null,
-          "cookie": "session_id=0f1db32218e10992bcb58c2a900564e26fd0b563; Expires=Thu, 24 Jul 2025 07:53:52 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=bd161881409f82977039ced7f4df40792873f402; Expires=Thu, 24 Jul 2025 16:00:48 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -8869,6 +8873,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-24T08:00:36.000Z",
-  "versionId": "a3ee8b52-17e1-4a0b-9fea-82077e862eda"
+  "updatedAt": "2024-07-24T16:36:26.000Z",
+  "versionId": "b73fc4fc-0ff3-4031-a7c8-9c947807f594"
 }
