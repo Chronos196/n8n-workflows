@@ -5,7 +5,7 @@
       "main": [
         [
           {
-            "node": "обновим статус заявки",
+            "node": "отклонение заявки",
             "type": "main",
             "index": 0
           }
@@ -151,7 +151,7 @@
       "main": [
         [
           {
-            "node": "обновим статус заявки1",
+            "node": "принятие заявки",
             "type": "main",
             "index": 0
           }
@@ -220,7 +220,7 @@
       "main": [
         [
           {
-            "node": "обновим статус заявки1",
+            "node": "принятие заявки",
             "type": "main",
             "index": 0
           }
@@ -437,7 +437,7 @@
       "parameters": {
         "operation": "sendPhoto",
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
-        "file": "={{ $('Execute Workflow Trigger').item.json.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}",
+        "file": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}",
         "additionalFields": {
           "caption": "Напишите для водителя комментарий к заявке:"
         }
@@ -615,7 +615,7 @@
           "conditions": [
             {
               "id": "8573591f-d67f-46fb-a1bc-d3a70cd9bc6c",
-              "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}",
+              "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}",
               "rightValue": "",
               "operator": {
                 "type": "string",
@@ -657,36 +657,6 @@
         "telegramApi": {
           "id": "cg3DBo1aKun5qfRh",
           "name": "Алексей dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "technical.maintenance",
-        "operation": "update",
-        "customResourceId": "={{ $('номер заявки').item.json.TO_number }}",
-        "fieldsToCreateOrUpdate": {
-          "fields": [
-            {
-              "fieldName": "status",
-              "fieldValue": "К выполнению"
-            }
-          ]
-        }
-      },
-      "id": "796ef06a-d8ab-4eb6-a9d3-190cd294ec7e",
-      "name": "обновим статус заявки",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        2680,
-        480
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
         }
       }
     },
@@ -797,7 +767,7 @@
       "parameters": {
         "operation": "sendPhoto",
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
-        "file": "={{ $('Execute Workflow Trigger').item.json.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}",
+        "file": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}",
         "additionalFields": {
           "caption": "Заявка подтверждена, водитель получит уведомление"
         }
@@ -975,7 +945,7 @@
           "conditions": [
             {
               "id": "8573591f-d67f-46fb-a1bc-d3a70cd9bc6c",
-              "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}",
+              "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}",
               "rightValue": "",
               "operator": {
                 "type": "string",
@@ -1017,36 +987,6 @@
         "telegramApi": {
           "id": "cg3DBo1aKun5qfRh",
           "name": "Алексей dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "technical.maintenance",
-        "operation": "update",
-        "customResourceId": "={{ $('номер заявки1').item.json.TO_number }}",
-        "fieldsToCreateOrUpdate": {
-          "fields": [
-            {
-              "fieldName": "status",
-              "fieldValue": "Готово"
-            }
-          ]
-        }
-      },
-      "id": "1e1e4a62-7a43-4956-93ba-14959590d371",
-      "name": "обновим статус заявки1",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        2420,
-        1060
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "QXqc61yRCfgVSB3C",
-          "name": "new Odoo Алексей"
         }
       }
     },
@@ -1227,8 +1167,7 @@
       "position": [
         700,
         800
-      ],
-      "disabled": true
+      ]
     },
     {
       "parameters": {
@@ -1352,6 +1291,60 @@
         960,
         920
       ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://dev.everest.lamart.site/reject_maintenance_by_mechanic",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n   \"maintenance_id\": {{ $('номер заявки').item.json.TO_number }}\n}",
+        "options": {}
+      },
+      "id": "ff969759-aa57-4b7d-83fd-0eac6561cb40",
+      "name": "отклонение заявки",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        2660,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://dev.everest.lamart.site/accept_maintenance_by_mechanic",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n   \"maintenance_id\": {{ $('номер заявки1').item.json.TO_number }}\n}",
+        "options": {}
+      },
+      "id": "b849dc04-fe11-44be-9afb-b70060e03c8c",
+      "name": "принятие заявки",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        2460,
+        1040
+      ]
     }
   ],
   "pinData": {
@@ -1451,6 +1444,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-16T10:51:18.000Z",
-  "versionId": "5fc92eb2-1cc2-41af-851c-d9c35b88dc29"
+  "updatedAt": "2024-07-26T20:07:56.000Z",
+  "versionId": "8966e1a9-13f3-4bfe-a26a-99240c2b8b33"
 }
