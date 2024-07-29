@@ -2032,52 +2032,6 @@
         ]
       ]
     },
-    "кнопки принятия и завершения заказа": {
-      "main": [
-        [
-          {
-            "node": "начатый рейс",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "получаем odoo id2",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "поиск текущего авто",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "ищем автомобиль с таким же сотрудником2",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Рейс завершен и есть еще рейсы",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "кнопки меню ТО",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Execute Workflow Trigger": {
       "main": [
         [
@@ -2179,13 +2133,6 @@
         [
           {
             "node": "вывод доступных перевозок4",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "вывод доступных перевозок3",
             "type": "main",
             "index": 0
           }
@@ -2497,7 +2444,7 @@
       "main": [
         [
           {
-            "node": "перевозка со статусом \"В начале смены\"1",
+            "node": "Code",
             "type": "main",
             "index": 0
           }
@@ -2632,6 +2579,63 @@
         [
           {
             "node": "если есть ошибки",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "вывод доступных перевозок3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "кнопки принятия и завершения заказа": {
+      "main": [
+        [
+          {
+            "node": "начатый рейс",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "получаем odoo id2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "поиск текущего авто",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ищем автомобиль с таким же сотрудником2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Рейс завершен и есть еще рейсы",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "кнопки меню ТО",
             "type": "main",
             "index": 0
           }
@@ -9547,7 +9551,7 @@
             {
               "id": "c998d5a5-0ba2-42ce-94b8-7eb8c4900754",
               "name": "measure",
-              "value": "м3",
+              "value": "",
               "type": "string"
             }
           ]
@@ -11848,7 +11852,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"number_car\": {{'\"'+ $json.number_car +'\"'}}\n}",
+        "jsonBody": "={\n  \"number_car\": {{'\"'+ $json.number_car +'\"'}},\n  \"cargo_volume\": {{ $('получаем odoo id2').item.json.weight_measure }}\n}",
         "options": {}
       },
       "id": "68ffc181-da30-4fac-8845-d9e45e9c44ba",
@@ -12488,133 +12492,6 @@
       }
     },
     {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "pick",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "ab29fac3-d8a1-4277-9aac-c46a8ca3e960",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "final",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "1fb76a2e-1b73-4555-8e9c-fb47193d2c4b",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "Finish",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "e7143341-d29c-49ad-8647-8595445df788",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "accept",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "3a3f51d5-25e1-4bec-a3eb-9615ed6e6ce3",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "check_final",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {
-          "fallbackOutput": "extra"
-        }
-      },
-      "id": "84e8623c-d976-494a-a459-4f29e995e422",
-      "name": "кнопки принятия и завершения заказа",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        4620,
-        15460
-      ]
-    },
-    {
       "parameters": {},
       "id": "b7e082d3-c753-404d-844f-e0045d6d40b6",
       "name": "Execute Workflow Trigger",
@@ -12866,8 +12743,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        8060,
-        17515
+        9380,
+        16920
       ]
     },
     {
@@ -12898,8 +12775,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        7880,
-        17400
+        9520,
+        17280
       ]
     },
     {
@@ -12930,23 +12807,23 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        8300,
-        17555
+        9380,
+        17680
       ]
     },
     {
       "parameters": {
-        "content": "вывод перевозок со статусом \"В начале смены\"",
-        "height": 385.87584377248606,
-        "width": 899.7539553864474
+        "content": "вывод информации о перевозке",
+        "height": 277.01644113372225,
+        "width": 804.0896318554126
       },
       "id": "d9e0e752-278b-441b-8758-7fee406a58fe",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        8060,
-        17120
+        8100,
+        17380
       ]
     },
     {
@@ -12977,8 +12854,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        8200,
-        17375
+        9280,
+        17500
       ]
     },
     {
@@ -13080,8 +12957,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        8560,
-        17175
+        8180,
+        17440
       ],
       "credentials": {
         "telegramApi": {
@@ -13094,7 +12971,7 @@
     {
       "parameters": {
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
-        "text": "=Отправитель - <b>{{ $('перевозка со статусом \"В начале смены\"1').item.json.sender[1] }}</b>\nПолучатель - <b>{{ $('перевозка со статусом \"В начале смены\"1').item.json.partner[1] }}</b>\nМаршрут - <b>{{ $('перевозка со статусом \"В начале смены\"1').item.json.route[1] }}</b>\nМатериал - <b>{{ $('перевозка со статусом \"В начале смены\"1').item.json.material[1] }}</b>\nКомментарий - <b>{{ $('перевозка со статусом \"В начале смены\"1').item.json.comment }}</b>",
+        "text": "={{ $('Code').item.json.combinedMessage }}",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -13122,8 +12999,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        8840,
-        17175
+        8460,
+        17440
       ],
       "credentials": {
         "telegramApi": {
@@ -13148,15 +13025,16 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        8560,
-        17360
+        9640,
+        17485
       ],
       "credentials": {
         "telegramApi": {
           "id": "R2ipKSfc6dad40P9",
           "name": "Sergey Bot"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -13189,8 +13067,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        8840,
-        17355
+        9920,
+        17480
       ],
       "credentials": {
         "telegramApi": {
@@ -13215,15 +13093,16 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        8620,
-        17555
+        9700,
+        17680
       ],
       "credentials": {
         "telegramApi": {
           "id": "R2ipKSfc6dad40P9",
           "name": "Sergey Bot"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -13256,8 +13135,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        8840,
-        17560
+        9920,
+        17685
       ],
       "credentials": {
         "telegramApi": {
@@ -13282,15 +13161,16 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        8620,
-        17775
+        9700,
+        17900
       ],
       "credentials": {
         "telegramApi": {
           "id": "R2ipKSfc6dad40P9",
           "name": "Sergey Bot"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -13323,8 +13203,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        8840,
-        17775
+        9920,
+        17900
       ],
       "credentials": {
         "telegramApi": {
@@ -13413,8 +13293,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        9100,
-        17775
+        10180,
+        17900
       ],
       "credentials": {
         "postgres": {
@@ -13504,8 +13384,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        9100,
-        17555
+        10180,
+        17680
       ],
       "credentials": {
         "postgres": {
@@ -13595,8 +13475,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        9040,
-        17355
+        10120,
+        17480
       ],
       "credentials": {
         "postgres": {
@@ -13622,9 +13502,9 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "name": "={{ $('перевозка со статусом \"В начале смены\"1').item.json.transportations.route[1] }}",
-            "id": "={{ $('перевозка со статусом \"В начале смены\"1').item.json.transportations.id }}",
-            "driver_id": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
+            "name": "={{ $('Limit').item.json.route[1] }}",
+            "id": "={{ $('Limit').item.json.id }}",
+            "driver_id": "={{ $('Execute Workflow Trigger').all()[0].json.odoo_id }}"
           },
           "matchingColumns": [
             "id"
@@ -13686,16 +13566,15 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        9040,
-        17175
+        8660,
+        17440
       ],
       "credentials": {
         "postgres": {
           "id": "Q4ZHMkPf1vzJmsuw",
           "name": "Postgres account"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -13800,7 +13679,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
         "text": "За эту смену у Вас не было перевозок или у Вас нет выполненных рейсов",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
@@ -14282,7 +14161,7 @@
         "sortFieldsUi": {
           "sortField": [
             {
-              "fieldName": "transportations.start_condition"
+              "fieldName": "transportations.id"
             }
           ]
         },
@@ -14295,8 +14174,7 @@
       "position": [
         6100,
         17420
-      ],
-      "disabled": true
+      ]
     },
     {
       "parameters": {
@@ -14591,7 +14469,7 @@
       "typeVersion": 1,
       "position": [
         7420,
-        17240
+        17220
       ]
     },
     {
@@ -14614,8 +14492,8 @@
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        7520,
-        17500
+        7660,
+        17460
       ]
     },
     {
@@ -14648,7 +14526,7 @@
       "typeVersion": 2,
       "position": [
         6980,
-        17260
+        17220
       ],
       "alwaysOutputData": true
     },
@@ -14682,7 +14560,7 @@
       "typeVersion": 2,
       "position": [
         7160,
-        17260
+        17220
       ]
     },
     {
@@ -14839,15 +14717,155 @@
         18440
       ],
       "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "let combinedMessage = \"\";\n\nfor (const item of $input.all()) {\n  const transportation = item.json;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.route[1];\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n\n  let message = `Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <b>${comment}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nОстаток кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n\n  message += \"\\n\\n\";\n\n  combinedMessage = message.trim();\n}\n\nreturn [{ json: { combinedMessage: combinedMessage } }];"
+      },
+      "id": "4c11e3d7-d347-400a-9a60-7725ca7205d2",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        7900,
+        17440
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "pick",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "ab29fac3-d8a1-4277-9aac-c46a8ca3e960",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "final",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "1fb76a2e-1b73-4555-8e9c-fb47193d2c4b",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "Finish",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "e7143341-d29c-49ad-8647-8595445df788",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "accept",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "3a3f51d5-25e1-4bec-a3eb-9615ed6e6ce3",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "check_final",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "84e8623c-d976-494a-a459-4f29e995e422",
+      "name": "кнопки принятия и завершения заказа",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        4620,
+        15460
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 226802861,
+          "update_id": 226802961,
           "callback_query": {
-            "id": "2008109315139041834",
+            "id": "2008109315919165390",
             "from": {
               "id": 467549384,
               "is_bot": false,
@@ -14857,7 +14875,7 @@
               "is_premium": true
             },
             "message": {
-              "message_id": 1986,
+              "message_id": 2112,
               "from": {
                 "id": 6999092112,
                 "is_bot": true,
@@ -14870,34 +14888,30 @@
                 "username": "sergo_kf",
                 "type": "private"
               },
-              "date": 1721814707,
-              "text": "Нужно приложить фото исправления?",
+              "date": 1721972239,
+              "text": "Привет дорогой водитель!",
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "Да",
-                      "callback_data": "yes_request_photo"
-                    },
-                    {
-                      "text": "Нет",
-                      "callback_data": "no_request_photo"
+                      "text": "Посмотреть назначенную перевозку",
+                      "callback_data": "перевозки"
                     }
                   ]
                 ]
               }
             },
             "chat_instance": "497180759143853887",
-            "data": "yes_request_photo"
+            "data": "перевозки"
           },
           "tg_id": "467549384",
           "odoo_id": 4,
           "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
-          "end_request_id": 340,
+          "end_request_id": null,
           "materials_photo": false,
-          "end_request_hours": 2,
+          "end_request_hours": null,
           "car_id_while_inputing": 25,
           "fuel_liters": null,
           "weight_measure": "5 м3 ",
@@ -14906,7 +14920,7 @@
           "transportation_for_certificate": null,
           "count_weight_photo": 1,
           "count_weight_photo_sent": 0,
-          "cookie": "session_id=8151c3ce72dc131608f48b1bca34f4ed7fb3f6a3; Expires=Thu, 24 Jul 2025 09:54:09 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=ae1c22f8a1d0ff4848b39d4623037894575ada8d; Expires=Sat, 26 Jul 2025 05:37:41 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -14924,6 +14938,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-24T10:51:32.000Z",
-  "versionId": "478375a2-5074-4bed-993d-daee0af03bfa"
+  "updatedAt": "2024-07-26T19:50:54.000Z",
+  "versionId": "8f801711-a7d3-4dd4-8134-4aa2924e2041"
 }
