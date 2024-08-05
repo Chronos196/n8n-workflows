@@ -821,7 +821,7 @@
       "main": [
         [
           {
-            "node": "Получение информации о водителе",
+            "node": "находим машину по odoo id2",
             "type": "main",
             "index": 0
           }
@@ -832,7 +832,7 @@
       "main": [
         [
           {
-            "node": "завершение рейса",
+            "node": "проверяем м3 или тонны",
             "type": "main",
             "index": 0
           }
@@ -1754,17 +1754,6 @@
         [
           {
             "node": "есть ли срочная перевозка",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "завершение рейса": {
-      "main": [
-        [
-          {
-            "node": "находим какая сейчас перевозка",
             "type": "main",
             "index": 0
           }
@@ -2708,7 +2697,7 @@
       "main": [
         [
           {
-            "node": "проверка есть ли данные",
+            "node": "выбор меры",
             "type": "main",
             "index": 0
           }
@@ -2720,13 +2709,6 @@
         [
           {
             "node": "меняем статус на дефолтный",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "выбор меры",
             "type": "main",
             "index": 0
           }
@@ -2760,24 +2742,6 @@
         [
           {
             "node": "Telegram",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Switch": {
-      "main": [
-        [
-          {
-            "node": "ищем автомобиль с таким же сотрудником",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Сообщение о вводе номера",
             "type": "main",
             "index": 0
           }
@@ -2831,17 +2795,6 @@
         ]
       ]
     },
-    "Получение информации о водителе": {
-      "main": [
-        [
-          {
-            "node": "находим машину по odoo id2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Проверка перевозки(кубометры)": {
       "main": [
         [
@@ -2854,6 +2807,86 @@
         [
           {
             "node": "Рейс завершен и есть еще рейсы",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "ищем автомобиль с таким же сотрудником",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Сообщение о вводе номера",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверяем м3 или тонны": {
+      "main": [
+        [
+          {
+            "node": "убираем \"м3\"",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "убираем \"Тонны\"",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "убираем \"м3\"": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "убираем \"Тонны\"": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "завершение рейса",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "завершение рейса": {
+      "main": [
+        [
+          {
+            "node": "находим какая сейчас перевозка",
             "type": "main",
             "index": 0
           }
@@ -7285,7 +7318,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        -440,
+        -700,
         740
       ],
       "credentials": {
@@ -7316,7 +7349,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -80,
+        -540,
         740
       ],
       "credentials": {
@@ -7329,8 +7362,8 @@
     {
       "parameters": {
         "content": "## Завершение рейса и смена статусов через эндпоинт",
-        "height": 238.43897179884164,
-        "width": 1301.875504760007,
+        "height": 316.6801184392611,
+        "width": 1581.8964506309817,
         "color": 5
       },
       "id": "7526ebea-6cc1-484f-807e-86b810b7fb4c",
@@ -7338,8 +7371,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -460,
-        660
+        -740.0209458709746,
+        645.5871571978175
       ]
     },
     {
@@ -12025,33 +12058,6 @@
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "https://dev.everest.lamart.site/complete_round",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "cookie",
-              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"number_car\": {{'\"'+ $json.number_car +'\"'}},\n  \"cargo_volume\": {{ $('Получение информации о водителе').item.json.weight_measure }}\n} ",
-        "options": {}
-      },
-      "id": "0be2e3b8-45d4-4322-af70-cb1d008cedbe",
-      "name": "завершение рейса",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        100,
-        740
-      ]
-    },
-    {
-      "parameters": {
         "resource": "custom",
         "customResource": "transportation.transportation",
         "operation": "getAll",
@@ -12071,7 +12077,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        300,
+        500,
         740
       ],
       "alwaysOutputData": true,
@@ -12119,7 +12125,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        560,
+        660,
         740
       ]
     },
@@ -12699,7 +12705,8 @@
       "position": [
         -1860,
         1160
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -15598,7 +15605,8 @@
       "position": [
         -160,
         7660
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -15650,7 +15658,8 @@
           "id": "ThC2kf8ZCBAO0FBa",
           "name": "Main Everest"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -15742,7 +15751,8 @@
           "id": "Q4ZHMkPf1vzJmsuw",
           "name": "Postgres account"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -15779,65 +15789,6 @@
           "name": "Main Everest"
         }
       }
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "pick_car",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "a22d8717-31bf-4c08-bdcc-48ad1d7f83bd",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "other_car",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "f31e3bfd-f7b5-492c-b2b1-63802dac0f60",
-      "name": "Switch",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        -1660,
-        10760
-      ]
     },
     {
       "parameters": {
@@ -15948,45 +15899,6 @@
     },
     {
       "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "tg_users",
-          "mode": "list",
-          "cachedResultName": "tg_users"
-        },
-        "where": {
-          "values": [
-            {
-              "column": "tg_id",
-              "value": "={{ $json.tg_id }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "13d27a56-3520-4865-ba1d-85e3080e797b",
-      "name": "Получение информации о водителе",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.3,
-      "position": [
-        -280,
-        740
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "Q4ZHMkPf1vzJmsuw",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "conditions": {
           "options": {
             "caseSensitive": true,
@@ -16016,6 +15928,207 @@
         1860,
         700
       ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "pick_car",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "a22d8717-31bf-4c08-bdcc-48ad1d7f83bd",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "other_car",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f31e3bfd-f7b5-492c-b2b1-63802dac0f60",
+      "name": "Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -1660,
+        10760
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.weight_measure }}",
+                    "rightValue": "м3",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "39846e7b-2c8a-476b-b750-592c68d5434c",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.weight_measure }}",
+                    "rightValue": "Тонны",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "86998d92-e7da-4675-a186-1b9fb59dbdef",
+      "name": "проверяем м3 или тонны",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -380,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9e60e044-2138-4cf2-9870-90703b723193",
+              "name": "weight",
+              "value": "=\"cargo_volume\": {{ $('Execute Workflow Trigger').item.json.weight_measure.slice(0, -4) }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d6f66fe4-fc8b-4097-b78a-19e505b4a186",
+      "name": "убираем \"м3\"",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        -180,
+        680
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9e60e044-2138-4cf2-9870-90703b723193",
+              "name": "weight",
+              "value": "=\"cargo_netto\": {{ $('Execute Workflow Trigger').item.json.weight_measure.slice(0, -7) }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "63df25ef-f36d-46fa-89e0-a1b2d6e1ab24",
+      "name": "убираем \"Тонны\"",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        -180,
+        840
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "3400be6c-5aab-4f6a-bc96-c6765d06f788",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://dev.everest.lamart.site/complete_round",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"number_car\": {{'\"'+ $('находим машину по odoo id2').item.json.number_car +'\"'}},\n  {{ $json.weight }}\n}",
+        "options": {}
+      },
+      "id": "b7337b8b-b01e-4f5b-99f5-548ad245ea13",
+      "name": "завершение рейса",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        200,
+        740
+      ]
     }
   ],
   "pinData": {},
@@ -16032,6 +16145,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-07-26T12:22:06.000Z",
-  "versionId": "1073cfbf-1efa-44e6-b477-1a5dc531a53e"
+  "updatedAt": "2024-08-02T13:22:54.000Z",
+  "versionId": "0eb71152-30de-4762-9f79-d0b9e558fde0"
 }
