@@ -1,0 +1,1841 @@
+{
+  "active": false,
+  "connections": {
+    "проверка типа сообщения": {
+      "main": [
+        [
+          {
+            "node": "статус диспетчера",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "инлайн-кнопки для диспетчера",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Stop and Error",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "проверка типа сообщения",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "статус диспетчера": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Проверка старта1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Проверка старта1": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Проверка кнопок",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Проверка кнопок": {
+      "main": [
+        [
+          {
+            "node": "выбор периода документов",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "дата через неделю": {
+      "main": [
+        [
+          {
+            "node": "дата и время 23:59",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "документы с истекающим сроком": {
+      "main": [
+        [
+          {
+            "node": "Sort",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "разница в днях": {
+      "main": [
+        [
+          {
+            "node": "округляем",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "округляем": {
+      "main": [
+        [
+          {
+            "node": "объединяем доки+дата с разницей во времени",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "объединяем доки+дата с разницей во времени": {
+      "main": [
+        [
+          {
+            "node": "склоняем",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "склоняем": {
+      "main": [
+        [
+          {
+            "node": "сколько дней до окончания срока",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "склеиваем": {
+      "main": [
+        [
+          {
+            "node": "объединяем в один список",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "объединяем": {
+      "main": [
+        [
+          {
+            "node": "отправка сообщения1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort": {
+      "main": [
+        [
+          {
+            "node": "разница в днях",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "объединяем доки+дата с разницей во времени",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "если истекло": {
+      "main": [
+        [
+          {
+            "node": "объединяем в один список",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "объединяем в один список": {
+      "main": [
+        [
+          {
+            "node": "объединяем",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "дата и время 23:59": {
+      "main": [
+        [
+          {
+            "node": "документы с истекающим сроком",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "дата и время 23:": {
+      "main": [
+        [
+          {
+            "node": "документы с истекающим сроком1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "документы с истекающим сроком1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "дата и время 23:1": {
+      "main": [
+        [
+          {
+            "node": "дата через 14 дней",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "дата и время 23:60": {
+      "main": [
+        [
+          {
+            "node": "документы с истекающим сроком2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "документы с истекающим сроком2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "сколько дней до окончания срока": {
+      "main": [
+        [
+          {
+            "node": "если истекло",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "склеиваем",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Sort",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "дата и время 23:2": {
+      "main": [
+        [
+          {
+            "node": "документы с истекающим сроком3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "документы с истекающим сроком3": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "дата и время 23:3": {
+      "main": [
+        [
+          {
+            "node": "дата через 21 день",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "дата и время 23:61": {
+      "main": [
+        [
+          {
+            "node": "документы с истекающим сроком4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "документы с истекающим сроком4": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Sort",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "дата через 8 дней": {
+      "main": [
+        [
+          {
+            "node": "дата и время 23:1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "дата через 14 дней": {
+      "main": [
+        [
+          {
+            "node": "дата и время 23:",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "дата через 15 дней": {
+      "main": [
+        [
+          {
+            "node": "дата и время 23:3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "дата через 21 день": {
+      "main": [
+        [
+          {
+            "node": "дата и время 23:2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "дата сегодня": {
+      "main": [
+        [
+          {
+            "node": "дата и время 23:61",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "дата сегодня1": {
+      "main": [
+        [
+          {
+            "node": "дата и время 23:60",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "разделение на дни для документов": {
+      "main": [
+        [
+          {
+            "node": "дата через неделю",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "дата через 8 дней",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "дата сегодня1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "дата через 15 дней",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "дата сегодня",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "возврат к выбору периода",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "удаления сообщения с выбором",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "инлайн-кнопки для диспетчера": {
+      "main": [
+        [],
+        [],
+        [
+          {
+            "node": "разделение на дни для документов",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2024-07-30T08:50:30.608Z",
+  "id": "BWWu7v6W915Xxymu",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "dispatcher_serg",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "4394cc12-7d88-46a2-a05a-3aefdcbe1a66",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        -200,
+        820
+      ]
+    },
+    {
+      "parameters": {
+        "errorMessage": "dispatcher"
+      },
+      "id": "f1b7c671-de01-4915-a10d-cc6503f68c10",
+      "name": "Stop and Error",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        20,
+        1080
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "11c45e0d-196b-47f1-821e-bee57c9f070b",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "8003be2e-0b1a-4118-8f62-7c3debd0a0f5",
+      "name": "проверка типа сообщения",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        160,
+        780
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "text": "Вы авторизовались как диспетчер",
+        "replyMarkup": "replyKeyboard",
+        "replyKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Документы",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "replyKeyboardOptions": {
+          "resize_keyboard": true
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "d9423f78-6d07-4738-9406-c3e6c695b256",
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        940,
+        280
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "R2ipKSfc6dad40P9",
+          "name": "Sergey Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "reject_TO",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "0dad3c43-0653-485e-bdde-074fb8ca6551",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "accept_TO",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "e77ddf10-0280-4d6b-a6c7-05734dd33806",
+      "name": "инлайн-кнопки для диспетчера",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        420,
+        1080
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.status }}",
+                    "rightValue": "inputing_reject_text",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "5e8cd4ce-c722-43ff-8013-7b61f5a15cbc",
+      "name": "статус диспетчера",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        460,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "={{ \"/start\" }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "cdd523b9-144e-4034-b654-defc72288a3f",
+      "name": "Проверка старта1",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        760,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "Документы",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "2f496117-666c-4cd4-b6dc-24f1add23604",
+      "name": "Проверка кнопок",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        1120,
+        620
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "text": "Выберите за какой период хотите проверить документы:",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "1-7 дней",
+                    "additionalFields": {
+                      "callback_data": "7_days"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "8-14 дней",
+                    "additionalFields": {
+                      "callback_data": "14_days"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "15-21 день",
+                    "additionalFields": {
+                      "callback_data": "21_days"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Назад",
+                    "additionalFields": {
+                      "callback_data": "delete_date"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "22c4fedc-5bba-4f52-9c43-80b3d60121a4",
+      "name": "выбор периода документов",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        1260,
+        280
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "R2ipKSfc6dad40P9",
+          "name": "Sergey Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addToDate",
+        "magnitude": "={{ $today }}",
+        "duration": 7,
+        "options": {}
+      },
+      "id": "9bebb917-252f-438f-816a-67eb0db35688",
+      "name": "дата через неделю",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        720,
+        1280
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "documents.documents",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "expiration_date",
+              "operator": "lesserOrEqual",
+              "value": "={{ $json.newformattedDate }}"
+            }
+          ]
+        }
+      },
+      "id": "cbc985a9-a372-4361-8606-3ba32068577e",
+      "name": "документы с истекающим сроком",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        1280
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getTimeBetweenDates",
+        "startDate": "={{ $today }}",
+        "endDate": "={{ $json.expiration_date }}",
+        "options": {}
+      },
+      "id": "9d8b6954-6cab-4177-a949-4b7882de6eda",
+      "name": "разница в днях",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        1580,
+        1280
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0bd3f1ff-9963-406f-b40f-8c9e47ba7e30",
+              "name": "timeDifference",
+              "value": "={{ $json.timeDifference.days.round() }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2f7838b3-f858-4ccc-b299-37dcc40d29e5",
+      "name": "округляем",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        1760,
+        1280
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "mergeByPosition",
+        "options": {}
+      },
+      "id": "3a986461-0768-44da-b771-1546f0fee214",
+      "name": "объединяем доки+дата с разницей во времени",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        1920,
+        1420
+      ]
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "# Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor item in _input.all():\n    days = abs(item.json.timeDifference)\n    if days % 100 // 10 == 1:\n        item.json.sklonenie = \"дней\"\n    elif days % 10 == 1:\n        item.json.sklonenie = \"день\"\n    elif days % 10 in [2, 3, 4]:\n        item.json.sklonenie = \"дня\"\n    else:\n        item.json.sklonenie = \"дней\"\nreturn _input.all()"
+      },
+      "id": "a62ae751-56aa-4893-866b-7d2bf2bb8498",
+      "name": "склоняем",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2120,
+        1420
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "386f4fe1-4858-4421-a50e-867e5ca497fc",
+              "name": "message",
+              "value": "=⚠️Через {{ $json.timeDifference }} {{ $json.sklonenie }} истекает срок документа <b>{{ $json.display_name }}</b>",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a3331005-7208-4ddc-9048-f73dd1fd221e",
+      "name": "склеиваем",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        2620,
+        1440
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "concatenate",
+              "field": "message",
+              "separateBy": "\n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "3b22a149-4722-4f45-80b6-898d4975d2cf",
+      "name": "объединяем",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        3040,
+        1420
+      ]
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "expiration_date"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "232bf181-d3aa-4132-9e26-3c85559d00d5",
+      "name": "Sort",
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        1300,
+        1280
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3cd5ce67-7030-49fa-b1d7-63e5baca1d30",
+              "name": "message",
+              "value": "=❗ {{ -$json[\"timeDifference\"] }} {{ $json[\"sklonenie\"] }} назад истёк срок действия документа <b>{{ $json.type_of_document_id[1] }}</b> (был действителен до {{ $json.expiration_date }}) <b>({{ $json.car_id[1] }})</b>",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "279eaaf2-6c14-46a2-abdc-9a84534c28b2",
+      "name": "если истекло",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        2620,
+        1260
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {},
+      "id": "cf796468-354a-4b41-b9c9-0d0153d7681d",
+      "name": "объединяем в один список",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        2840,
+        1420
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "={{ $('объединяем').item.json.concatenated_message }}",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Назад",
+                    "additionalFields": {
+                      "callback_data": "view_date"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "32130dca-757b-4543-bebb-5c1ce31964ed",
+      "name": "отправка сообщения1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        3240,
+        1420
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "R2ipKSfc6dad40P9",
+          "name": "Sergey Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Истекшие документы и документы за 7 дней до истечения",
+        "height": 369.39864609379947,
+        "width": 2774.539456615861
+      },
+      "id": "a4d133c5-295d-46d2-a90b-3b73c3622b22",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        680,
+        1231
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $json.newDate }}",
+        "format": "=yyyy-MM-dd, 23:59:59",
+        "outputFieldName": "newformattedDate",
+        "options": {}
+      },
+      "id": "baaf6799-6139-481a-8d0b-ef8230b72086",
+      "name": "дата и время 23:59",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        900,
+        1280
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $json.newDate }}",
+        "format": "=yyyy-MM-dd, 23:59:59",
+        "outputFieldName": "newformattedDate",
+        "options": {}
+      },
+      "id": "b0901d93-eb30-4e26-a2ed-001f69cae53f",
+      "name": "дата и время 23:",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        1260,
+        1620
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "documents.documents",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "expiration_date",
+              "operator": "lesserOrEqual",
+              "value": "={{ $json.newformattedDate }}"
+            },
+            {
+              "fieldName": "expiration_date",
+              "operator": "greaterOrEqual",
+              "value": "={{ $('дата и время 23:1').item.json.newformattedDate1 }}"
+            }
+          ]
+        }
+      },
+      "id": "7d25d940-0e84-46d3-a17c-62b43e8394c2",
+      "name": "документы с истекающим сроком1",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1500,
+        1620
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $json.newDate }}",
+        "format": "=yyyy-MM-dd, 00:00:00",
+        "outputFieldName": "newformattedDate1",
+        "options": {}
+      },
+      "id": "cfa2a176-cf8a-4258-afc2-3ea54cf9eeb5",
+      "name": "дата и время 23:1",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        900,
+        1620
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $json.currentDate }}",
+        "format": "=yyyy-MM-dd, 00:00:00",
+        "outputFieldName": "newformattedDate",
+        "options": {}
+      },
+      "id": "91c6bf5c-f2eb-4203-ab68-8905ede887f5",
+      "name": "дата и время 23:60",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        920,
+        1780
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "documents.documents",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "expiration_date",
+              "operator": "lesserOrEqual",
+              "value": "={{ $json.newformattedDate }}"
+            }
+          ]
+        }
+      },
+      "id": "0c2edb9c-0188-4f77-867a-b42d745ac1e9",
+      "name": "документы с истекающим сроком2",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        1780
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.timeDifference }}",
+                    "rightValue": 0,
+                    "operator": {
+                      "type": "number",
+                      "operation": "lte"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "4d8ac404-b74b-4df3-8919-0de5596a2e53",
+                    "leftValue": "={{ $json.timeDifference }}",
+                    "rightValue": 31,
+                    "operator": {
+                      "type": "number",
+                      "operation": "lte"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8e41f68f-809a-4a32-a8de-9a49802d2231",
+      "name": "сколько дней до окончания срока",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        2300,
+        1420
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "d42decd1-4036-4095-8b88-8d9262d68ad1",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        1740,
+        1720
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Истекшие документы и документы за 8-14 дней до истечения",
+        "height": 369.39864609379947,
+        "width": 1215.0811098210288
+      },
+      "id": "86a8e9ca-b2cf-4344-8e15-b903971b9f48",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        680,
+        1580
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $json.newDate }}",
+        "format": "=yyyy-MM-dd, 23:59:59",
+        "outputFieldName": "newformattedDate",
+        "options": {}
+      },
+      "id": "69171d6e-7ddb-401f-af67-ce25ad00476f",
+      "name": "дата и время 23:2",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        1260,
+        1980
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "documents.documents",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "expiration_date",
+              "operator": "lesserOrEqual",
+              "value": "={{ $json.newformattedDate }}"
+            },
+            {
+              "fieldName": "expiration_date",
+              "operator": "greaterOrEqual",
+              "value": "={{ $('дата и время 23:3').item.json.newformattedDate1 }}"
+            }
+          ]
+        }
+      },
+      "id": "2311744b-c076-418a-808f-81b621131fe6",
+      "name": "документы с истекающим сроком3",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1500,
+        1980
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $json.newDate }}",
+        "format": "=yyyy-MM-dd, 00:00:00",
+        "outputFieldName": "newformattedDate1",
+        "options": {}
+      },
+      "id": "a21e1fd0-ce24-4b05-a358-975f6aea5f00",
+      "name": "дата и время 23:3",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        900,
+        1980
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $json.currentDate }}",
+        "format": "=yyyy-MM-dd, 00:00:00",
+        "outputFieldName": "newformattedDate",
+        "options": {}
+      },
+      "id": "145d7514-1901-4c4c-bfd8-9d2f1f3ec8eb",
+      "name": "дата и время 23:61",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        920,
+        2140
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "documents.documents",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "expiration_date",
+              "operator": "lesserOrEqual",
+              "value": "={{ $json.newformattedDate }}"
+            }
+          ]
+        }
+      },
+      "id": "6e0f21bd-aa0b-43ce-9ab2-0656ce65368c",
+      "name": "документы с истекающим сроком4",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        2140
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "e9a19986-1fb8-4290-8b4e-c14ded3d7ae2",
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        1740,
+        2080
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Истекшие документы и документы за 15-21 дней до истечения",
+        "height": 369.39864609379947,
+        "width": 1215.0811098210288
+      },
+      "id": "d9fdee5a-2e12-40a0-8822-ea21b9c62f27",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        680,
+        1940
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "addToDate",
+        "magnitude": "={{ $today }}",
+        "duration": 8,
+        "options": {}
+      },
+      "id": "7b351583-427a-4b00-96f8-ce9a768a1c61",
+      "name": "дата через 8 дней",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        740,
+        1620
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "addToDate",
+        "magnitude": "={{ $today }}",
+        "duration": 14,
+        "options": {}
+      },
+      "id": "e35fb4e4-3021-456c-8322-1d2fca27c7e5",
+      "name": "дата через 14 дней",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        1080,
+        1620
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "addToDate",
+        "magnitude": "={{ $today }}",
+        "duration": 15,
+        "options": {}
+      },
+      "id": "3e760dee-874e-435b-a5ff-b1b3b50f241f",
+      "name": "дата через 15 дней",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        740,
+        1980
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "addToDate",
+        "magnitude": "={{ $today }}",
+        "duration": 21,
+        "options": {}
+      },
+      "id": "336a9ccc-83f0-4c5a-afc2-4438ca2c8c2e",
+      "name": "дата через 21 день",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        1080,
+        1980
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "c7e412df-f3d4-46cb-a0da-b77dc6b72137",
+      "name": "дата сегодня",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        740,
+        2140
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "d06dc74e-1570-4ca1-821f-3982ff9c5edc",
+      "name": "дата сегодня1",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        740,
+        1780
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+        "messageId": "={{ $json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "Выберите за какой период хотите проверить документы:",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "1-7 дней",
+                    "additionalFields": {
+                      "callback_data": "7_days"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "8-14 дней",
+                    "additionalFields": {
+                      "callback_data": "14_days"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "15-21 день",
+                    "additionalFields": {
+                      "callback_data": "21_days"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Назад",
+                    "additionalFields": {
+                      "callback_data": "delete_date"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "id": "6ae3e121-bf05-47a8-8f1b-14515217498c",
+      "name": "возврат к выбору периода",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        720,
+        2360
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "R2ipKSfc6dad40P9",
+          "name": "Sergey Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "deleteMessage",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+        "messageId": "={{ $json.callback_query.message.message_id }}"
+      },
+      "id": "30ff936e-4541-4372-b793-a96ad8eba030",
+      "name": "удаления сообщения с выбором",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        720,
+        2540
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "R2ipKSfc6dad40P9",
+          "name": "Sergey Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Проверка сроков документов",
+        "height": 1516.856820405149,
+        "width": 2918.594993693928,
+        "color": 5
+      },
+      "id": "479912cb-2b3a-46b2-888a-3b2bbc1bdd3e",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        640,
+        1180
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "7_days",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "29768801-6a74-4a14-be52-f00a8c557555",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "14_days",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "ddb933c9-04c7-4d8e-b07e-779c610e9c46",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "21_days",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "e674fd05-e952-48d5-b7aa-7cc405f40766",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "view_date",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "c9f6d1ed-bbdf-43ea-9a3f-ad3ac67cc13d",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "delete_date",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "09dbb5b8-a8d8-4bd3-8e3a-aefb405f8b3d",
+      "name": "разделение на дни для документов",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        440,
+        1420
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2024-07-12T09:46:32.191Z",
+      "updatedAt": "2024-07-12T09:46:32.191Z",
+      "id": "coJPcdNrgNxmQ1Qw",
+      "name": "sergey"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2024-07-31T10:16:44.000Z",
+  "versionId": "1c98f9ec-524b-48b6-a4f7-33e83c0a0817"
+}
