@@ -1661,17 +1661,6 @@
         ]
       ]
     },
-    "Сообщение отправлено2": {
-      "main": [
-        [
-          {
-            "node": "возвращаем статус4",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "маршрут": {
       "main": [
         [
@@ -2385,44 +2374,11 @@
         ]
       ]
     },
-    "айди для отправки сообщения4": {
-      "main": [
-        [
-          {
-            "node": "отправка диспетчеру о доках",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "отправка диспетчеру о доках": {
-      "main": [
-        [
-          {
-            "node": "Aggregate4",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Aggregate4": {
       "main": [
         [
           {
             "node": "Сообщение отправлено2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "отправка логистам о доках": {
-      "main": [
-        [
-          {
-            "node": "Aggregate2",
             "type": "main",
             "index": 0
           }
@@ -2511,6 +2467,90 @@
         ]
       ]
     },
+    "есть авто?": {
+      "main": [
+        [
+          {
+            "node": "привязан авто?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "привязан авто?": {
+      "main": [
+        [
+          {
+            "node": "введите сообщение",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "нужен авто",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "введите сообщение": {
+      "main": [
+        [
+          {
+            "node": "статус=ввод сообщения диспетчеру",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "отправка логистам о доках": {
+      "main": [
+        [
+          {
+            "node": "Aggregate2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "айди для отправки сообщения4": {
+      "main": [
+        [
+          {
+            "node": "отправка диспетчеру о доках",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "отправка диспетчеру о доках": {
+      "main": [
+        [
+          {
+            "node": "Aggregate4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Сообщение отправлено2": {
+      "main": [
+        [
+          {
+            "node": "возвращаем статус4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Разделение reply-кнопок или иного ввода": {
       "main": [
         [
@@ -2551,46 +2591,6 @@
         [
           {
             "node": "проверка статуса авторизации",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "есть авто?": {
-      "main": [
-        [
-          {
-            "node": "привязан авто?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "привязан авто?": {
-      "main": [
-        [
-          {
-            "node": "введите сообщение",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "нужен авто",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "введите сообщение": {
-      "main": [
-        [
-          {
-            "node": "статус=ввод сообщения диспетчеру",
             "type": "main",
             "index": 0
           }
@@ -8390,29 +8390,6 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
-        "text": "Вы отправили информацию о документах логистам и диспетчеру",
-        "additionalFields": {
-          "appendAttribution": false
-        }
-      },
-      "id": "8bb0662d-663b-407e-aba2-779e10f80c4c",
-      "name": "Сообщение отправлено2",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        1520,
-        7000
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
-        }
-      }
-    },
-    {
-      "parameters": {
         "rules": {
           "values": [
             {
@@ -8859,7 +8836,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.from.id }}",
         "text": "На данный момент нет назначенных перевозок!",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
@@ -10607,89 +10584,6 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $json.tg_id }}",
-        "text": "=Проблема с <b>документами</b> у водителя {{ $('данные сотрудника').item.json[\"display_name\"] }} <a href=\"tel:{{ $('данные сотрудника').item.json.mobile_phone }}\">{{ $('данные сотрудника').item.json.mobile_phone }}</a>(авто {{ $('номер авто').item.json[\"number_car\"] }}) на маршруте {{ $('получим перевозку').all()[0].json.route[1] }}:\n\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i>",
-        "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Перейти к диалогу",
-                    "additionalFields": {
-                      "url": "=tg://user?id={{ $('Execute Workflow Trigger').item.json.tg_id }}"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {
-          "appendAttribution": false,
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "df08fa70-8bcc-4840-ad23-c49cb956f59f",
-      "name": "отправка диспетчеру о доках",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        1160,
-        7000
-      ],
-      "alwaysOutputData": true,
-      "credentials": {
-        "telegramApi": {
-          "id": "nftGWLUPORFcfhZv",
-          "name": "dispatcher dev"
-        }
-      },
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "tg_users",
-          "mode": "list",
-          "cachedResultName": "tg_users"
-        },
-        "returnAll": true,
-        "where": {
-          "values": [
-            {
-              "column": "odoo_id",
-              "value": "={{ $json.id }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "c494cb4e-e592-4d72-8b3e-2d9cfa5615e2",
-      "name": "айди для отправки сообщения4",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.3,
-      "position": [
-        980,
-        7000
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "Q4ZHMkPf1vzJmsuw",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "fieldsToAggregate": {
           "fieldToAggregate": [
             {}
@@ -10705,48 +10599,6 @@
         1320,
         7000
       ]
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $json.tg_id }}",
-        "text": "=Проблема с <b>документами</b> у водителя {{ $('данные сотрудника').item.json[\"display_name\"] }} <a href=\"tel:{{ $('данные сотрудника').item.json.mobile_phone }}\">{{ $('данные сотрудника').item.json.mobile_phone }}</a>(авто {{ $('номер авто').item.json[\"number_car\"] }}) на маршруте {{ $('получим перевозку').all()[0].json.route[1] }}:\n\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i>",
-        "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Перейти к диалогу",
-                    "additionalFields": {
-                      "url": "=tg://user?id={{ $('Execute Workflow Trigger').item.json.tg_id }}"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {
-          "appendAttribution": false,
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "6ead5cbe-63ea-44af-9cba-33e912d1a933",
-      "name": "отправка логистам о доках",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        480,
-        6994
-      ],
-      "alwaysOutputData": true,
-      "credentials": {
-        "telegramApi": {
-          "id": "cg3DBo1aKun5qfRh",
-          "name": "Алексей dev"
-        }
-      }
     },
     {
       "parameters": {
@@ -10886,133 +10738,6 @@
       "position": [
         1480,
         6740
-      ]
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
-                    "rightValue": "Моя статистика",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "46700892-d6f7-4494-9b30-6e3a9344bc28",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
-                    "rightValue": "Приступить к работе",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "e9d1379d-cad3-4666-a782-5366de1a5ead",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
-                    "rightValue": "Срочно",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "41f0fd84-a2a8-4d16-8bd0-ea0e5824d5dc",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
-                    "rightValue": "Заявки на ТО",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "0d0a1a6d-fc12-4cdd-9ac1-c419d96eae91",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
-                    "rightValue": "Связь с диспетчером",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {
-          "fallbackOutput": "extra"
-        }
-      },
-      "id": "48333fe0-9561-43b6-a189-3e2b9b7efa93",
-      "name": "Разделение reply-кнопок или иного ввода",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        -1385,
-        1500
       ]
     },
     {
@@ -11360,15 +11085,292 @@
         -1156.2671359086814,
         1882.4789102420923
       ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.tg_id }}",
+        "text": "=Проблема с <b>документами</b> у водителя {{ $('данные сотрудника').item.json[\"display_name\"] }} <a href=\"tel:{{ $('данные сотрудника').item.json.mobile_phone }}\">{{ $('данные сотрудника').item.json.mobile_phone }}</a>(авто {{ $('номер авто').item.json[\"number_car\"] }}) на маршруте {{ $('получим перевозку').all()[0].json.route[1] }}:\n\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i>",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Перейти к диалогу",
+                    "additionalFields": {
+                      "url": "=tg://user?id={{ $('Execute Workflow Trigger').item.json.tg_id }}"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "6ead5cbe-63ea-44af-9cba-33e912d1a933",
+      "name": "отправка логистам о доках",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        480,
+        6994
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "odoo_id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c494cb4e-e592-4d72-8b3e-2d9cfa5615e2",
+      "name": "айди для отправки сообщения4",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        980,
+        7000
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.tg_id }}",
+        "text": "=Проблема с <b>документами</b> у водителя {{ $('данные сотрудника').item.json[\"display_name\"] }} <a href=\"tel:{{ $('данные сотрудника').item.json.mobile_phone }}\">{{ $('данные сотрудника').item.json.mobile_phone }}</a>(авто {{ $('номер авто').item.json[\"number_car\"] }}) на маршруте {{ $('получим перевозку').all()[0].json.route[1] }}:\n\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i>",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Перейти к диалогу",
+                    "additionalFields": {
+                      "url": "=tg://user?id={{ $('Execute Workflow Trigger').item.json.tg_id }}"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "df08fa70-8bcc-4840-ad23-c49cb956f59f",
+      "name": "отправка диспетчеру о доках",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        1160,
+        7000
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "telegramApi": {
+          "id": "nftGWLUPORFcfhZv",
+          "name": "dispatcher dev"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "text": "Вы отправили информацию о документах логистам и диспетчеру",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "8bb0662d-663b-407e-aba2-779e10f80c4c",
+      "name": "Сообщение отправлено2",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        1520,
+        7000
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
+                    "rightValue": "Моя статистика",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "46700892-d6f7-4494-9b30-6e3a9344bc28",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
+                    "rightValue": "Приступить к работе",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "e9d1379d-cad3-4666-a782-5366de1a5ead",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
+                    "rightValue": "Срочно",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "41f0fd84-a2a8-4d16-8bd0-ea0e5824d5dc",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
+                    "rightValue": "Заявки на ТО",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "0d0a1a6d-fc12-4cdd-9ac1-c419d96eae91",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
+                    "rightValue": "Связь с диспетчером",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "48333fe0-9561-43b6-a189-3e2b9b7efa93",
+      "name": "Разделение reply-кнопок или иного ввода",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -1385,
+        1500
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100622574,
+          "update_id": 100622846,
           "message": {
-            "message_id": 13998,
+            "message_id": 14469,
             "from": {
               "id": 700956969,
               "is_bot": false,
@@ -11382,12 +11384,12 @@
               "username": "Chronos196",
               "type": "private"
             },
-            "date": 1722586338,
-            "text": "5000"
+            "date": 1722851123,
+            "text": "Приступить к работе"
           },
           "tg_id": "700956969",
           "odoo_id": 2,
-          "status": "inputing_odometer",
+          "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
           "end_request_id": null,
@@ -11401,7 +11403,7 @@
           "transportation_for_certificate": null,
           "count_weight_photo": null,
           "count_weight_photo_sent": null,
-          "cookie": "session_id=c458b4e511ef02caf742d5a840adf60f1ff225f6; Expires=Sat, 02 Aug 2025 08:12:19 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=7ada72ab40b09ab752927fe996966327b18c56ad; Expires=Tue, 05 Aug 2025 09:45:23 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -11419,6 +11421,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-08-02T12:39:16.000Z",
-  "versionId": "86b7854b-c05a-4fc2-b12c-eba06d864bdd"
+  "updatedAt": "2024-08-05T09:56:31.000Z",
+  "versionId": "2e52af7f-78b8-4ed7-bbe3-202df908fce6"
 }
