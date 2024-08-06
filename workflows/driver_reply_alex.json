@@ -1910,17 +1910,6 @@
         ]
       ]
     },
-    "записываем объём материала": {
-      "main": [
-        [
-          {
-            "node": "поиск текущего авто1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "выполняющиеся рейсы1": {
       "main": [
         [
@@ -2020,12 +2009,12 @@
       "main": [
         [
           {
-            "node": "Распределение рейсов за последнюю неделю",
+            "node": "Подсчет прибыли за прошлые недели",
             "type": "main",
             "index": 0
           },
           {
-            "node": "Подсчет прибыли за прошлые недели",
+            "node": "Распределение рейсов за последнюю неделю",
             "type": "main",
             "index": 0
           }
@@ -2096,12 +2085,12 @@
       "main": [
         [
           {
-            "node": "Merge3",
+            "node": "Merge5",
             "type": "main",
             "index": 1
           },
           {
-            "node": "Merge5",
+            "node": "Merge3",
             "type": "main",
             "index": 1
           }
@@ -2142,6 +2131,17 @@
       ]
     },
     "Merge5": {
+      "main": [
+        [
+          {
+            "node": "Code6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code6": {
       "main": [
         [
           {
@@ -6431,7 +6431,7 @@
           "value": {
             "tg_id": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
             "status": "authorized",
-            "weight_measure": "={{ $('Execute Workflow Trigger').item.json.message.text }}"
+            "weight_measure": "={{ $('Execute Workflow Trigger').item.json.message.text }} {{ $('Execute Workflow Trigger').item.json.weight_measure}} "
           },
           "matchingColumns": [
             "tg_id"
@@ -6989,8 +6989,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -740,
-        120
+        -780,
+        140
       ]
     },
     {
@@ -9045,9 +9045,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        600,
+        720,
         300
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -9112,9 +9113,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        1120,
+        1340,
         280
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -9242,16 +9244,17 @@
     },
     {
       "parameters": {
-        "jsCode": "// Получение данных из предыдущего кубика\nconst input = $json[\"data\"];\n\nconst groupedData = input.reduce((acc, trip) => {\n  // Убедимся, что статус \"Завершен\"\n  if (trip.status !== \"Завершен\") {\n    return acc; // Игнорируем, если статус не \"Завершен\"\n  }\n\n  // Извлечение даты в формате YYYY-MM-DD\n  const date = trip.time_of_start ? trip.time_of_start.split(' ')[0] : new Date().toISOString().split('T')[0]; // Если time_of_start нет, берем текущую дату\n  const transportationId = trip.transportation[0];\n\n  // Инициализация структуры, если ее еще нет\n  if (!acc[date]) {\n    acc[date] = {};\n  }\n  if (!acc[date][transportationId]) {\n    acc[date][transportationId] = {\n      count: 0,\n      totalEarnings: 0,\n      transportationId: transportationId\n    };\n  }\n\n  // Обновление данных\n  acc[date][transportationId].count += 1;\n  acc[date][transportationId].totalEarnings += trip.price;\n\n  return acc;\n}, {});\n\n// Преобразование данных в удобный формат для вывода\nconst output = [];\n\nfor (const date in groupedData) {\n  for (const transportationId in groupedData[date]) {\n    output.push({\n      date: date,\n      transportationId: groupedData[date][transportationId].transportationId,\n      count: groupedData[date][transportationId].count,\n      totalEarnings: groupedData[date][transportationId].totalEarnings\n    });\n  }\n}\n\nreturn output;\n"
+        "jsCode": "// Получение данных из предыдущего кубика\nconst input = $json[\"data\"];\n\nconst groupedData = input.reduce((acc, trip) => {\n  // Убедимся, что статус \"Завершен\"\n  if (trip.status !== \"Завершен\") {\n    return acc; // Игнорируем, если статус не \"Завершен\"\n  }\n\n  const transportationId = trip.transportation[0];\n\n  // Инициализация структуры, если ее еще нет\n  if (!acc[transportationId]) {\n    acc[transportationId] = {\n      count: 0,\n      totalEarnings: 0\n    };\n  }\n\n  // Обновление данных\n  acc[transportationId].count += 1;\n  acc[transportationId].totalEarnings += trip.contractor_rate; // Добавляем ставку каждого рейса\n\n  return acc;\n}, {});\n\n// Преобразование данных в удобный формат для вывода\nconst output = [];\n\nfor (const transportationId in groupedData) {\n  const transportationData = groupedData[transportationId];\n  output.push({\n    transportationId: parseInt(transportationId, 10),\n    count: transportationData.count,\n    totalEarnings: transportationData.totalEarnings\n  });\n}\n\nreturn output;\n"
       },
       "id": "1c55efc2-6c6e-4b4c-80d0-775963a28f54",
       "name": "Разбиение рейсов по перевозкам",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        280,
+        560,
         220
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -9262,9 +9265,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        840,
+        1060,
         200
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -9275,9 +9279,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        860,
+        1080,
         400
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -9293,7 +9298,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        1280,
+        1500,
         280
       ],
       "credentials": {
@@ -9301,7 +9306,8 @@
           "id": "ThC2kf8ZCBAO0FBa",
           "name": "Main Everest"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -9317,15 +9323,41 @@
         80,
         220
       ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Получение данных из предыдущего кубика\nconst input = $json[\"data\"];\n\n// Функция для определения текущей недели и трех предыдущих\nconst currentDate = new Date();\nconst getWeekStart = (date, offsetWeeks = 0) => {\n    const startDate = new Date(date);\n    startDate.setDate(startDate.getDate() - startDate.getDay() + 1 - (offsetWeeks * 7));\n    startDate.setHours(0, 0, 0, 0);\n    return startDate;\n};\n\nconst weeks = [];\nfor (let i = 1; i <= 3; i++) {\n    weeks.push(getWeekStart(currentDate, i));\n}\n\n// Функция для определения к какой неделе относится дата\nfunction getWeek(date) {\n    const current = new Date(date);\n    for (let i = 0; i < weeks.length; i++) {\n        if (current >= weeks[i]) {\n            return i;\n        }\n    }\n    return weeks.length; // Дата за пределами рассматриваемого диапазона\n}\n\n// Инициализация переменной для хранения данных о рейсах по неделям\nconst transportationsByWeek = {};\n\nconst groupedData = input.reduce((acc, trip) => {\n  // Убедимся, что статус \"Завершен\"\n  if (trip.status !== \"Завершен\") {\n    return acc; // Игнорируем, если статус не \"Завершен\"\n  }\n\n  // Извлечение даты в формате YYYY-MM-DD\n  const date = trip.time_of_start ? trip.time_of_start.split(' ')[0] : new Date().toISOString().split('T')[0]; // Если time_of_start нет, берем текущую дату\n  const transportationId = trip.transportation[0];\n  const contractorRate = trip.contractor_rate;\n\n  // Определяем неделю, к которой относится дата\n  const weekIndex = getWeek(date);\n\n  // Если рейс попадает в диапазон последних трех недель\n  if (weekIndex < weeks.length) {\n    if (!acc[weekIndex]) {\n      acc[weekIndex] = {};\n    }\n    if (!acc[weekIndex][transportationId]) {\n      acc[weekIndex][transportationId] = {\n        count: 0,\n        totalEarnings: 0,\n        transportationId: transportationId\n      };\n    }\n\n    // Обновление данных\n    acc[weekIndex][transportationId].count += 1;\n    acc[weekIndex][transportationId].totalEarnings += contractorRate;\n  }\n\n  return acc;\n}, {});\n\n// Преобразование данных в удобный формат для вывода\nconst output = [];\n\nfor (const weekIndex in groupedData) {\n  for (const transportationId in groupedData[weekIndex]) {\n    output.push({\n      week: weekIndex,\n      transportationId: groupedData[weekIndex][transportationId].transportationId,\n      count: groupedData[weekIndex][transportationId].count,\n      totalEarnings: groupedData[weekIndex][transportationId].totalEarnings\n    });\n  }\n}\n\n// Формирование вывода\nfunction generateOutput(transportationsByWeek) {\n    const weekNames = ['Прошлая неделя', '2 недели назад', '3 недели назад'];\n    let output = '';\n\n    for (let weekIndex = 0; weekIndex < weekNames.length; weekIndex++) {\n        output += `<b>${weekNames[weekIndex]}:</b>\\n`;\n\n        if (transportationsByWeek[weekIndex]) {\n            for (const transportationId in transportationsByWeek[weekIndex]) {\n                const { count, totalEarnings } = transportationsByWeek[weekIndex][transportationId];\n                output += `ID Транспортировки: ${transportationId}\\nКоличество рейсов: ${count}\\nСумма заработка: ${totalEarnings}\\n\\n`;\n            }\n        } else {\n            output += \"Сегодня не было выполненных рейсов\\n\";\n        }\n\n        output += '\\n';\n    }\n\n    return output;\n}\n\n// Получение результата и создание выходного объекта\nconst result = generateOutput(groupedData);\n\n// Возвращаем результат\nreturn [{ json: { output: result } }];\n"
+      },
+      "id": "216b7cd4-ba24-4286-b08f-ccdd2def4b4e",
+      "name": "Code5",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        540,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Получение данных из предыдущего кубика\nconst input = $json[\"data\"];\n\n// Получаем данные из предыдущего узла\nconst previousData = $input.all();\nconst mainData = previousData.slice(0, -1); // Основные записи (без массива маршрутов)\nconst routesData = previousData[previousData.length - 1].json.data; // Массив маршрутов\n\n// Создаем словарь для маршрутов\nconst routesDict = {};\nfor (const route of routesData) {\n    if (Array.isArray(route.route) && route.route.length > 1) {\n        routesDict[route.id] = route.route[1]; // id -> название маршрута\n    } else {\n        routesDict[route.id] = \"Неизвестный маршрут\"; // Назначаем значение по умолчанию\n    }\n}\n\n// Получаем текущую дату и вычисляем дату понедельника этой недели\nconst today = new Date();\nconst dayOfWeek = today.getDay();\nconst monday = new Date(today);\nmonday.setDate(today.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));\n\n// Список всех дней недели\nconst daysOfWeek = {};\nfor (let i = 0; i < 7; i++) {\n    const date = new Date(monday);\n    date.setDate(monday.getDate() + i);\n    const dateString = date.toISOString().split('T')[0];\n    daysOfWeek[dateString] = { \n        route: null, \n        count: 0, \n        totalEarnings: 0,\n        isPast: date <= today \n    };\n}\n\n// Заполняем данными за текущую неделю\nfor (const record of mainData) {\n    const date = record.json.date;\n    const transportationId = record.json.transportationId;\n\n    if (daysOfWeek[date]) {\n        const routeName = routesDict[transportationId] || \"Неизвестный маршрут\";\n        daysOfWeek[date] = {\n            route: routeName,\n            count: (daysOfWeek[date].count || 0) + (record.json.count || 0),\n            totalEarnings: (daysOfWeek[date].totalEarnings || 0) + (record.json.totalEarnings || 0),\n            isPast: new Date(date) <= today \n        };\n    }\n}\n\n// Форматирование сообщения для HTML\nconst formattedMessages = [];\nfor (const [date, data] of Object.entries(daysOfWeek)) {\n    const formattedDate = date;\n    if (data.isPast) {\n        if (data.route) {\n            const message = `<b>${formattedDate}</b>\\n<b>Маршрут:</b> ${data.route}\\n<b>Количество рейсов:</b> ${data.count}\\n<b>Общий доход:</b> ${data.totalEarnings} руб.\\n`;\n            formattedMessages.push(message);\n        } else {\n            const message = `<b>${formattedDate}</b>\\nНет данных за этот день\\n`;\n            formattedMessages.push(message);\n        }\n    }\n}\n\n// Получаем входные данные из предыдущего кубика\nconst inputData = items.map(item => item.json);\n\n// Функция для получения начала недели (понедельник) для заданной даты\nfunction startOfWeek(date) {\n    const result = new Date(date);\n    const day = result.getUTCDay();\n    const diff = result.getUTCDate() - day + (day === 0 ? -6 : 1);\n    result.setUTCDate(diff);\n    result.setUTCHours(0, 0, 0, 0);\n    return result;\n}\n\n// Текущая дата и начало текущей недели\nconst currentDate = new Date(\"2024-07-31T00:00:00.000Z\");\nconst currentWeekStart = startOfWeek(currentDate);\n\n// Определяем начало недели для последних 3 недель\nconst weeks = [1, 2, 3].map(i => {\n    const date = new Date(currentWeekStart);\n    date.setUTCDate(currentWeekStart.getUTCDate() - (i * 7));\n    return date;\n});\n\n// Инициализируем словари для хранения количества рейсов и заработка по неделям\nconst weeklyCounts = {};\nconst weeklyEarnings = {};\nweeks.forEach(week => {\n    const key = week.toISOString().split('T')[0];\n    weeklyCounts[key] = 0; // Инициализируем количество рейсов\n    weeklyEarnings[key] = 0; // Инициализируем заработок\n});\n\n// Обрабатываем данные рейсов\ninputData.forEach(trip => {\n    const tripDate = new Date(trip.date);\n    if (isNaN(tripDate)) {\n        return; // Пропускаем некорректные даты\n    }\n\n    const tripWeekStart = startOfWeek(tripDate);\n    const tripWeekKey = tripWeekStart.toISOString().split('T')[0];\n    \n    if (tripWeekKey in weeklyCounts) {\n        weeklyCounts[tripWeekKey] += (trip.count || 0);\n        weeklyEarnings[tripWeekKey] += (trip.totalEarnings || 0);\n    }\n});\n\n// Формируем результаты для Telegram в формате HTML\nlet message = \"<b>Отчет за последние 3 недели:</b>\\n\\n\";\nweeks.forEach(week => {\n    const weekKey = week.toISOString().split('T')[0];\n    const start = week.toLocaleDateString('ru-RU', { year: 'numeric', month: 'numeric', day: 'numeric' });\n    \n    const end = new Date(week);\n    end.setDate(end.getDate() + 6);\n    const endDate = end.toLocaleDateString('ru-RU', { year: 'numeric', month: 'numeric', day: 'numeric' });\n\n    message += `<b>Неделя:</b> ${start} - ${endDate}\\n`;\n    message += `<b>Заработок:</b> ${weeklyEarnings[weekKey]}₽\\n\\n`;\n});\n\n// Объединяем сообщения в один текст\nconst finalMessage = formattedMessages.join('\\n') + message;\n\n// Возвращаем отформатированное сообщение\nreturn [{ json: { message: finalMessage } }];\n"
+      },
+      "id": "33f35444-283b-4831-8e86-0bbd9173e2df",
+      "name": "Code6",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        300,
+        220
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 547393161,
+          "update_id": 547393298,
           "message": {
-            "message_id": 6300,
+            "message_id": 6449,
             "from": {
               "id": 799934256,
               "is_bot": false,
@@ -9339,7 +9371,7 @@
               "username": "saniochek_22",
               "type": "private"
             },
-            "date": 1722589667,
+            "date": 1722929269,
             "text": "Моя статистика"
           },
           "tg_id": "799934256",
@@ -9352,13 +9384,13 @@
           "end_request_hours": null,
           "car_id_while_inputing": 20,
           "fuel_liters": null,
-          "weight_measure": "60",
+          "weight_measure": "98 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
           "count_weight_photo": null,
           "count_weight_photo_sent": null,
-          "cookie": "session_id=012b0f1451b444ccb719f6092288a81afade4a99; Expires=Sat, 02 Aug 2025 09:07:47 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=24c01533a7c15847338d7b9e5679ed3d14e7edf6; Expires=Wed, 06 Aug 2025 07:27:50 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -9376,6 +9408,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-08-02T12:47:34.000Z",
-  "versionId": "fae14c95-df33-48ec-8195-fc2b9ff1955e"
+  "updatedAt": "2024-08-06T08:17:46.000Z",
+  "versionId": "ba5ec546-a723-44d4-9121-9fe84845103d"
 }
