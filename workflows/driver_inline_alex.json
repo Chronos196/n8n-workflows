@@ -2478,52 +2478,6 @@
         ]
       ]
     },
-    "кнопки принятия и завершения заказа": {
-      "main": [
-        [
-          {
-            "node": "начатый рейс",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "получаем odoo id2",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "поиск текущего авто",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "ищем автомобиль с таким же сотрудником2",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Проверка перевозки(кубометры)",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "кнопки меню ТО",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "ТТН и весовые в конце смены": {
       "main": [
         [
@@ -2831,24 +2785,6 @@
         ]
       ]
     },
-    "проверяем м3 или тонны": {
-      "main": [
-        [
-          {
-            "node": "убираем \"м3\"",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "убираем \"Тонны\"",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "убираем \"м3\"": {
       "main": [
         [
@@ -2887,6 +2823,70 @@
         [
           {
             "node": "находим какая сейчас перевозка",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "кнопки принятия и завершения заказа": {
+      "main": [
+        [
+          {
+            "node": "начатый рейс",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "получаем odoo id2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "поиск текущего авто",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ищем автомобиль с таким же сотрудником2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Проверка перевозки(кубометры)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "кнопки меню ТО",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверяем м3 или тонны": {
+      "main": [
+        [
+          {
+            "node": "убираем \"м3\"",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "убираем \"Тонны\"",
             "type": "main",
             "index": 0
           }
@@ -7418,7 +7418,7 @@
     {
       "parameters": {
         "operation": "editMessageText",
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
         "replyMarkup": "inlineKeyboard",
         "text": "Отправить фотографию весовой справки? ",
@@ -12219,7 +12219,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"number_car\": {{'\"'+ $json.number_car +'\"'}}\n}",
+        "jsonBody": "={\n  \"number_car\": {{'\"'+ $json.number_car +'\"'}},\n  \"driver_id\": {{ $('Execute Workflow Trigger').item.json.odoo_id }}\n} ",
         "options": {}
       },
       "id": "052f2a54-7d53-4d22-95cf-ea4a6b117bae",
@@ -13394,7 +13394,7 @@
       "typeVersion": 1.1,
       "position": [
         2840,
-        3375
+        3380
       ],
       "credentials": {
         "telegramApi": {
@@ -14644,133 +14644,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "pick",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "ab29fac3-d8a1-4277-9aac-c46a8ca3e960",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "final",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "1fb76a2e-1b73-4555-8e9c-fb47193d2c4b",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "Finish",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "e7143341-d29c-49ad-8647-8595445df788",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "accept",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "3a3f51d5-25e1-4bec-a3eb-9615ed6e6ce3",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "check_final",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {
-          "fallbackOutput": "extra"
-        }
-      },
-      "id": "da7d133b-b25d-414d-8d3e-0694cb8d3c76",
-      "name": "кнопки принятия и завершения заказа",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        -1380,
-        1060
-      ]
-    },
-    {
-      "parameters": {
         "operation": "editMessageText",
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
@@ -15990,64 +15863,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.weight_measure }}",
-                    "rightValue": "м3",
-                    "operator": {
-                      "type": "string",
-                      "operation": "contains"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "39846e7b-2c8a-476b-b750-592c68d5434c",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.weight_measure }}",
-                    "rightValue": "Тонны",
-                    "operator": {
-                      "type": "string",
-                      "operation": "contains"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "86998d92-e7da-4675-a186-1b9fb59dbdef",
-      "name": "проверяем м3 или тонны",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        -380,
-        740
-      ]
-    },
-    {
-      "parameters": {
         "assignments": {
           "assignments": [
             {
@@ -16118,7 +15933,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"number_car\": {{'\"'+ $('находим машину по odoo id2').item.json.number_car +'\"'}},\n  {{ $json.weight }}\n}",
+        "jsonBody": "={\n  \"number_car\": {{'\"'+ $('находим машину по odoo id2').item.json.number_car +'\"'}},\n  {{ $json.weight }}\n} ",
         "options": {}
       },
       "id": "b7337b8b-b01e-4f5b-99f5-548ad245ea13",
@@ -16127,6 +15942,191 @@
       "typeVersion": 4.1,
       "position": [
         200,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "pick",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "ab29fac3-d8a1-4277-9aac-c46a8ca3e960",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "final",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "1fb76a2e-1b73-4555-8e9c-fb47193d2c4b",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "Finish",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "e7143341-d29c-49ad-8647-8595445df788",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "accept",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "3a3f51d5-25e1-4bec-a3eb-9615ed6e6ce3",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "check_final",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "da7d133b-b25d-414d-8d3e-0694cb8d3c76",
+      "name": "кнопки принятия и завершения заказа",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -1380,
+        1060
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.weight_measure }}",
+                    "rightValue": "м3",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "39846e7b-2c8a-476b-b750-592c68d5434c",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.weight_measure }}",
+                    "rightValue": "Тонны",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "86998d92-e7da-4675-a186-1b9fb59dbdef",
+      "name": "проверяем м3 или тонны",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -380,
         740
       ]
     }
@@ -16145,6 +16145,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-08-02T13:22:54.000Z",
-  "versionId": "0eb71152-30de-4762-9f79-d0b9e558fde0"
+  "updatedAt": "2024-08-05T13:51:11.000Z",
+  "versionId": "307d5209-ce10-49e3-8cb8-cd7cd690d061"
 }
