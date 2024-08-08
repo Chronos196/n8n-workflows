@@ -14672,8 +14672,7 @@
       "position": [
         1480,
         14140
-      ],
-      "disabled": true
+      ]
     },
     {
       "parameters": {
@@ -15205,7 +15204,7 @@
     },
     {
       "parameters": {
-        "jsCode": "let combinedMessage = \"\";\n\nfor (const item of $input.all()) {\n  const transportation = item.json;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.route[1];\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n\n  let message = `Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <b>${comment}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nОстаток кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n\n  message += \"\\n\\n\";\n\n  combinedMessage = message.trim();\n}\n\nreturn [{ json: { combinedMessage: combinedMessage } }];"
+        "jsCode": "let combinedMessage = \"\";\n\nfor (const item of $input.all()) {\n  const transportation = item.json;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.route[1];\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n  const round_quantity_for_car= transportation.round_quantity_for_car;\n  const required_ton= transportation.required_ton;\n\n  let message = `Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <b>${comment}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nОстаток кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n    \n  if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n  }\n\n  message += \"\\n\\n\";\n\n  combinedMessage = message.trim();\n}\n\nreturn [{ json: { combinedMessage: combinedMessage } }];"
       },
       "id": "ab699ef9-fc0d-4ac9-b412-1c795aab6432",
       "name": "Code",
@@ -16720,7 +16719,7 @@
     },
     {
       "parameters": {
-        "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const transportation = item.json.transportations;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.route[1];\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n  const round_quantity_for_car= transportation.round_quantity_for_car;\n\n  let message = `<b>${index}.</b> Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <i>${comment}</i>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n  \n  if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n  }\n\n  if (index === 1) {\n    message = `<i><b>${index}. Отправитель - ${sender}\\nПолучатель - ${partner}\\nМаршрут - ${route}\\nМатериал - ${material}`;\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    if (endCondition === \"По перевезенным кубометрам\") {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n    if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n    }\n    message += `</b></i>\\n\\n`;\n  } else {\n    message += `\\n\\n`;\n  }\n\n  combinedMessages += message;\n\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
+        "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const transportation = item.json.transportations;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.route[1];\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n  const round_quantity_for_car= transportation.round_quantity_for_car;\n  const required_ton= transportation.required_ton;\n\n  let message = `<b>${index}.</b> Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <i>${comment}</i>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n  \n  if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n  }\n\n  if (index === 1) {\n    message = `<i><b>${index}. Отправитель - ${sender}\\nПолучатель - ${partner}\\nМаршрут - ${route}\\nМатериал - ${material}`;\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    if (endCondition === \"По перевезенным кубометрам\") {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n    if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n    }\n    if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n    }\n    message += `</b></i>\\n\\n`;\n  } else {\n    message += `\\n\\n`;\n  }\n\n  combinedMessages += message;\n\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
       },
       "id": "3c2f8c07-7a40-4820-a0be-312fc853e859",
       "name": "Code1",
@@ -17004,9 +17003,9 @@
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100622829,
+          "update_id": 100623467,
           "callback_query": {
-            "id": "3010587259495620080",
+            "id": "3010587258786914976",
             "from": {
               "id": 700956969,
               "is_bot": false,
@@ -17015,7 +17014,7 @@
               "language_code": "ru"
             },
             "message": {
-              "message_id": 14446,
+              "message_id": 15198,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -17028,39 +17027,139 @@
                 "username": "Chronos196",
                 "type": "private"
               },
-              "date": 1722848946,
-              "text": "Дорогой водитель, с чем у вас возникла проблема?",
+              "date": 1723105645,
+              "text": "Документы на автомобиль:\n\n✅ Документ страховка действует бессрочно\n\n❗ 0 дней назад истёк срок действия документа лицензия (был действителен до 08.08.2024)\n\n⚠️ Через 12 дней истекает срок действия документа Государственный тех.осмотр (действителен до 20.08.2024)\n\nНайдены заявки на техобслуживание:\n\n01.08.2024 15:03 - текст для диспетчера\n01.08.2024 15:05 - 123\n02.08.2024 11:43 - 123\n02.08.2024 11:45 - 123\n02.08.2024 11:46 - 123\n02.08.2024 11:47 - 123\n05.08.2024 08:44 - 123\n05.08.2024 09:03 - 333\n05.08.2024 12:01 - текст 123\n06.08.2024 13:06 - текст\n08.08.2024 06:06 - тест\n\nПожалуйста, проведите осмотр авто перед началом работы!\n\nАвтомобиль: SCANIA\nНомер: А 459 ТЕ\nПробег: 5000 км\n______________________\n⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n\nДо замены масла осталось 605000 км.",
+              "entities": [
+                {
+                  "offset": 0,
+                  "length": 24,
+                  "type": "bold"
+                },
+                {
+                  "offset": 37,
+                  "length": 9,
+                  "type": "bold"
+                },
+                {
+                  "offset": 113,
+                  "length": 8,
+                  "type": "bold"
+                },
+                {
+                  "offset": 206,
+                  "length": 26,
+                  "type": "bold"
+                },
+                {
+                  "offset": 263,
+                  "length": 34,
+                  "type": "bold"
+                },
+                {
+                  "offset": 318,
+                  "length": 20,
+                  "type": "bold"
+                },
+                {
+                  "offset": 358,
+                  "length": 3,
+                  "type": "bold"
+                },
+                {
+                  "offset": 381,
+                  "length": 3,
+                  "type": "bold"
+                },
+                {
+                  "offset": 404,
+                  "length": 3,
+                  "type": "bold"
+                },
+                {
+                  "offset": 427,
+                  "length": 3,
+                  "type": "bold"
+                },
+                {
+                  "offset": 450,
+                  "length": 3,
+                  "type": "bold"
+                },
+                {
+                  "offset": 473,
+                  "length": 3,
+                  "type": "bold"
+                },
+                {
+                  "offset": 496,
+                  "length": 3,
+                  "type": "bold"
+                },
+                {
+                  "offset": 519,
+                  "length": 9,
+                  "type": "bold"
+                },
+                {
+                  "offset": 548,
+                  "length": 5,
+                  "type": "bold"
+                },
+                {
+                  "offset": 573,
+                  "length": 4,
+                  "type": "bold"
+                },
+                {
+                  "offset": 579,
+                  "length": 55,
+                  "type": "bold"
+                },
+                {
+                  "offset": 648,
+                  "length": 6,
+                  "type": "bold"
+                },
+                {
+                  "offset": 662,
+                  "length": 8,
+                  "type": "bold"
+                },
+                {
+                  "offset": 679,
+                  "length": 7,
+                  "type": "bold"
+                },
+                {
+                  "offset": 710,
+                  "length": 98,
+                  "type": "bold"
+                },
+                {
+                  "offset": 809,
+                  "length": 35,
+                  "type": "bold"
+                }
+              ],
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "С Автомобилем",
-                      "callback_data": "warn_problem_auto"
+                      "text": "✅Всё в норме.",
+                      "callback_data": "menu_ok"
                     }
                   ],
                   [
                     {
-                      "text": "С Маршрутом",
-                      "callback_data": "warn_problem_route"
-                    }
-                  ],
-                  [
-                    {
-                      "text": "С Документами",
-                      "callback_data": "warn_problem_document"
-                    }
-                  ],
-                  [
-                    {
-                      "text": "Назад",
-                      "callback_data": "warn_back_to_menu"
+                      "text": "❌Есть неисправности",
+                      "callback_data": "menu_wrong"
                     }
                   ]
                 ]
               }
             },
             "chat_instance": "1908726007480408494",
-            "data": "warn_problem_route"
+            "data": "menu_ok"
           },
           "tg_id": "700956969",
           "odoo_id": 2,
@@ -17072,13 +17171,13 @@
           "end_request_hours": null,
           "car_id_while_inputing": 18,
           "fuel_liters": null,
-          "weight_measure": null,
+          "weight_measure": "10 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
           "count_weight_photo": null,
           "count_weight_photo_sent": null,
-          "cookie": "session_id=aa88937fbcb0b84fc5ae231aea19429034a9594a; Expires=Tue, 05 Aug 2025 09:09:08 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=fee61f25cfa0c18a4b1a829074889f6f1e5c040a; Expires=Fri, 08 Aug 2025 08:27:27 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -17096,6 +17195,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-08-05T09:11:22.000Z",
-  "versionId": "c1899092-a6c3-4236-beec-45c603b2ae07"
+  "updatedAt": "2024-08-08T08:29:37.000Z",
+  "versionId": "746c115e-39f3-4157-988c-52c756b9ddf3"
 }
