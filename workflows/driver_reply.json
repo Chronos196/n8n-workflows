@@ -63,11 +63,6 @@
         ]
       ]
     },
-    "ввод одометра": {
-      "main": [
-        []
-      ]
-    },
     "получаем данные автомобиля1": {
       "main": [
         [
@@ -2218,24 +2213,6 @@
         ]
       ]
     },
-    "Switch": {
-      "main": [
-        [
-          {
-            "node": "находим перевозки по рейсам",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "находим перевозки по рейсам1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "поиск логистов2": {
       "main": [
         [
@@ -2664,17 +2641,6 @@
         ]
       ]
     },
-    "сообщение диспетчеру": {
-      "main": [
-        [
-          {
-            "node": "Aggregate5",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "убираем кнопку назад4": {
       "main": [
         [
@@ -2691,6 +2657,42 @@
         [
           {
             "node": "статус ввода одометра",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "сообщение диспетчеру": {
+      "main": [
+        [
+          {
+            "node": "Aggregate5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "находим перевозки по рейсам",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "находим перевозки по рейсам1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Рейсы не найдены",
             "type": "main",
             "index": 0
           }
@@ -8843,7 +8845,7 @@
     },
     {
       "parameters": {
-        "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const transportation = item.json;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.route[1];\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n\n  let message = `<b>${index}.</b> Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <i>${comment}</i>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nОстаток кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n\n  if (index === 1) {\n    message = `<i><b>${index}. Отправитель - ${sender}\\nПолучатель - ${partner}\\nМаршрут - ${route}\\nМатериал - ${material}`;\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    if (endCondition === \"По перевезенным кубометрам\") {\n      message += `\\nОстаток кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n    message += `</b></i>\\n\\n`;\n  } else {\n    message += `\\n\\n`;\n  }\n\n  combinedMessages += message;\n\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];"
+        "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const transportation = item.json;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.route[1];\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n  const round_quantity_for_car= transportation.round_quantity_for_car;\n  const required_ton= transportation.required_ton;\n\n  let message = `<b>${index}.</b> Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <i>${comment}</i>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n  \n  if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n  }\n\n  if (index === 1) {\n    message = `<i><b>${index}. Отправитель - ${sender}\\nПолучатель - ${partner}\\nМаршрут - ${route}\\nМатериал - ${material}`;\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    if (endCondition === \"По перевезенным кубометрам\") {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n    if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n    }\n    if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n    }\n    message += `</b></i>\\n\\n`;\n  } else {\n    message += `\\n\\n`;\n  }\n\n  combinedMessages += message;\n\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
       },
       "id": "43e7c820-9fe0-4f61-bae5-618c3f51316a",
       "name": "Code1",
@@ -8955,7 +8957,7 @@
     },
     {
       "parameters": {
-        "jsCode": "let combinedMessage = \"\";\n\nfor (const item of $input.all()) {\n  const transportation = item.json;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.route[1];\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n\n  let message = `Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <b>${comment}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nОстаток кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n\n  message += \"\\n\\n\";\n\n  combinedMessage = message.trim();\n}\n\nreturn [{ json: { combinedMessage: combinedMessage } }];"
+        "jsCode": "let combinedMessage = \"\";\n\nfor (const item of $input.all()) {\n  const transportation = item.json;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.route[1];\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n  const round_quantity_for_car= transportation.round_quantity_for_car;\n  const required_ton= transportation.required_ton;\n\n  let message = `Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <b>${comment}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nОстаток кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n    \n  if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n  }\n\n  message += \"\\n\\n\";\n\n  combinedMessage = message.trim();\n}\n\nreturn [{ json: { combinedMessage: combinedMessage } }];"
       },
       "id": "01bed64b-dbe6-4d58-883a-205be1098791",
       "name": "Code2",
@@ -8968,7 +8970,7 @@
     },
     {
       "parameters": {
-        "jsCode": "let combinedMessage = \"\";\n\nfor (const item of $input.all()) {\n  const transportation = item.json;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.route[1];\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n\n  let message = `Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <b>${comment}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nОстаток кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n\n  message += \"\\n\\n\";\n\n  combinedMessage = message.trim();\n}\n\nreturn [{ json: { combinedMessage: combinedMessage } }];"
+        "jsCode": "let combinedMessage = \"\";\n\nfor (const item of $input.all()) {\n  const transportation = item.json;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.route[1];\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n  const round_quantity_for_car= transportation.round_quantity_for_car;\n  const required_ton= transportation.required_ton;\n\n  let message = `Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <b>${comment}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nОстаток кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n    \n  if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n  }\n\n  message += \"\\n\\n\";\n\n  combinedMessage = message.trim();\n}\n\nreturn [{ json: { combinedMessage: combinedMessage } }];"
       },
       "id": "0088d925-335f-48e5-af7d-d78eee4da45a",
       "name": "Code3",
@@ -10188,65 +10190,6 @@
           "name": "Алексей dev"
         }
       }
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "Выполняется",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "8f16fd18-1271-49f2-a3b2-81e9f3ef31f4",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "Назначен",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "7b1198f4-2e6b-4676-904f-6151aefcf92a",
-      "name": "Switch",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        2285,
-        1158
-      ]
     },
     {
       "parameters": {
@@ -11694,47 +11637,6 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $json.tg_id }}",
-        "text": "=Сообщение от водителя автомобиля {{ $('номер авто1').item.json.number_car }}, {{ $('данные сотрудника1').item.json.name }}, <a href=\"tel:{{ $('данные сотрудника1').item.json.mobile_phone }} \">{{ $('данные сотрудника1').item.json.mobile_phone }}</a>:\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i>",
-        "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Ответить на сообщение",
-                    "additionalFields": {
-                      "callback_data": "=answer_to_not_urgent_{{ $('Execute Workflow Trigger').item.json.message.chat.id }}"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {
-          "appendAttribution": false,
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "a7719c4c-39c0-4d88-a644-10839c4aa358",
-      "name": "сообщение диспетчеру",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        -620,
-        7060
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "nftGWLUPORFcfhZv",
-          "name": "dispatcher dev"
-        }
-      }
-    },
-    {
-      "parameters": {
         "operation": "update",
         "schema": {
           "__rl": true,
@@ -11854,49 +11756,175 @@
           "name": "Postgres account"
         }
       }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.tg_id }}",
+        "text": "=Сообщение от водителя автомобиля {{ $('номер авто1').item.json.number_car }}, {{ $('данные сотрудника1').item.json.name }}, <a href=\"tel:{{ $('данные сотрудника1').item.json.mobile_phone }} \">{{ $('данные сотрудника1').item.json.mobile_phone }}</a>:\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i>",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Ответить на сообщение",
+                    "additionalFields": {
+                      "callback_data": "=answer_to_not_urgent_{{ $('Execute Workflow Trigger').item.json.message.chat.id }}"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "a7719c4c-39c0-4d88-a644-10839c4aa358",
+      "name": "сообщение диспетчеру",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -620,
+        7060
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "nftGWLUPORFcfhZv",
+          "name": "dispatcher dev"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "Выполняется",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "8f16fd18-1271-49f2-a3b2-81e9f3ef31f4",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "Назначен",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "7b1198f4-2e6b-4676-904f-6151aefcf92a",
+      "name": "Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        2285,
+        1158
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "text": "=Нет доступных перевозок/рейсов",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "2fa7f57d-b9ad-42ef-8202-0fde40bf4f6c",
+      "name": "Рейсы не найдены",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2420,
+        1500
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100622974,
+          "update_id": 100623338,
           "message": {
-            "message_id": 14661,
+            "message_id": 15038,
             "from": {
-              "id": 467549384,
+              "id": 700956969,
               "is_bot": false,
-              "first_name": "Sergio",
-              "username": "sergo_kf",
-              "language_code": "ru",
-              "is_premium": true
+              "first_name": "Алексей",
+              "username": "Chronos196",
+              "language_code": "ru"
             },
             "chat": {
-              "id": 467549384,
-              "first_name": "Sergio",
-              "username": "sergo_kf",
+              "id": 700956969,
+              "first_name": "Алексей",
+              "username": "Chronos196",
               "type": "private"
             },
-            "date": 1722931825,
-            "text": "а777аа"
+            "date": 1723038493,
+            "text": "Приступить к работе"
           },
-          "tg_id": "467549384",
-          "odoo_id": 4,
-          "status": "inputing_car_number",
+          "tg_id": "700956969",
+          "odoo_id": 2,
+          "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
           "end_request_id": null,
           "materials_photo": false,
           "end_request_hours": null,
-          "car_id_while_inputing": 28,
-          "fuel_liters": 200,
-          "weight_measure": "50 м3 ",
+          "car_id_while_inputing": 18,
+          "fuel_liters": null,
+          "weight_measure": null,
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
-          "count_weight_photo": 2,
-          "count_weight_photo_sent": 0,
-          "cookie": "session_id=05a1a66fe643b8728b67e03fdffeabd741de75b1; Expires=Wed, 06 Aug 2025 08:10:26 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "count_weight_photo": null,
+          "count_weight_photo_sent": null,
+          "cookie": "session_id=115fd46ed4241f2996a1ac736c0cd11844759937; Expires=Thu, 07 Aug 2025 13:48:13 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -11914,6 +11942,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-08-06T08:12:26.000Z",
-  "versionId": "49014810-5191-445a-b89c-e46ec47aa96e"
+  "updatedAt": "2024-08-07T13:53:30.000Z",
+  "versionId": "818868a7-1b10-4c80-8e56-3d1575872edf"
 }
