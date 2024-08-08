@@ -1,49 +1,22 @@
 {
   "active": false,
   "connections": {
-    "Telegram Trigger": {
+    "Webhook2": {
       "main": [
         [
           {
-            "node": "Telegram",
+            "node": "Telegram2",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Telegram": {
+    "Webhook1": {
       "main": [
         [
           {
-            "node": "Extract from File",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Split Out": {
-      "main": [
-        []
-      ]
-    },
-    "авторизация": {
-      "main": [
-        [
-          {
-            "node": "загрузка весовой в рейс",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Extract from File": {
-      "main": [
-        [
-          {
-            "node": "авторизация",
+            "node": "Telegram1",
             "type": "main",
             "index": 0
           }
@@ -51,8 +24,8 @@
       ]
     }
   },
-  "createdAt": "2024-07-05T09:02:56.391Z",
-  "id": "RMJGnxKk816MncuU",
+  "createdAt": "2024-08-07T07:27:19.340Z",
+  "id": "qNuO1ujIUwKl5Ym8",
   "meta": {
     "templateCredsSetupCompleted": true
   },
@@ -60,125 +33,88 @@
   "nodes": [
     {
       "parameters": {
-        "updates": [
-          "message"
-        ],
-        "additionalFields": {}
-      },
-      "id": "cf9d7f8d-5baf-4c09-9fad-96e12672960e",
-      "name": "Telegram Trigger",
-      "type": "n8n-nodes-base.telegramTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        220,
-        240
-      ],
-      "webhookId": "23185670-2fed-449e-a1a9-694aaa9544b4",
-      "credentials": {
-        "telegramApi": {
-          "id": "DA8b8LAbIKrdQgnh",
-          "name": "for pp"
+        "chatId": "={{ $json.body.tg_id }}",
+        "text": "={{ $json.body.data2 + \"\\nЭто первый вубхук\"}}",
+        "additionalFields": {
+          "appendAttribution": false
         }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "binaryToPropery",
-        "options": {}
       },
-      "id": "b8e17910-4a94-4ca0-b049-3e1a0a80bf52",
-      "name": "Extract from File",
-      "type": "n8n-nodes-base.extractFromFile",
-      "typeVersion": 1,
-      "position": [
-        880,
-        220
-      ]
-    },
-    {
-      "parameters": {
-        "resource": "file",
-        "fileId": "={{ $json.message.photo[3].file_id }}"
-      },
-      "id": "71ad33f5-9de1-4be2-827a-29e6ff642946",
-      "name": "Telegram",
+      "id": "2998fa4e-9437-4144-831c-4c1d720a42d7",
+      "name": "Telegram1",
       "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
+      "typeVersion": 1.2,
       "position": [
         540,
-        220
+        160
       ],
       "credentials": {
         "telegramApi": {
-          "id": "DA8b8LAbIKrdQgnh",
-          "name": "for pp"
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
         }
       }
     },
     {
       "parameters": {
-        "fieldToSplitOut": "message.photo",
-        "options": {}
-      },
-      "id": "40f34320-fe52-4162-a59f-7a595e7398ad",
-      "name": "Split Out",
-      "type": "n8n-nodes-base.splitOut",
-      "typeVersion": 1,
-      "position": [
-        1060,
-        -80
-      ]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "http://dev.everest.lamart.site/web/session/authenticate",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"call\",\n    \"params\": {\n        \"db\": \"db\",\n        \"login\": \"lamart-admin\",\n        \"password\": \"lamarlemur\"\n    }\n}",
-        "options": {
-          "response": {
-            "response": {
-              "fullResponse": true
-            }
-          }
+        "chatId": "={{ $json.body.tg_id }}",
+        "text": "={{ $json.body.data2 + \"\\nЭто второй вебхук\"}}",
+        "additionalFields": {
+          "appendAttribution": false
         }
       },
-      "id": "b142f3c2-1971-4831-8778-d37fafd7f73e",
-      "name": "авторизация",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
+      "id": "47f55e09-2cab-408a-8744-3eef8de0f29a",
+      "name": "Telegram2",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
       "position": [
-        1100,
-        220
-      ]
+        500,
+        600
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "http://dev.everest.lamart.site/upload_weight_certificates",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "cookie",
-              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"number_car\":  \"А459ТЕ\",\n  \"transportation_id\": 231,\n  \"files\": \"{{ $('Extract from File').item.json[\"data\"] }}\"\n}",
+        "httpMethod": "POST",
+        "path": "notification2",
+        "authentication": "basicAuth",
         "options": {}
       },
-      "id": "e2998587-9fa5-4cf8-a126-ba95513bbe61",
-      "name": "загрузка весовой в рейс",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
+      "id": "81b05281-4f3e-4a24-b298-eb714c9708bc",
+      "name": "Webhook2",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
       "position": [
-        1380,
-        220
-      ]
+        280,
+        600
+      ],
+      "webhookId": "e6a5dcca-6f85-49f3-96b8-8dbeb67aa115",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "qaxZ882Is2zkNpdT",
+          "name": "Unnamed credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "queue",
+        "options": {}
+      },
+      "id": "8b90bc98-60bf-4b80-8e87-d7efe5221ee7",
+      "name": "Webhook1",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        320,
+        160
+      ],
+      "webhookId": "e6a5dcca-6f85-49f3-96b8-8dbeb67aa115"
     }
   ],
   "pinData": {},
@@ -187,7 +123,7 @@
   },
   "staticData": null,
   "tags": [],
-  "triggerCount": 1,
-  "updatedAt": "2024-07-05T10:01:28.000Z",
-  "versionId": "0e3d28e7-acb4-4e47-97d1-5f3702fc60e0"
+  "triggerCount": 2,
+  "updatedAt": "2024-08-07T09:31:32.000Z",
+  "versionId": "07754bc1-124f-4af9-9170-7f51362b50bd"
 }
