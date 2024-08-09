@@ -5,7 +5,178 @@
       "main": [
         [
           {
-            "node": "Odoo",
+            "node": "авторизация",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "авторизация": {
+      "main": [
+        [
+          {
+            "node": "получение перевозок1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получение перевозок1": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Filter2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "находим рейсы по машине и перевозке",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "находим рейсы по машине и перевозке": {
+      "main": [
+        [
+          {
+            "node": "Summarize6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize6": {
+      "main": [
+        [
+          {
+            "node": "1 ли рейс?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1 ли рейс?": {
+      "main": [
+        [
+          {
+            "node": "если 1, то назначен ли он?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Replace Me",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter2": {
+      "main": [
+        [
+          {
+            "node": "есть ли перевозка",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "есть ли перевозка": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Нет доступных перевозок2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "если 1, то назначен ли он?": {
+      "main": [
+        [
+          {
+            "node": "находим информацию о перевозке",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Replace Me",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "находим информацию о перевозке": {
+      "main": [
+        [
+          {
+            "node": "Replace Me",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replace Me": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Вывод перевозок на день",
             "type": "main",
             "index": 0
           }
@@ -13,8 +184,8 @@
       ]
     }
   },
-  "createdAt": "2024-08-07T08:34:54.270Z",
-  "id": "gO2Uu1JZ9ENhgukC",
+  "createdAt": "2024-08-08T14:58:27.831Z",
+  "id": "7e9YY7mWH9lN0rM6",
   "meta": {
     "templateCredsSetupCompleted": true
   },
@@ -22,34 +193,460 @@
   "nodes": [
     {
       "parameters": {},
-      "id": "079aac16-55ad-4a53-b481-68b00464af37",
+      "id": "29fead36-0723-4422-b317-4ed5e1e45560",
       "name": "When clicking ‘Test workflow’",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        620,
-        240
+        720,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/transportations_by_car",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"number_car\": \"А 657 АА\"\n} ",
+        "options": {}
+      },
+      "id": "e88b5776-299a-4d2b-83a3-6541bb004286",
+      "name": "получение перевозок",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1120,
+        -440
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://dev.everest.lamart.site/web/session/authenticate",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"call\",\n    \"params\": {\n        \"db\": \"db\",\n        \"login\": \"lamart-admin\",\n        \"password\": \"lamarlemur\"\n    }\n}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "id": "4db9638a-3887-4fc8-b780-dcce1a62d409",
+      "name": "авторизация",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        920,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_car_queue",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"car_id\": 25\n} ",
+        "options": {}
+      },
+      "id": "99d41256-f7ae-4c14-bbba-4c06f75d3500",
+      "name": "получение перевозок1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1160,
+        300
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "transportations",
+        "options": {}
+      },
+      "id": "46a4b33d-fb07-4130-ad1f-e9a6c6bafd98",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1420,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "5bdbe00a-6abf-47ea-827d-73d9c8224f6c",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1620,
+        200
       ]
     },
     {
       "parameters": {
         "resource": "custom",
-        "customResource": "=transportation.transportation",
+        "customResource": "transportation.round",
         "operation": "getAll",
-        "options": {}
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "transportation",
+              "value": "={{ $json.transportation }}"
+            },
+            {
+              "fieldName": "car",
+              "value": "={{ $('получение перевозок1').item.json.car[0] }}"
+            }
+          ]
+        }
       },
-      "id": "02ddc259-2884-4733-8326-39087fd30240",
-      "name": "Odoo",
+      "id": "6ad14569-0e40-43b6-bad3-5150e8365698",
+      "name": "находим рейсы по машине и перевозке",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        840,
-        240
+        1840,
+        220
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "field": "id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bcaa8ff2-65a7-4458-bf29-b30eda9b0d64",
+      "name": "Summarize6",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        2020,
+        220
+      ],
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "7b45f759-a46e-4494-a3c2-5ec089814d43",
+              "leftValue": "={{ $json.count_id }}",
+              "rightValue": 1,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "5bc9ad68-855b-4cb7-be07-dc6dbe0ceca8",
+      "name": "1 ли рейс?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        2160,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "61bcb0f0-862c-40b8-8081-282ab7b7e544",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "ee3b097f-3c62-4d72-b177-5288a34559bf",
+      "name": "Filter2",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [
+        1840,
+        -40
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "e24d83cc-dc2d-4d01-8af3-ff146b515d82",
+              "leftValue": "={{ $('Filter2').item.json }}",
+              "rightValue": "Срочная",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "282f358a-3302-467f-b9bc-a317ba449a65",
+      "name": "есть ли перевозка",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        2080,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "5cca3a3f-692b-4006-a954-08659e1e94ec",
+              "leftValue": "={{ $('находим рейсы по машине и перевозке').item.json.status }}",
+              "rightValue": "Назначен",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "adbad281-bc01-4250-bf2f-efeec23f35c7",
+      "name": "если 1, то назначен ли он?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        2320,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "transportation.transportation",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "id",
+              "value": "={{ $('находим рейсы по машине и перевозке').item.json.transportation[0] }}"
+            }
+          ]
+        }
+      },
+      "id": "08b9c690-52e0-4f48-bb17-c1df34f17848",
+      "name": "находим информацию о перевозке",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        2660,
+        180
       ],
       "credentials": {
         "odooApi": {
           "id": "QXqc61yRCfgVSB3C",
           "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "ef103961-839a-4b4f-9689-b2f0da539aeb",
+      "name": "Replace Me",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        2940,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const transportation = item.json;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.route[1];\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n  const round_quantity_for_car= transportation.round_quantity_for_car;\n  const required_ton= transportation.required_ton;\n\n  let message = `<b>${index}.</b> Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <i>${comment}</i>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n  \n  if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n  }\n\n  if (index === 1) {\n    message = `<i><b>${index}. Отправитель - ${sender}\\nПолучатель - ${partner}\\nМаршрут - ${route}\\nМатериал - ${material}`;\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    if (endCondition === \"По перевезенным кубометрам\") {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n    if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n    }\n    if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n    }\n    message += `</b></i>\\n\\n`;\n  } else {\n    message += `\\n\\n`;\n  }\n\n  combinedMessages += message;\n\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
+      },
+      "id": "92199932-8c01-48ea-88ec-f04080777459",
+      "name": "Code1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2640,
+        -60
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+        "text": "На данный момент нет назначенных перевозок!",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Проверить назначенные перевозки",
+                    "additionalFields": {
+                      "callback_data": "проверить перевозки"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Статистика",
+                    "additionalFields": {
+                      "callback_data": "stats"
+                    }
+                  },
+                  {
+                    "text": "Завершить смену",
+                    "additionalFields": {
+                      "callback_data": "complete_work_transportation"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "499c369f-5c9b-4724-98aa-2e289bf3ae9d",
+      "name": "Нет доступных перевозок2",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2400,
+        40
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "R2ipKSfc6dad40P9",
+          "name": "Sergey Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "467549384",
+        "text": "=<b>На сегодня Вам назначены перевозки в следующем порядке:</b>\n\n{{ $json.combinedMessages }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Приступить к первой перевозке",
+                    "additionalFields": {
+                      "callback_data": "accept"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "d71338f3-a366-407f-884e-832d19b576b5",
+      "name": "Вывод перевозок на день",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        2980,
+        -60
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "R2ipKSfc6dad40P9",
+          "name": "Sergey Bot"
         }
       }
     }
@@ -59,8 +656,15 @@
     "executionOrder": "v1"
   },
   "staticData": null,
-  "tags": [],
+  "tags": [
+    {
+      "createdAt": "2024-07-12T09:46:32.191Z",
+      "updatedAt": "2024-07-12T09:46:32.191Z",
+      "id": "coJPcdNrgNxmQ1Qw",
+      "name": "sergey"
+    }
+  ],
   "triggerCount": 0,
-  "updatedAt": "2024-08-07T08:34:54.270Z",
-  "versionId": "6f2c77c6-3d81-4b0a-a88d-ff653f2aa4c0"
+  "updatedAt": "2024-08-08T17:44:32.000Z",
+  "versionId": "bd340ec1-8dbc-4255-98b2-ac9f624de854"
 }
