@@ -1,0 +1,116 @@
+{
+  "active": true,
+  "connections": {
+    "Webhook1 dev": {
+      "main": [
+        [
+          {
+            "node": "Stop and Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook1 prod": {
+      "main": [
+        [
+          {
+            "node": "Stop and Error1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2024-08-07T07:27:19.340Z",
+  "id": "qNuO1ujIUwKl5Ym8",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "webhooks",
+  "nodes": [
+    {
+      "parameters": {
+        "errorMessage": "вебхук очереди дев"
+      },
+      "id": "b5b22ace-7a4e-4b47-a7e9-e4d7c38542d5",
+      "name": "Stop and Error",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        200,
+        -60
+      ]
+    },
+    {
+      "parameters": {
+        "errorMessage": "вебхук очереди дев"
+      },
+      "id": "49441a90-660e-4d6b-8c2e-fd2a83d37174",
+      "name": "Stop and Error1",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        200,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "dev/queue",
+        "authentication": "basicAuth",
+        "options": {}
+      },
+      "id": "8b90bc98-60bf-4b80-8e87-d7efe5221ee7",
+      "name": "Webhook1 dev",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -120,
+        -60
+      ],
+      "webhookId": "e6a5dcca-6f85-49f3-96b8-8dbeb67aa115",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "mqqMwahZxxmYdLtn",
+          "name": "queue webhook"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "prod/queue",
+        "authentication": "basicAuth",
+        "options": {}
+      },
+      "id": "3b74bed4-0d10-419c-bab4-be03d9c747a0",
+      "name": "Webhook1 prod",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -120,
+        120
+      ],
+      "webhookId": "e6a5dcca-6f85-49f3-96b8-8dbeb67aa115",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "mqqMwahZxxmYdLtn",
+          "name": "queue webhook"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2024-08-09T14:05:10.000Z",
+  "versionId": "62b2f3af-209c-47ae-9d47-23517d9f66c4"
+}
