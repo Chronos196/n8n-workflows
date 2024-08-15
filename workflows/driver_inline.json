@@ -2529,17 +2529,6 @@
         ]
       ]
     },
-    "Code": {
-      "main": [
-        [
-          {
-            "node": "вывод доступных перевозок5",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "вывод доступных перевозок5": {
       "main": [
         [
@@ -2939,17 +2928,6 @@
         ]
       ]
     },
-    "Code1": {
-      "main": [
-        [
-          {
-            "node": "Вывод перевозок на день",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Вывод перевозок на день": {
       "main": [
         [
@@ -3024,6 +3002,28 @@
         [
           {
             "node": "Рейс завершен и есть еще рейсы",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Вывод перевозок на день",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "вывод доступных перевозок5",
             "type": "main",
             "index": 0
           }
@@ -15194,19 +15194,6 @@
     },
     {
       "parameters": {
-        "jsCode": "let combinedMessage = \"\";\n\nfor (const item of $input.all()) {\n  const transportation = item.json;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.route[1];\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n  const round_quantity_for_car= transportation.round_quantity_for_car;\n  const required_ton= transportation.required_ton;\n\n  let message = `Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <b>${comment}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nОстаток кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n    \n  if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n  }\n\n  message += \"\\n\\n\";\n\n  combinedMessage = message.trim();\n}\n\nreturn [{ json: { combinedMessage: combinedMessage } }];"
-      },
-      "id": "ab699ef9-fc0d-4ac9-b412-1c795aab6432",
-      "name": "Code",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        5080,
-        16040
-      ]
-    },
-    {
-      "parameters": {
         "operation": "editMessageText",
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
@@ -16709,19 +16696,6 @@
     },
     {
       "parameters": {
-        "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const transportation = item.json.transportations;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.route[1];\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n  const round_quantity_for_car= transportation.round_quantity_for_car;\n  const required_ton= transportation.required_ton;\n\n  let message = `<b>${index}.</b> Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <i>${comment}</i>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n  \n  if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n  }\n\n  if (index === 1) {\n    message = `<i><b>${index}. Отправитель - ${sender}\\nПолучатель - ${partner}\\nМаршрут - ${route}\\nМатериал - ${material}`;\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    if (endCondition === \"По перевезенным кубометрам\") {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n    if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n    }\n    if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n    }\n    message += `</b></i>\\n\\n`;\n  } else {\n    message += `\\n\\n`;\n  }\n\n  combinedMessages += message;\n\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
-      },
-      "id": "3c2f8c07-7a40-4820-a0be-312fc853e859",
-      "name": "Code1",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        3380,
-        14534
-      ]
-    },
-    {
-      "parameters": {
         "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.message.chat.id }}",
         "text": "=<b>На сегодня Вам назначены перевозки в следующем порядке:</b>\n\n{{ $json.combinedMessages }}",
         "replyMarkup": "inlineKeyboard",
@@ -16987,15 +16961,42 @@
           "name": "Алексей dev"
         }
       }
+    },
+    {
+      "parameters": {
+        "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const transportation = item.json.transportations;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.display_name.substring(11);\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n  const round_quantity_for_car= transportation.round_quantity_for_car;\n  const required_ton= transportation.required_ton;\n\n  let message = `<b>${index}.</b> Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <i>${comment}</i>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n  \n  if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n  }\n\n  if (index === 1) {\n    message = `<i><b>${index}. Отправитель - ${sender}\\nПолучатель - ${partner}\\nМаршрут - ${route}\\nМатериал - ${material}`;\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    if (endCondition === \"По перевезенным кубометрам\") {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n    if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n    }\n    if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n    }\n    message += `</b></i>\\n\\n`;\n  } else {\n    message += `\\n\\n`;\n  }\n\n  combinedMessages += message;\n\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
+      },
+      "id": "3c2f8c07-7a40-4820-a0be-312fc853e859",
+      "name": "Code1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3380,
+        14534
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "let combinedMessage = \"\";\n\nfor (const item of $input.all()) {\n  const transportation = item.json;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.display_name.substring(11);\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n  const round_quantity_for_car= transportation.round_quantity_for_car;\n  const required_ton= transportation.required_ton;\n\n  let message = `Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <b>${comment}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nОстаток кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n    \n  if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n  }\n\n  message += \"\\n\\n\";\n\n  combinedMessage = message.trim();\n}\n\nreturn [{ json: { combinedMessage: combinedMessage } }];"
+      },
+      "id": "ab699ef9-fc0d-4ac9-b412-1c795aab6432",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5080,
+        16040
+      ],
+      "onError": "continueRegularOutput"
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100623467,
+          "update_id": 100623860,
           "callback_query": {
-            "id": "3010587258786914976",
+            "id": "3010587259114442506",
             "from": {
               "id": 700956969,
               "is_bot": false,
@@ -17004,7 +17005,7 @@
               "language_code": "ru"
             },
             "message": {
-              "message_id": 15198,
+              "message_id": 15661,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -17017,139 +17018,26 @@
                 "username": "Chronos196",
                 "type": "private"
               },
-              "date": 1723105645,
-              "text": "Документы на автомобиль:\n\n✅ Документ страховка действует бессрочно\n\n❗ 0 дней назад истёк срок действия документа лицензия (был действителен до 08.08.2024)\n\n⚠️ Через 12 дней истекает срок действия документа Государственный тех.осмотр (действителен до 20.08.2024)\n\nНайдены заявки на техобслуживание:\n\n01.08.2024 15:03 - текст для диспетчера\n01.08.2024 15:05 - 123\n02.08.2024 11:43 - 123\n02.08.2024 11:45 - 123\n02.08.2024 11:46 - 123\n02.08.2024 11:47 - 123\n05.08.2024 08:44 - 123\n05.08.2024 09:03 - 333\n05.08.2024 12:01 - текст 123\n06.08.2024 13:06 - текст\n08.08.2024 06:06 - тест\n\nПожалуйста, проведите осмотр авто перед началом работы!\n\nАвтомобиль: SCANIA\nНомер: А 459 ТЕ\nПробег: 5000 км\n______________________\n⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n\nДо замены масла осталось 605000 км.",
-              "entities": [
-                {
-                  "offset": 0,
-                  "length": 24,
-                  "type": "bold"
-                },
-                {
-                  "offset": 37,
-                  "length": 9,
-                  "type": "bold"
-                },
-                {
-                  "offset": 113,
-                  "length": 8,
-                  "type": "bold"
-                },
-                {
-                  "offset": 206,
-                  "length": 26,
-                  "type": "bold"
-                },
-                {
-                  "offset": 263,
-                  "length": 34,
-                  "type": "bold"
-                },
-                {
-                  "offset": 318,
-                  "length": 20,
-                  "type": "bold"
-                },
-                {
-                  "offset": 358,
-                  "length": 3,
-                  "type": "bold"
-                },
-                {
-                  "offset": 381,
-                  "length": 3,
-                  "type": "bold"
-                },
-                {
-                  "offset": 404,
-                  "length": 3,
-                  "type": "bold"
-                },
-                {
-                  "offset": 427,
-                  "length": 3,
-                  "type": "bold"
-                },
-                {
-                  "offset": 450,
-                  "length": 3,
-                  "type": "bold"
-                },
-                {
-                  "offset": 473,
-                  "length": 3,
-                  "type": "bold"
-                },
-                {
-                  "offset": 496,
-                  "length": 3,
-                  "type": "bold"
-                },
-                {
-                  "offset": 519,
-                  "length": 9,
-                  "type": "bold"
-                },
-                {
-                  "offset": 548,
-                  "length": 5,
-                  "type": "bold"
-                },
-                {
-                  "offset": 573,
-                  "length": 4,
-                  "type": "bold"
-                },
-                {
-                  "offset": 579,
-                  "length": 55,
-                  "type": "bold"
-                },
-                {
-                  "offset": 648,
-                  "length": 6,
-                  "type": "bold"
-                },
-                {
-                  "offset": 662,
-                  "length": 8,
-                  "type": "bold"
-                },
-                {
-                  "offset": 679,
-                  "length": 7,
-                  "type": "bold"
-                },
-                {
-                  "offset": 710,
-                  "length": 98,
-                  "type": "bold"
-                },
-                {
-                  "offset": 809,
-                  "length": 35,
-                  "type": "bold"
-                }
-              ],
+              "date": 1723708033,
+              "edit_date": 1723708206,
+              "text": "Вы уверены, что готовы завершить смену?",
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "✅Всё в норме.",
-                      "callback_data": "menu_ok"
-                    }
-                  ],
-                  [
+                      "text": "Завершить смену",
+                      "callback_data": "upload_sertificate"
+                    },
                     {
-                      "text": "❌Есть неисправности",
-                      "callback_data": "menu_wrong"
+                      "text": "Назад",
+                      "callback_data": "check_final"
                     }
                   ]
                 ]
               }
             },
             "chat_instance": "1908726007480408494",
-            "data": "menu_ok"
+            "data": "upload_sertificate"
           },
           "tg_id": "700956969",
           "odoo_id": 2,
@@ -17167,7 +17055,7 @@
           "transportation_for_certificate": null,
           "count_weight_photo": null,
           "count_weight_photo_sent": null,
-          "cookie": "session_id=fee61f25cfa0c18a4b1a829074889f6f1e5c040a; Expires=Fri, 08 Aug 2025 08:27:27 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=cc8b2c5e06dd8f09534f6245e0cf5058b20b4f23; Expires=Fri, 15 Aug 2025 07:50:08 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -17185,6 +17073,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-08-08T13:46:12.000Z",
-  "versionId": "4550a542-98ac-411c-93e3-7a3c498d0db8"
+  "updatedAt": "2024-08-15T07:51:39.000Z",
+  "versionId": "df33ca1a-5152-4240-b33a-497067de6e22"
 }
