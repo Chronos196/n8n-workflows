@@ -13178,7 +13178,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\n\nconst buttons = items.map((item, index) => ({\n    text: `${item.json.route[1]}`,\n    callback_data: `TS_${item.json.id}` // TR - take request\n}));\n\nconst inlineKeyboard = {\n    inline_keyboard: [\n        ...buttons.map(button => [button]), // динамические кнопки, каждая строка содержит одну кнопку\n        [{ text: \"Завершить проверку\", callback_data: \"check_fuel\" }] // постоянная кнопка\n    ]\n};\n\nconsole.log(JSON.stringify(inlineKeyboard, null, 2));\n\nconst chatId = $('Execute Workflow Trigger').all()[0].json.callback_query.from.id;\nconst token = '7063451965:AAGARL6Eluwh3zgS84WnaZozqdz6-m0RLzg';\nconst url = `https://api.telegram.org/bot${token}/sendMessage`;\n\nconst message = {\n    chat_id: chatId,\n    text: \"Проверьте наличие ТТН и Весовых справок в перевозке.\\nВыберите необходимую перевозку🛻\",\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n"
+        "jsCode": "const items = $input.all();\n\nconst buttons = items.map((item, index) => ({\n    text: `${item.json.display_name.substring(11)}`,\n    callback_data: `TS_${item.json.id}` // TR - take request\n}));\n\nconst inlineKeyboard = {\n    inline_keyboard: [\n        ...buttons.map(button => [button]), // динамические кнопки, каждая строка содержит одну кнопку\n        [{ text: \"Завершить проверку\", callback_data: \"check_fuel\" }] // постоянная кнопка\n    ]\n};\n\nconsole.log(JSON.stringify(inlineKeyboard, null, 2));\n\nconst chatId = $('Execute Workflow Trigger').all()[0].json.callback_query.from.id;\nconst token = '7063451965:AAGARL6Eluwh3zgS84WnaZozqdz6-m0RLzg';\nconst url = `https://api.telegram.org/bot${token}/sendMessage`;\n\nconst message = {\n    chat_id: chatId,\n    text: \"Проверьте наличие ТТН и Весовых справок в перевозке.\\nВыберите необходимую перевозку🛻\",\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n"
       },
       "id": "b844fac2-0bf2-4931-9aa1-e1c6327867f6",
       "name": "создаём динамически инлайн кнопки2",
@@ -15276,7 +15276,7 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "name": "={{ $('Limit').item.json.route[1] }}",
+            "name": "={{ $('Limit').item.json.display_name.substring(11); }}",
             "id": "={{ $('Limit').item.json.id }}",
             "driver_id": "={{ $('Execute Workflow Trigger').all()[0].json.odoo_id }}"
           },
@@ -17073,6 +17073,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-08-15T07:51:39.000Z",
-  "versionId": "df33ca1a-5152-4240-b33a-497067de6e22"
+  "updatedAt": "2024-08-15T10:54:27.000Z",
+  "versionId": "35c61d93-08b9-4e61-8b99-e26afc6bb46c"
 }
