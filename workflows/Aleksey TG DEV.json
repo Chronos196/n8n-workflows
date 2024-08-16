@@ -605,6 +605,105 @@
           }
         ]
       ]
+    },
+    "получим карточки очереди": {
+      "main": [
+        [
+          {
+            "node": "данные карточек",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "данные карточек": {
+      "main": [
+        [
+          {
+            "node": "данные перевозок",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "данные перевозок": {
+      "main": [
+        [
+          {
+            "node": "сегодняшняя дата",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "данные авто": {
+      "main": [
+        [
+          {
+            "node": "айди водителя",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook1 dev": {
+      "main": [
+        [
+          {
+            "node": "получим карточки очереди",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "сегодняшняя дата": {
+      "main": [
+        [
+          {
+            "node": "если не пустой",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "айди водителя": {
+      "main": [
+        [
+          {
+            "node": "сообщение",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "если не пустой": {
+      "main": [
+        [
+          {
+            "node": "создание сообщения",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "создание сообщения": {
+      "main": [
+        [
+          {
+            "node": "данные авто",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-07-11T08:39:56.225Z",
@@ -1309,7 +1408,7 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "Заявки на ТО",
+                    "text": "Связь с диспетчером",
                     "additionalFields": {}
                   }
                 ]
@@ -1329,7 +1428,7 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "Связь с диспетчером",
+                    "text": "Заявки на ТО",
                     "additionalFields": {}
                   }
                 ]
@@ -2827,6 +2926,296 @@
           "name": "new Odoo Алексей"
         }
       }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "body.resequenced_data",
+        "options": {}
+      },
+      "id": "58f93e54-d4c4-430d-90c2-66e7b1fba79b",
+      "name": "получим карточки очереди",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        538,
+        6230
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "=car.queue.transportation.rel",
+        "operation": "getAll",
+        "options": {
+          "fieldsList": [
+            "transportation"
+          ]
+        },
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        }
+      },
+      "id": "d6a0bf9a-e310-4845-858a-cfa787f3873b",
+      "name": "данные карточек",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        758,
+        6230
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "=transportation.transportation",
+        "operation": "getAll",
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "id",
+              "value": "={{ $json.transportation[0] }}"
+            }
+          ]
+        }
+      },
+      "id": "16212a0f-9bdd-4976-b92c-2faf4df7e299",
+      "name": "данные перевозок",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        978,
+        6230
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "=cars.cars",
+        "operation": "getAll",
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "id",
+              "value": "={{ $('Webhook1 dev').all()[0].json.body.resequenced_data[0].car_id }}"
+            }
+          ]
+        }
+      },
+      "id": "086f7604-41bc-496a-ac1d-92d37621d974",
+      "name": "данные авто",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1838,
+        6130
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Изменение номера в очереди перевозок",
+        "height": 317.2196724514556,
+        "width": 2238.9358354542233,
+        "color": 6
+      },
+      "id": "d982e980-f4b4-4a9c-b603-cc0a3ca9d5d9",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        240,
+        6080
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "dev/queue",
+        "authentication": "basicAuth",
+        "options": {}
+      },
+      "id": "dcff9bc7-2f3e-46c1-b900-36dc8de62980",
+      "name": "Webhook1 dev",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        318,
+        6230
+      ],
+      "webhookId": "e6a5dcca-6f85-49f3-96b8-8dbeb67aa115",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "mqqMwahZxxmYdLtn",
+          "name": "queue webhook"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "a9d8f664-deb0-47c2-b8f1-bea1a09d8139",
+              "leftValue": "={{ $json.date }}",
+              "rightValue": "={{ $today.format('yyyy-MM-dd') }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "9e2bb4ef-ff3d-4a2c-a2af-b3d6a43b3546",
+      "name": "сегодняшняя дата",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [
+        1198,
+        6230
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "odoo_id",
+              "value": "={{ $json.driver_id[0] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e35ad350-d5e1-4469-bf4b-aff99eb5899a",
+      "name": "айди водителя",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        2058,
+        6130
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Q4ZHMkPf1vzJmsuw",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.tg_id }}",
+        "text": "={{ \"Изменился порядок перевозок на сегодня:\\n\\n\" + $('создание сообщения').item.json.combinedMessage }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "ddaf50c7-e44c-4d1d-a892-8aebcaf8f11d",
+      "name": "сообщение",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2278,
+        6130
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "6d9aa25a-ccec-4bbd-9e1f-e90cc391fdc0",
+              "leftValue": "={{ $json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "3e43be70-600d-4348-80e3-b63b255ff3e5",
+      "name": "если не пустой",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1418,
+        6230
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "let combinedMessage = \"\";\nlet c = 1;\n\nfor (const item of $input.all()) {\n  const transportation = item.json;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.display_name.substring(11);\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n  const round_quantity_for_car= transportation.round_quantity_for_car;\n  const required_ton= transportation.required_ton;\n\n  let message = c + `. Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <b>${comment}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nОстаток кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n    \n  if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n  }\n\n  combinedMessage += message.trim();\n  combinedMessage += \"\\n\\n\"\n  c += 1;\n}\n\nreturn [{ json: { combinedMessage: combinedMessage } }];"
+      },
+      "id": "a85a965c-b083-4033-899a-a56e57ebba72",
+      "name": "создание сообщения",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1620,
+        6140
+      ],
+      "onError": "continueRegularOutput"
     }
   ],
   "pinData": {},
@@ -2849,7 +3238,7 @@
       "name": "aleksey"
     }
   ],
-  "triggerCount": 2,
-  "updatedAt": "2024-08-09T13:16:25.000Z",
-  "versionId": "b20014c5-4c76-4ea7-a357-179fbba1dcb0"
+  "triggerCount": 3,
+  "updatedAt": "2024-08-16T09:05:05.000Z",
+  "versionId": "ebd22262-f49c-4a93-a57f-1a1a33c920b2"
 }
