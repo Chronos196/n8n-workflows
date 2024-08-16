@@ -2046,38 +2046,6 @@
         ]
       ]
     },
-    "сколько дней до окончания срока": {
-      "main": [
-        [
-          {
-            "node": "бессрочно",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "если истекло",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "скоро истекает",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "действует долго",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "бессрочно": {
       "main": [
         [
@@ -2698,6 +2666,38 @@
           }
         ]
       ]
+    },
+    "сколько дней до окончания срока": {
+      "main": [
+        [
+          {
+            "node": "бессрочно",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "если истекло",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "скоро истекает",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "действует долго",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-07-11T08:41:44.925Z",
@@ -2738,7 +2738,7 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "Заявки на ТО",
+                    "text": "Связь с диспетчером",
                     "additionalFields": {}
                   }
                 ]
@@ -2758,7 +2758,7 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "Связь с диспетчером",
+                    "text": "Заявки на ТО",
                     "additionalFields": {}
                   }
                 ]
@@ -9559,87 +9559,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.formattedDate }}",
-                    "rightValue": "01.01.1970",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "4d8ac404-b74b-4df3-8919-0de5596a2e53",
-                    "leftValue": "={{ $json.timeDifference }}",
-                    "rightValue": 0,
-                    "operator": {
-                      "type": "number",
-                      "operation": "lte"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "c7b85a8b-0464-40f1-becb-57f1a23f84b7",
-                    "leftValue": "={{ $json.timeDifference }}",
-                    "rightValue": 31,
-                    "operator": {
-                      "type": "number",
-                      "operation": "lte"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {
-          "fallbackOutput": "extra"
-        }
-      },
-      "id": "c8c0fae4-ec2b-4b19-9f73-1a0162dcdf54",
-      "name": "сколько дней до окончания срока",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        3412,
-        3480
-      ]
-    },
-    {
-      "parameters": {
         "assignments": {
           "assignments": [
             {
@@ -9660,7 +9579,8 @@
         3700,
         3160
       ],
-      "alwaysOutputData": true
+      "alwaysOutputData": true,
+      "disabled": true
     },
     {
       "parameters": {},
@@ -10120,7 +10040,13 @@
                     "additionalFields": {
                       "callback_data": "correct_number"
                     }
-                  },
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
                   {
                     "text": "Ввести номер авто заново",
                     "additionalFields": {
@@ -11883,6 +11809,87 @@
         2800,
         1160
       ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.formattedDate }}",
+                    "rightValue": "01.01.1970",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "4d8ac404-b74b-4df3-8919-0de5596a2e53",
+                    "leftValue": "={{ $json.timeDifference }}",
+                    "rightValue": 0,
+                    "operator": {
+                      "type": "number",
+                      "operation": "lte"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "c7b85a8b-0464-40f1-becb-57f1a23f84b7",
+                    "leftValue": "={{ $json.timeDifference }}",
+                    "rightValue": 31,
+                    "operator": {
+                      "type": "number",
+                      "operation": "lte"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "c8c0fae4-ec2b-4b19-9f73-1a0162dcdf54",
+      "name": "сколько дней до окончания срока",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        3412,
+        3480
+      ]
     }
   ],
   "pinData": {
@@ -11942,6 +11949,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-08-14T05:56:42.000Z",
-  "versionId": "c0e8979b-f09a-4792-a9df-660d10d1ecb2"
+  "updatedAt": "2024-08-15T12:33:25.000Z",
+  "versionId": "bacb35c9-b98d-4bc6-9890-0a0e822aacf0"
 }
