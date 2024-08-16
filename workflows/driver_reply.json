@@ -1639,24 +1639,6 @@
         ]
       ]
     },
-    "маршрут": {
-      "main": [
-        [
-          {
-            "node": "айди логистов",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "отправка логистам о доках",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "находим машину по odoo id9": {
       "main": [
         [
@@ -2693,6 +2675,24 @@
         [
           {
             "node": "действует долго",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "маршрут": {
+      "main": [
+        [
+          {
+            "node": "айди логистов",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "отправка логистам о доках",
             "type": "main",
             "index": 0
           }
@@ -8453,65 +8453,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('Execute Workflow Trigger').all()[0].json.status.substring(22) }}",
-                    "rightValue": "route",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "cd6ec3dc-180b-43ea-8c12-a7d7e91ea930",
-                    "leftValue": "={{ $('Execute Workflow Trigger').all()[0].json.status.substring(22) }}",
-                    "rightValue": "document",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "7d7503b6-0c1c-44c1-917e-94e9b0c304d0",
-      "name": "маршрут",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        200,
-        6774
-      ]
-    },
-    {
-      "parameters": {
         "content": "## Срочно (документы: только текст)",
         "height": 249.85481449883417,
         "width": 1370.1136540203677,
@@ -9274,7 +9215,7 @@
     },
     {
       "parameters": {
-        "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const transportation = item.json.transportations;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.route[1];\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n\n  let message = `<b>${index}.</b> Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <i>${comment}</i>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nОстаток кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n\n  if (index === 1) {\n    message = `<i><b>${index}. Отправитель - ${sender}\\nПолучатель - ${partner}\\nМаршрут - ${route}\\nМатериал - ${material}`;\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    if (endCondition === \"По перевезенным кубометрам\") {\n      message += `\\nОстаток кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n    message += `</b></i>\\n\\n`;\n  } else {\n    message += `\\n\\n`;\n  }\n\n  combinedMessages += message;\n\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
+        "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const transportation = item.json.transportations;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.display_name.substring(11);\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n\n  let message = `<b>${index}.</b> Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <i>${comment}</i>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nОстаток кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n\n  if (index === 1) {\n    message = `<i><b>${index}. Отправитель - ${sender}\\nПолучатель - ${partner}\\nМаршрут - ${route}\\nМатериал - ${material}`;\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    if (endCondition === \"По перевезенным кубометрам\") {\n      message += `\\nОстаток кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n    message += `</b></i>\\n\\n`;\n  } else {\n    message += `\\n\\n`;\n  }\n\n  combinedMessages += message;\n\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
       },
       "id": "0d6dbb11-87e1-4154-a599-9b08f85f00df",
       "name": "Code",
@@ -10519,7 +10460,7 @@
     {
       "parameters": {
         "chatId": "-4161741739",
-        "text": "=У водителя <a href=\"tg://user?id={{ $('Execute Workflow Trigger').item.json.message.chat.id }}\">{{ $('данные сотрудника').all()[0].json.name }}</a>(авто {{ $('номер авто').all()[0].json.number_car }}) проблема на маршруте <b>{{ $('получим перевозку').all()[0].json.route[1] }}</b>: <i>{{ $('Execute Workflow Trigger').all()[0].json[\"message\"][\"text\"] }}</i>\n\n{{ $('в один текст').item.json.concatenated_logists != `@<a href=\"tg://user?id=\">Логист</a>` ? $('в один текст').item.json.concatenated_logists : \"\"}}\n{{ $('в один текст1').item.json.concatenated_dispatchers != `@<a href=\"tg://user?id=\">Диспетчер</a>` ?  $('в один текст1').item.json.concatenated_dispatchers : \"\"}}",
+        "text": "=У водителя <a href=\"tg://user?id={{ $('Execute Workflow Trigger').item.json.message.chat.id }}\">{{ $('данные сотрудника').all()[0].json.name }}</a>(авто {{ $('номер авто').all()[0].json.number_car }}) проблема на маршруте <b>{{ $('получим перевозку').all()[0].json.display_name.substring(11) }}</b>: <i>{{ $('Execute Workflow Trigger').all()[0].json[\"message\"][\"text\"] }}</i>\n\n{{ $('в один текст').item.json.concatenated_logists != `@<a href=\"tg://user?id=\">Логист</a>` ? $('в один текст').item.json.concatenated_logists : \"\"}}\n{{ $('в один текст1').item.json.concatenated_dispatchers != `@<a href=\"tg://user?id=\">Диспетчер</a>` ?  $('в один текст1').item.json.concatenated_dispatchers : \"\"}}",
         "additionalFields": {
           "appendAttribution": false,
           "parse_mode": "HTML"
@@ -10980,7 +10921,7 @@
     {
       "parameters": {
         "chatId": "={{ $json.tg_id }}",
-        "text": "=Проблема с <b>документами</b> у водителя {{ $('данные сотрудника').item.json[\"display_name\"] }} <a href=\"tel:{{ $('данные сотрудника').item.json.mobile_phone }}\">{{ $('данные сотрудника').item.json.mobile_phone }}</a>(авто {{ $('номер авто').item.json[\"number_car\"] }}) на маршруте {{ $('получим перевозку').all()[0].json.route[1] }}:\n\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i>",
+        "text": "=Проблема с <b>документами</b> у водителя {{ $('данные сотрудника').item.json[\"display_name\"] }} <a href=\"tel:{{ $('данные сотрудника').item.json.mobile_phone }}\">{{ $('данные сотрудника').item.json.mobile_phone }}</a>(авто {{ $('номер авто').item.json[\"number_car\"] }}) на маршруте {{ $('получим перевозку').all()[0].json.display_name.substring(11) }}:\n\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i>",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -11064,7 +11005,7 @@
     {
       "parameters": {
         "chatId": "={{ $json.tg_id }}",
-        "text": "=Проблема с <b>документами</b> у водителя {{ $('данные сотрудника').item.json[\"display_name\"] }} <a href=\"tel:{{ $('данные сотрудника').item.json.mobile_phone }}\">{{ $('данные сотрудника').item.json.mobile_phone }}</a>(авто {{ $('номер авто').item.json[\"number_car\"] }}) на маршруте {{ $('получим перевозку').all()[0].json.route[1] }}:\n\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i>",
+        "text": "=Проблема с <b>документами</b> у водителя {{ $('данные сотрудника').item.json[\"display_name\"] }} <a href=\"tel:{{ $('данные сотрудника').item.json.mobile_phone }}\">{{ $('данные сотрудника').item.json.mobile_phone }}</a>(авто {{ $('номер авто').item.json[\"number_car\"] }}) на маршруте {{ $('получим перевозку').all()[0].json.display_name.substring(11) }}:\n\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i>",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -11773,7 +11714,7 @@
     },
     {
       "parameters": {
-        "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const transportation = item.json;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  //const route = transportation.route[1];\n  const route = transportation.display_name.substring(11);\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n  const round_quantity_for_car= transportation.round_quantity_for_car;\n  const required_ton= transportation.required_ton;\n\n  let message = `<b>${index}.</b> Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <i>${comment}</i>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n  \n  if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n  }\n\n  if (index === 1) {\n    message = `<i><b>${index}. Отправитель - ${sender}\\nПолучатель - ${partner}\\nМаршрут - ${route}\\nМатериал - ${material}`;\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    if (endCondition === \"По перевезенным кубометрам\") {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n    if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n    }\n    if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n    }\n    message += `</b></i>\\n\\n`;\n  } else {\n    message += `\\n\\n`;\n  }\n\n  combinedMessages += message;\n\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
+        "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const transportation = item.json;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.display_name.substring(11);\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n  const round_quantity_for_car= transportation.round_quantity_for_car;\n  const required_ton= transportation.required_ton;\n\n  let message = `<b>${index}.</b> Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <i>${comment}</i>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n  \n  if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n  }\n\n  if (index === 1) {\n    message = `<i><b>${index}. Отправитель - ${sender}\\nПолучатель - ${partner}\\nМаршрут - ${route}\\nМатериал - ${material}`;\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    if (endCondition === \"По перевезенным кубометрам\") {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n    if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n    }\n    if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n    }\n    message += `</b></i>\\n\\n`;\n  } else {\n    message += `\\n\\n`;\n  }\n\n  combinedMessages += message;\n\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
       },
       "id": "43e7c820-9fe0-4f61-bae5-618c3f51316a",
       "name": "Code1",
@@ -11890,6 +11831,65 @@
         3412,
         3480
       ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Execute Workflow Trigger').all()[0].json.status.substring(22) }}",
+                    "rightValue": "route",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "cd6ec3dc-180b-43ea-8c12-a7d7e91ea930",
+                    "leftValue": "={{ $('Execute Workflow Trigger').all()[0].json.status.substring(22) }}",
+                    "rightValue": "document",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7d7503b6-0c1c-44c1-917e-94e9b0c304d0",
+      "name": "маршрут",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        200,
+        6774
+      ]
     }
   ],
   "pinData": {
@@ -11949,6 +11949,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-08-15T12:33:25.000Z",
-  "versionId": "bacb35c9-b98d-4bc6-9890-0a0e822aacf0"
+  "updatedAt": "2024-08-16T10:48:08.000Z",
+  "versionId": "27680147-0d7e-4106-942d-563dbbe26c49"
 }
