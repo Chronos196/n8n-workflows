@@ -1,33 +1,162 @@
 {
   "active": false,
   "connections": {
-    "Telegram Trigger": {
+    "поиск текущего авто1": {
       "main": [
         [
           {
-            "node": "Telegram",
+            "node": "получение перевозок4",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Extract from File": {
+    "получение перевозок4": {
       "main": [
         [
           {
-            "node": "Odoo",
+            "node": "Split Out2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Нет доступных перевозок2",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Telegram": {
+    "Нет доступных перевозок2": {
       "main": [
         [
           {
-            "node": "Extract from File",
+            "node": "убираем кнопки в меню ТО",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out2": {
+      "main": [
+        [
+          {
+            "node": "Sort1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Вывод перевозок на день": {
+      "main": [
+        [
+          {
+            "node": "убираем кнопки в меню ТО",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "поиск текущего авто1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replace Me": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "рейсы в перевозке": {
+      "main": [
+        [
+          {
+            "node": "Summarize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ],
+        [
+          {
+            "node": "рейсы в перевозке",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize": {
+      "main": [
+        [
+          {
+            "node": "Replace Me",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Вывод перевозок на день",
             "type": "main",
             "index": 0
           }
@@ -35,8 +164,8 @@
       ]
     }
   },
-  "createdAt": "2024-05-15T13:26:43.065Z",
-  "id": "7tYfEVRypmty4QXf",
+  "createdAt": "2024-08-20T07:49:58.384Z",
+  "id": "KXukyc16YV2yKVAD",
   "meta": {
     "templateCredsSetupCompleted": true
   },
@@ -44,52 +173,42 @@
   "nodes": [
     {
       "parameters": {
-        "updates": [
-          "callback_query",
-          "message"
-        ],
-        "additionalFields": {
-          "download": true
-        }
+        "content": "## Вывод перевозок на день в начале смены",
+        "height": 230.4346665917456,
+        "width": 1157.3905949081466,
+        "color": 3
       },
-      "id": "c9b19532-87bc-409b-8c06-08ee40d39165",
-      "name": "Telegram Trigger",
-      "type": "n8n-nodes-base.telegramTrigger",
-      "typeVersion": 1.1,
+      "id": "fffa7c9d-6855-4671-8ca7-2cb556a3c959",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
       "position": [
-        500,
-        360
-      ],
-      "webhookId": "49e161c3-f5a8-4926-8e5c-6b0ad3fed663",
-      "credentials": {
-        "telegramApi": {
-          "id": "gOQQxmUbZz0UWAfO",
-          "name": "Telegram account 2"
-        }
-      }
+        -240,
+        220
+      ]
     },
     {
       "parameters": {
         "resource": "custom",
-        "customResource": "technical.maintenance",
-        "operation": "update",
-        "customResourceId": "83",
-        "fieldsToCreateOrUpdate": {
-          "fields": [
+        "customResource": "cars.cars",
+        "operation": "getAll",
+        "options": {},
+        "filterRequest": {
+          "filter": [
             {
-              "fieldName": "image_of_breakage",
-              "fieldValue": "={{ $json.data }}"
+              "fieldName": "driver_id",
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
             }
           ]
         }
       },
-      "id": "efdc7d17-894d-4dba-8def-2cd2aaf6e740",
-      "name": "Odoo",
+      "id": "a5c0f83d-a987-43d9-8519-38ac5893a624",
+      "name": "поиск текущего авто1",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        1280,
-        360
+        -180,
+        314
       ],
       "credentials": {
         "odooApi": {
@@ -100,46 +219,513 @@
     },
     {
       "parameters": {
-        "operation": "binaryToPropery",
+        "url": "https://dev.everest.lamart.site/transportations_by_car",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"number_car\": {{'\"'+ $json.number_car +'\"'}}\n}  ",
         "options": {}
       },
-      "id": "9af4c19f-5669-4552-8c25-3b4c7d553dcf",
-      "name": "Extract from File",
-      "type": "n8n-nodes-base.extractFromFile",
-      "typeVersion": 1,
+      "id": "6eb8f73f-ddec-470c-bced-2273c0dc1bbd",
+      "name": "получение перевозок4",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
       "position": [
-        1020,
-        360
-      ]
+        20,
+        314
+      ],
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
-        "resource": "file"
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+        "text": "На данный момент нет назначенных перевозок!",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Проверить назначенные перевозки",
+                    "additionalFields": {
+                      "callback_data": "проверить перевозки"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Статистика",
+                    "additionalFields": {
+                      "callback_data": "stats"
+                    }
+                  },
+                  {
+                    "text": "Завершить смену",
+                    "additionalFields": {
+                      "callback_data": "complete_work_transportation"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
       },
-      "id": "48f438ed-7eba-4992-8647-58316f7cdbbe",
-      "name": "Telegram",
+      "id": "8dba8703-8dea-431a-a31c-5ff4acc49df0",
+      "name": "Нет доступных перевозок2",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        720,
+        260,
         360
       ],
       "credentials": {
         "telegramApi": {
-          "id": "gOQQxmUbZz0UWAfO",
-          "name": "Telegram account 2"
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "transportations",
+        "include": "allOtherFields",
+        "options": {}
+      },
+      "id": "43f1f7de-c211-4864-baab-48d7c8066a4f",
+      "name": "Split Out2",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        320,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "transportations.id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "29bd5684-a48c-4bc6-aa92-26d7b558a29c",
+      "name": "Sort1",
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        580,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Вывод водителей с той же перевозкой",
+        "height": 376.3163879376565,
+        "width": 961.0663501638787,
+        "color": 6
+      },
+      "id": "7172af47-886a-44f0-b016-63243c559778",
+      "name": "Sticky Note12",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        880,
+        20
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.message.chat.id }}",
+        "text": "=<b>На сегодня Вам назначены перевозки в следующем порядке:</b>\n\n{{ $json.combinedMessages }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Приступить к первой перевозке",
+                    "additionalFields": {
+                      "callback_data": "accept"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
         }
       },
-      "disabled": true
+      "id": "014dbae6-49e8-435a-8d17-7503613ac0e6",
+      "name": "Вывод перевозок на день",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        1720,
+        140
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.message.message_id }}",
+        "text": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.message.text }}",
+        "additionalFields": {}
+      },
+      "id": "7cd9730f-9762-4772-b5ae-68e7e3264b74",
+      "name": "убираем кнопки в меню ТО",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        1920,
+        420
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "cg3DBo1aKun5qfRh",
+          "name": "Алексей dev"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "95c0fefa-6c0c-43db-a6db-d9b0763e0f70",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        320
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "ab32f98a-1383-48b2-b7e9-316e193c9941",
+      "name": "Replace Me",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "=transportation.round",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "id",
+              "value": "={{ $json.transportations.rounds }}"
+            },
+            {
+              "fieldName": "driver",
+              "operator": "notEqual",
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
+            }
+          ]
+        }
+      },
+      "id": "b5c57dba-092a-4c39-a015-8e616bb02496",
+      "name": "рейсы в перевозке",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        220
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "77e4b1cb-e527-4c38-92d4-14cd5cef7d0a",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        900,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "04d5f19c-3195-4ed9-9187-3197f5ffa927",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1300,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "concatenate",
+              "field": "driver[1]",
+              "separateBy": "\n"
+            }
+          ]
+        },
+        "options": {
+          "continueIfFieldNotFound": true
+        }
+      },
+      "id": "c99b9c2d-6866-4043-927f-b446f56e3694",
+      "name": "Summarize",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        1300,
+        220
+      ],
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const transportation = item.json.transportations;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.display_name.substring(11);\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n  const round_quantity_for_car= transportation.round_quantity_for_car;\n  const required_ton= transportation.required_ton;\n\n  let message = `<b>${index}.</b> Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <i>${comment}</i>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n  \n  if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n  }\n\n  message += \"\\n\\nВодители, выполняющие перевозку с вами:\\n\" + (item.json.concatenated_driver1 ? item.json.concatenated_driver1 : \"Не найдены\");\n\n  if (index === 1) {\n    message = `<i><b>${index}. Отправитель - ${sender}\\nПолучатель - ${partner}\\nМаршрут - ${route}\\nМатериал - ${material}`;\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    if (endCondition === \"По перевезенным кубометрам\") {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n    if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n    }\n    if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n    }\n    message += \"\\n\\nВодители, выполняющие перевозку с вами:\\n\" + (item.json.concatenated_driver1 ? item.json.concatenated_driver1 : \"Не найдены\");\n    message += `</b></i>\\n\\n`;\n  } else {\n    message += `\\n\\n`;\n  }\n  combinedMessages += message;\n\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
+      },
+      "id": "7f944e67-b7d7-4693-88bb-d51f62da99bd",
+      "name": "Code1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1540,
+        80
+      ]
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Execute Workflow Trigger": [
+      {
+        "json": {
+          "update_id": 100624251,
+          "callback_query": {
+            "id": "3010587257901726865",
+            "from": {
+              "id": 700956969,
+              "is_bot": false,
+              "first_name": "Алексей",
+              "username": "Chronos196",
+              "language_code": "ru"
+            },
+            "message": {
+              "message_id": 16055,
+              "from": {
+                "id": 7063451965,
+                "is_bot": true,
+                "first_name": "Everest n8n",
+                "username": "myn8nbotbot"
+              },
+              "chat": {
+                "id": 700956969,
+                "first_name": "Алексей",
+                "username": "Chronos196",
+                "type": "private"
+              },
+              "date": 1724137711,
+              "text": "Документы на автомобиль:\n\n❗ 12 дней назад истёк срок действия документа лицензия (был действителен до 08.08.2024)\n\n❗ 0 дней назад истёк срок действия документа Государственный тех.осмотр (был действителен до 20.08.2024)\n\nНайдены заявки на техобслуживание:\n\n01.08.2024 15:03 - текст для диспетчера\n01.08.2024 15:05 - 123\n02.08.2024 11:43 - 123\n02.08.2024 11:45 - 123\n02.08.2024 11:46 - 123\n02.08.2024 11:47 - 123\n05.08.2024 08:44 - 123\n05.08.2024 09:03 - 333\n05.08.2024 12:01 - текст 123\n06.08.2024 13:06 - текст\n08.08.2024 06:06 - тест\n\nПожалуйста, проведите осмотр авто перед началом работы!\n\nАвтомобиль: SCANIA\nНомер: А 459 ТЕ\nПробег: 5000 км\n______________________\n⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n\nДо замены масла осталось 605000 км.",
+              "entities": [
+                {
+                  "offset": 0,
+                  "length": 24,
+                  "type": "bold"
+                },
+                {
+                  "offset": 72,
+                  "length": 8,
+                  "type": "bold"
+                },
+                {
+                  "offset": 160,
+                  "length": 26,
+                  "type": "bold"
+                },
+                {
+                  "offset": 221,
+                  "length": 34,
+                  "type": "bold"
+                },
+                {
+                  "offset": 276,
+                  "length": 20,
+                  "type": "bold"
+                },
+                {
+                  "offset": 316,
+                  "length": 3,
+                  "type": "bold"
+                },
+                {
+                  "offset": 339,
+                  "length": 3,
+                  "type": "bold"
+                },
+                {
+                  "offset": 362,
+                  "length": 3,
+                  "type": "bold"
+                },
+                {
+                  "offset": 385,
+                  "length": 3,
+                  "type": "bold"
+                },
+                {
+                  "offset": 408,
+                  "length": 3,
+                  "type": "bold"
+                },
+                {
+                  "offset": 431,
+                  "length": 3,
+                  "type": "bold"
+                },
+                {
+                  "offset": 454,
+                  "length": 3,
+                  "type": "bold"
+                },
+                {
+                  "offset": 477,
+                  "length": 9,
+                  "type": "bold"
+                },
+                {
+                  "offset": 506,
+                  "length": 5,
+                  "type": "bold"
+                },
+                {
+                  "offset": 531,
+                  "length": 4,
+                  "type": "bold"
+                },
+                {
+                  "offset": 537,
+                  "length": 55,
+                  "type": "bold"
+                },
+                {
+                  "offset": 606,
+                  "length": 6,
+                  "type": "bold"
+                },
+                {
+                  "offset": 620,
+                  "length": 8,
+                  "type": "bold"
+                },
+                {
+                  "offset": 637,
+                  "length": 7,
+                  "type": "bold"
+                },
+                {
+                  "offset": 668,
+                  "length": 98,
+                  "type": "bold"
+                },
+                {
+                  "offset": 767,
+                  "length": 35,
+                  "type": "bold"
+                }
+              ],
+              "reply_markup": {
+                "inline_keyboard": [
+                  [
+                    {
+                      "text": "✅Всё в норме.",
+                      "callback_data": "menu_ok"
+                    }
+                  ],
+                  [
+                    {
+                      "text": "❌Есть неисправности",
+                      "callback_data": "menu_wrong"
+                    }
+                  ]
+                ]
+              }
+            },
+            "chat_instance": "1908726007480408494",
+            "data": "menu_ok"
+          },
+          "tg_id": "700956969",
+          "odoo_id": 2,
+          "status": "authorized",
+          "only_mech": false,
+          "mech_photo": false,
+          "end_request_id": null,
+          "materials_photo": false,
+          "end_request_hours": null,
+          "car_id_while_inputing": 18,
+          "fuel_liters": 100,
+          "weight_measure": "20 м3 ",
+          "logist_alert_text": null,
+          "logist_recipient_name": null,
+          "transportation_for_certificate": null,
+          "count_weight_photo": 1,
+          "count_weight_photo_sent": 0,
+          "cookie": "session_id=0845b393462800ff5c7efaa14bbd4b41a12ac863; Expires=Wed, 20 Aug 2025 07:09:29 GMT; Max-Age=604800; HttpOnly; Path=/"
+        }
+      }
+    ]
+  },
   "settings": {
     "executionOrder": "v1"
   },
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2024-05-16T11:13:06.000Z",
-  "versionId": "8ed28f88-1cfd-4af8-ad28-41aab4215417"
+  "updatedAt": "2024-08-20T08:34:48.000Z",
+  "versionId": "688a03e4-a9e6-4e39-a00d-2fbd902ebf69"
 }
