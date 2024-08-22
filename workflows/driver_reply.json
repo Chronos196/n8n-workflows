@@ -1723,7 +1723,12 @@
       "main": [
         [
           {
-            "node": "Code1",
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "перевозки+имена",
             "type": "main",
             "index": 0
           }
@@ -2693,6 +2698,68 @@
         [
           {
             "node": "отправка логистам о доках",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [
+          {
+            "node": "перевозки+имена",
+            "type": "main",
+            "index": 1
+          }
+        ],
+        [
+          {
+            "node": "рейсы в перевозке",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "рейсы в перевозке": {
+      "main": [
+        [
+          {
+            "node": "склеить имена водителей",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "склеить имена водителей": {
+      "main": [
+        [
+          {
+            "node": "Replace Me1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replace Me1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "перевозки+имена": {
+      "main": [
+        [
+          {
+            "node": "Code1",
             "type": "main",
             "index": 0
           }
@@ -7208,7 +7275,7 @@
       "parameters": {
         "content": "## вывод перевозок на день",
         "height": 617.5257347603151,
-        "width": 2841.732371313188,
+        "width": 3276.1104630753766,
         "color": 6
       },
       "id": "39509392-d47d-4b5f-9d04-ba34347e05e1",
@@ -8815,8 +8882,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4420,
-        680
+        4880,
+        440
       ],
       "credentials": {
         "telegramApi": {
@@ -11714,15 +11781,15 @@
     },
     {
       "parameters": {
-        "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const transportation = item.json;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.display_name.substring(11);\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n  const round_quantity_for_car= transportation.round_quantity_for_car;\n  const required_ton= transportation.required_ton;\n\n  let message = `<b>${index}.</b> Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <i>${comment}</i>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n  \n  if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n  }\n\n  if (index === 1) {\n    message = `<i><b>${index}. Отправитель - ${sender}\\nПолучатель - ${partner}\\nМаршрут - ${route}\\nМатериал - ${material}`;\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    if (endCondition === \"По перевезенным кубометрам\") {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n    if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n    }\n    if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n    }\n    message += `</b></i>\\n\\n`;\n  } else {\n    message += `\\n\\n`;\n  }\n\n  combinedMessages += message;\n\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
+        "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const transportation = item.json;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.display_name.substring(11);\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n  const round_quantity_for_car= transportation.round_quantity_for_car;\n  const required_ton= transportation.required_ton;\n\n  let message = `<b>${index}.</b> Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <i>${comment}</i>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n  \n  if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n  }\n\n  message += (item.json.concatenated_driver1 ? \"\\n\\nВодители, выполняющие перевозку с вами:\\n\" + item.json.concatenated_driver1 : \"\");\n  \n  if (index === 1) {\n    message = `<i><b>${index}. Отправитель - ${sender}\\nПолучатель - ${partner}\\nМаршрут - ${route}\\nМатериал - ${material}`;\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    if (endCondition === \"По перевезенным кубометрам\") {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n    if (endCondition === \"Количество рейсов для каждого автомобиля\") {\n    message += `\\nТребуемое количество рейсов по перевозке - <b>${round_quantity_for_car}</b>`;\n    }\n    if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n    }\n    message += (item.json.concatenated_driver1 ? \"\\n\\nВодители, выполняющие перевозку с вами:\\n\" + item.json.concatenated_driver1 : \"\");\n    message += `</b></i>\\n\\n`;\n  } else {\n    message += `\\n\\n`;\n  }\n\n  combinedMessages += message;\n\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
       },
       "id": "43e7c820-9fe0-4f61-bae5-618c3f51316a",
       "name": "Code1",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4220,
-        680
+        4680,
+        440
       ]
     },
     {
@@ -11890,15 +11957,115 @@
         200,
         6774
       ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "4d2ad162-b9e6-45d6-ab85-5a86b552bad7",
+      "name": "Loop Over Items1",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        4280,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "=transportation.round",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "id",
+              "value": "={{ $json.rounds }}"
+            },
+            {
+              "fieldName": "driver",
+              "operator": "notEqual",
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
+            }
+          ]
+        }
+      },
+      "id": "a25a97d6-40a5-4d43-a8ab-43117f93c549",
+      "name": "рейсы в перевозке",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        4500,
+        620
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "concatenate",
+              "field": "driver[1]",
+              "separateBy": "\n"
+            }
+          ]
+        },
+        "options": {
+          "continueIfFieldNotFound": true
+        }
+      },
+      "id": "b82b0c8c-ea20-46cc-a5c3-71f15b60167c",
+      "name": "склеить имена водителей",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        4680,
+        620
+      ],
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {},
+      "id": "b878d7c9-237a-418d-ac35-f3afbd844111",
+      "name": "Replace Me1",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        4920,
+        620
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "67dc3a78-947b-4ced-8cfb-112904dcf097",
+      "name": "перевозки+имена",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        4440,
+        440
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100624250,
+          "update_id": 100624290,
           "message": {
-            "message_id": 16054,
+            "message_id": 16143,
             "from": {
               "id": 700956969,
               "is_bot": false,
@@ -11912,12 +12079,12 @@
               "username": "Chronos196",
               "type": "private"
             },
-            "date": 1724137670,
-            "text": "5000"
+            "date": 1724228537,
+            "text": "Приступить к работе"
           },
           "tg_id": "700956969",
           "odoo_id": 2,
-          "status": "inputing_odometer",
+          "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
           "end_request_id": null,
@@ -11925,13 +12092,13 @@
           "end_request_hours": null,
           "car_id_while_inputing": 18,
           "fuel_liters": 100,
-          "weight_measure": "20 м3 ",
+          "weight_measure": "10 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
           "count_weight_photo": 1,
           "count_weight_photo_sent": 0,
-          "cookie": "session_id=a0f6e23054f50a461b85b735bfe8bd266b9c87fb; Expires=Wed, 20 Aug 2025 07:07:50 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=ec37ec8e6d55b75f5c2d797bf73f5d444715bd9e; Expires=Thu, 21 Aug 2025 08:22:18 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -11949,6 +12116,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-08-20T07:08:26.000Z",
-  "versionId": "92a8ecec-d64d-453b-98c4-0b98d50a91fe"
+  "updatedAt": "2024-08-21T08:30:33.000Z",
+  "versionId": "667ee89c-59e8-4fc2-8629-da7ee1384e7e"
 }
