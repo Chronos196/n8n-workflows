@@ -3056,7 +3056,7 @@
       "main": [
         [
           {
-            "node": "очередь перевозок",
+            "node": "авто",
             "type": "main",
             "index": 0
           }
@@ -3182,6 +3182,17 @@
         [
           {
             "node": "принятие заказа",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "авто": {
+      "main": [
+        [
+          {
+            "node": "очередь перевозок",
             "type": "main",
             "index": 0
           }
@@ -5617,7 +5628,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        6280,
+        6500,
         14280
       ],
       "credentials": {
@@ -5657,7 +5668,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        6600,
+        6820,
         14500
       ],
       "alwaysOutputData": true,
@@ -5697,7 +5708,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        6800,
+        7020,
         14500
       ]
     },
@@ -5803,7 +5814,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        7340,
+        7560,
         14500
       ],
       "credentials": {
@@ -5824,7 +5835,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        7080,
+        7300,
         14500
       ],
       "credentials": {
@@ -17269,7 +17280,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        5080,
+        5300,
         14200
       ],
       "credentials": {
@@ -17317,7 +17328,7 @@
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2,
       "position": [
-        5300,
+        5520,
         14200
       ]
     },
@@ -17328,7 +17339,7 @@
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        5520,
+        5740,
         14200
       ]
     },
@@ -17362,7 +17373,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "{\n    \"car_id\": 18\n}",
+        "jsonBody": "={\n    \"car_id\": {{ $json.id }}\n} ",
         "options": {}
       },
       "id": "17454263-ea66-4037-ae0c-33ae497bf72d",
@@ -17370,7 +17381,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        4840,
+        5060,
         14200
       ]
     },
@@ -17404,7 +17415,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        6000,
+        6220,
         14020
       ]
     },
@@ -17464,7 +17475,7 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        5720,
+        5940,
         14200
       ]
     },
@@ -17487,18 +17498,48 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        6000,
+        6220,
         14180
       ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "=cars.cars",
+        "operation": "getAll",
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "driver_id",
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
+            }
+          ]
+        }
+      },
+      "id": "08632d59-35f8-4b18-8ef6-a13ff7855d5b",
+      "name": "авто",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        4720,
+        14260
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "QXqc61yRCfgVSB3C",
+          "name": "new Odoo Алексей"
+        }
+      }
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100624405,
+          "update_id": 100624606,
           "callback_query": {
-            "id": "3010587260147567429",
+            "id": "3010587258482919397",
             "from": {
               "id": 700956969,
               "is_bot": false,
@@ -17507,7 +17548,7 @@
               "language_code": "ru"
             },
             "message": {
-              "message_id": 16252,
+              "message_id": 16479,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -17520,134 +17561,38 @@
                 "username": "Chronos196",
                 "type": "private"
               },
-              "date": 1724237353,
-              "text": "Документы на автомобиль:\n\n❗ 1 день назад истёк срок действия документа Государственный тех.осмотр (был действителен до 20.08.2024)\n\n❗ 13 дней назад истёк срок действия документа лицензия (был действителен до 08.08.2024)\n\nНайдены заявки на техобслуживание:\n\n01.08.2024 15:03 - текст для диспетчера\n01.08.2024 15:05 - 123\n02.08.2024 11:43 - 123\n02.08.2024 11:45 - 123\n02.08.2024 11:46 - 123\n02.08.2024 11:47 - 123\n05.08.2024 08:44 - 123\n05.08.2024 09:03 - 333\n05.08.2024 12:01 - текст 123\n06.08.2024 13:06 - текст\n08.08.2024 06:06 - тест\n\nПожалуйста, проведите осмотр авто перед началом работы!\n\nАвтомобиль: SCANIA\nНомер: А 459 ТЕ\nПробег: 500 км\n______________________\n⭕ Тех. жидкость в норме.\n⭕ Тормозная система в норме.\n⭕ Ходовая часть в норме.\n⭕ Запаска в норме.\n\nДо замены масла осталось 609500 км.",
+              "date": 1724412487,
+              "text": "На сегодня Вам назначены перевозки в следующем порядке:\n\n1. Отправитель - Эверест\nПолучатель - Новая компания\nМаршрут - Ключевое-Тест_1\nМатериал - Песок (Ключевое)\nТребуемое количество тонн по перевозке - 50\n\nВодители, выполняющие перевозку с вами:\nЕкатерина Ольта",
               "entities": [
                 {
                   "offset": 0,
-                  "length": 24,
-                  "type": "bold"
-                },
-                {
-                  "offset": 71,
-                  "length": 26,
-                  "type": "bold"
-                },
-                {
-                  "offset": 178,
-                  "length": 8,
-                  "type": "bold"
-                },
-                {
-                  "offset": 221,
-                  "length": 34,
-                  "type": "bold"
-                },
-                {
-                  "offset": 276,
-                  "length": 20,
-                  "type": "bold"
-                },
-                {
-                  "offset": 316,
-                  "length": 3,
-                  "type": "bold"
-                },
-                {
-                  "offset": 339,
-                  "length": 3,
-                  "type": "bold"
-                },
-                {
-                  "offset": 362,
-                  "length": 3,
-                  "type": "bold"
-                },
-                {
-                  "offset": 385,
-                  "length": 3,
-                  "type": "bold"
-                },
-                {
-                  "offset": 408,
-                  "length": 3,
-                  "type": "bold"
-                },
-                {
-                  "offset": 431,
-                  "length": 3,
-                  "type": "bold"
-                },
-                {
-                  "offset": 454,
-                  "length": 3,
-                  "type": "bold"
-                },
-                {
-                  "offset": 477,
-                  "length": 9,
-                  "type": "bold"
-                },
-                {
-                  "offset": 506,
-                  "length": 5,
-                  "type": "bold"
-                },
-                {
-                  "offset": 531,
-                  "length": 4,
-                  "type": "bold"
-                },
-                {
-                  "offset": 537,
                   "length": 55,
                   "type": "bold"
                 },
                 {
-                  "offset": 606,
-                  "length": 6,
+                  "offset": 57,
+                  "length": 207,
                   "type": "bold"
                 },
                 {
-                  "offset": 620,
-                  "length": 8,
-                  "type": "bold"
-                },
-                {
-                  "offset": 637,
-                  "length": 6,
-                  "type": "bold"
-                },
-                {
-                  "offset": 667,
-                  "length": 98,
-                  "type": "bold"
-                },
-                {
-                  "offset": 766,
-                  "length": 35,
-                  "type": "bold"
+                  "offset": 57,
+                  "length": 207,
+                  "type": "italic"
                 }
               ],
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "✅Всё в норме.",
-                      "callback_data": "menu_ok"
-                    }
-                  ],
-                  [
-                    {
-                      "text": "❌Есть неисправности",
-                      "callback_data": "menu_wrong"
+                      "text": "Приступить к первой перевозке",
+                      "callback_data": "accept"
                     }
                   ]
                 ]
               }
             },
             "chat_instance": "1908726007480408494",
-            "data": "menu_ok"
+            "data": "accept"
           },
           "tg_id": "700956969",
           "odoo_id": 2,
@@ -17657,7 +17602,7 @@
           "end_request_id": null,
           "materials_photo": false,
           "end_request_hours": null,
-          "car_id_while_inputing": 18,
+          "car_id_while_inputing": 22,
           "fuel_liters": 100,
           "weight_measure": "10 Тонны ",
           "logist_alert_text": null,
@@ -17665,7 +17610,7 @@
           "transportation_for_certificate": null,
           "count_weight_photo": 1,
           "count_weight_photo_sent": 0,
-          "cookie": "session_id=9ce028f94420ff983e6f90b0112da7ad4a321a8a; Expires=Thu, 21 Aug 2025 10:50:40 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=7698b253fbb412518d89e94d017c888b421e55fe; Expires=Sat, 23 Aug 2025 11:28:10 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -17683,6 +17628,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-08-21T10:52:43.000Z",
-  "versionId": "871c20bc-5889-48be-8902-d7211ecd81ae"
+  "updatedAt": "2024-08-23T13:18:39.000Z",
+  "versionId": "dd34b989-4395-472c-98b6-55fdb9542d06"
 }
