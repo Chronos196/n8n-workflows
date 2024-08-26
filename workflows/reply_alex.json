@@ -2785,7 +2785,7 @@
       "main": [
         [
           {
-            "node": "Telegram2",
+            "node": "Code7",
             "type": "main",
             "index": 0
           }
@@ -2830,6 +2830,17 @@
         [
           {
             "node": "Разбиение рейсов по перевозкам",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code7": {
+      "main": [
+        [
+          {
+            "node": "Telegram2",
             "type": "main",
             "index": 0
           }
@@ -12202,7 +12213,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        280,
+        260,
         40
       ],
       "disabled": true
@@ -12216,9 +12227,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        520,
-        80
-      ]
+        400,
+        40
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -12234,8 +12246,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        840,
-        140
+        720,
+        40
       ],
       "credentials": {
         "telegramApi": {
@@ -12304,6 +12316,19 @@
         -20,
         20
       ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Получаем входные данные из предыдущего кубика\nconst inputData = items.map(item => item.json);\n\n// Функция для получения номера недели\nfunction getWeek(date) {\n    const current = new Date(date);\n    const start = new Date(current.getFullYear(), 0, 1);\n    const diff = (current - start + (start.getTimezoneOffset() - current.getTimezoneOffset()) * 60000) / 86400000;\n    return Math.floor((diff + start.getDay() + 1) / 7);\n}\n\n// Функция для получения начала недели (понедельник)\nfunction getStartOfWeek(date) {\n    const current = new Date(date);\n    const first = current.getDate() - current.getDay() + 1; // Понедельник\n    return new Date(current.setDate(first));\n}\n\n// Функция для получения конца недели (воскресенье)\nfunction getEndOfWeek(date) {\n    const current = new Date(date);\n    const last = current.getDate() - current.getDay() + 7; // Воскресенье\n    return new Date(current.setDate(last));\n}\n\n// Группируем данные по неделям\nfunction groupByWeek(data) {\n    const weeks = {};\n    data.forEach(entry => {\n        const weekNumber = getWeek(entry.date);\n        if (!weeks[weekNumber]) {\n            weeks[weekNumber] = [];\n        }\n        weeks[weekNumber].push(entry);\n    });\n    return weeks;\n}\n\n// Рассчитываем дневную статистику для текущей недели до сегодняшнего дня\nfunction getDailyStats(currentWeekData) {\n    const dailyStats = {};\n    const startDate = getStartOfWeek(new Date());\n    const today = new Date();\n\n    // Итерируемся по каждому дню с начала недели до сегодняшнего дня\n    for (let date = new Date(startDate); date <= today; date.setDate(date.getDate() + 1)) {\n        const formattedDate = date.toISOString().split('T')[0];\n        dailyStats[formattedDate] = { totalTrips: 0, totalEarnings: 0, noTrips: true };\n    }\n\n    // Обновляем данные на основе реальных данных\n    currentWeekData.forEach(entry => {\n        const date = entry.date;\n        if (dailyStats[date]) {\n            dailyStats[date].totalTrips += entry.count;\n            dailyStats[date].totalEarnings += entry.total;\n            dailyStats[date].noTrips = false;\n        }\n    });\n\n    return dailyStats;\n}\n\n// Рассчитываем недельную статистику для последних трех недель\nfunction getWeeklyStats() {\n    const weeklyStats = [];\n    const today = new Date();\n\n    for (let i = 1; i <= 3; i++) {\n        const startOfWeek = getStartOfWeek(new Date(today.getFullYear(), today.getMonth(), today.getDate() - i * 7));\n        const endOfWeek = getEndOfWeek(new Date(today.getFullYear(), today.getMonth(), today.getDate() - i * 7));\n        const weekNumber = getWeek(startOfWeek);\n        const weekData = groupedData[weekNumber] || [];\n\n        const totalEarnings = weekData.reduce((acc, entry) => acc + entry.total, 0);\n        weeklyStats.push({\n            startDate: startOfWeek.toISOString().split('T')[0],\n            endDate: endOfWeek.toISOString().split('T')[0],\n            totalEarnings: isNaN(totalEarnings) || totalEarnings === 0 ? 0 : totalEarnings\n        });\n    }\n\n    return weeklyStats;\n}\n\n// Преобразуем данные в формат HTML для Telegram\nfunction convertToHTML(currentWeekDailyStats, pastThreeWeeksStats) {\n    let result = '';\n\n    result += `<b>Текущая неделя</b>\\n`;\n    Object.keys(currentWeekDailyStats).forEach(date => {\n        const stats = currentWeekDailyStats[date];\n        result += `Дата: ${date}\\n`;\n        if (stats.noTrips) {\n            result += `Не было рейсов\\n\\n`;\n        } else {\n            result += `Количество рейсов: ${stats.totalTrips}\\n`;\n            result += `Сумма заработка: ${stats.totalEarnings}\\n\\n`;\n        }\n    });\n\n    result += `<b>Отчет за последние 3 недели</b>\\n`;\n    pastThreeWeeksStats.forEach(stats => {\n        result += `Неделя: ${stats.startDate} - ${stats.endDate}\\n`;\n        result += `Сумма заработка: ${stats.totalEarnings}\\n\\n`;\n    });\n\n    return result;\n}\n\n// Обрабатываем данные\nconst groupedData = groupByWeek(inputData);\nconst currentWeekNumber = getWeek(new Date());\nconst currentWeekData = groupedData[currentWeekNumber] || [];\nconst currentWeekDailyStats = getDailyStats(currentWeekData);\nconst pastThreeWeeksStats = getWeeklyStats();\nconst htmlOutput = convertToHTML(currentWeekDailyStats, pastThreeWeeksStats);\n\n// Возвращаем результат для следующего кубика\nreturn { html: htmlOutput };\n"
+      },
+      "id": "5a0ce48d-5d44-4d2c-b639-c18f3d9ea46b",
+      "name": "Code7",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        40
+      ]
     }
   ],
   "pinData": {
@@ -12363,6 +12388,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-08-20T10:54:34.000Z",
-  "versionId": "fff8c68e-ea94-4eee-b014-e09cfd18770a"
+  "updatedAt": "2024-08-23T09:17:06.000Z",
+  "versionId": "6c238d8f-9224-4f14-b09e-234799de64a3"
 }
