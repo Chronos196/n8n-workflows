@@ -450,6 +450,17 @@
         ]
       ]
     },
+    "Проверка кнопок": {
+      "main": [
+        [
+          {
+            "node": "выбор периода документов",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Проверка старта1": {
       "main": [
         [
@@ -479,21 +490,10 @@
           }
         ]
       ]
-    },
-    "Проверка кнопок": {
-      "main": [
-        [
-          {
-            "node": "выбор периода документов",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
     }
   },
-  "createdAt": "2024-08-19T12:20:11.130Z",
-  "id": "EPWpUOSzc3JMx6NG",
+  "createdAt": "2024-08-26T06:13:37.295Z",
+  "id": "5HX5KYr4Zo0tVKEw",
   "meta": {
     "templateCredsSetupCompleted": true
   },
@@ -501,7 +501,7 @@
   "nodes": [
     {
       "parameters": {},
-      "id": "1ce9a447-4c96-46ea-a8a2-a62ba3bb5315",
+      "id": "6b7d2ba3-f126-4e43-b188-b69ded12089d",
       "name": "Execute Workflow Trigger",
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1,
@@ -514,7 +514,7 @@
       "parameters": {
         "errorMessage": "dispatcher"
       },
-      "id": "c24d03c9-3867-4c85-ba42-0609be2b59a9",
+      "id": "9d11a9dd-718d-4499-bffd-d5f47ea992b0",
       "name": "Stop and Error",
       "type": "n8n-nodes-base.stopAndError",
       "typeVersion": 1,
@@ -548,7 +548,7 @@
         },
         "options": {}
       },
-      "id": "7dba1c7d-4398-4747-af84-01c4a45d3469",
+      "id": "dad380b2-4bfc-40e4-887c-7665bff988be",
       "name": "проверка типа сообщения",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -587,7 +587,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "0e317312-69f8-436c-bc1c-1dc15af11178",
+      "id": "88bdff5b-5756-4b36-b880-a27c54812a65",
       "name": "статус диспетчера",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
@@ -647,7 +647,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "6355cb73-791e-4e6b-9b53-862b620c7075",
+      "id": "f2414b46-0fee-438f-a890-49b0c868c938",
       "name": "инлайн-кнопки для диспетчера",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
@@ -663,7 +663,7 @@
         "duration": 7,
         "options": {}
       },
-      "id": "684ab234-43f7-4304-affc-fcfd8d1c479d",
+      "id": "48008a67-7353-4aae-915b-8d2bf09c4657",
       "name": "дата через неделю",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -689,7 +689,7 @@
           ]
         }
       },
-      "id": "abc9cc97-78a7-4b01-a269-44dced974af1",
+      "id": "717d73fb-79f6-4a76-8b9a-80358973686c",
       "name": "документы с истекающим сроком",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -711,7 +711,7 @@
         "endDate": "={{ $json.expiration_date }}",
         "options": {}
       },
-      "id": "ee280d4d-58e9-4429-8093-eff9f664b3f8",
+      "id": "103d4710-c8ed-4c36-91a1-6e47515b786a",
       "name": "разница в днях",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -734,7 +734,7 @@
         },
         "options": {}
       },
-      "id": "18febab2-f17a-4176-82b4-32e857ea9334",
+      "id": "a9afaf38-6b43-47df-a7ee-c8b6b8b93a90",
       "name": "округляем",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
@@ -749,7 +749,7 @@
         "combinationMode": "mergeByPosition",
         "options": {}
       },
-      "id": "c4103f5a-a475-4c39-9624-f0097f3c4213",
+      "id": "b6bcfeab-d775-414c-998c-b597c4f30962",
       "name": "объединяем доки+дата с разницей во времени",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
@@ -763,7 +763,7 @@
         "language": "python",
         "pythonCode": "# Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor item in _input.all():\n    days = abs(item.json.timeDifference)\n    if days % 100 // 10 == 1:\n        item.json.sklonenie = \"дней\"\n    elif days % 10 == 1:\n        item.json.sklonenie = \"день\"\n    elif days % 10 in [2, 3, 4]:\n        item.json.sklonenie = \"дня\"\n    else:\n        item.json.sklonenie = \"дней\"\nreturn _input.all()"
       },
-      "id": "84cdb2a9-ee76-4a95-a47f-1fe679e4c23c",
+      "id": "edb5e704-1442-4c6d-b4b1-846491398676",
       "name": "склоняем",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -786,7 +786,7 @@
         },
         "options": {}
       },
-      "id": "3ced3a36-0070-4fc8-b05d-7a09bd70fca6",
+      "id": "c2b762ef-b626-4fa2-b808-63967b2f883e",
       "name": "склеиваем",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
@@ -808,7 +808,7 @@
         },
         "options": {}
       },
-      "id": "b2664b40-1021-4439-8855-d7c3f32342c8",
+      "id": "189228d0-9823-4357-888a-a447fab56bc6",
       "name": "объединяем",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
@@ -828,7 +828,7 @@
         },
         "options": {}
       },
-      "id": "b3b4bd28-abcb-4dae-94f8-6c804cc5aa5f",
+      "id": "41046c50-ab56-4bcd-bd86-2e42f78e10b6",
       "name": "Sort",
       "type": "n8n-nodes-base.sort",
       "typeVersion": 1,
@@ -851,7 +851,7 @@
         },
         "options": {}
       },
-      "id": "88bf6d2e-9faa-4f70-9a52-bda090bfc6c5",
+      "id": "b0aac312-8fcb-4fc2-a71f-9da54dff4097",
       "name": "если истекло",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
@@ -863,7 +863,7 @@
     },
     {
       "parameters": {},
-      "id": "2723b360-0266-42bb-a32f-3e6845d7cba1",
+      "id": "39ea0e94-0de4-428c-8be9-6a43942e6adc",
       "name": "объединяем в один список",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
@@ -899,7 +899,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "5eba489a-f755-41a9-b93a-845e0026886d",
+      "id": "2d5e81fa-00f9-4774-8e03-3763f9ffcb27",
       "name": "отправка сообщения1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -909,8 +909,8 @@
       ],
       "credentials": {
         "telegramApi": {
-          "id": "nftGWLUPORFcfhZv",
-          "name": "dispatcher dev"
+          "id": "yJVsCMzutOZvA2Re",
+          "name": "Everest production"
         }
       }
     },
@@ -920,7 +920,7 @@
         "height": 369.39864609379947,
         "width": 2774.539456615861
       },
-      "id": "766708f8-1abd-4610-ba25-5d54bc974fda",
+      "id": "1222694a-beee-4039-9967-34fa0eef6786",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -937,7 +937,7 @@
         "outputFieldName": "newformattedDate",
         "options": {}
       },
-      "id": "bf195caa-e425-43c6-ba7a-31190d3ad567",
+      "id": "7eccb852-befb-4618-abd7-3870f3d8394c",
       "name": "дата и время 23:59",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -954,7 +954,7 @@
         "outputFieldName": "newformattedDate",
         "options": {}
       },
-      "id": "1ed56bb1-6ee0-40d8-9a3f-4bb4c1c6038d",
+      "id": "89f8a089-cae5-42e6-90da-f4304b5da0a8",
       "name": "дата и время 23:",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -985,7 +985,7 @@
           ]
         }
       },
-      "id": "14a9a298-5f2e-4363-8796-6ba0a7e830d6",
+      "id": "b6e83af3-18a8-4d7d-9537-fa8ce6229657",
       "name": "документы с истекающим сроком1",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -1008,7 +1008,7 @@
         "outputFieldName": "newformattedDate1",
         "options": {}
       },
-      "id": "d0d63b3d-f4b0-41e6-a8d1-408e12b1b54c",
+      "id": "d0b689ad-85ee-4a1d-af42-d286fdd8896e",
       "name": "дата и время 23:1",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -1025,7 +1025,7 @@
         "outputFieldName": "newformattedDate",
         "options": {}
       },
-      "id": "e7b1e64c-1d10-4da5-818e-6a51a6903f9e",
+      "id": "8bebfac6-97e9-46b6-b224-c6b33c1e5ec0",
       "name": "дата и время 23:60",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -1051,7 +1051,7 @@
           ]
         }
       },
-      "id": "92b10d81-c8e8-41e9-b0ca-dbbfcab18d36",
+      "id": "f2bdaf3b-d400-4f70-a09a-452571701122",
       "name": "документы с истекающим сроком2",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -1115,7 +1115,7 @@
         },
         "options": {}
       },
-      "id": "8e5005db-5daa-4ab1-9131-04b71a02ac3a",
+      "id": "08c08a11-0aa2-45fb-9ce3-c6c9e7491933",
       "name": "сколько дней до окончания срока",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
@@ -1126,7 +1126,7 @@
     },
     {
       "parameters": {},
-      "id": "d055eb77-837f-479e-887f-59e482f50bee",
+      "id": "6514f95c-37ee-45e8-bc57-173c7a8ee107",
       "name": "Merge",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
@@ -1141,7 +1141,7 @@
         "height": 369.39864609379947,
         "width": 1215.0811098210288
       },
-      "id": "f6630d43-a429-435c-97dd-a542fbc3b4ee",
+      "id": "53521d14-55e3-4ab7-a0e0-d7f92ee7d40c",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1158,7 +1158,7 @@
         "outputFieldName": "newformattedDate",
         "options": {}
       },
-      "id": "b7cffe35-ea79-4f1a-82f9-858283f9a508",
+      "id": "55b54019-66c8-4428-af29-604c2923350a",
       "name": "дата и время 23:2",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -1189,7 +1189,7 @@
           ]
         }
       },
-      "id": "3e6455b8-4573-4400-8c61-ba52f8bbaa67",
+      "id": "843f35ff-c402-499f-a4e9-9f3e9d470531",
       "name": "документы с истекающим сроком3",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -1212,7 +1212,7 @@
         "outputFieldName": "newformattedDate1",
         "options": {}
       },
-      "id": "ba62d85e-dc74-40f3-8d1c-dc3fd6fb43e0",
+      "id": "2494f606-3a16-4cfa-861c-74e61f598723",
       "name": "дата и время 23:3",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -1229,7 +1229,7 @@
         "outputFieldName": "newformattedDate",
         "options": {}
       },
-      "id": "90f412d4-f740-4ad2-9472-7613e77abb20",
+      "id": "baf9f3de-dbfd-48de-b297-77d0f47fc796",
       "name": "дата и время 23:61",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -1255,7 +1255,7 @@
           ]
         }
       },
-      "id": "b5d270b2-1c0f-455b-8f92-ecb933deb941",
+      "id": "2a188cba-ca2b-4c2d-ae68-e06a9b5eb39b",
       "name": "документы с истекающим сроком4",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -1272,7 +1272,7 @@
     },
     {
       "parameters": {},
-      "id": "975912b2-f01b-441b-9b47-8e695dbbdcd6",
+      "id": "9c910489-e281-418a-b571-26f80c9e699a",
       "name": "Merge1",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
@@ -1287,7 +1287,7 @@
         "height": 369.39864609379947,
         "width": 1215.0811098210288
       },
-      "id": "5d8f9069-12e2-413f-838b-6c0fb91e91ab",
+      "id": "894941f8-31e6-4d0c-a707-6ad56e67a87f",
       "name": "Sticky Note2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1303,7 +1303,7 @@
         "duration": 8,
         "options": {}
       },
-      "id": "eb9305e1-13fd-4961-be39-158086cd821e",
+      "id": "7ab86c39-fcd7-4f63-ab35-004a1ff891ed",
       "name": "дата через 8 дней",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -1319,7 +1319,7 @@
         "duration": 14,
         "options": {}
       },
-      "id": "98300763-6b94-46c8-acf5-7ab9efa2096e",
+      "id": "99ad87d6-40f2-42c5-9a4f-ddb542894aa0",
       "name": "дата через 14 дней",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -1335,7 +1335,7 @@
         "duration": 15,
         "options": {}
       },
-      "id": "ec4f77ce-2b13-4146-a92e-a7994ca6f64c",
+      "id": "45981525-8042-41ba-9c39-d510c8d464e9",
       "name": "дата через 15 дней",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -1351,7 +1351,7 @@
         "duration": 21,
         "options": {}
       },
-      "id": "ae0bf89f-4fd3-452f-adec-6c6d6c5937a7",
+      "id": "e0c3e7b7-68c2-4c64-a1ed-f6833085229f",
       "name": "дата через 21 день",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -1364,7 +1364,7 @@
       "parameters": {
         "options": {}
       },
-      "id": "63ca6a3b-da1f-4acd-800e-e9c0a4e4f890",
+      "id": "61d6f472-9706-4a61-ad6f-b5857648a86b",
       "name": "дата сегодня",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -1377,7 +1377,7 @@
       "parameters": {
         "options": {}
       },
-      "id": "fbab7405-f568-4d06-8014-5b57428c5784",
+      "id": "c0c34123-19b5-4528-a413-330b5b443533",
       "name": "дата сегодня1",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -1447,7 +1447,7 @@
         },
         "additionalFields": {}
       },
-      "id": "8e7b97a6-7476-41de-a6d4-3a3c710c7838",
+      "id": "0b988010-ffe9-40fa-9b87-22551d9d7dd8",
       "name": "возврат к выбору периода",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -1457,8 +1457,8 @@
       ],
       "credentials": {
         "telegramApi": {
-          "id": "nftGWLUPORFcfhZv",
-          "name": "dispatcher dev"
+          "id": "yJVsCMzutOZvA2Re",
+          "name": "Everest production"
         }
       }
     },
@@ -1468,7 +1468,7 @@
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
         "messageId": "={{ $json.callback_query.message.message_id }}"
       },
-      "id": "4009007c-b070-4c77-ba33-551747fbe06a",
+      "id": "87420936-2c9b-4fbc-80b0-940b8871dac2",
       "name": "удаления сообщения с выбором",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -1478,8 +1478,8 @@
       ],
       "credentials": {
         "telegramApi": {
-          "id": "nftGWLUPORFcfhZv",
-          "name": "dispatcher dev"
+          "id": "yJVsCMzutOZvA2Re",
+          "name": "Everest production"
         }
       }
     },
@@ -1490,7 +1490,7 @@
         "width": 2918.594993693928,
         "color": 5
       },
-      "id": "0e43a00e-b974-47bb-8311-687bba5c6b09",
+      "id": "ab0975dd-f392-4f20-8572-f57181896008",
       "name": "Sticky Note3",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1617,13 +1617,52 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "130cf54a-2b83-42b5-a4fe-e5cb7c67d227",
+      "id": "fc2f3837-c4f2-491b-b05f-b5a2b2952a2a",
       "name": "разделение на дни для документов",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
         -100,
         1720
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "Документы",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "3f09ffbb-a1a3-49fd-9fcd-f55009dcc44d",
+      "name": "Проверка кнопок",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        640,
+        800
       ]
     },
     {
@@ -1656,7 +1695,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "97d7cd71-3d7e-4414-830f-530cf5989c12",
+      "id": "486c21d3-f66b-4941-b5c5-9e04fb2f9b31",
       "name": "Проверка старта1",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
@@ -1726,7 +1765,7 @@
           "appendAttribution": false
         }
       },
-      "id": "72faa760-2020-42c7-9077-271a38dffb4e",
+      "id": "557dfc25-b9bd-4b40-a661-e6195e1ef1f8",
       "name": "выбор периода документов",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -1736,8 +1775,8 @@
       ],
       "credentials": {
         "telegramApi": {
-          "id": "nftGWLUPORFcfhZv",
-          "name": "dispatcher dev"
+          "id": "yJVsCMzutOZvA2Re",
+          "name": "Everest production"
         }
       }
     },
@@ -1767,7 +1806,7 @@
           "appendAttribution": false
         }
       },
-      "id": "f61d91d6-b60d-4b3f-8333-fee4021816dd",
+      "id": "9411a3fa-d93d-4011-8808-324a14abca43",
       "name": "Telegram",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -1777,49 +1816,10 @@
       ],
       "credentials": {
         "telegramApi": {
-          "id": "nftGWLUPORFcfhZv",
-          "name": "dispatcher dev"
+          "id": "yJVsCMzutOZvA2Re",
+          "name": "Everest production"
         }
       }
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.message.text }}",
-                    "rightValue": "Документы",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {
-          "fallbackOutput": "extra"
-        }
-      },
-      "id": "bec75dd5-5cf0-42c2-a066-ab2e66be0217",
-      "name": "Проверка кнопок",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        640,
-        800
-      ]
     }
   ],
   "pinData": {},
@@ -1836,6 +1836,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-08-19T12:28:41.000Z",
-  "versionId": "459371a7-c1f9-453d-8a0f-4eb791e6d82a"
+  "updatedAt": "2024-08-26T14:50:57.000Z",
+  "versionId": "682d0605-b690-48f9-9059-9ed4364e881b"
 }
