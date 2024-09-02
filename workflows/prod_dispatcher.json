@@ -492,8 +492,8 @@
       ]
     }
   },
-  "createdAt": "2024-08-26T06:13:37.295Z",
-  "id": "5HX5KYr4Zo0tVKEw",
+  "createdAt": "2024-08-30T12:43:21.400Z",
+  "id": "vMlPsqDQUClKuLBV",
   "meta": {
     "templateCredsSetupCompleted": true
   },
@@ -501,7 +501,7 @@
   "nodes": [
     {
       "parameters": {},
-      "id": "6b7d2ba3-f126-4e43-b188-b69ded12089d",
+      "id": "06779f66-abf5-4416-8a2e-4bf16ddff0b9",
       "name": "Execute Workflow Trigger",
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1,
@@ -514,15 +514,14 @@
       "parameters": {
         "errorMessage": "dispatcher"
       },
-      "id": "9d11a9dd-718d-4499-bffd-d5f47ea992b0",
+      "id": "807f8ae8-cbb5-4eb6-8195-e766180b9c86",
       "name": "Stop and Error",
       "type": "n8n-nodes-base.stopAndError",
       "typeVersion": 1,
       "position": [
         -500,
         1280
-      ],
-      "disabled": true
+      ]
     },
     {
       "parameters": {
@@ -548,7 +547,7 @@
         },
         "options": {}
       },
-      "id": "dad380b2-4bfc-40e4-887c-7665bff988be",
+      "id": "bc3ee95b-dc24-40d1-8a7e-9b9ab4cfa0aa",
       "name": "проверка типа сообщения",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -587,7 +586,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "88bdff5b-5756-4b36-b880-a27c54812a65",
+      "id": "83e027bb-dba5-43da-b4da-aa0202b23ed0",
       "name": "статус диспетчера",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
@@ -647,7 +646,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "f2414b46-0fee-438f-a890-49b0c868c938",
+      "id": "ff6d27ed-9ed2-4cf6-be90-7a2b1b352016",
       "name": "инлайн-кнопки для диспетчера",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
@@ -663,7 +662,7 @@
         "duration": 7,
         "options": {}
       },
-      "id": "48008a67-7353-4aae-915b-8d2bf09c4657",
+      "id": "13eee5c1-f0f8-4439-a18c-641873a23ebc",
       "name": "дата через неделю",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -689,7 +688,7 @@
           ]
         }
       },
-      "id": "717d73fb-79f6-4a76-8b9a-80358973686c",
+      "id": "7798cf12-d1a6-493d-9312-f051bf6f296f",
       "name": "документы с истекающим сроком",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -699,8 +698,8 @@
       ],
       "credentials": {
         "odooApi": {
-          "id": "Lq325enRAAa1pn0J",
-          "name": "Everest prod"
+          "id": "8fI2woAI3HZ7dHDv",
+          "name": "Odoo production"
         }
       }
     },
@@ -711,7 +710,7 @@
         "endDate": "={{ $json.expiration_date }}",
         "options": {}
       },
-      "id": "103d4710-c8ed-4c36-91a1-6e47515b786a",
+      "id": "27881e49-02c2-408f-9319-a5dbe188f2d4",
       "name": "разница в днях",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -734,7 +733,7 @@
         },
         "options": {}
       },
-      "id": "a9afaf38-6b43-47df-a7ee-c8b6b8b93a90",
+      "id": "3bf6be3d-7e1a-4b43-9663-20cf701bd239",
       "name": "округляем",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
@@ -749,7 +748,7 @@
         "combinationMode": "mergeByPosition",
         "options": {}
       },
-      "id": "b6bcfeab-d775-414c-998c-b597c4f30962",
+      "id": "93e30428-3b99-4ddb-af53-3014c79f8c55",
       "name": "объединяем доки+дата с разницей во времени",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
@@ -763,7 +762,7 @@
         "language": "python",
         "pythonCode": "# Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor item in _input.all():\n    days = abs(item.json.timeDifference)\n    if days % 100 // 10 == 1:\n        item.json.sklonenie = \"дней\"\n    elif days % 10 == 1:\n        item.json.sklonenie = \"день\"\n    elif days % 10 in [2, 3, 4]:\n        item.json.sklonenie = \"дня\"\n    else:\n        item.json.sklonenie = \"дней\"\nreturn _input.all()"
       },
-      "id": "edb5e704-1442-4c6d-b4b1-846491398676",
+      "id": "7edae7bf-b25d-4aff-8e9a-939ac71a6fed",
       "name": "склоняем",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -786,7 +785,7 @@
         },
         "options": {}
       },
-      "id": "c2b762ef-b626-4fa2-b808-63967b2f883e",
+      "id": "a91be726-9a26-4505-9999-07f1133abfed",
       "name": "склеиваем",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
@@ -808,7 +807,7 @@
         },
         "options": {}
       },
-      "id": "189228d0-9823-4357-888a-a447fab56bc6",
+      "id": "20d094ba-9a42-4103-9c7b-d8eb6b790f28",
       "name": "объединяем",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
@@ -828,7 +827,7 @@
         },
         "options": {}
       },
-      "id": "41046c50-ab56-4bcd-bd86-2e42f78e10b6",
+      "id": "525b5499-0ff6-4833-8efd-c168648d2d91",
       "name": "Sort",
       "type": "n8n-nodes-base.sort",
       "typeVersion": 1,
@@ -851,7 +850,7 @@
         },
         "options": {}
       },
-      "id": "b0aac312-8fcb-4fc2-a71f-9da54dff4097",
+      "id": "1109de98-cfbd-464a-8702-bcd8c20371b4",
       "name": "если истекло",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
@@ -863,7 +862,7 @@
     },
     {
       "parameters": {},
-      "id": "39ea0e94-0de4-428c-8be9-6a43942e6adc",
+      "id": "a09de8f1-c434-4c8e-a976-b7779c084314",
       "name": "объединяем в один список",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
@@ -899,7 +898,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "2d5e81fa-00f9-4774-8e03-3763f9ffcb27",
+      "id": "6b72fbc3-14a0-484a-ac99-4d7a27c3da0e",
       "name": "отправка сообщения1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -909,7 +908,7 @@
       ],
       "credentials": {
         "telegramApi": {
-          "id": "yJVsCMzutOZvA2Re",
+          "id": "s2yURwRj0JIo9urH",
           "name": "Everest production"
         }
       }
@@ -920,7 +919,7 @@
         "height": 369.39864609379947,
         "width": 2774.539456615861
       },
-      "id": "1222694a-beee-4039-9967-34fa0eef6786",
+      "id": "a8b82d98-a746-4bfa-881f-2730226c62be",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -937,7 +936,7 @@
         "outputFieldName": "newformattedDate",
         "options": {}
       },
-      "id": "7eccb852-befb-4618-abd7-3870f3d8394c",
+      "id": "ce790016-7095-4560-ac8c-f7660fb939ad",
       "name": "дата и время 23:59",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -954,7 +953,7 @@
         "outputFieldName": "newformattedDate",
         "options": {}
       },
-      "id": "89f8a089-cae5-42e6-90da-f4304b5da0a8",
+      "id": "5345a2bf-f70d-40b9-a15c-efddf588d483",
       "name": "дата и время 23:",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -985,7 +984,7 @@
           ]
         }
       },
-      "id": "b6e83af3-18a8-4d7d-9537-fa8ce6229657",
+      "id": "1f98e1bc-eee8-4801-9e54-47ecf4d79369",
       "name": "документы с истекающим сроком1",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -995,8 +994,8 @@
       ],
       "credentials": {
         "odooApi": {
-          "id": "Lq325enRAAa1pn0J",
-          "name": "Everest prod"
+          "id": "8fI2woAI3HZ7dHDv",
+          "name": "Odoo production"
         }
       }
     },
@@ -1008,7 +1007,7 @@
         "outputFieldName": "newformattedDate1",
         "options": {}
       },
-      "id": "d0b689ad-85ee-4a1d-af42-d286fdd8896e",
+      "id": "81f11278-b9e7-4d69-801a-7608aee333cd",
       "name": "дата и время 23:1",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -1025,7 +1024,7 @@
         "outputFieldName": "newformattedDate",
         "options": {}
       },
-      "id": "8bebfac6-97e9-46b6-b224-c6b33c1e5ec0",
+      "id": "d3489863-7cdf-4cbe-acfa-da5857eef43f",
       "name": "дата и время 23:60",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -1051,7 +1050,7 @@
           ]
         }
       },
-      "id": "f2bdaf3b-d400-4f70-a09a-452571701122",
+      "id": "b86885c8-1ef2-4ba3-ab1a-b91148e6ea39",
       "name": "документы с истекающим сроком2",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -1061,8 +1060,8 @@
       ],
       "credentials": {
         "odooApi": {
-          "id": "Lq325enRAAa1pn0J",
-          "name": "Everest prod"
+          "id": "8fI2woAI3HZ7dHDv",
+          "name": "Odoo production"
         }
       }
     },
@@ -1115,7 +1114,7 @@
         },
         "options": {}
       },
-      "id": "08c08a11-0aa2-45fb-9ce3-c6c9e7491933",
+      "id": "28402aa6-fdab-48c9-9376-8f431fef777b",
       "name": "сколько дней до окончания срока",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
@@ -1126,7 +1125,7 @@
     },
     {
       "parameters": {},
-      "id": "6514f95c-37ee-45e8-bc57-173c7a8ee107",
+      "id": "8d1614a3-14ab-475c-8f51-75a5e0823dd4",
       "name": "Merge",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
@@ -1141,7 +1140,7 @@
         "height": 369.39864609379947,
         "width": 1215.0811098210288
       },
-      "id": "53521d14-55e3-4ab7-a0e0-d7f92ee7d40c",
+      "id": "cf2e3043-6801-447a-b30a-5f964da2af3f",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1158,7 +1157,7 @@
         "outputFieldName": "newformattedDate",
         "options": {}
       },
-      "id": "55b54019-66c8-4428-af29-604c2923350a",
+      "id": "92b1330a-8764-4ecb-a84d-3a9d23b1d8f8",
       "name": "дата и время 23:2",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -1189,7 +1188,7 @@
           ]
         }
       },
-      "id": "843f35ff-c402-499f-a4e9-9f3e9d470531",
+      "id": "9c046dfe-b122-4f5f-8578-c91365301ba9",
       "name": "документы с истекающим сроком3",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -1199,8 +1198,8 @@
       ],
       "credentials": {
         "odooApi": {
-          "id": "Lq325enRAAa1pn0J",
-          "name": "Everest prod"
+          "id": "8fI2woAI3HZ7dHDv",
+          "name": "Odoo production"
         }
       }
     },
@@ -1212,7 +1211,7 @@
         "outputFieldName": "newformattedDate1",
         "options": {}
       },
-      "id": "2494f606-3a16-4cfa-861c-74e61f598723",
+      "id": "626adedc-bbff-45ff-9cab-ce8d501554d4",
       "name": "дата и время 23:3",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -1229,7 +1228,7 @@
         "outputFieldName": "newformattedDate",
         "options": {}
       },
-      "id": "baf9f3de-dbfd-48de-b297-77d0f47fc796",
+      "id": "7263bd22-2a20-472a-bd86-09a745b9300b",
       "name": "дата и время 23:61",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -1255,7 +1254,7 @@
           ]
         }
       },
-      "id": "2a188cba-ca2b-4c2d-ae68-e06a9b5eb39b",
+      "id": "f373e7a8-d29b-426e-a3a2-579896d3a7ac",
       "name": "документы с истекающим сроком4",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -1265,14 +1264,14 @@
       ],
       "credentials": {
         "odooApi": {
-          "id": "Lq325enRAAa1pn0J",
-          "name": "Everest prod"
+          "id": "8fI2woAI3HZ7dHDv",
+          "name": "Odoo production"
         }
       }
     },
     {
       "parameters": {},
-      "id": "9c910489-e281-418a-b571-26f80c9e699a",
+      "id": "2ab718b4-39a8-450c-b59e-9ddebe2b4141",
       "name": "Merge1",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
@@ -1287,7 +1286,7 @@
         "height": 369.39864609379947,
         "width": 1215.0811098210288
       },
-      "id": "894941f8-31e6-4d0c-a707-6ad56e67a87f",
+      "id": "76b60939-0d87-4fa2-865a-a78886d04e69",
       "name": "Sticky Note2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1303,7 +1302,7 @@
         "duration": 8,
         "options": {}
       },
-      "id": "7ab86c39-fcd7-4f63-ab35-004a1ff891ed",
+      "id": "f2e1b5c2-4bb1-4d10-99a2-ff617b2e16db",
       "name": "дата через 8 дней",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -1319,7 +1318,7 @@
         "duration": 14,
         "options": {}
       },
-      "id": "99ad87d6-40f2-42c5-9a4f-ddb542894aa0",
+      "id": "db83044a-24bd-48b0-adeb-275f5a8f0d66",
       "name": "дата через 14 дней",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -1335,7 +1334,7 @@
         "duration": 15,
         "options": {}
       },
-      "id": "45981525-8042-41ba-9c39-d510c8d464e9",
+      "id": "77ac98af-cb78-4bd0-8722-c9161925cc73",
       "name": "дата через 15 дней",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -1351,7 +1350,7 @@
         "duration": 21,
         "options": {}
       },
-      "id": "e0c3e7b7-68c2-4c64-a1ed-f6833085229f",
+      "id": "8a8fad89-bc06-4152-b9e8-09f82c12052c",
       "name": "дата через 21 день",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -1364,7 +1363,7 @@
       "parameters": {
         "options": {}
       },
-      "id": "61d6f472-9706-4a61-ad6f-b5857648a86b",
+      "id": "593de227-3bd3-43a4-9283-b41eb65cbe45",
       "name": "дата сегодня",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -1377,7 +1376,7 @@
       "parameters": {
         "options": {}
       },
-      "id": "c0c34123-19b5-4528-a413-330b5b443533",
+      "id": "c3c05fcc-9854-4592-a0bc-47bb96bccf45",
       "name": "дата сегодня1",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -1447,7 +1446,7 @@
         },
         "additionalFields": {}
       },
-      "id": "0b988010-ffe9-40fa-9b87-22551d9d7dd8",
+      "id": "d6adfadc-969b-4a1d-a9cf-44eb043bda7e",
       "name": "возврат к выбору периода",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -1457,7 +1456,7 @@
       ],
       "credentials": {
         "telegramApi": {
-          "id": "yJVsCMzutOZvA2Re",
+          "id": "s2yURwRj0JIo9urH",
           "name": "Everest production"
         }
       }
@@ -1468,7 +1467,7 @@
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
         "messageId": "={{ $json.callback_query.message.message_id }}"
       },
-      "id": "87420936-2c9b-4fbc-80b0-940b8871dac2",
+      "id": "a782006a-e70f-4fae-abd2-647e814417d7",
       "name": "удаления сообщения с выбором",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -1478,7 +1477,7 @@
       ],
       "credentials": {
         "telegramApi": {
-          "id": "yJVsCMzutOZvA2Re",
+          "id": "s2yURwRj0JIo9urH",
           "name": "Everest production"
         }
       }
@@ -1490,7 +1489,7 @@
         "width": 2918.594993693928,
         "color": 5
       },
-      "id": "ab0975dd-f392-4f20-8572-f57181896008",
+      "id": "18449f22-fece-4e27-869b-11e77fd021a2",
       "name": "Sticky Note3",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1617,7 +1616,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "fc2f3837-c4f2-491b-b05f-b5a2b2952a2a",
+      "id": "ab9edeec-5a1b-4fca-8d65-44a740da898a",
       "name": "разделение на дни для документов",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
@@ -1656,7 +1655,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "3f09ffbb-a1a3-49fd-9fcd-f55009dcc44d",
+      "id": "b73327f0-51a0-4298-ab6c-e2216e594864",
       "name": "Проверка кнопок",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
@@ -1695,7 +1694,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "486c21d3-f66b-4941-b5c5-9e04fb2f9b31",
+      "id": "98bf0eb8-e399-490a-b4e2-1977f53623a7",
       "name": "Проверка старта1",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
@@ -1765,7 +1764,7 @@
           "appendAttribution": false
         }
       },
-      "id": "557dfc25-b9bd-4b40-a661-e6195e1ef1f8",
+      "id": "01984459-5ebe-4d3b-a938-f0014b5b7a92",
       "name": "выбор периода документов",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -1775,7 +1774,7 @@
       ],
       "credentials": {
         "telegramApi": {
-          "id": "yJVsCMzutOZvA2Re",
+          "id": "s2yURwRj0JIo9urH",
           "name": "Everest production"
         }
       }
@@ -1806,7 +1805,7 @@
           "appendAttribution": false
         }
       },
-      "id": "9411a3fa-d93d-4011-8808-324a14abca43",
+      "id": "45f51c64-4f69-423c-a9fd-b8d93ac303dc",
       "name": "Telegram",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -1816,7 +1815,7 @@
       ],
       "credentials": {
         "telegramApi": {
-          "id": "yJVsCMzutOZvA2Re",
+          "id": "s2yURwRj0JIo9urH",
           "name": "Everest production"
         }
       }
@@ -1829,13 +1828,13 @@
   "staticData": null,
   "tags": [
     {
-      "createdAt": "2024-07-11T08:13:56.296Z",
-      "updatedAt": "2024-07-11T08:13:56.296Z",
-      "id": "eucjxmhF768T7WNu",
+      "createdAt": "2024-08-26T14:50:05.418Z",
+      "updatedAt": "2024-08-26T14:50:05.418Z",
+      "id": "6aWMzdObOVIXsJ6y",
       "name": "production"
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-08-26T14:50:57.000Z",
-  "versionId": "682d0605-b690-48f9-9059-9ed4364e881b"
+  "updatedAt": "2024-08-30T12:43:24.417Z",
+  "versionId": "a58ab2aa-06df-4345-b126-aa3654ff1160"
 }
