@@ -1,28 +1,6 @@
 {
   "active": false,
   "connections": {
-    "Проверка свободных машин": {
-      "main": [
-        [
-          {
-            "node": "Поиск машин со статусом Нет груза",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Поиск машин со статусом Нет груза": {
-      "main": [
-        [
-          {
-            "node": "Вывод свободных машин",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "проверка типа сообщения": {
       "main": [
         [
@@ -403,31 +381,6 @@
         ]
       ]
     },
-    "Проверка кнопок": {
-      "main": [
-        [
-          {
-            "node": "Проверка свободных машин",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "кнопка оповещения",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "проверка статуса",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "данные авто": {
       "main": [
         [
@@ -707,6 +660,53 @@
           }
         ]
       ]
+    },
+    "Проверка кнопок": {
+      "main": [
+        [
+          {
+            "node": "берем данные машин",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "кнопка оповещения",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "проверка статуса",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "берем данные машин": {
+      "main": [
+        [
+          {
+            "node": "проверка статусов и генерация единого сообщения",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка статусов и генерация единого сообщения": {
+      "main": [
+        [
+          {
+            "node": "Вывод свободных машин",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-08-30T12:53:15.952Z",
@@ -720,7 +720,7 @@
       "parameters": {
         "content": "## Блок сценария для логиста",
         "height": 862.4168334078684,
-        "width": 1267.9135979457083
+        "width": 1437.5425755046085
       },
       "id": "667bd607-c9bc-4f95-9200-33b6f8d01ae3",
       "name": "Sticky Note8",
@@ -784,31 +784,8 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
-        "text": "Сейчас свободны следующие автомобили:",
-        "additionalFields": {
-          "appendAttribution": false
-        }
-      },
-      "id": "09cbef44-72d7-4fa3-8976-c0828681801f",
-      "name": "Проверка свободных машин",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        2020,
-        580
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "rJQteGH5Ng1RKmF4",
-          "name": "tg dev aleksey"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
-        "text": "=<b>{{ $json.number_car }}, {{ $json.employee_id[1] }}</b>",
+        "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.message.chat.id }}",
+        "text": "={{ $('проверка статусов и генерация единого сообщения').item.json.combinedMessages }}",
         "additionalFields": {
           "appendAttribution": false,
           "parse_mode": "HTML"
@@ -819,8 +796,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        2500,
-        580
+        2520,
+        560
       ],
       "credentials": {
         "telegramApi": {
@@ -831,42 +808,9 @@
     },
     {
       "parameters": {
-        "resource": "custom",
-        "customResource": "cars.cars",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {
-          "fieldsList": []
-        },
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "status",
-              "value": "Нет груза"
-            }
-          ]
-        }
-      },
-      "id": "411b7233-a306-44a2-b330-a9aaeda2987a",
-      "name": "Поиск машин со статусом Нет груза",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        2260,
-        580
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "ITgOrhO4Hf2QcDtf",
-          "name": "odoo dev"
-        }
-      }
-    },
-    {
-      "parameters": {
         "content": "## Вывод свободных машин",
-        "height": 273.8075573041622,
-        "width": 779.3488585284206,
+        "height": 265.6502317011321,
+        "width": 807.4624422818633,
         "color": 5
       },
       "id": "aa6513a2-8c6e-42cf-974c-57da23e735b1",
@@ -874,8 +818,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1900,
-        540
+        1940,
+        480
       ]
     },
     {
@@ -2670,67 +2614,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.message.text }}",
-                    "rightValue": "Просмотреть свободные машины",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "34002e05-61b0-40d3-884d-45ed94368732",
-                    "leftValue": "={{ $json.message.text }}",
-                    "rightValue": "Оповещение",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {
-          "fallbackOutput": "extra"
-        }
-      },
-      "id": "f6590b2b-8a6a-4fbe-abd2-a281fc1dd2d8",
-      "name": "Проверка кнопок",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        1760,
-        1000
-      ]
-    },
-    {
-      "parameters": {
         "content": "## Выбор получателя при оповещении конкретного авто",
         "height": 458.39652118337546,
         "width": 1328.4103837921157,
@@ -4187,55 +4070,148 @@
           "name": "odoo dev"
         }
       }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "Просмотреть свободные машины",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "34002e05-61b0-40d3-884d-45ed94368732",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "Оповещение",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "f6590b2b-8a6a-4fbe-abd2-a281fc1dd2d8",
+      "name": "Проверка кнопок",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        1760,
+        1000
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "cars.cars",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {
+          "fieldsList": []
+        }
+      },
+      "id": "411b7233-a306-44a2-b330-a9aaeda2987a",
+      "name": "берем данные машин",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        2000,
+        560
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "ITgOrhO4Hf2QcDtf",
+          "name": "odoo dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "let combinedMessagesFree = \"\";\nlet combinedMessagesNoDriver = \"\";\n\nfor (const item of $input.all()) {\n  const data = item.json;\n  const driver = data.driver_id ? data.driver_id[1] : null;\n  const number_car = data.number_car;\n  const status = data.status;\n\n  if (driver && status === \"Нет груза\") {\n    if (!combinedMessagesFree) {\n      combinedMessagesFree = \"Сейчас свободны следующие автомобили:\\n\\n\";\n    }\n    combinedMessagesFree += `<b>${number_car}, ${driver}</b>\\n`;\n  } else if (!driver && status === \"Нет водителя\") {\n    if (!combinedMessagesNoDriver) {\n      combinedMessagesNoDriver = \"Текущие автомобили без водителя:\\n\\n\";\n    }\n    combinedMessagesNoDriver += `<b>${number_car}</b>\\n`;\n  }\n}\n\nlet finalMessage = (combinedMessagesFree + \"\\n\" + combinedMessagesNoDriver).trim();\n\nif (!finalMessage) {\n  finalMessage = \"На данный момент нет свободных автомобилей и автомобилей без водителей\";\n}\n\nreturn [{ json: { combinedMessages: finalMessage } }];\n"
+      },
+      "id": "8222e1ff-05b4-4c43-be5d-f8a9867843f9",
+      "name": "проверка статусов и генерация единого сообщения",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2240,
+        560
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100621927,
+          "update_id": 100626473,
           "message": {
-            "message_id": 13177,
+            "message_id": 18263,
             "from": {
-              "id": 7090302459,
+              "id": 7094417017,
               "is_bot": false,
-              "first_name": "Al",
-              "last_name": "Go",
+              "first_name": "Сергей",
               "language_code": "ru"
             },
             "chat": {
-              "id": 7090302459,
-              "first_name": "Al",
-              "last_name": "Go",
+              "id": 7094417017,
+              "first_name": "Сергей",
               "type": "private"
             },
-            "date": 1721979002,
-            "text": "/start",
-            "entities": [
-              {
-                "offset": 0,
-                "length": 6,
-                "type": "bot_command"
-              }
-            ]
+            "date": 1725438362,
+            "text": "Просмотреть свободные машины"
           },
-          "tg_id": "7090302459",
-          "odoo_id": 19,
+          "tg_id": "7094417017",
+          "odoo_id": 22,
           "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
-          "end_request_id": null,
+          "end_request_id": 407,
           "materials_photo": false,
           "end_request_hours": null,
-          "car_id_while_inputing": null,
+          "car_id_while_inputing": 19,
           "fuel_liters": null,
-          "weight_measure": null,
+          "weight_measure": "5 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
           "count_weight_photo": null,
           "count_weight_photo_sent": null,
-          "cookie": "session_id=78f5f11dbc005ee8a33b2b4961110602a991f6b3; Expires=Sat, 26 Jul 2025 07:30:14 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "current_quarry_hours": null,
+          "end_round_message_id": null,
+          "cookie": "session_id=a788be1b5b836c99bb65efcf2b18fe1934a82c6e; Expires=Thu, 04 Sep 2025 08:26:36 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -4253,6 +4229,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-08-30T12:53:15.952Z",
-  "versionId": "8f633f13-79e6-4ff5-831a-91c9870e106d"
+  "updatedAt": "2024-09-04T09:45:27.986Z",
+  "versionId": "9a777e2f-81b3-492f-80df-6b6fef681051"
 }
