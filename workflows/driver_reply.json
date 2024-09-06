@@ -966,7 +966,7 @@
       "main": [
         [
           {
-            "node": "объём введён",
+            "node": "записываем объём материала",
             "type": "main",
             "index": 0
           }
@@ -974,17 +974,6 @@
         [
           {
             "node": "объём введён неверно",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "объём введён": {
-      "main": [
-        [
-          {
-            "node": "проверяем м3 или тонны",
             "type": "main",
             "index": 0
           }
@@ -1090,11 +1079,6 @@
         [
           {
             "node": "механики и логисты",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "диспетчер",
             "type": "main",
             "index": 0
           }
@@ -1639,39 +1623,6 @@
         [
           {
             "node": "Aggregate3",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "айди для отправки сообщения1": {
-      "main": [
-        [
-          {
-            "node": "отправка сообщения1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "отправка сообщения1": {
-      "main": [
-        [
-          {
-            "node": "преобразуем в 1 переменную4",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "диспетчер": {
-      "main": [
-        [
-          {
-            "node": "айди для отправки сообщения1",
             "type": "main",
             "index": 0
           }
@@ -2502,7 +2453,7 @@
       "main": [
         [
           {
-            "node": "склеить имена водителей1",
+            "node": "Remove Duplicates",
             "type": "main",
             "index": 0
           }
@@ -2929,6 +2880,28 @@
         ]
       ]
     },
+    "в одно сообщение2": {
+      "main": [
+        [
+          {
+            "node": "Выводим информацию о перевозке5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "в одно сообщение1": {
+      "main": [
+        [
+          {
+            "node": "Выводим информацию о перевозке4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "проверка выполняющихся рейсов или работы в карьере": {
       "main": [
         [
@@ -2961,33 +2934,11 @@
         ]
       ]
     },
-    "в одно сообщение2": {
+    "записываем объём материала": {
       "main": [
         [
           {
-            "node": "Выводим информацию о перевозке5",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "в одно сообщение1": {
-      "main": [
-        [
-          {
-            "node": "Выводим информацию о перевозке4",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "убираем кнопку назад и оставляем м3": {
-      "main": [
-        [
-          {
-            "node": "записываем объём материала",
+            "node": "проверяем м3 или тонны",
             "type": "main",
             "index": 0
           }
@@ -2998,7 +2949,29 @@
       "main": [
         [
           {
-            "node": "записываем объём материала",
+            "node": "объём введён",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "убираем кнопку назад и оставляем м3": {
+      "main": [
+        [
+          {
+            "node": "объём введён",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove Duplicates": {
+      "main": [
+        [
+          {
+            "node": "склеить имена водителей1",
             "type": "main",
             "index": 0
           }
@@ -5938,7 +5911,7 @@
             {
               "id": "44403514-747a-47bf-9419-77944fae7bb7",
               "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
-              "rightValue": "/^[0-9]+$/",
+              "rightValue": "^\\d+(?:[.,]\\d+)?$",
               "operator": {
                 "type": "string",
                 "operation": "regex"
@@ -6000,7 +5973,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n\"number_car\": {{ '\"' + $json.number_car + '\"' }}, \n\"quarry_hours\": {{ $('Execute Workflow Trigger').item.json.message.text }}\n}",
+        "jsonBody": "={\n\"number_car\": {{ '\"' + $json.number_car + '\"' }}, \n\"quarry_hours\": {{ $('Execute Workflow Trigger').item.json.message.text.replace(\",\", \".\") }}\n}",
         "options": {}
       },
       "id": "316633d3-9189-46e8-937b-bd2689bb37eb",
@@ -6024,7 +5997,7 @@
             {
               "id": "44403514-747a-47bf-9419-77944fae7bb7",
               "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
-              "rightValue": "/^[0-9]+$/",
+              "rightValue": "^\\d+(?:[.,]\\d+)?$",
               "operator": {
                 "type": "string",
                 "operation": "regex"
@@ -6109,7 +6082,7 @@
             {
               "id": "44403514-747a-47bf-9419-77944fae7bb7",
               "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
-              "rightValue": "/^[0-9]+$/",
+              "rightValue": "^\\d+(?:[.,]\\d+)?$",
               "operator": {
                 "type": "string",
                 "operation": "regex"
@@ -6232,7 +6205,7 @@
           "mappingMode": "defineBelow",
           "value": {
             "tg_id": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
-            "fuel_liters": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
+            "fuel_liters": "={{ $('Execute Workflow Trigger').item.json.message.text.replace(\",\", \".\") }}",
             "status": "authorized"
           },
           "matchingColumns": [
@@ -6370,7 +6343,7 @@
             {
               "id": "44403514-747a-47bf-9419-77944fae7bb7",
               "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
-              "rightValue": "/^[0-9]+$/",
+              "rightValue": "^\\d+(?:[.,]\\d+)?$",
               "operator": {
                 "type": "string",
                 "operation": "regex"
@@ -6459,8 +6432,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        775,
-        6060
+        1500,
+        6140
       ],
       "credentials": {
         "telegramApi": {
@@ -6623,7 +6596,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\"number_car\": {{ '\"' + $json.number_car + '\"' }}, \"odometer\": {{ $('Execute Workflow Trigger').item.json.message.text }}}",
+        "jsonBody": "={\"number_car\": {{ '\"' + $json.number_car + '\"' }}, \"odometer\": {{ $('Execute Workflow Trigger').item.json.message.text.replace(\",\", \".\") }}}",
         "options": {}
       },
       "id": "7eff715b-2d36-4371-9915-a39ec4271230",
@@ -7059,7 +7032,7 @@
     {
       "parameters": {
         "content": "## Срочно: автомобиль: просто текст",
-        "height": 1026.6178771711632,
+        "height": 952.8208880612963,
         "width": 2285.9105554802254,
         "color": 6
       },
@@ -7727,7 +7700,7 @@
                   {
                     "text": "Проверить назначенные перевозки",
                     "additionalFields": {
-                      "callback_data": "проверить перевозки"
+                      "callback_data": "перевозки"
                     }
                   }
                 ]
@@ -7818,7 +7791,7 @@
         "resource": "custom",
         "customResource": "transportation.round",
         "operation": "getAll",
-        "returnAll": true,
+        "limit": 1,
         "options": {},
         "filterRequest": {
           "filter": [
@@ -7924,7 +7897,7 @@
           "filter": [
             {
               "fieldName": "id",
-              "value": "={{ $('статус авто').item.json.current_transportation[0] }}"
+              "value": "={{ $json.transportation[0] }}"
             }
           ]
         }
@@ -8821,7 +8794,7 @@
             {
               "fieldName": "job_id",
               "operator": "in",
-              "value": "={{ [\"Механик\", \"Логист\"] }}"
+              "value": "={{ [\"Механик\", \"Логист\", \"Диспетчер\"] }}"
             }
           ]
         }
@@ -8883,120 +8856,6 @@
         }
       },
       "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "tg_users",
-          "mode": "list",
-          "cachedResultName": "tg_users"
-        },
-        "returnAll": true,
-        "where": {
-          "values": [
-            {
-              "column": "odoo_id",
-              "value": "={{ $json.id }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "fd826ccf-6c62-40e9-9681-a7a83aa725f5",
-      "name": "айди для отправки сообщения1",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.3,
-      "position": [
-        1200,
-        7360
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "xrihBpyZE5y4OBiy",
-          "name": "pg dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $json.tg_id }}",
-        "text": "=У водителя {{ $('данные сотрудника').item.json.resource_id[1] }} <a href=\"tel:{{ $('данные сотрудника').item.json.mobile_phone }}\">{{ $('данные сотрудника').item.json.mobile_phone }}</a> проблема(автомобиль не указан):  \n\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i> ",
-        "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Перейти к диалогу",
-                    "additionalFields": {
-                      "url": "=tg://user?id={{ $('Execute Workflow Trigger').item.json.tg_id }}"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {
-          "appendAttribution": false,
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "6b575834-30c0-4d3a-8fef-b4c4daf42244",
-      "name": "отправка сообщения1",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        1440,
-        7360
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "rJQteGH5Ng1RKmF4",
-          "name": "tg dev aleksey"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "hr.employee",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "job_id",
-              "operator": "in",
-              "value": "={{ [\"Диспетчер\"] }}"
-            }
-          ]
-        }
-      },
-      "id": "54b0534c-1b5f-495f-ae15-064a60d6ce37",
-      "name": "диспетчер",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        980,
-        7360
-      ],
-      "alwaysOutputData": true,
-      "credentials": {
-        "odooApi": {
-          "id": "ITgOrhO4Hf2QcDtf",
-          "name": "odoo dev"
-        }
-      }
     },
     {
       "parameters": {
@@ -11380,7 +11239,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4860,
+        5080,
         1560
       ]
     },
@@ -11391,7 +11250,7 @@
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        4860,
+        5080,
         1700
       ]
     },
@@ -11406,7 +11265,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        4620,
+        4840,
         1560
       ]
     },
@@ -11427,6 +11286,11 @@
               "fieldName": "driver",
               "operator": "notEqual",
               "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
+            },
+            {
+              "fieldName": "driver",
+              "operator": "notEqual",
+              "value": "={{ null }}"
             }
           ]
         }
@@ -11467,7 +11331,7 @@
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        4620,
+        4840,
         1700
       ],
       "alwaysOutputData": false
@@ -11856,7 +11720,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        5100,
+        5320,
         1560
       ]
     },
@@ -11891,7 +11755,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5380,
+        5600,
         1480
       ],
       "credentials": {
@@ -11932,7 +11796,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5380,
+        5600,
         1680
       ],
       "credentials": {
@@ -12182,7 +12046,7 @@
             {
               "id": "44403514-747a-47bf-9419-77944fae7bb7",
               "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
-              "rightValue": "/^[0-9]+$/",
+              "rightValue": "^\\d+(?:[.,]\\d+)?$",
               "operator": {
                 "type": "string",
                 "operation": "regex"
@@ -12713,8 +12577,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        1500,
-        6140
+        800,
+        6060
       ],
       "credentials": {
         "postgres": {
@@ -12777,7 +12641,7 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        1000,
+        980,
         6060
       ]
     },
@@ -12976,6 +12840,32 @@
     },
     {
       "parameters": {
+        "jsCode": "let combinedMessage = \"\";\n\nfor (const item of $input.all()) {\n  const transportation = item.json;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.display_name.substring(11);\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n  const required_ton= transportation.required_ton;\n\n  let message = `Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <b>${comment}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nОстаток кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n  }\n\n  message += \"\\n\\n\";\n\n  combinedMessage = message.trim();\n}\n\nreturn [{ json: { combinedMessage: combinedMessage } }];"
+      },
+      "id": "ca6c862d-fbc1-4f68-b145-953ea7d3134f",
+      "name": "в одно сообщение2",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4460,
+        2388
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "let combinedMessage = \"\";\n\nfor (const item of $input.all()) {\n  const transportation = item.json;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.display_name.substring(11);\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n  const required_ton= transportation.required_ton;\n\n  let message = `Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <b>${comment}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nОстаток кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n  }\n\n  message += \"\\n\\n\";\n\n  combinedMessage = message.trim();\n}\n\nreturn [{ json: { combinedMessage: combinedMessage } }];"
+      },
+      "id": "18f19ee9-f2a0-4a82-86ca-88cb2776dcdd",
+      "name": "в одно сообщение1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4460,
+        2128
+      ]
+    },
+    {
+      "parameters": {
         "rules": {
           "values": [
             {
@@ -13059,29 +12949,29 @@
     },
     {
       "parameters": {
-        "jsCode": "let combinedMessage = \"\";\n\nfor (const item of $input.all()) {\n  const transportation = item.json;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.display_name.substring(11);\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n  const required_ton= transportation.required_ton;\n\n  let message = `Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <b>${comment}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nОстаток кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n  }\n\n  message += \"\\n\\n\";\n\n  combinedMessage = message.trim();\n}\n\nreturn [{ json: { combinedMessage: combinedMessage } }];"
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').all()[0].json.message.message_id - 1}}",
+        "text": "Введите объем перевозимого материала в <b>тоннах</b>: Пример: 57,2",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
       },
-      "id": "ca6c862d-fbc1-4f68-b145-953ea7d3134f",
-      "name": "в одно сообщение2",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
+      "id": "962fb391-dec4-4ba2-92de-75baf7ed7f83",
+      "name": "убираем кнопку назад и оставляем тонны",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
       "position": [
-        4460,
-        2388
-      ]
-    },
-    {
-      "parameters": {
-        "jsCode": "let combinedMessage = \"\";\n\nfor (const item of $input.all()) {\n  const transportation = item.json;\n  const sender = transportation.sender[1];\n  const partner = transportation.partner[1];\n  const route = transportation.display_name.substring(11);\n  const material = transportation.material[1];\n  const comment = transportation.comment;\n  const endCondition = transportation.end_condition;\n  const requiredCubicMetre = transportation.required_cubic_metre;\n  const required_ton= transportation.required_ton;\n\n  let message = `Отправитель - <b>${sender}</b>\\nПолучатель - <b>${partner}</b>\\nМаршрут - <b>${route}</b>\\nМатериал - <b>${material}</b>`;\n\n  if (comment !== false) {\n    message += `\\nКомментарий - <b>${comment}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным кубометрам\") {\n    message += `\\nОстаток кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n  }\n\n  if (endCondition === \"По перевезенным тоннам\") {\n    message += `\\nТребуемое количество тонн по перевозке - <b>${required_ton}</b>`;\n  }\n\n  message += \"\\n\\n\";\n\n  combinedMessage = message.trim();\n}\n\nreturn [{ json: { combinedMessage: combinedMessage } }];"
+        1240,
+        6240
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
       },
-      "id": "18f19ee9-f2a0-4a82-86ca-88cb2776dcdd",
-      "name": "в одно сообщение1",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        4460,
-        2128
-      ]
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -13098,84 +12988,77 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        1260,
+        1240,
         6040
       ],
+      "alwaysOutputData": false,
       "credentials": {
         "telegramApi": {
           "id": "rJQteGH5Ng1RKmF4",
           "name": "tg dev aleksey"
         }
-      }
+      },
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
-        "operation": "editMessageText",
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
-        "messageId": "={{ $('Execute Workflow Trigger').all()[0].json.message.message_id - 1}}",
-        "text": "Введите объем перевозимого материала в <b>тоннах</b>: Пример: 57,2",
-        "additionalFields": {
-          "parse_mode": "HTML"
-        }
+        "compare": "selectedFields",
+        "fieldsToCompare": "driver[1]",
+        "options": {}
       },
-      "id": "962fb391-dec4-4ba2-92de-75baf7ed7f83",
-      "name": "убираем кнопку назад и оставляем тонны",
-      "type": "n8n-nodes-base.telegram",
+      "id": "045e2416-2070-4ff3-a738-f2b6a3450e87",
+      "name": "Remove Duplicates",
+      "type": "n8n-nodes-base.removeDuplicates",
       "typeVersion": 1.1,
       "position": [
-        1260,
-        6240
+        4660,
+        1700
       ],
-      "credentials": {
-        "telegramApi": {
-          "id": "rJQteGH5Ng1RKmF4",
-          "name": "tg dev aleksey"
-        }
-      }
+      "onError": "continueRegularOutput"
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100625126,
+          "update_id": 100626734,
           "message": {
-            "message_id": 16952,
+            "message_id": 18625,
             "from": {
-              "id": 467549384,
+              "id": 700956969,
               "is_bot": false,
-              "first_name": "Sergio",
-              "username": "sergo_kf",
-              "language_code": "ru",
-              "is_premium": true
+              "first_name": "Алексей",
+              "username": "Chronos196",
+              "language_code": "ru"
             },
             "chat": {
-              "id": 467549384,
-              "first_name": "Sergio",
-              "username": "sergo_kf",
+              "id": 700956969,
+              "first_name": "Алексей",
+              "username": "Chronos196",
               "type": "private"
             },
-            "date": 1724940568,
+            "date": 1725516785,
             "text": "Приступить к работе"
           },
-          "tg_id": "467549384",
-          "odoo_id": 4,
+          "tg_id": "700956969",
+          "odoo_id": 2,
           "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
           "end_request_id": null,
           "materials_photo": false,
           "end_request_hours": null,
-          "car_id_while_inputing": 25,
-          "fuel_liters": 200,
-          "weight_measure": "55 м3 ",
+          "car_id_while_inputing": 18,
+          "fuel_liters": 10,
+          "weight_measure": "10 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
-          "count_weight_photo": 2,
+          "count_weight_photo": 1,
           "count_weight_photo_sent": 0,
-          "current_quarry_hours": 5,
-          "cookie": "session_id=9afa74c47dc42654a3537f22700b0d4286ae333f; Expires=Fri, 29 Aug 2025 14:09:39 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "current_quarry_hours": 10,
+          "end_round_message_id": 18618,
+          "cookie": "session_id=f35af5939e924af0d2518f51dca9bfaa3112833f; Expires=Fri, 05 Sep 2025 06:13:06 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -13193,6 +13076,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-08-30T12:53:04.259Z",
-  "versionId": "907a58f9-9809-4add-8327-2f1e4891365f"
+  "updatedAt": "2024-09-06T04:39:17.863Z",
+  "versionId": "f9fde03d-40b5-450e-957b-49c3f35906a6"
 }
