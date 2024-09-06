@@ -710,17 +710,6 @@
         ]
       ]
     },
-    "удаляем прошлое": {
-      "main": [
-        [
-          {
-            "node": "работа первая?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "айди последнего сообщения": {
       "main": [
         [
@@ -850,6 +839,17 @@
         [
           {
             "node": "новая перевозка",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "удаляем прошлое": {
+      "main": [
+        [
+          {
+            "node": "работа первая?",
             "type": "main",
             "index": 0
           }
@@ -3205,7 +3205,8 @@
       "position": [
         -3440,
         3100
-      ]
+      ],
+      "alwaysOutputData": false
     },
     {
       "parameters": {
@@ -3263,6 +3264,7 @@
         -3660,
         3100
       ],
+      "alwaysOutputData": false,
       "credentials": {
         "odooApi": {
           "id": "ITgOrhO4Hf2QcDtf",
@@ -3363,27 +3365,6 @@
         "postgres": {
           "id": "xrihBpyZE5y4OBiy",
           "name": "pg dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "deleteMessage",
-        "chatId": "={{ $json.result.chat.id }}",
-        "messageId": "={{ $json.result.message_id }}"
-      },
-      "id": "fb33f1ac-afac-485e-8006-ccde84cfe28d",
-      "name": "удаляем прошлое",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        -520,
-        3060
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "rJQteGH5Ng1RKmF4",
-          "name": "tg dev aleksey"
         }
       }
     },
@@ -3657,7 +3638,8 @@
           "id": "rJQteGH5Ng1RKmF4",
           "name": "tg dev aleksey"
         }
-      }
+      },
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -3721,6 +3703,10 @@
             {
               "fieldName": "status",
               "value": "Завершен"
+            },
+            {
+              "fieldName": "id",
+              "value": "={{ $('данные авто1').item.json.id }}"
             }
           ]
         }
@@ -3752,7 +3738,7 @@
           "conditions": [
             {
               "id": "5fceb66a-449d-45ab-9ef2-ca7a1b3736f4",
-              "leftValue": "={{ $json }}",
+              "leftValue": "={{ $json.data[0] }}",
               "rightValue": "",
               "operator": {
                 "type": "object",
@@ -3937,7 +3923,7 @@
       "parameters": {
         "content": "## Смена текста начала рейса при смене очереди",
         "height": 506.9884164964226,
-        "width": 1612.5319585858492,
+        "width": 1775.1807115607076,
         "color": 6
       },
       "id": "6fa3a0b7-038f-4a1a-98e1-ca87924eb7d6",
@@ -3945,7 +3931,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -705.9448008587698,
+        -728.5935538336281,
         2888.835406766163
       ]
     },
@@ -3979,6 +3965,28 @@
     },
     {
       "parameters": {
+        "operation": "deleteMessage",
+        "chatId": "={{ $json.result.chat.id }}",
+        "messageId": "={{ $json.result.message_id }}"
+      },
+      "id": "fb33f1ac-afac-485e-8006-ccde84cfe28d",
+      "name": "удаляем прошлое",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -520,
+        3060
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
         "httpMethod": "POST",
         "path": "dev/queue",
         "authentication": "basicAuth",
@@ -4002,6 +4010,219 @@
     }
   ],
   "pinData": {
+    "объединяем в один список": [
+      {
+        "json": {
+          "id": 840,
+          "date": "2024-09-06",
+          "fuel_wasted": 0,
+          "total_price": 3877.5,
+          "comment": "123",
+          "status": "Выполняется",
+          "type": "Запланированная",
+          "end_condition": "В течении смены",
+          "round_quantity_for_car": 0,
+          "required_cubic_metre": 0,
+          "current_cubic_metre": 0,
+          "diff_cubic_metre": 0,
+          "required_ton": 0,
+          "current_ton": 0,
+          "diff_ton": 0,
+          "cargo_volume_str": "58.75 м3",
+          "partner": [
+            68,
+            "Новая компания"
+          ],
+          "carrier": [
+            1,
+            "Эверест"
+          ],
+          "material": [
+            1,
+            "Тест1 (Ключевое)"
+          ],
+          "sender": [
+            1,
+            "Эверест"
+          ],
+          "place_from": [
+            1,
+            "Ключевое"
+          ],
+          "place_to": [
+            2,
+            "Торг. порт"
+          ],
+          "rounds": [
+            1771,
+            1770,
+            1769,
+            1768,
+            1763
+          ],
+          "cargo_volume_round": 58.75,
+          "round_cars": "А 459 ТЕ",
+          "round_drivers": "Алексей Горемыкин",
+          "cost_per_cubic_metre": 66,
+          "delivery_cost_per_cubic_metre": 0,
+          "cost_per_tonne": 0,
+          "delivery_cost_per_tonne": 0,
+          "driver_rate": 0,
+          "trailer_driver_rate": 0,
+          "display_name": "2024-09-06 Ключевое-Торг. порт",
+          "create_uid": [
+            7,
+            "alexey.goremykin"
+          ],
+          "create_date": "2024-09-06 04:33:57",
+          "write_uid": [
+            2,
+            "Administrator"
+          ],
+          "write_date": "2024-09-06 05:05:01"
+        }
+      },
+      {
+        "json": {
+          "id": 841,
+          "date": "2024-09-06",
+          "fuel_wasted": 0,
+          "total_price": 0,
+          "comment": "333",
+          "status": "Назначена",
+          "type": "Запланированная",
+          "end_condition": "По перевезенным кубометрам",
+          "round_quantity_for_car": 0,
+          "required_cubic_metre": 100,
+          "current_cubic_metre": 0,
+          "diff_cubic_metre": 100,
+          "required_ton": 0,
+          "current_ton": 0,
+          "diff_ton": 0,
+          "cargo_volume_str": "0.0 м3",
+          "partner": [
+            68,
+            "Новая компания"
+          ],
+          "carrier": [
+            1,
+            "Эверест"
+          ],
+          "material": [
+            3,
+            "Щебень (Ключевое)"
+          ],
+          "sender": [
+            1,
+            "Эверест"
+          ],
+          "place_from": [
+            1,
+            "Ключевое"
+          ],
+          "place_to": [
+            1,
+            "Ключевое"
+          ],
+          "rounds": [
+            1764
+          ],
+          "cargo_volume_round": 0,
+          "round_cars": "А 459 ТЕ",
+          "round_drivers": "",
+          "cost_per_cubic_metre": 66,
+          "delivery_cost_per_cubic_metre": 0,
+          "cost_per_tonne": 150,
+          "delivery_cost_per_tonne": 0,
+          "driver_rate": 0,
+          "trailer_driver_rate": 0,
+          "display_name": "2024-09-06 Ключевое-Ключевое",
+          "create_uid": [
+            7,
+            "alexey.goremykin"
+          ],
+          "create_date": "2024-09-06 04:34:22",
+          "write_uid": [
+            7,
+            "alexey.goremykin"
+          ],
+          "write_date": "2024-09-06 04:34:22"
+        }
+      }
+    ],
+    "Limit": [
+      {
+        "json": {
+          "id": 840,
+          "date": "2024-09-06",
+          "fuel_wasted": 0,
+          "total_price": 3877.5,
+          "comment": "123",
+          "status": "Выполняется",
+          "type": "Запланированная",
+          "end_condition": "В течении смены",
+          "round_quantity_for_car": 0,
+          "required_cubic_metre": 0,
+          "current_cubic_metre": 0,
+          "diff_cubic_metre": 0,
+          "required_ton": 0,
+          "current_ton": 0,
+          "diff_ton": 0,
+          "cargo_volume_str": "58.75 м3",
+          "partner": [
+            68,
+            "Новая компания"
+          ],
+          "carrier": [
+            1,
+            "Эверест"
+          ],
+          "material": [
+            1,
+            "Тест1 (Ключевое)"
+          ],
+          "sender": [
+            1,
+            "Эверест"
+          ],
+          "place_from": [
+            1,
+            "Ключевое"
+          ],
+          "place_to": [
+            2,
+            "Торг. порт"
+          ],
+          "rounds": [
+            1771,
+            1770,
+            1769,
+            1768,
+            1763
+          ],
+          "cargo_volume_round": 58.75,
+          "round_cars": "А 459 ТЕ",
+          "round_drivers": "Алексей Горемыкин",
+          "cost_per_cubic_metre": 66,
+          "delivery_cost_per_cubic_metre": 0,
+          "cost_per_tonne": 0,
+          "delivery_cost_per_tonne": 0,
+          "driver_rate": 0,
+          "trailer_driver_rate": 0,
+          "display_name": "2024-09-06 Ключевое-Торг. порт",
+          "create_uid": [
+            7,
+            "alexey.goremykin"
+          ],
+          "create_date": "2024-09-06 04:33:57",
+          "write_uid": [
+            2,
+            "Administrator"
+          ],
+          "write_date": "2024-09-06 05:05:01"
+        }
+      }
+    ],
     "Webhook1 dev1": [
       {
         "json": {
@@ -4023,12 +4244,12 @@
           "body": {
             "resequenced_data": [
               {
-                "id": 535,
+                "id": 539,
                 "car_id": 18,
                 "new_sequence": 0
               },
               {
-                "id": 536,
+                "id": 535,
                 "car_id": 18,
                 "new_sequence": 1
               }
@@ -4057,6 +4278,6 @@
     }
   ],
   "triggerCount": 3,
-  "updatedAt": "2024-09-06T05:08:02.602Z",
-  "versionId": "392eee72-5905-4dd9-bef4-9f6b48cc932e"
+  "updatedAt": "2024-09-06T12:09:44.995Z",
+  "versionId": "2fccd9d7-298f-403b-a7a0-1428ac950268"
 }
