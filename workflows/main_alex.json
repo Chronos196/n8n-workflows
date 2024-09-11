@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "добавляет пользователя, если не существует": {
       "main": [
@@ -677,17 +677,6 @@
         ]
       ]
     },
-    "Telegram Trigger1": {
-      "main": [
-        [
-          {
-            "node": "авторизация",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "поиск механиков+диспетчеров": {
       "main": [
         [
@@ -849,6 +838,17 @@
           }
         ]
       ]
+    },
+    "Telegram Trigger2": {
+      "main": [
+        [
+          {
+            "node": "авторизация",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-09-05T09:29:53.671Z",
@@ -863,7 +863,7 @@
         "operation": "executeQuery",
         "query": "INSERT INTO tg_users (tg_id) VALUES ($1) ON CONFLICT (tg_id) DO NOTHING;",
         "options": {
-          "queryReplacement": "={{ \n  $('Telegram Trigger1').item.json.message?.from.id !== undefined \n  ? $('Telegram Trigger1').item.json.message.from.id \n  : $('Telegram Trigger1').item.json.callback_query.from.id \n}}"
+          "queryReplacement": "={{ \n  $('Telegram Trigger2').item.json.message?.from.id !== undefined \n  ? $('Telegram Trigger2').item.json.message.from.id \n  : $('Telegram Trigger2').item.json.callback_query.from.id \n}}"
         }
       },
       "id": "dd4175db-e982-4408-9f25-8eed60fea36a",
@@ -932,7 +932,7 @@
           "values": [
             {
               "column": "tg_id",
-              "value": "={{ \n  $('Telegram Trigger1').item.json.message?.from.id !== undefined \n  ? $('Telegram Trigger1').item.json.message.from.id \n  : $('Telegram Trigger1').item.json.callback_query.from.id \n}}"
+              "value": "={{ \n  $('Telegram Trigger2').item.json.message?.from.id !== undefined \n  ? $('Telegram Trigger2').item.json.message.from.id \n  : $('Telegram Trigger2').item.json.callback_query.from.id \n}}"
             }
           ]
         },
@@ -1044,7 +1044,7 @@
           "values": [
             {
               "column": "tg_id",
-              "value": "={{ \n  $('Telegram Trigger1').item.json.message?.from.id !== undefined \n  ? $('Telegram Trigger1').item.json.message.from.id \n  : $('Telegram Trigger1').item.json.callback_query.from.id \n}}"
+              "value": "={{ \n  $('Telegram Trigger2').item.json.message?.from.id !== undefined \n  ? $('Telegram Trigger2').item.json.message.from.id \n  : $('Telegram Trigger2').item.json.callback_query.from.id \n}}"
             }
           ]
         },
@@ -1139,7 +1139,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "chatId": "={{ $('Telegram Trigger2').item.json.message.chat.id }}",
         "text": "Чтобы войти, поделитесь контактом",
         "replyMarkup": "replyKeyboard",
         "replyKeyboard": {
@@ -1191,7 +1191,7 @@
           "conditions": [
             {
               "id": "4d79f0bd-02e2-413a-b219-bfc80a34c855",
-              "leftValue": "={{ $('Telegram Trigger1').item.json.message.contact.phone_number }}",
+              "leftValue": "={{ $('Telegram Trigger2').item.json.message.contact.phone_number }}",
               "rightValue": "Вы не нажали кнопку \"поделиться контактом\"",
               "operator": {
                 "type": "string",
@@ -1282,7 +1282,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "chatId": "={{ $('Telegram Trigger2').item.json.message.chat.id }}",
         "text": "Такого сотрудника ещё нет в Odoo.",
         "additionalFields": {
           "appendAttribution": false
@@ -1404,7 +1404,7 @@
           "conditions": [
             {
               "id": "11c45e0d-196b-47f1-821e-bee57c9f070b",
-              "leftValue": "={{ $('Telegram Trigger1').item.json.hasField(\"message\") }}",
+              "leftValue": "={{ $('Telegram Trigger2').item.json.hasField(\"message\") }}",
               "rightValue": "",
               "operator": {
                 "type": "boolean",
@@ -1664,7 +1664,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "chatId": "={{ $('Telegram Trigger2').item.json.message.chat.id }}",
         "text": "Вы не нажали кнопку \"поделиться контактом\"",
         "replyMarkup": "replyKeyboard",
         "replyKeyboard": {
@@ -1707,7 +1707,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "chatId": "={{ $('Telegram Trigger2').item.json.message.chat.id }}",
         "text": "=Роль не указана",
         "additionalFields": {
           "appendAttribution": false
@@ -1735,7 +1735,7 @@
             {
               "id": "5c7a2f2e-c8b7-431a-8a0b-5dc40efd8909",
               "name": "str",
-              "value": "={{ $('Telegram Trigger1').item.json.message.contact.phone_number }}",
+              "value": "={{ $('Telegram Trigger2').item.json.message.contact.phone_number }}",
               "type": "string"
             }
           ]
@@ -1935,7 +1935,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nvar res = {};\n\nfor (const item of $input.all()) {\n  Object.assign(res, $('Telegram Trigger1').item.json);\n  Object.assign(res, $('актуальный статус').item.json);\n  Object.assign(res, { cookie: $('авторизация').item.json.headers['set-cookie'][0] });\n}\n\nreturn res;"
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nvar res = {};\n\nfor (const item of $input.all()) {\n  Object.assign(res, $('Telegram Trigger2').item.json);\n  Object.assign(res, $('актуальный статус').item.json);\n  Object.assign(res, { cookie: $('авторизация').item.json.headers['set-cookie'][0] });\n}\n\nreturn res;"
       },
       "id": "0d03ac48-cda8-4362-bac2-257bfa3fa3da",
       "name": "склеиваем данные",
@@ -3250,30 +3250,6 @@
     },
     {
       "parameters": {
-        "updates": [
-          "message",
-          "callback_query"
-        ],
-        "additionalFields": {}
-      },
-      "id": "375c5dcf-c54f-49f8-a6ed-fba397894652",
-      "name": "Telegram Trigger1",
-      "type": "n8n-nodes-base.telegramTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        -4820,
-        1000
-      ],
-      "webhookId": "98cc3ab9-68d6-4a2f-85f1-4ae02662246d",
-      "credentials": {
-        "telegramApi": {
-          "id": "k9judD68XwPVsgtk",
-          "name": "Telegram account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "resource": "custom",
         "customResource": "hr.employee",
         "operation": "getAll",
@@ -3658,7 +3634,8 @@
           "id": "uHcFMSp9IXmPMRB4",
           "name": "queue webhook"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -3949,13 +3926,41 @@
         -2645.9448008587697,
         2408.835406766163
       ]
+    },
+    {
+      "parameters": {
+        "updates": [
+          "callback_query",
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "409fd74d-79f6-4e71-aac3-739f6240a3bf",
+      "name": "Telegram Trigger2",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -4840,
+        1020
+      ],
+      "webhookId": "358c36d0-a00c-4a1e-ba36-a940ba566b8d",
+      "credentials": {
+        "telegramApi": {
+          "id": "k9judD68XwPVsgtk",
+          "name": "Telegram account"
+        }
+      }
     }
   ],
   "pinData": {},
   "settings": {
     "executionOrder": "v1"
   },
-  "staticData": null,
+  "staticData": {
+    "node:Schedule Trigger3": {
+      "recurrenceRules": []
+    }
+  },
   "tags": [
     {
       "createdAt": "2024-09-05T09:20:23.440Z",
@@ -3964,7 +3969,7 @@
       "name": "Alexandr"
     }
   ],
-  "triggerCount": 0,
-  "updatedAt": "2024-09-05T09:46:02.639Z",
-  "versionId": "7ad86aee-35e8-48ca-bbff-194d6d6c7680"
+  "triggerCount": 2,
+  "updatedAt": "2024-09-07T20:22:27.590Z",
+  "versionId": "2dcd67d7-d705-45a0-8382-b80b4b7a09cd"
 }
