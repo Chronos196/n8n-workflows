@@ -2371,6 +2371,11 @@
             {
               "fieldName": "id",
               "value": "={{ $json.car_id[0] }}"
+            },
+            {
+              "fieldName": "driver_id",
+              "operator": "notEqual",
+              "value": "={{ false }}"
             }
           ]
         }
@@ -2409,7 +2414,7 @@
           "values": [
             {
               "column": "odoo_id",
-              "value": "={{ $json.employee_id[0] }}"
+              "value": "={{ $json.driver_id[0] }}"
             }
           ]
         },
@@ -2433,7 +2438,7 @@
     {
       "parameters": {
         "chatId": "={{ $json.tg_id }}",
-        "text": "={{ $('найдём водителя по номеру автомобиля1').item.json[\"employee_id\"][1] }}\nВаше обращение перенесено в статус <b>{{ $('если не отправлены').item.json[\"status\"] }}</b>\n\nТекст вашего обращения:\n<i>{{ $('если не отправлены').item.json[\"description_of_maintenance\"] }}</i>",
+        "text": "={{ $('найдём водителя по номеру автомобиля1').item.json[\"driver_id\"][1] }}\nВаше обращение перенесено в статус <b>{{ $('если не отправлены').item.json[\"status\"] }}</b>\n\nТекст вашего обращения:\n<i>{{ $('если не отправлены').item.json[\"description_of_maintenance\"] }}</i>",
         "additionalFields": {
           "appendAttribution": false,
           "parse_mode": "HTML"
@@ -2519,8 +2524,7 @@
       "position": [
         -4300,
         2125
-      ],
-      "disabled": true
+      ]
     },
     {
       "parameters": {
@@ -4230,6 +4234,9 @@
   "staticData": {
     "node:Schedule Trigger3": {
       "recurrenceRules": []
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
     }
   },
   "tags": [
@@ -4240,7 +4247,7 @@
       "name": "production"
     }
   ],
-  "triggerCount": 3,
-  "updatedAt": "2024-09-10T02:39:50.614Z",
-  "versionId": "c685283a-4276-4de2-ae50-27e20a804186"
+  "triggerCount": 4,
+  "updatedAt": "2024-09-11T12:34:53.736Z",
+  "versionId": "244f60cc-7259-4cbd-942c-c0eb7d7383d1"
 }
