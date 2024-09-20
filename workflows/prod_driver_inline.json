@@ -19752,11 +19752,11 @@
         "operation": "getAll",
         "options": {
           "fieldsList": [
-            "driver_rate",
             "id",
             "sum_of_quarry_works",
             "display_name",
-            "date"
+            "date",
+            "cost_for_driver"
           ]
         },
         "filterRequest": {
@@ -19785,7 +19785,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Получаем входные данные из предыдущего кубика\nconst inputData = items.map(item => item.json);\n\n// Функция для обработки данных\nfunction calculateTotals(data) {\n    return data.map(entry => {\n        const { id, sum_of_quarry_works, driver_rate, date } = entry;\n\n        // Если driver_rate == false, заработок равен 0\n        if (driver_rate === false) {\n            return {\n                id: id,\n                quarry_hours: sum_of_quarry_works,  // Замена count на quarry_hours\n                total: 0,\n                date: date\n            };\n        }\n\n        // Извлекаем количество и ставку из driver_rate\n        const [rate_count, rate_value] = driver_rate;\n        const rate = parseFloat(rate_value);  // Преобразуем ставку в число\n\n        // Общая сумма заработка\n        const total = sum_of_quarry_works * rate;\n\n        return {\n            id: id,\n            quarry_hours: sum_of_quarry_works,  // Замена count на quarry_hours\n            total: total,\n            date: date\n        };\n    });\n}\n\n// Обрабатываем данные\nconst processedData = calculateTotals(inputData);\n\n// Возвращаем результат для следующего кубика\nreturn processedData.map(entry => ({ json: entry }));\n\n"
+        "jsCode": "// Получаем входные данные из предыдущего кубика\nconst inputData = items.map(item => item.json);\n\n// Функция для обработки данных\nfunction calculateTotals(data) {\n    return data.map(entry => {\n        const { id, sum_of_quarry_works, cost_for_driver, date } = entry;\n\n        // Если driver_rate == false, заработок равен 0\n        if (cost_for_driver === false) {\n            return {\n                id: id,\n                quarry_hours: sum_of_quarry_works,  // Замена count на quarry_hours\n                total: 0,\n                date: date\n            };\n        }\n\n        // Извлекаем количество и ставку из driver_rate\n        const rate_value = cost_for_driver;\n        const rate = parseFloat(rate_value);  // Преобразуем ставку в число\n\n        // Общая сумма заработка\n        const total = sum_of_quarry_works * rate;\n\n        return {\n            id: id,\n            quarry_hours: sum_of_quarry_works,  // Замена count на quarry_hours\n            total: total,\n            date: date\n        };\n    });\n}\n\n// Обрабатываем данные\nconst processedData = calculateTotals(inputData);\n\n// Возвращаем результат для следующего кубика\nreturn processedData.map(entry => ({ json: entry }));\n\n"
       },
       "id": "21518a86-4944-41ca-8418-d1ff719996d4",
       "name": "Получение суммы заработка за карьер",
@@ -20255,6 +20255,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-09-11T11:52:49.642Z",
-  "versionId": "5b752480-f19f-43a3-8cad-ce511f42fb93"
+  "updatedAt": "2024-09-19T02:57:10.011Z",
+  "versionId": "e6917727-4313-4837-a4b6-9bde14cc166c"
 }
