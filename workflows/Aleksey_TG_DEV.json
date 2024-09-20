@@ -315,28 +315,6 @@
         ]
       ]
     },
-    "получаем все карточки1": {
-      "main": [
-        [
-          {
-            "node": "если не отправлены",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Schedule Trigger1": {
-      "main": [
-        [
-          {
-            "node": "получаем все карточки1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Schedule Trigger3": {
       "main": [
         [
@@ -828,28 +806,6 @@
         ]
       ]
     },
-    "Вывод статуса карточки1": {
-      "main": [
-        [
-          {
-            "node": "помечаем их отправленными1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "если не отправлены": {
-      "main": [
-        [
-          {
-            "node": "найдём водителя по номеру автомобиля1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Получаем тг1": {
       "main": [
         [
@@ -866,6 +822,28 @@
         [
           {
             "node": "Получаем тг1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "только готовые уведомляем": {
+      "main": [
+        [
+          {
+            "node": "найдём водителя по номеру автомобиля1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "смена статуса заявки": {
+      "main": [
+        [
+          {
+            "node": "только готовые уведомляем",
             "type": "main",
             "index": 0
           }
@@ -2299,39 +2277,10 @@
     },
     {
       "parameters": {
-        "resource": "custom",
-        "customResource": "technical.maintenance",
-        "operation": "update",
-        "customResourceId": "={{ $('если не отправлены').item.json.id }}",
-        "fieldsToCreateOrUpdate": {
-          "fields": [
-            {
-              "fieldName": "sent",
-              "fieldValue": "={{ true }}"
-            }
-          ]
-        }
-      },
-      "id": "9195ae73-ce8b-4f02-b005-1f6a3a7ecf77",
-      "name": "помечаем их отправленными1",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        -2900,
-        2005
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "ITgOrhO4Hf2QcDtf",
-          "name": "odoo dev"
-        }
-      }
-    },
-    {
-      "parameters": {
         "content": "## Проверка состояния карточек и отправка статуса водителю",
         "height": 369.4704439473635,
-        "width": 1677.9054234402693
+        "width": 1212.5764986840902,
+        "color": 6
       },
       "id": "e07fb91e-077a-4cd2-9c2e-ad244ec1cfc4",
       "name": "Sticky Note21",
@@ -2342,57 +2291,6 @@
         1960
       ],
       "disabled": true
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "technical.maintenance",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "status",
-              "value": "Готово"
-            }
-          ]
-        }
-      },
-      "id": "f896cc24-7555-41aa-b049-d4b02db15010",
-      "name": "получаем все карточки1",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        -4005,
-        2121
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "ITgOrhO4Hf2QcDtf",
-          "name": "odoo dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "seconds",
-              "secondsInterval": 5
-            }
-          ]
-        }
-      },
-      "id": "ed519f00-7488-4b27-8142-5fd2db5ad3d5",
-      "name": "Schedule Trigger1",
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        -4300,
-        2125
-      ]
     },
     {
       "parameters": {
@@ -3883,7 +3781,7 @@
     {
       "parameters": {
         "chatId": "={{ $json.tg_id }}",
-        "text": "={{ $('найдём водителя по номеру автомобиля1').item.json[\"driver_id\"][1] }}\nВаше обращение перенесено в статус <b>{{ $('если не отправлены').item.json[\"status\"] }}</b>\n\nТекст вашего обращения:\n<i>{{ $('если не отправлены').item.json[\"description_of_maintenance\"] }}</i>",
+        "text": "={{ $('найдём водителя по номеру автомобиля1').item.json[\"driver_id\"][1] }}\nВаше обращение перенесено в статус <b>{{ $('смена статуса заявки').item.json.body.status }}</b>\n\nТекст вашего обращения:\n<i>{{ $('смена статуса заявки').item.json.body.description_of_maintenance }}</i>",
         "additionalFields": {
           "appendAttribution": false,
           "parse_mode": "HTML"
@@ -3894,8 +3792,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        -3120,
-        2005
+        -3380,
+        2040
       ],
       "credentials": {
         "telegramApi": {
@@ -3903,39 +3801,6 @@
           "name": "tg dev aleksey"
         }
       }
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "83edda29-8198-4233-8d09-a34820e84077",
-              "leftValue": "={{ $json.sent }}",
-              "rightValue": "",
-              "operator": {
-                "type": "boolean",
-                "operation": "false",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "dd703bf2-8201-4680-b93f-435f7852a31c",
-      "name": "если не отправлены",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [
-        -3780,
-        2125
-      ]
     },
     {
       "parameters": {
@@ -3967,8 +3832,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        -3340,
-        2000
+        -3600,
+        2040
       ],
       "credentials": {
         "postgres": {
@@ -3987,7 +3852,7 @@
           "filter": [
             {
               "fieldName": "id",
-              "value": "={{ $json.car_id[0] }}"
+              "value": "={{ $json.body.car_id }}"
             },
             {
               "fieldName": "driver_id",
@@ -4002,13 +3867,69 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -3560,
-        2005
+        -3800,
+        2040
       ],
       "credentials": {
         "odooApi": {
           "id": "ITgOrhO4Hf2QcDtf",
           "name": "odoo dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "ca93c242-ca4e-4d06-8b64-91a75e30caa7",
+              "leftValue": "={{ $json.body.status }}",
+              "rightValue": "Готово",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "d4548eb5-b868-4345-bbd2-039f60dc4c1c",
+      "name": "только готовые уведомляем",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.1,
+      "position": [
+        -4080,
+        2120
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "dev/change_maintenance",
+        "authentication": "basicAuth",
+        "options": {}
+      },
+      "id": "12f0742e-e137-4cd7-aefe-e8524fc4c586",
+      "name": "смена статуса заявки",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -4300,
+        2120
+      ],
+      "webhookId": "152d7c74-b120-4c93-8437-4209442ecc9a",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "uHcFMSp9IXmPMRB4",
+          "name": "queue webhook"
         }
       }
     }
@@ -4248,6 +4169,6 @@
     }
   ],
   "triggerCount": 4,
-  "updatedAt": "2024-09-11T11:59:20.087Z",
-  "versionId": "48c2e1cd-ccca-432f-a346-0d43d353a16f"
+  "updatedAt": "2024-09-18T11:59:41.929Z",
+  "versionId": "59ffada7-37cc-4208-ba11-9568b8b4d204"
 }
