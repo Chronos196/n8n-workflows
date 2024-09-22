@@ -2639,45 +2639,6 @@
         ]
       ]
     },
-    "Работы в карьере": {
-      "main": [
-        [
-          {
-            "node": "убираем кнопку у перевозки на день",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Ввод часов1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Получение введенных часов",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Начало работы в карьере2",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Получение введенных часов1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Выполнена работа в карьере": {
       "main": [
         [
@@ -3544,6 +3505,52 @@
         [
           {
             "node": "Нет перевозки или работы в карьере",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Работы в карьере": {
+      "main": [
+        [
+          {
+            "node": "убираем кнопку у перевозки на день",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ввод часов1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Получение введенных часов",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Начало работы в карьере2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Получение введенных часов1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow",
             "type": "main",
             "index": 0
           }
@@ -5789,7 +5796,7 @@
     {
       "parameters": {
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
-        "text": "=У вас есть доступные рейсы\n{{ $json.message }}",
+        "text": "=У вас есть доступные рейсы\n{{ $('первая перевозка').item.json.place_from[1] }} - {{ $('первая перевозка').item.json.place_to[1] }}\n{{ $('первая перевозка').item.json.material[1] }}\n{{ $json.message }}",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -5820,7 +5827,8 @@
           ]
         },
         "additionalFields": {
-          "appendAttribution": false
+          "appendAttribution": false,
+          "parse_mode": "HTML"
         }
       },
       "id": "cf894da2-4dc1-493e-a195-ca17832a4934",
@@ -15858,7 +15866,7 @@
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
         "replyMarkup": "inlineKeyboard",
-        "text": "=Отлично, вы завершили рейс, хотите начать следующий?\n<b>Остаток кубометров по текущей перевозке - {{ $('находим какая сейчас перевозка').item.json.diff_cubic_metre }}</b>",
+        "text": "=Отлично, вы завершили рейс, хотите начать следующий?\n<b>{{ $('находим какая сейчас перевозка').item.json.place_from[1] }} - {{ $('находим какая сейчас перевозка').item.json.place_to[1] }}\n{{ $('находим какая сейчас перевозка').item.json.material[1] }}\nОстаток кубометров по текущей перевозке - {{ $('находим какая сейчас перевозка').item.json.diff_cubic_metre }}</b>",
         "inlineKeyboard": {
           "rows": [
             {
@@ -15868,6 +15876,18 @@
                     "text": "Начать рейс",
                     "additionalFields": {
                       "callback_data": "pick"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Завершить перевозку",
+                    "additionalFields": {
+                      "callback_data": "transportation_to_tail"
                     }
                   }
                 ]
@@ -15912,7 +15932,7 @@
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
         "replyMarkup": "inlineKeyboard",
-        "text": "=Отлично, вы завершили рейс, хотите начать следующий?\n<b>Остаток по текущей перевозке -  {{ $('находим какая сейчас перевозка').item.json.diff_ton }} т.</b>",
+        "text": "=Отлично, вы завершили рейс, хотите начать следующий?\n<b>{{ $('находим какая сейчас перевозка').item.json.place_from[1] }} - {{ $('находим какая сейчас перевозка').item.json.place_to[1] }}\n{{ $('находим какая сейчас перевозка').item.json.material[1] }}\nОстаток по текущей перевозке -  {{ $('находим какая сейчас перевозка').item.json.diff_ton }} т.</b>",
         "inlineKeyboard": {
           "rows": [
             {
@@ -15922,6 +15942,18 @@
                     "text": "Начать рейс",
                     "additionalFields": {
                       "callback_data": "pick"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Завершить перевозку",
+                    "additionalFields": {
+                      "callback_data": "transportation_to_tail"
                     }
                   }
                 ]
@@ -16555,131 +16587,6 @@
         12320
       ],
       "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "accept_quarry",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "9c9613d4-cb1a-4598-9a01-875cff830f42",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "quarry_hours",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "a045e192-717d-46b0-bc5e-cfd48bda407a",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "check_quarry_hours",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "d922ac87-5b93-41cf-8429-3279f3798557",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "back_to_work",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict"
-                },
-                "conditions": [
-                  {
-                    "id": "95b4736f-c6f3-45f9-bfd7-e82230f3eadd",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "finish_quarry_work",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "1b5b6379-8bc3-4b2c-af53-e4a8d80581ff",
-      "name": "Работы в карьере",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        -2200,
-        12380
-      ]
     },
     {
       "parameters": {
@@ -18227,7 +18134,7 @@
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
         "replyMarkup": "inlineKeyboard",
-        "text": "=Отлично, вы завершили рейс, хотите начать следующий?",
+        "text": "=Отлично, вы завершили рейс, хотите начать следующий?\n<b>{{ $('находим какая сейчас перевозка').item.json.place_from[1] }} - {{ $('находим какая сейчас перевозка').item.json.place_to[1] }}\n{{ $('находим какая сейчас перевозка').item.json.material[1] }}</b>",
         "inlineKeyboard": {
           "rows": [
             {
@@ -18237,6 +18144,18 @@
                     "text": "Начать рейс",
                     "additionalFields": {
                       "callback_data": "pick"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Завершить перевозку",
+                    "additionalFields": {
+                      "callback_data": "transportation_to_tail"
                     }
                   }
                 ]
@@ -20110,24 +20029,170 @@
           "name": "tg dev aleksey"
         }
       }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "accept_quarry",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "9c9613d4-cb1a-4598-9a01-875cff830f42",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "quarry_hours",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "a045e192-717d-46b0-bc5e-cfd48bda407a",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "check_quarry_hours",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "d922ac87-5b93-41cf-8429-3279f3798557",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "back_to_work",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "95b4736f-c6f3-45f9-bfd7-e82230f3eadd",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "finish_quarry_work",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "1b5b6379-8bc3-4b2c-af53-e4a8d80581ff",
+      "name": "Работы в карьере",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -2200,
+        12380
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "wNb6idax3EF6KA6K",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "id": "1bcab71e-913f-494d-820e-70019d87626a",
+      "name": "Execute Workflow",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.1,
+      "position": [
+        -2460,
+        12680
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100628228,
+          "update_id": 100628444,
           "callback_query": {
-            "id": "3010587261869757825",
+            "id": "2008109314373328133",
             "from": {
-              "id": 700956969,
+              "id": 467549384,
               "is_bot": false,
-              "first_name": "Алексей",
-              "username": "Chronos196",
-              "language_code": "ru"
+              "first_name": "Sergio",
+              "username": "sergo_kf",
+              "language_code": "ru",
+              "is_premium": true
             },
             "message": {
-              "message_id": 20561,
+              "message_id": 20751,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -20135,53 +20200,54 @@
                 "username": "myn8nbotbot"
               },
               "chat": {
-                "id": 700956969,
-                "first_name": "Алексей",
-                "username": "Chronos196",
+                "id": 467549384,
+                "first_name": "Sergio",
+                "username": "sergo_kf",
                 "type": "private"
               },
-              "date": 1726727289,
-              "edit_date": 1726727297,
-              "text": "Отлично, вы завершили рейс, хотите начать следующий?",
+              "date": 1726821173,
+              "edit_date": 1726821176,
+              "text": "Отправить фотографию весовой справки?",
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "Начать рейс",
-                      "callback_data": "pick"
+                      "text": "Отправить",
+                      "callback_data": "document"
                     }
                   ],
                   [
                     {
-                      "text": "Завершить смену",
-                      "callback_data": "complete_work"
+                      "text": "Отправить в конце смены",
+                      "callback_data": "final"
                     }
                   ]
                 ]
               }
             },
-            "chat_instance": "1908726007480408494",
-            "data": "pick"
+            "chat_instance": "-8293046807322593726",
+            "data": "final"
           },
-          "tg_id": "700956969",
-          "odoo_id": 2,
+          "tg_id": "467549384",
+          "odoo_id": 4,
           "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
           "end_request_id": null,
           "materials_photo": false,
           "end_request_hours": null,
-          "car_id_while_inputing": 18,
-          "fuel_liters": null,
+          "car_id_while_inputing": 25,
+          "fuel_liters": 100,
           "weight_measure": "10 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
-          "count_weight_photo": null,
-          "count_weight_photo_sent": null,
-          "current_quarry_hours": null,
-          "end_round_message_id": 20561,
-          "cookie": "session_id=64c30a0b8ea1014c145f670cd3d941d24268d975; Expires=Fri, 19 Sep 2025 06:28:56 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "count_weight_photo": 1,
+          "count_weight_photo_sent": 0,
+          "current_quarry_hours": 5,
+          "end_round_message_id": 20749,
+          "last_message_text": null,
+          "cookie": "session_id=538fc0b5e829386b82ce07bf48aa312bf494482f; Expires=Sat, 20 Sep 2025 08:33:02 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -20199,6 +20265,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-09-19T06:39:43.806Z",
-  "versionId": "791d553d-9f4e-4b29-9d8d-471d04ca233c"
+  "updatedAt": "2024-09-20T08:59:29.095Z",
+  "versionId": "d7177d6b-13b6-4159-ad60-1f9ec4a09569"
 }
