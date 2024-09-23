@@ -59,17 +59,6 @@
         ]
       ]
     },
-    "HTTP Request": {
-      "main": [
-        [
-          {
-            "node": "убираем кнопки",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Limit": {
       "main": [
         [
@@ -242,6 +231,35 @@
           }
         ]
       ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "убираем кнопки",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ошибки",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ошибки": {
+      "main": [
+        [
+          {
+            "node": "Нет перевозки или работы в карьере",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-09-20T05:04:19.453Z",
@@ -268,7 +286,7 @@
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
         "replyMarkup": "inlineKeyboard",
-        "text": "Вы уверены, что хотите завершить текущую перевозку? Вернуться к её выполнению будет невозможно",
+        "text": "Вы уверены, что хотите приступить к следующей перевозке?",
         "inlineKeyboard": {
           "rows": [
             {
@@ -571,7 +589,7 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "Завершить перевозку",
+                    "text": "Приступить к следующей перевозке",
                     "additionalFields": {
                       "callback_data": "transportation_to_tail"
                     }
@@ -689,39 +707,6 @@
       "position": [
         -240,
         340
-      ]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://dev.everest.lamart.site/transfer_queue_transportation",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "cookie",
-              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "car_id",
-              "value": "={{ $json.id }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "0a0ee083-6461-43a4-96fa-241c17233918",
-      "name": "HTTP Request",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        380,
-        420
       ]
     },
     {
@@ -1047,7 +1032,7 @@
     {
       "parameters": {
         "content": "## Кнопка следующей перевозки",
-        "height": 575.2546504631059,
+        "height": 753.6597040203603,
         "width": 618.4840105643988,
         "color": 6
       },
@@ -1326,6 +1311,18 @@
                   }
                 ]
               }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Приступить к следующей перевозке",
+                    "additionalFields": {
+                      "callback_data": "transportation_to_tail"
+                    }
+                  }
+                ]
+              }
             }
           ]
         },
@@ -1348,15 +1345,110 @@
           "name": "tg dev aleksey"
         }
       }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://dev.everest.lamart.site/transfer_queue_transportation",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "car_id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0a0ee083-6461-43a4-96fa-241c17233918",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        380,
+        420
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.error.message }}",
+                    "rightValue": "404 - \"{\\\"error\\\": \\\"Car queue not found or no has elements\\\"}\"",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b2c90cfa-af54-4b63-a9b4-422c6e468745",
+      "name": "ошибки",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.1,
+      "position": [
+        540,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "callback",
+        "queryId": "={{ $('Execute Workflow Trigger').item.json.callback_query.id }}",
+        "additionalFields": {
+          "show_alert": true,
+          "text": "=В Odoo для авто {{ $('поиск авто').item.json.number_car }} не найдена перевозка или работа в карьере.\n\nОбратитесь к диспетчеру или логисту"
+        }
+      },
+      "id": "9f907dc1-6bfa-4064-96c2-bce79bc4fe78",
+      "name": "Нет перевозки или работы в карьере",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        700,
+        600
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100628427,
+          "update_id": 100628756,
           "callback_query": {
-            "id": "3010587260182083692",
+            "id": "3010587260347089936",
             "from": {
               "id": 700956969,
               "is_bot": false,
@@ -1365,7 +1457,7 @@
               "language_code": "ru"
             },
             "message": {
-              "message_id": 20719,
+              "message_id": 20992,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -1378,9 +1470,9 @@
                 "username": "Chronos196",
                 "type": "private"
               },
-              "date": 1726817551,
-              "edit_date": 1726817575,
-              "text": "Вы уверены, что хотите завершить текущую перевозку? Вернуться к её выполнению будет невозможно",
+              "date": 1727095053,
+              "edit_date": 1727095158,
+              "text": "Вы уверены, что хотите приступить к следующей перевозке?",
               "reply_markup": {
                 "inline_keyboard": [
                   [
@@ -1418,9 +1510,9 @@
           "count_weight_photo": null,
           "count_weight_photo_sent": null,
           "current_quarry_hours": 10,
-          "end_round_message_id": 20719,
-          "last_message_text": "Ваша текущая перевозка:\n\nОтправитель - Эверест\nПолучатель - Новая компания\nМаршрут - Карьер Ключевое-Торг. порт\nМатериал - Тест1 (Карьер Ключевое)\nКомментарий - первая",
-          "cookie": "session_id=82702d599c258b25320216451b8e9b619c74f8d4; Expires=Sat, 20 Sep 2025 07:32:57 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "end_round_message_id": 20992,
+          "last_message_text": "Отправитель - Эверест\nПолучатель - Новая компания\nМаршрут - Карьер Ключевое-Карьер Ключевое\nМатериал - Тест1 (Карьер Ключевое)\nКомментарий - вторая",
+          "cookie": "session_id=27121448a1e1ea7b84bcc362926499f29a537cea; Expires=Tue, 23 Sep 2025 12:39:36 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -1429,8 +1521,15 @@
     "executionOrder": "v1"
   },
   "staticData": null,
-  "tags": [],
+  "tags": [
+    {
+      "createdAt": "2024-08-26T14:03:49.624Z",
+      "updatedAt": "2024-08-26T14:03:49.624Z",
+      "id": "sYBV4z8jwrWgz2Cc",
+      "name": "aleksey"
+    }
+  ],
   "triggerCount": 0,
-  "updatedAt": "2024-09-20T07:54:50.863Z",
-  "versionId": "1000c7e9-a778-49f4-a9a3-66a8e84588b5"
+  "updatedAt": "2024-09-23T12:41:47.383Z",
+  "versionId": "621bde9f-4c4c-4b3a-b10f-ca5f7fd6b091"
 }
