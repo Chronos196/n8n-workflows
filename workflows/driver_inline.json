@@ -1500,7 +1500,7 @@
       "main": [
         [
           {
-            "node": "отправляем сообщение 2",
+            "node": "сегодняшняя дата",
             "type": "main",
             "index": 0
           }
@@ -3556,6 +3556,105 @@
           }
         ]
       ]
+    },
+    "количество рейсов": {
+      "main": [
+        [
+          {
+            "node": "количество рейсов1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "сегодняшняя дата": {
+      "main": [
+        [
+          {
+            "node": "количество рейсов",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "количество рейсов1": {
+      "main": [
+        [
+          {
+            "node": "форматируем",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "форматируем": {
+      "main": [
+        [
+          {
+            "node": "отправляем сообщение 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "поиск логистов": {
+      "main": [
+        [
+          {
+            "node": "поиск тг айди логистов",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "начатый рейс": {
+      "main": [
+        [
+          {
+            "node": "выполняющиеся рейсы1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "поиск тг айди логистов": {
+      "main": [
+        [
+          {
+            "node": "отправка сообщения о начале рейса логистам",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "выполняющиеся рейсы1": {
+      "main": [
+        [
+          {
+            "node": "форматируем время в удобный формат1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "форматируем время в удобный формат1": {
+      "main": [
+        [
+          {
+            "node": "поиск логистов",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-08-30T12:52:29.946Z",
@@ -4665,7 +4764,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\n\nconst buttons = items.map((item, index) => ({\n    text: `${item.json.description_of_maintenance}`,\n    callback_data: `TR_${item.json.id}` // TR - take request\n}));\n\nconst inlineKeyboard = {\n    inline_keyboard: buttons.map(button => [button])\n};\n\nconst chatId = $('Execute Workflow Trigger').all()[0].json.callback_query.from.id;\nconst token = '7063451965:AAGARL6Eluwh3zgS84WnaZozqdz6-m0RLzg';\nconst url = `https://api.telegram.org/bot${token}/sendMessage`;\n\nconst message = {\n    chat_id: chatId,\n    text: \"Нажмите на заявку, которую хотите начать\",\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n"
+        "jsCode": "const items = $input.all();\n\nconst buttons = items.map((item, index) => ({\n    text: `${item.json.description_of_maintenance}`,\n    callback_data: `TR_${item.json.id}` // TR - take request\n}));\n\nconst inlineKeyboard = {\n    inline_keyboard: [\n        ...buttons.map(button => [button]), // динамические кнопки, каждая строка содержит одну кнопку\n        [{ text: \"В меню\", callback_data: \"list_to\" }] // постоянная кнопка\n    ]\n};\n\nconst chatId = $('Execute Workflow Trigger').all()[0].json.callback_query.from.id;\nconst token = '7063451965:AAGARL6Eluwh3zgS84WnaZozqdz6-m0RLzg';\nconst url = `https://api.telegram.org/bot${token}/sendMessage`;\n\nconst message = {\n    chat_id: chatId,\n    text: \"Нажмите на заявку, которую хотите начать\",\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n"
       },
       "id": "b7d20abb-a52b-4fd6-89d6-795070243fec",
       "name": "создаём динамически инлайн кнопки",
@@ -4733,7 +4832,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\n\nconst buttons = items.map((item, index) => ({\n    text: `${item.json.description_of_maintenance}`,\n    callback_data: `ER_${item.json.id}` // FR - end request\n}));\n\nconst inlineKeyboard = {\n    inline_keyboard: buttons.map(button => [button])\n};\n\nconst chatId = $('Execute Workflow Trigger').all()[0].json.callback_query.from.id;\nconst token = '7063451965:AAGARL6Eluwh3zgS84WnaZozqdz6-m0RLzg';\nconst url = `https://api.telegram.org/bot${token}/sendMessage`;\n\nconst message = {\n    chat_id: chatId,\n    text: \"Нажмите на заявку, которую хотите завершить\",\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n"
+        "jsCode": "const items = $input.all();\n\nconst buttons = items.map((item, index) => ({\n    text: `${item.json.description_of_maintenance}`,\n    callback_data: `ER_${item.json.id}` // FR - end request\n}));\n\nconst inlineKeyboard = {\n    inline_keyboard: [\n        ...buttons.map(button => [button]), // динамические кнопки, каждая строка содержит одну кнопку\n        [{ text: \"В меню\", callback_data: \"list_to\" }] // постоянная кнопка\n    ]\n};\n\nconst chatId = $('Execute Workflow Trigger').all()[0].json.callback_query.from.id;\nconst token = '7063451965:AAGARL6Eluwh3zgS84WnaZozqdz6-m0RLzg';\nconst url = `https://api.telegram.org/bot${token}/sendMessage`;\n\nconst message = {\n    chat_id: chatId,\n    text: \"Нажмите на заявку, которую хотите завершить\",\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n"
       },
       "id": "5acda956-1696-4d85-acc3-e5f7dbc0d50a",
       "name": "создаём динамически инлайн кнопки1",
@@ -5164,6 +5263,18 @@
                     "text": "Завершить заявку сейчас",
                     "additionalFields": {
                       "callback_data": "={{ \"ER_\"+$json.id }}"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "В меню",
+                    "additionalFields": {
+                      "callback_data": "list_to"
                     }
                   }
                 ]
@@ -9229,8 +9340,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        1580,
-        8840
+        2660,
+        8780
       ]
     },
     {
@@ -11670,8 +11781,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1400,
-        8840
+        1500,
+        8820
       ]
     },
     {
@@ -20174,15 +20285,274 @@
         -2460,
         12680
       ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "=transportation.round",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "driver",
+              "value": "={{ $('Execute Workflow Trigger').all()[0].json.odoo_id }}"
+            },
+            {
+              "fieldName": "status",
+              "value": "Завершен"
+            },
+            {
+              "fieldName": "time_of_end",
+              "operator": "greaterOrEqual",
+              "value": "={{ $json.currentDate.slice(0, 10) + ' 00:00:00' }}"
+            }
+          ]
+        }
+      },
+      "id": "249f99fe-26f0-482f-a2d7-01af5ec26888",
+      "name": "количество рейсов",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        2000,
+        8820
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "ITgOrhO4Hf2QcDtf",
+          "name": "odoo dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "includeTime": false,
+        "options": {
+          "timezone": "Asia/Vladivostok"
+        }
+      },
+      "id": "0b296dd8-4ddf-46ff-bcd8-6ef970cdab1c",
+      "name": "сегодняшняя дата",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        8820
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "field": "id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "724080d0-c638-4b5f-9960-cc8a5aac8a4c",
+      "name": "количество рейсов1",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        2200,
+        8820
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "var data = $('создаём динамически инлайн кнопки2').all()[0].json;\ndata.message.text = 'Количество завершенных рейсов: ' + $('количество рейсов1').all()[0].json.count_id + '\\n' + data.message.text;\nreturn data;"
+      },
+      "id": "956ef355-8899-47a4-bc7a-e65c7d8d2c8b",
+      "name": "форматируем",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2420,
+        8820
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "odoo_id",
+              "value": "={{ $json.id }}"
+            },
+            {
+              "column": "logist_notifications",
+              "value": "={{ true }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "50d0479e-0ba5-4d2c-bd46-a718700c3959",
+      "name": "поиск тг айди логистов",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        1800,
+        400
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "xrihBpyZE5y4OBiy",
+          "name": "pg dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "hr.employee",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "job_title",
+              "value": "Логист"
+            }
+          ]
+        }
+      },
+      "id": "ef633625-fcd3-4bae-b672-64dff6533119",
+      "name": "поиск логистов",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1580,
+        400
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "ITgOrhO4Hf2QcDtf",
+          "name": "odoo dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "transportation.round",
+        "operation": "getAll",
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "status",
+              "value": "Выполняется"
+            },
+            {
+              "fieldName": "car",
+              "value": "={{ $('находим машину по odoo id').item.json.id }}"
+            }
+          ]
+        }
+      },
+      "id": "64c42207-4c71-4989-890b-1b05290813bd",
+      "name": "выполняющиеся рейсы1",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1080,
+        400
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "ITgOrhO4Hf2QcDtf",
+          "name": "odoo dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $json.time_of_start }}",
+        "format": "custom",
+        "customFormat": "HH:mm dd.MM.yyyy",
+        "options": {
+          "timezone": true
+        }
+      },
+      "id": "60b12b50-0615-4226-9dd3-565a6c98584b",
+      "name": "форматируем время в удобный формат1",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        1340,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.tg_id }}",
+        "text": "={{ $('находим машину по odoo id').item.json.number_car }} - {{ $('находим машину по odoo id').item.json.driver_id[1] }}\nВремя взятия рейса - {{ $('форматируем время в удобный формат1').item.json.formattedDate }}\n{{ $('начало рейса').item.json.place_from[1] }} - {{ $('начало рейса').item.json.place_to[1] }}\n{{ $('начало рейса').item.json.material[1] }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "e1aef215-1229-4cbb-8b01-c8358bb8518c",
+      "name": "отправка сообщения о начале рейса логистам",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2020,
+        400
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## уведомление логистов о начале рейса",
+        "height": 248.5360343562641,
+        "width": 1162.4219393396818
+      },
+      "id": "7104c762-69e1-4859-8c94-0a0ccda467a8",
+      "name": "Sticky Note20",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1020,
+        340
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100628444,
+          "update_id": 100629063,
           "callback_query": {
-            "id": "2008109314373328133",
+            "id": "2008109317455080439",
             "from": {
               "id": 467549384,
               "is_bot": false,
@@ -20192,7 +20562,7 @@
               "is_premium": true
             },
             "message": {
-              "message_id": 20751,
+              "message_id": 21241,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -20205,28 +20575,59 @@
                 "username": "sergo_kf",
                 "type": "private"
               },
-              "date": 1726821173,
-              "edit_date": 1726821176,
-              "text": "Отправить фотографию весовой справки?",
+              "date": 1727199192,
+              "text": "Ваша текущая перевозка:\n\nОтправитель - Эверест\nПолучатель - ООО Компания\nМаршрут - Карьер Ключевое-Торг. порт\nМатериал - Щебень (Карьер Ключевое)\nКомментарий - 132\nОстаток кубометров по перевозке - 100",
+              "entities": [
+                {
+                  "offset": 39,
+                  "length": 7,
+                  "type": "bold"
+                },
+                {
+                  "offset": 60,
+                  "length": 14,
+                  "type": "bold"
+                },
+                {
+                  "offset": 85,
+                  "length": 26,
+                  "type": "bold"
+                },
+                {
+                  "offset": 123,
+                  "length": 24,
+                  "type": "bold"
+                },
+                {
+                  "offset": 162,
+                  "length": 3,
+                  "type": "bold"
+                },
+                {
+                  "offset": 200,
+                  "length": 3,
+                  "type": "bold"
+                }
+              ],
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "Отправить",
-                      "callback_data": "document"
+                      "text": "Начать рейс",
+                      "callback_data": "pick"
                     }
                   ],
                   [
                     {
-                      "text": "Отправить в конце смены",
-                      "callback_data": "final"
+                      "text": "Приступить к следующей перевозке",
+                      "callback_data": "transportation_to_tail"
                     }
                   ]
                 ]
               }
             },
             "chat_instance": "-8293046807322593726",
-            "data": "final"
+            "data": "pick"
           },
           "tg_id": "467549384",
           "odoo_id": 4,
@@ -20238,22 +20639,26 @@
           "end_request_hours": null,
           "car_id_while_inputing": 25,
           "fuel_liters": 100,
-          "weight_measure": "10 м3 ",
+          "weight_measure": "10 Тонны ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
           "count_weight_photo": 1,
           "count_weight_photo_sent": 0,
           "current_quarry_hours": 5,
-          "end_round_message_id": 20749,
-          "last_message_text": null,
-          "cookie": "session_id=538fc0b5e829386b82ce07bf48aa312bf494482f; Expires=Sat, 20 Sep 2025 08:33:02 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "end_round_message_id": 21241,
+          "last_message_text": "Отлично, вы завершили рейс, хотите начать следующий?\nКарьер Ключевое - Карьер Ключевое\nПесок (Карьер Ключевое)\nОстаток кубометров по текущей перевозке - 7.4",
+          "logist_notifications": false,
+          "cookie": "session_id=8109a9136f88c060a57dc692204528ef5a1e26f9; Expires=Wed, 24 Sep 2025 17:33:27 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": false,
+    "callerPolicy": "workflowsFromSameOwner",
+    "timezone": "Asia/Vladivostok"
   },
   "staticData": null,
   "tags": [
@@ -20265,6 +20670,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-09-22T18:58:16.915Z",
-  "versionId": "7c406c29-65c7-4cde-9d73-8d29b9eba8a5"
+  "updatedAt": "2024-09-25T17:29:20.454Z",
+  "versionId": "3bbab959-0682-466c-b6ab-2184cf5a6b6b"
 }
