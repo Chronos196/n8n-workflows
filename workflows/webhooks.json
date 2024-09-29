@@ -1,18 +1,6 @@
 {
-  "active": false,
-  "connections": {
-    "смена статуса заявки": {
-      "main": [
-        [
-          {
-            "node": "Stop and Error",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    }
-  },
+  "active": true,
+  "connections": {},
   "createdAt": "2024-09-17T10:47:03.434Z",
   "id": "oiWUNPSQCcQ4PK1I",
   "meta": {
@@ -20,43 +8,6 @@
   },
   "name": "webhooks",
   "nodes": [
-    {
-      "parameters": {
-        "errorMessage": "сработало"
-      },
-      "id": "f4de930a-b983-4956-96ce-445193aec236",
-      "name": "Stop and Error",
-      "type": "n8n-nodes-base.stopAndError",
-      "typeVersion": 1,
-      "position": [
-        680,
-        380
-      ],
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "httpMethod": "POST",
-        "path": "dev/change_maintenance",
-        "authentication": "basicAuth",
-        "options": {}
-      },
-      "id": "68e36587-f956-419a-afc8-3215087fc1f2",
-      "name": "смена статуса заявки",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        460,
-        380
-      ],
-      "webhookId": "152d7c74-b120-4c93-8437-4209442ecc9a",
-      "credentials": {
-        "httpBasicAuth": {
-          "id": "uHcFMSp9IXmPMRB4",
-          "name": "queue webhook"
-        }
-      }
-    },
     {
       "parameters": {
         "httpMethod": "POST",
@@ -69,8 +20,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        460,
-        600
+        -20,
+        440
       ],
       "webhookId": "90df170f-5431-43ec-a6ac-2fd2aa42683b",
       "credentials": {
@@ -81,13 +32,44 @@
       }
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "изменение данных в перевозке": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8n.everest.lamart.site",
+            "x-real-ip": "193.107.238.124",
+            "x-forwarded-for": "193.107.238.124",
+            "x-forwarded-proto": "https",
+            "connection": "close",
+            "content-length": "154",
+            "user-agent": "python-requests/2.25.1",
+            "accept-encoding": "gzip, deflate",
+            "accept": "*/*",
+            "authorization": "Basic dXNlcjp6TmJiQU5FYzBpbFA=",
+            "content-type": "application/json"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "car_id": 18,
+            "transportation_id": 945,
+            "updated": {
+              "place_to": "Карьер Ключевое"
+            }
+          },
+          "webhookUrl": "https://n8n.everest.lamart.site/webhook/dev/update_transportation",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
   "settings": {
     "executionOrder": "v1"
   },
   "staticData": null,
   "tags": [],
-  "triggerCount": 2,
-  "updatedAt": "2024-09-18T10:34:38.052Z",
-  "versionId": "793c14af-d25e-4737-ba13-7259f232591d"
+  "triggerCount": 1,
+  "updatedAt": "2024-09-24T10:31:43.013Z",
+  "versionId": "b5fcc638-beb1-4f17-913e-6bfbae877bec"
 }
