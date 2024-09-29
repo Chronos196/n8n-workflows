@@ -690,110 +690,6 @@
         ]
       ]
     },
-    "получаем odoo id10": {
-      "main": [
-        [
-          {
-            "node": "находим машину по odoo id12",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "находим машину по odoo id12": {
-      "main": [
-        [
-          {
-            "node": "Получение сегодняшней даты3",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Получение сегодняшней даты3": {
-      "main": [
-        [
-          {
-            "node": "получаем дату и время 00:2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "получаем дату и время 00:2": {
-      "main": [
-        [
-          {
-            "node": "дата и время 23:2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "дата и время 23:2": {
-      "main": [
-        [
-          {
-            "node": "находим рейсы по машине7",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "находим рейсы по машине7": {
-      "main": [
-        [
-          {
-            "node": "Summarize",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Summarize4",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Summarize": {
-      "main": [
-        [
-          {
-            "node": "Merge5",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Summarize4": {
-      "main": [
-        [
-          {
-            "node": "Merge5",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
-    "Merge5": {
-      "main": [
-        [
-          {
-            "node": "Вывод статистики",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "находим перевозки по рейсам7": {
       "main": [
         [
@@ -3360,7 +3256,12 @@
       "main": [
         [
           {
-            "node": "Получение перевозок водителя1",
+            "node": "Получаем рейсы",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Получение работ в карьере2",
             "type": "main",
             "index": 0
           }
@@ -3588,6 +3489,83 @@
         [
           {
             "node": "склеить имена водителей",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Получаем рейсы": {
+      "main": [
+        [
+          {
+            "node": "Объединение рейсов в один файл",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Объединение рейсов в один файл": {
+      "main": [
+        [
+          {
+            "node": "Code3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code2": {
+      "main": [
+        [
+          {
+            "node": "Merge6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code3": {
+      "main": [
+        [
+          {
+            "node": "Merge6",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Получение работ в карьере2": {
+      "main": [
+        [
+          {
+            "node": "Code2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge6": {
+      "main": [
+        [
+          {
+            "node": "Code6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code6": {
+      "main": [
+        [
+          {
+            "node": "Telegram7",
             "type": "main",
             "index": 0
           }
@@ -7549,266 +7527,6 @@
       "position": [
         200,
         2240
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "k9judD68XwPVsgtk",
-          "name": "Telegram account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "tg_users",
-          "mode": "list",
-          "cachedResultName": "tg_users"
-        },
-        "where": {
-          "values": [
-            {
-              "column": "tg_id",
-              "value": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "35773a72-27ff-494d-9157-867ade799c87",
-      "name": "получаем odoo id10",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.3,
-      "position": [
-        1180,
-        5960
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "xrihBpyZE5y4OBiy",
-          "name": "pg dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "cars.cars",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "driver_id",
-              "value": "={{ $json.odoo_id }}"
-            }
-          ]
-        }
-      },
-      "id": "e87fb5cf-6623-4835-b044-c0faad822ee4",
-      "name": "находим машину по odoo id12",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        1360,
-        5960
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "ITgOrhO4Hf2QcDtf",
-          "name": "odoo dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "id": "a66e847e-ccc5-4d0a-a8d8-84ce5feb353a",
-      "name": "Получение сегодняшней даты3",
-      "type": "n8n-nodes-base.dateTime",
-      "typeVersion": 2,
-      "position": [
-        1500,
-        5960
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "formatDate",
-        "date": "={{ $json.currentDate }}",
-        "format": "=yyyy-MM-dd, 00:00:00",
-        "options": {}
-      },
-      "id": "1ec042b8-631e-45f8-a4a5-d4cb905aeb47",
-      "name": "получаем дату и время 00:2",
-      "type": "n8n-nodes-base.dateTime",
-      "typeVersion": 2,
-      "position": [
-        1660,
-        5960
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "formatDate",
-        "date": "={{ $('Получение сегодняшней даты3').item.json.currentDate }}",
-        "format": "=yyyy-MM-dd, 23:59:59",
-        "outputFieldName": "newformattedDate",
-        "options": {}
-      },
-      "id": "b82f338a-7523-4cd6-a90d-f29614f57aff",
-      "name": "дата и время 23:2",
-      "type": "n8n-nodes-base.dateTime",
-      "typeVersion": 2,
-      "position": [
-        1800,
-        5960
-      ]
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "transportation.round",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "car",
-              "value": "={{ $('находим машину по odoo id12').item.json.id }}"
-            },
-            {
-              "fieldName": "status",
-              "value": "Завершен"
-            },
-            {
-              "fieldName": "time",
-              "operator": "greaterOrEqual",
-              "value": "={{ $('получаем дату и время 00:2').item.json.formattedDate }}"
-            },
-            {
-              "fieldName": "time",
-              "operator": "lesserOrEqual",
-              "value": "={{ $json.newformattedDate }}"
-            }
-          ]
-        }
-      },
-      "id": "6c5761aa-c20c-4556-a9ec-58b3735e22f9",
-      "name": "находим рейсы по машине7",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        1940,
-        5960
-      ],
-      "alwaysOutputData": true,
-      "executeOnce": false,
-      "credentials": {
-        "odooApi": {
-          "id": "ITgOrhO4Hf2QcDtf",
-          "name": "odoo dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "fieldsToSummarize": {
-          "values": [
-            {
-              "field": "id"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "681eba21-7d09-41b7-90e9-38051c454aab",
-      "name": "Summarize",
-      "type": "n8n-nodes-base.summarize",
-      "typeVersion": 1,
-      "position": [
-        2320,
-        5840
-      ]
-    },
-    {
-      "parameters": {
-        "fieldsToSummarize": {
-          "values": [
-            {
-              "aggregation": "sum",
-              "field": "cargo_netto"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "89b072e7-02ce-44c6-bcca-438176743cc9",
-      "name": "Summarize4",
-      "type": "n8n-nodes-base.summarize",
-      "typeVersion": 1,
-      "position": [
-        2420,
-        6060
-      ]
-    },
-    {
-      "parameters": {
-        "mode": "combine",
-        "combinationMode": "multiplex",
-        "options": {}
-      },
-      "id": "a74fd2ac-ad4d-4353-95e5-5b6d21247bcb",
-      "name": "Merge5",
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 2.1,
-      "position": [
-        2580,
-        5960
-      ]
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
-        "text": "=Во время смены: \nКоличество выполненых рейсов: {{ $json.count_id }}\nСумма нетто: {{ $json.sum_cargo_netto }}",
-        "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Назад",
-                    "additionalFields": {
-                      "callback_data": "after_stats"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {
-          "appendAttribution": false,
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "b167c0e4-99fc-4e27-9e35-83b1755408cf",
-      "name": "Вывод статистики",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        2780,
-        5960
       ],
       "credentials": {
         "telegramApi": {
@@ -18566,7 +18284,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        920,
+        2700,
         6378
       ]
     },
@@ -18599,7 +18317,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -240,
+        1560,
         6320
       ]
     },
@@ -18633,7 +18351,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -20,
+        1760,
         6458
       ],
       "credentials": {
@@ -18671,8 +18389,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -400,
-        6318
+        1400,
+        6300
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -18710,7 +18428,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -20,
+        1760,
         6218
       ],
       "credentials": {
@@ -18737,7 +18455,7 @@
       "type": "n8n-nodes-base.sort",
       "typeVersion": 1,
       "position": [
-        160,
+        1940,
         6418
       ]
     },
@@ -18751,7 +18469,7 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        140,
+        1920,
         6240
       ]
     },
@@ -18775,7 +18493,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        580,
+        2360,
         6378
       ]
     },
@@ -18796,7 +18514,7 @@
       "type": "n8n-nodes-base.sort",
       "typeVersion": 1,
       "position": [
-        440,
+        2220,
         6300
       ]
     },
@@ -18809,7 +18527,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        760,
+        2540,
         6378
       ]
     },
@@ -18822,7 +18540,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        300,
+        2080,
         6258
       ]
     },
@@ -18904,7 +18622,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1080,
+        2860,
         6380
       ],
       "credentials": {
@@ -20129,6 +19847,163 @@
         740,
         1820
       ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "=transportation.round",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {
+          "fieldsList": []
+        },
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "driver",
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
+            },
+            {
+              "fieldName": "status",
+              "value": "Завершен"
+            }
+          ]
+        }
+      },
+      "id": "e177866f-b38d-43da-8b24-11e488831183",
+      "name": "Получаем рейсы",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        6220
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "ITgOrhO4Hf2QcDtf",
+          "name": "odoo dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "id": "1a625797-824f-420f-9b60-b1a1ec9103c6",
+      "name": "Объединение рейсов в один файл",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        100,
+        6200
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Получаем входные данные из предыдущего кубика\nconst inputData = items.map(item => item.json);\n\n// Функция для обработки данных\nfunction calculateTotals(data) {\n    return data.map(entry => {\n        const { id, quarry_hours, price_for_driver, date, write_date } = entry;\n\n        // Если price_for_driver равен 0 или false, заработок равен 0\n        if (!price_for_driver) {\n            return {\n                id: id,\n                quarry_hours: quarry_hours,  // Количество карьерных часов\n                total: 0,  // Заработок = 0\n                date: write_date,  // Для вывода используем write_date\n                original_date: date  // Сохраняем оригинальную дату\n            };\n        }\n\n        // Цена водителя уже итоговая, просто передаем её в результат\n        const total = parseFloat(price_for_driver);\n\n        return {\n            id: id,\n            quarry_hours: quarry_hours,  // Количество карьерных часов\n            total: total,  // Общий заработок = price_for_driver\n            date: write_date,  // Для вывода используем write_date\n            original_date: date  // Сохраняем оригинальную дату\n        };\n    });\n}\n\n// Обрабатываем входные данные\nconst processedData = calculateTotals(inputData);\n\n// Возвращаем результат в формате JSON для следующего кубика\nreturn processedData.map(entry => ({ json: entry }));\n\n\n"
+      },
+      "id": "064c713f-e878-439d-956e-c91e22ca7082",
+      "name": "Code2",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        6440
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Получаем входные данные из предыдущего кубика\nconst inputData = items.map(item => item.json);\n\n// Функция для подсчета заработка и количества рейсов по датам\nfunction calculateTotalsByDate(data) {\n    const totalsByDate = {};\n\n    data.forEach(entry => {\n        entry.data.forEach(round => {\n            const { driver_rate, driver_with_trailer, time_of_start } = round;\n\n            // Извлекаем только дату из поля time_of_start\n            const date = time_of_start.split(\" \")[0];\n\n            // Инициализируем данные для каждой новой даты\n            if (!totalsByDate[date]) {\n                totalsByDate[date] = {\n                    total_count: 0,  // Общее количество рейсов\n                    total_earnings: 0  // Общий заработок\n                };\n            }\n\n            // Увеличиваем количество рейсов\n            totalsByDate[date].total_count++;\n\n            // Увеличиваем сумму заработка\n            totalsByDate[date].total_earnings += driver_rate;\n        });\n    });\n\n    // Преобразуем объект в массив для удобства обработки\n    return Object.keys(totalsByDate).map(date => ({\n        date: date,\n        total_count: totalsByDate[date].total_count,\n        total_earnings: totalsByDate[date].total_earnings\n    }));\n}\n\n// Обрабатываем данные\nconst processedData = calculateTotalsByDate(inputData);\n\n// Возвращаем результат для следующего кубика\nreturn processedData.map(entry => ({ json: entry }));\n"
+      },
+      "id": "076c9a8a-5aa4-4b52-b1d9-115b0274cd7f",
+      "name": "Code3",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        320,
+        6200
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "quarry.work",
+        "operation": "getAll",
+        "options": {
+          "fieldsList": []
+        },
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "driver",
+              "value": "={{ $('Получение информации о водителе').item.json.resource_id[1] }}"
+            }
+          ]
+        }
+      },
+      "id": "17cc4859-e1d8-4cf1-8725-5e2cfc1e9268",
+      "name": "Получение работ в карьере2",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        -300,
+        6380
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "ITgOrhO4Hf2QcDtf",
+          "name": "odoo dev"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "1bcf6de6-c290-41f2-9977-ac64d38dfacc",
+      "name": "Merge6",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        780,
+        6240
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputData = items.map(item => item.json);  // Подключаем данные через items\n\n// Определяем текущую дату\nconst today = new Date();  // Текущая дата\ntoday.setMinutes(today.getMinutes() + today.getTimezoneOffset() + (10 * 60)); // UTC +10 Владивосток\n\n\n// Определяем начало текущей недели (понедельник текущей недели)\nconst startOfWeek = new Date(today);\nstartOfWeek.setDate(today.getDate() - today.getDay() + 1); // Понедельник текущей недели\n\n// Определяем начало и конец прошлых недель\nconst previousWeekStart = new Date(startOfWeek);\npreviousWeekStart.setDate(previousWeekStart.getDate() - 7);\nconst twoWeeksAgoStart = new Date(previousWeekStart);\ntwoWeeksAgoStart.setDate(twoWeeksAgoStart.getDate() - 7);\nconst threeWeeksAgoStart = new Date(twoWeeksAgoStart);\nthreeWeeksAgoStart.setDate(threeWeeksAgoStart.getDate() - 7);\n\n// Функция для фильтрации данных по дням\nfunction getDailyReport(date) {\n    let totalCount = 0;      // Количество рейсов\n    let totalQuarryHours = 0; // Карьерные часы\n    let totalEarnings = 0;    // Общий заработок за день\n\n    inputData.forEach(entry => {\n        const entryDate = new Date(entry.date);\n\n        // Сравниваем даты без учета времени\n        if (entryDate.toISOString().split('T')[0] === date.toISOString().split('T')[0]) {\n            if (entry.total_count !== undefined && entry.total_earnings !== undefined) {\n                // Считаем данные по суммарным данным дня\n                totalCount += entry.total_count;  // Суммируем количество рейсов\n                totalEarnings += entry.total_earnings; // Суммируем заработок\n            }\n            // Для записей о работах в карьере\n            else if (entry.quarry_hours !== undefined && entry.total !== undefined) {\n                totalQuarryHours += entry.quarry_hours; // Суммируем карьерные часы\n                totalEarnings += entry.total; // Суммируем заработок за работы в карьере\n            }\n        }\n    });\n\n    return {\n        count: totalCount,\n        quarry_hours: totalQuarryHours,\n        total: totalEarnings\n    };\n}\n\n// Функция для генерации отчета по дням недели\nfunction getCurrentWeekReport() {\n    let textMessage = '📊 <b>Отчет за текущую неделю</b>\\n\\n';\n\n    // Проходим по каждому дню от текущего дня к понедельнику\n    let currentDate = new Date(today);\n    while (currentDate >= startOfWeek) {\n        const dayReport = getDailyReport(currentDate);\n        const dayOfWeek = currentDate.toLocaleDateString('ru-RU', { weekday: 'long' });\n        const dateStr = currentDate.toISOString().split('T')[0];\n\n        textMessage += `📅 <b>${dayOfWeek} (${dateStr}):</b>\\n`;\n        if (dayReport.count === 0 && dayReport.quarry_hours === 0) {\n            textMessage += 'Не было перевозок\\n\\n';\n        } else {\n            textMessage += `🚚 Количество рейсов: ${dayReport.count}\\n`;\n            textMessage += `🕑 Карьерные часы: ${dayReport.quarry_hours} ч\\n`;\n            textMessage += `💵 Заработок: ${dayReport.total} руб.\\n\\n`;\n        }\n\n        // Переходим к предыдущему дню\n        currentDate.setDate(currentDate.getDate() - 1);\n    }\n\n    return textMessage;\n}\n\n// Функция для получения отчета за неделю\nfunction getWeeklyReport(startDate, endDate) {\n    let totalCount = 0;\n    let totalQuarryHours = 0;\n    let totalEarnings = 0;\n\n    inputData.forEach(entry => {\n        const entryDate = new Date(entry.date);\n\n        if (entryDate >= startDate && entryDate < endDate) {\n            if (entry.total_count !== undefined && entry.total_earnings !== undefined) {\n                totalCount += entry.total_count;\n                totalEarnings += entry.total_earnings;\n            } else if (entry.quarry_hours !== undefined && entry.total !== undefined) {\n                totalQuarryHours += entry.quarry_hours; // Считаем карьерные часы\n                totalEarnings += entry.total; // Суммируем заработок за работы в карьере\n            }\n        }\n    });\n\n    return {\n        count: totalCount,\n        quarry_hours: totalQuarryHours,\n        total: totalEarnings\n    };\n}\n\n// Получаем отчеты за прошлые недели\nconst previousWeekReport = getWeeklyReport(previousWeekStart, startOfWeek);\nconst twoWeeksAgoReport = getWeeklyReport(twoWeeksAgoStart, previousWeekStart);\nconst threeWeeksAgoReport = getWeeklyReport(threeWeeksAgoStart, twoWeeksAgoStart);\n\n// Формируем текст отчета для Telegram\nlet textMessage = getCurrentWeekReport();  // Отчет за текущую неделю\n\ntextMessage += '📊 <b>Отчет за прошлые недели месяца</b>\\n\\n';\n\ntextMessage += `📅 <b>Неделя с ${previousWeekStart.toISOString().split('T')[0]} по ${startOfWeek.toISOString().split('T')[0]}:</b>\\n`;\ntextMessage += `🔹 Количество рейсов: ${previousWeekReport.count}\\n`;\ntextMessage += `🔹 Карьерные часы: ${previousWeekReport.quarry_hours} ч\\n`;\ntextMessage += `🔹 Заработок: ${previousWeekReport.total} руб.\\n\\n`;\n\ntextMessage += `📅 <b>Неделя с ${twoWeeksAgoStart.toISOString().split('T')[0]} по ${previousWeekStart.toISOString().split('T')[0]}:</b>\\n`;\ntextMessage += `🔹 Количество рейсов: ${twoWeeksAgoReport.count}\\n`;\ntextMessage += `🔹 Карьерные часы: ${twoWeeksAgoReport.quarry_hours} ч\\n`;\ntextMessage += `🔹 Заработок: ${twoWeeksAgoReport.total} руб.\\n\\n`;\n\ntextMessage += `📅 <b>Неделя с ${threeWeeksAgoStart.toISOString().split('T')[0]} по ${twoWeeksAgoStart.toISOString().split('T')[0]}:</b>\\n`;\ntextMessage += `🔹 Количество рейсов: ${threeWeeksAgoReport.count}\\n`;\ntextMessage += `🔹 Карьерные часы: ${threeWeeksAgoReport.quarry_hours} ч\\n`;\ntextMessage += `🔹 Заработок: ${threeWeeksAgoReport.total} руб.\\n\\n`;\n\n// Возвращаем результат в формате JSON\nreturn [\n    {\n        json: {\n            message: textMessage\n        }\n    }\n];\n"
+      },
+      "id": "9730d578-5a26-4f70-8766-c86bdbaff82f",
+      "name": "Code6",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        920,
+        6240
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.from.id }}",
+        "text": "={{ $json.message }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "bccb9aa4-520a-423b-8bb3-2d146f10f8aa",
+      "name": "Telegram7",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1100,
+        6240
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "k9judD68XwPVsgtk",
+          "name": "Telegram account"
+        }
+      }
     }
   ],
   "pinData": {
@@ -20354,6 +20229,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-09-05T09:44:49.318Z",
-  "versionId": "32daa354-f4cf-4560-8aa8-23e4b03006f7"
+  "updatedAt": "2024-09-25T17:27:19.910Z",
+  "versionId": "5ef13963-ac8c-4dd3-98fe-74a1dffbb54d"
 }
