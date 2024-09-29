@@ -2983,11 +2983,6 @@
         ]
       ]
     },
-    "Получение работ в карьере1": {
-      "main": [
-        []
-      ]
-    },
     "Code2": {
       "main": [
         [
@@ -3014,7 +3009,29 @@
       "main": [
         [
           {
-            "node": "Telegram4",
+            "node": "Code5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Получение работ в карьере2": {
+      "main": [
+        [
+          {
+            "node": "Code2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code5": {
+      "main": [
+        [
+          {
+            "node": "Code6",
             "type": "main",
             "index": 0
           }
@@ -3032,11 +3049,11 @@
         ]
       ]
     },
-    "Получение работ в карьере2": {
+    "Code6": {
       "main": [
         [
           {
-            "node": "Code2",
+            "node": "Telegram4",
             "type": "main",
             "index": 0
           }
@@ -12949,6 +12966,7 @@
         "resource": "custom",
         "customResource": "=transportation.round",
         "operation": "getAll",
+        "returnAll": true,
         "options": {
           "fieldsList": []
         },
@@ -12970,46 +12988,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        320,
-        1140
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "ITgOrhO4Hf2QcDtf",
-          "name": "odoo dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "=full.quarry.work",
-        "operation": "getAll",
-        "options": {
-          "fieldsList": [
-            "cost_for_driver",
-            "date",
-            "sum_of_quarry_works",
-            "id",
-            "display_name"
-          ]
-        },
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "quarry_work_drivers",
-              "value": "={{ $('Получение информации о водителе').item.json.resource_id[1] }}"
-            }
-          ]
-        }
-      },
-      "id": "18b586c1-8b62-4f0b-9772-817e2c25e877",
-      "name": "Получение работ в карьере1",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        280,
-        1500
+        300,
+        1040
       ],
       "credentials": {
         "odooApi": {
@@ -13058,13 +13038,13 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        600,
+        660,
         1040
       ]
     },
     {
       "parameters": {
-        "jsCode": "// Получаем входные данные из предыдущего кубика\nconst inputData = items.map(item => item.json);\n\n// Функция для обработки данных\nfunction calculateTotals(data) {\n    return data.map(entry => {\n        const { id, sum_of_quarry_works, cost_for_driver, date } = entry;\n\n        // Если cost_for_driver равен 0 или false, заработок равен 0\n        if (!cost_for_driver) {\n            return {\n                id: id,\n                quarry_hours: sum_of_quarry_works,  // Замена count на quarry_hours\n                total: 0,\n                date: date\n            };\n        }\n\n        // Ставка водителя просто числовое значение\n        const rate = parseFloat(cost_for_driver);  // Преобразуем ставку в число\n\n        // Общая сумма заработка\n        const total = sum_of_quarry_works * rate;\n\n        return {\n            id: id,\n            quarry_hours: sum_of_quarry_works,  // Замена count на quarry_hours\n            total: total,\n            date: date\n        };\n    });\n}\n\n// Обрабатываем данные\nconst processedData = calculateTotals(inputData);\n\n// Возвращаем результат для следующего кубика\nreturn processedData.map(entry => ({ json: entry }));\n"
+        "jsCode": "// Получаем входные данные из предыдущего кубика\nconst inputData = items.map(item => item.json);\n\n// Функция для обработки данных\nfunction calculateTotals(data) {\n    return data.map(entry => {\n        const { id, quarry_hours, price_for_driver, date, write_date } = entry;\n\n        // Если price_for_driver равен 0 или false, заработок равен 0\n        if (!price_for_driver) {\n            return {\n                id: id,\n                quarry_hours: quarry_hours,  // Количество карьерных часов\n                total: 0,  // Заработок = 0\n                date: write_date,  // Для вывода используем write_date\n                original_date: date  // Сохраняем оригинальную дату\n            };\n        }\n\n        // Цена водителя уже итоговая, просто передаем её в результат\n        const total = parseFloat(price_for_driver);\n\n        return {\n            id: id,\n            quarry_hours: quarry_hours,  // Количество карьерных часов\n            total: total,  // Общий заработок = price_for_driver\n            date: write_date,  // Для вывода используем write_date\n            original_date: date  // Сохраняем оригинальную дату\n        };\n    });\n}\n\n// Обрабатываем входные данные\nconst processedData = calculateTotals(inputData);\n\n// Возвращаем результат в формате JSON для следующего кубика\nreturn processedData.map(entry => ({ json: entry }));\n\n\n"
       },
       "id": "01aa20f4-0f72-45cd-8e51-7f1857cb18fd",
       "name": "Code2",
@@ -13084,22 +13064,23 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        820,
+        880,
         1040
       ]
     },
     {
       "parameters": {
-        "jsCode": "// Получаем входные данные\nconst inputData = items.map(item => item.json);\n\n// Определяем текущую дату\nconst today = new Date();\ntoday.setMinutes(today.getMinutes() + today.getTimezoneOffset() + (10 * 60)); // UTC +10 Vladivostok\n\n// Определяем начало текущей недели (понедельник текущей недели)\nconst startOfWeek = new Date(today);\nstartOfWeek.setDate(today.getDate() - today.getDay() + 1); // Понедельник текущей недели\n\n// Определяем начало и конец текущего месяца\nconst startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);\nconst endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);\n\n// Функция для проверки, попадает ли дата до сегодняшнего дня\nfunction isBeforeToday(dateStr) {\n    const date = new Date(dateStr);\n    return date >= startOfMonth && date <= today;\n}\n\n// Инициализируем объект для хранения данных по дням недели\nconst weeklyReport = {};\nconst pastWeeksReport = {};\n\n// Заполняем объект weeklyReport для текущей недели\nfor (let i = 0; i < 7; i++) {\n    const date = new Date(startOfWeek);\n    date.setDate(startOfWeek.getDate() + i);\n    const dateStr = date.toISOString().split('T')[0];\n    weeklyReport[dateStr] = { count: 0, quarry_hours: 0, total: 0 };\n}\n\n// Инициализируем объект для прошлых недель\nfor (let i = 0; i < 4; i++) {\n    const pastWeekStart = new Date(startOfWeek);\n    pastWeekStart.setDate(startOfWeek.getDate() - (i + 1) * 7);\n    const pastWeekStartStr = pastWeekStart.toISOString().split('T')[0];\n    pastWeeksReport[pastWeekStartStr] = { count: 0, quarry_hours: 0, total: 0 };\n}\n\n// Агрегируем данные для текущей недели\ninputData.forEach(entry => {\n    const dateStr = entry.date;\n    if (weeklyReport[dateStr]) {\n        if (entry.total_count !== undefined) {\n            weeklyReport[dateStr].count += entry.total_count;\n        }\n        if (entry.quarry_hours !== undefined) {\n            weeklyReport[dateStr].quarry_hours += entry.quarry_hours;\n        }\n        if (entry.total !== undefined) {\n            weeklyReport[dateStr].total += entry.total;\n        }\n        if (entry.total_earnings !== undefined) {\n            weeklyReport[dateStr].total += entry.total_earnings;\n        }\n    }\n});\n\n// Агрегируем данные для прошлых недель\ninputData.forEach(entry => {\n    const date = new Date(entry.date);\n    if (date >= startOfMonth && date <= today) {\n        const weekStart = new Date(date);\n        weekStart.setDate(date.getDate() - date.getDay() + 1); // Понедельник недели даты\n        const weekStartStr = weekStart.toISOString().split('T')[0];\n        if (pastWeeksReport[weekStartStr]) {\n            if (entry.total_count !== undefined) {\n                pastWeeksReport[weekStartStr].count += entry.total_count;\n            }\n            if (entry.quarry_hours !== undefined) {\n                pastWeeksReport[weekStartStr].quarry_hours += entry.quarry_hours;\n            }\n            if (entry.total !== undefined) {\n                pastWeeksReport[weekStartStr].total += entry.total;\n            }\n            if (entry.total_earnings !== undefined) {\n                pastWeeksReport[weekStartStr].total += entry.total_earnings;\n            }\n        }\n    }\n});\n\n// Формируем текст для Telegram-сообщения\nlet textMessage = '📊 <b>Отчет за текущую неделю</b>\\n\\n';\n\n// Сортируем дни недели от текущего дня к понедельнику\nconst sortedDates = Object.keys(weeklyReport)\n    .filter(dateStr => new Date(dateStr) <= today)\n    .sort((a, b) => new Date(b) - new Date(a)); // Сортировка от текущего дня к понедельнику\n\nif (sortedDates.length === 0) {\n    textMessage += 'Не было данных за текущую неделю.\\n\\n';\n} else {\n    sortedDates.forEach(dateStr => {\n        const date = new Date(dateStr);\n        const dayOfWeek = date.toLocaleDateString('ru-RU', { weekday: 'long' });\n        const report = weeklyReport[dateStr];\n        textMessage += `📅 <b>${dayOfWeek} (${dateStr}):</b>\\n`;\n        if (report.count === 0 && report.quarry_hours === 0) {\n            textMessage += 'Не было перевозок\\n\\n';\n        } else {\n            textMessage += `🚚 Количество рейсов: ${report.count}\\n`;\n            textMessage += `🕑 Карьерные часы: ${report.quarry_hours} ч\\n`;\n            textMessage += `💵 Заработок: ${report.total} руб.\\n\\n`;\n        }\n    });\n}\n\n// Добавляем отчет за прошлые недели месяца\nconst hasPastWeeks = Object.keys(pastWeeksReport).length > 0;\nif (hasPastWeeks) {\n    textMessage += '📊 <b>Отчет за прошлые недели месяца</b>\\n\\n';\n\n    const sortedPastWeeks = Object.keys(pastWeeksReport)\n        .sort((a, b) => new Date(b) - new Date(a)); // Сортировка от текущей недели к более ранним неделям\n\n    sortedPastWeeks.forEach(weekStartStr => {\n        const weekStartDate = new Date(weekStartStr);\n        const weekEndDate = new Date(weekStartDate);\n        weekEndDate.setDate(weekEndDate.getDate() + 6); // Конец недели\n        const weekStartFormatted = weekStartDate.toLocaleDateString('ru-RU', { day: 'numeric', month: 'numeric' });\n        const weekEndFormatted = weekEndDate.toLocaleDateString('ru-RU', { day: 'numeric', month: 'numeric' });\n\n        textMessage += `📅 <b>Неделя с ${weekStartFormatted} по ${weekEndFormatted}:</b>\\n`;\n        textMessage += `🔹 Количество рейсов: ${pastWeeksReport[weekStartStr].count}\\n`;\n        textMessage += `🔹 Карьерные часы: ${pastWeeksReport[weekStartStr].quarry_hours} ч\\n`;\n        textMessage += `🔹 Заработок: ${pastWeeksReport[weekStartStr].total} руб.\\n\\n`;\n    });\n}\n\n// Возвращаем результат в формате JSON\nreturn [\n    {\n        json: {\n            message: textMessage\n        }\n    }\n];\n"
+        "jsCode": "const inputData = items.map(item => item.json);  // Подключаем данные через items\n\n// Определяем текущую дату\nconst today = new Date();  // Текущая дата\n\n// Определяем начало текущей недели (понедельник текущей недели)\nconst startOfWeek = new Date(today);\nstartOfWeek.setDate(today.getDate() - today.getDay() + 1); // Понедельник текущей недели\n\n// Определяем начало и конец прошлых недель\nconst previousWeekStart = new Date(startOfWeek);\npreviousWeekStart.setDate(previousWeekStart.getDate() - 7);\nconst twoWeeksAgoStart = new Date(previousWeekStart);\ntwoWeeksAgoStart.setDate(twoWeeksAgoStart.getDate() - 7);\nconst threeWeeksAgoStart = new Date(twoWeeksAgoStart);\nthreeWeeksAgoStart.setDate(threeWeeksAgoStart.getDate() - 7);\n\n// Функция для фильтрации данных по дням\nfunction getDailyReport(date) {\n    let totalCount = 0;\n    let totalHours = 0;\n    let totalEarnings = 0;\n\n    inputData.forEach(entry => {\n        const entryDate = new Date(entry.date);\n\n        // Сравниваем даты без учета времени\n        if (entryDate.toISOString().split('T')[0] === date.toISOString().split('T')[0]) {\n            if (entry.total_count !== undefined && entry.total_earnings !== undefined) {\n                totalCount += entry.total_count;\n                totalEarnings += entry.total_earnings;\n            } else if (entry.quarry_hours !== undefined && entry.total !== undefined) {\n                totalCount += 1;\n                totalHours += entry.quarry_hours;\n                totalEarnings += entry.total;\n            }\n        }\n    });\n\n    return {\n        count: totalCount,\n        quarry_hours: totalHours,\n        total: totalEarnings\n    };\n}\n\n// Функция для генерации отчета по дням недели\nfunction getCurrentWeekReport() {\n    let textMessage = '📊 <b>Отчет за текущую неделю</b>\\n\\n';\n\n    // Проходим по каждому дню от текущего дня к понедельнику\n    let currentDate = new Date(today);\n    while (currentDate >= startOfWeek) {\n        const dayReport = getDailyReport(currentDate);\n        const dayOfWeek = currentDate.toLocaleDateString('ru-RU', { weekday: 'long' });\n        const dateStr = currentDate.toISOString().split('T')[0];\n\n        textMessage += `📅 <b>${dayOfWeek} (${dateStr}):</b>\\n`;\n        if (dayReport.count === 0 && dayReport.quarry_hours === 0) {\n            textMessage += 'Не было перевозок\\n\\n';\n        } else {\n            textMessage += `🚚 Количество рейсов: ${dayReport.count}\\n`;\n            textMessage += `🕑 Карьерные часы: ${dayReport.quarry_hours} ч\\n`;\n            textMessage += `💵 Заработок: ${dayReport.total} руб.\\n\\n`;\n        }\n\n        // Переходим к предыдущему дню\n        currentDate.setDate(currentDate.getDate() - 1);\n    }\n\n    return textMessage;\n}\n\n// Получаем отчеты за прошлые недели\nfunction getWeeklyReport(startDate, endDate) {\n    let totalCount = 0;\n    let totalHours = 0;\n    let totalEarnings = 0;\n\n    inputData.forEach(entry => {\n        const entryDate = new Date(entry.date);\n\n        if (entryDate >= startDate && entryDate < endDate) {\n            if (entry.total_count !== undefined && entry.total_earnings !== undefined) {\n                totalCount += entry.total_count;\n                totalEarnings += entry.total_earnings;\n            } else if (entry.quarry_hours !== undefined && entry.total !== undefined) {\n                totalCount += 1;\n                totalHours += entry.quarry_hours;\n                totalEarnings += entry.total;\n            }\n        }\n    });\n\n    return {\n        count: totalCount,\n        quarry_hours: totalHours,\n        total: totalEarnings\n    };\n}\n\n// Получаем отчеты за прошлые недели\nconst previousWeekReport = getWeeklyReport(previousWeekStart, startOfWeek);\nconst twoWeeksAgoReport = getWeeklyReport(twoWeeksAgoStart, previousWeekStart);\nconst threeWeeksAgoReport = getWeeklyReport(threeWeeksAgoStart, twoWeeksAgoStart);\n\n// Формируем текст отчета для Telegram\nlet textMessage = getCurrentWeekReport();  // Отчет за текущую неделю\n\ntextMessage += '📊 <b>Отчет за прошлые недели месяца</b>\\n\\n';\n\ntextMessage += `📅 <b>Неделя с ${previousWeekStart.toISOString().split('T')[0]} по ${startOfWeek.toISOString().split('T')[0]}:</b>\\n`;\ntextMessage += `🔹 Количество рейсов: ${previousWeekReport.count}\\n`;\ntextMessage += `🔹 Карьерные часы: ${previousWeekReport.quarry_hours} ч\\n`;\ntextMessage += `🔹 Заработок: ${previousWeekReport.total} руб.\\n\\n`;\n\ntextMessage += `📅 <b>Неделя с ${twoWeeksAgoStart.toISOString().split('T')[0]} по ${previousWeekStart.toISOString().split('T')[0]}:</b>\\n`;\ntextMessage += `🔹 Количество рейсов: ${twoWeeksAgoReport.count}\\n`;\ntextMessage += `🔹 Карьерные часы: ${twoWeeksAgoReport.quarry_hours} ч\\n`;\ntextMessage += `🔹 Заработок: ${twoWeeksAgoReport.total} руб.\\n\\n`;\n\ntextMessage += `📅 <b>Неделя с ${threeWeeksAgoStart.toISOString().split('T')[0]} по ${twoWeeksAgoStart.toISOString().split('T')[0]}:</b>\\n`;\ntextMessage += `🔹 Количество рейсов: ${threeWeeksAgoReport.count}\\n`;\ntextMessage += `🔹 Карьерные часы: ${threeWeeksAgoReport.quarry_hours} ч\\n`;\ntextMessage += `🔹 Заработок: ${threeWeeksAgoReport.total} руб.\\n\\n`;\n\n// Возвращаем результат в формате JSON\nreturn [\n    {\n        json: {\n            message: textMessage\n        }\n    }\n];\n"
       },
       "id": "cf1090a5-bc64-4c58-afa1-b97cc9849c48",
       "name": "Code4",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1560,
-        1080
-      ]
+        1600,
+        1100
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -13115,8 +13096,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1800,
-        1080
+        2400,
+        1100
       ],
       "credentials": {
         "telegramApi": {
@@ -13124,17 +13105,6 @@
           "name": "Telegram account"
         }
       }
-    },
-    {
-      "parameters": {},
-      "id": "8af689dc-54eb-492e-a015-a23619a41569",
-      "name": "Merge6",
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3,
-      "position": [
-        1340,
-        1080
-      ]
     },
     {
       "parameters": {
@@ -13167,51 +13137,91 @@
           "name": "odoo dev"
         }
       }
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputData = items.map(item => item.json);  // Подключаем данные через items\n\n// Определяем текущую дату\nconst today = new Date();  // Текущая дата\n\n// Определяем начало текущей недели (понедельник текущей недели)\nconst startOfWeek = new Date(today);\nstartOfWeek.setDate(today.getDate() - today.getDay() + 1); // Понедельник текущей недели\n\n// Определяем начало и конец прошлых недель\nconst previousWeekStart = new Date(startOfWeek);\npreviousWeekStart.setDate(previousWeekStart.getDate() - 7);\nconst twoWeeksAgoStart = new Date(previousWeekStart);\ntwoWeeksAgoStart.setDate(twoWeeksAgoStart.getDate() - 7);\nconst threeWeeksAgoStart = new Date(twoWeeksAgoStart);\nthreeWeeksAgoStart.setDate(threeWeeksAgoStart.getDate() - 7);\n\n// Функция для фильтрации данных по дням\nfunction getDailyReport(date) {\n    let totalCount = 0;      // Количество рейсов\n    let totalQuarryHours = 0; // Карьерные часы\n    let totalEarnings = 0;    // Общий заработок за день\n\n    inputData.forEach(entry => {\n        const entryDate = new Date(entry.date);\n\n        // Сравниваем даты без учета времени\n        if (entryDate.toISOString().split('T')[0] === date.toISOString().split('T')[0]) {\n            if (entry.total_count !== undefined && entry.total_earnings !== undefined) {\n                // Считаем данные по суммарным данным дня\n                totalCount += entry.total_count;  // Суммируем количество рейсов\n                totalEarnings += entry.total_earnings; // Суммируем заработок\n            }\n            // Для записей о работах в карьере\n            else if (entry.quarry_hours !== undefined && entry.total !== undefined) {\n                totalQuarryHours += entry.quarry_hours; // Суммируем карьерные часы\n            }\n        }\n    });\n\n    return {\n        count: totalCount,\n        quarry_hours: totalQuarryHours,\n        total: totalEarnings\n    };\n}\n\n// Функция для генерации отчета по дням недели\nfunction getCurrentWeekReport() {\n    let textMessage = '📊 <b>Отчет за текущую неделю</b>\\n\\n';\n\n    // Проходим по каждому дню от текущего дня к понедельнику\n    let currentDate = new Date(today);\n    while (currentDate >= startOfWeek) {\n        const dayReport = getDailyReport(currentDate);\n        const dayOfWeek = currentDate.toLocaleDateString('ru-RU', { weekday: 'long' });\n        const dateStr = currentDate.toISOString().split('T')[0];\n\n        textMessage += `📅 <b>${dayOfWeek} (${dateStr}):</b>\\n`;\n        if (dayReport.count === 0 && dayReport.quarry_hours === 0) {\n            textMessage += 'Не было перевозок\\n\\n';\n        } else {\n            textMessage += `🚚 Количество рейсов: ${dayReport.count}\\n`;\n            textMessage += `🕑 Карьерные часы: ${dayReport.quarry_hours} ч\\n`;\n            textMessage += `💵 Заработок: ${dayReport.total} руб.\\n\\n`;\n        }\n\n        // Переходим к предыдущему дню\n        currentDate.setDate(currentDate.getDate() - 1);\n    }\n\n    return textMessage;\n}\n\n// Функция для получения отчета за неделю\nfunction getWeeklyReport(startDate, endDate) {\n    let totalCount = 0;\n    let totalQuarryHours = 0;\n    let totalEarnings = 0;\n\n    inputData.forEach(entry => {\n        const entryDate = new Date(entry.date);\n\n        if (entryDate >= startDate && entryDate < endDate) {\n            if (entry.total_count !== undefined && entry.total_earnings !== undefined) {\n                totalCount += entry.total_count;\n                totalEarnings += entry.total_earnings;\n            } else if (entry.quarry_hours !== undefined && entry.total !== undefined) {\n                totalQuarryHours += entry.quarry_hours; // Считаем карьерные часы\n            }\n        }\n    });\n\n    return {\n        count: totalCount,\n        quarry_hours: totalQuarryHours,\n        total: totalEarnings\n    };\n}\n\n// Получаем отчеты за прошлые недели\nconst previousWeekReport = getWeeklyReport(previousWeekStart, startOfWeek);\nconst twoWeeksAgoReport = getWeeklyReport(twoWeeksAgoStart, previousWeekStart);\nconst threeWeeksAgoReport = getWeeklyReport(threeWeeksAgoStart, twoWeeksAgoStart);\n\n// Формируем текст отчета для Telegram\nlet textMessage = getCurrentWeekReport();  // Отчет за текущую неделю\n\ntextMessage += '📊 <b>Отчет за прошлые недели месяца</b>\\n\\n';\n\ntextMessage += `📅 <b>Неделя с ${previousWeekStart.toISOString().split('T')[0]} по ${startOfWeek.toISOString().split('T')[0]}:</b>\\n`;\ntextMessage += `🔹 Количество рейсов: ${previousWeekReport.count}\\n`;\ntextMessage += `🔹 Карьерные часы: ${previousWeekReport.quarry_hours} ч\\n`;\ntextMessage += `🔹 Заработок: ${previousWeekReport.total} руб.\\n\\n`;\n\ntextMessage += `📅 <b>Неделя с ${twoWeeksAgoStart.toISOString().split('T')[0]} по ${previousWeekStart.toISOString().split('T')[0]}:</b>\\n`;\ntextMessage += `🔹 Количество рейсов: ${twoWeeksAgoReport.count}\\n`;\ntextMessage += `🔹 Карьерные часы: ${twoWeeksAgoReport.quarry_hours} ч\\n`;\ntextMessage += `🔹 Заработок: ${twoWeeksAgoReport.total} руб.\\n\\n`;\n\ntextMessage += `📅 <b>Неделя с ${threeWeeksAgoStart.toISOString().split('T')[0]} по ${twoWeeksAgoStart.toISOString().split('T')[0]}:</b>\\n`;\ntextMessage += `🔹 Количество рейсов: ${threeWeeksAgoReport.count}\\n`;\ntextMessage += `🔹 Карьерные часы: ${threeWeeksAgoReport.quarry_hours} ч\\n`;\ntextMessage += `🔹 Заработок: ${threeWeeksAgoReport.total} руб.\\n\\n`;\n\n// Возвращаем результат в формате JSON\nreturn [\n    {\n        json: {\n            message: textMessage\n        }\n    }\n];\n"
+      },
+      "id": "8dcd0edb-ac9b-4a9a-a967-711f97d096f8",
+      "name": "Code5",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1800,
+        1080
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "id": "8af689dc-54eb-492e-a015-a23619a41569",
+      "name": "Merge6",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1340,
+        1080
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputData = items.map(item => item.json);  // Подключаем данные через items\n\n// Определяем текущую дату\nconst today = new Date();  // Текущая дата\ntoday.setMinutes(today.getMinutes() + today.getTimezoneOffset() + (10 * 60)); // UTC +10 Владивосток\n\n\n// Определяем начало текущей недели (понедельник текущей недели)\nconst startOfWeek = new Date(today);\nstartOfWeek.setDate(today.getDate() - today.getDay() + 1); // Понедельник текущей недели\n\n// Определяем начало и конец прошлых недель\nconst previousWeekStart = new Date(startOfWeek);\npreviousWeekStart.setDate(previousWeekStart.getDate() - 7);\nconst twoWeeksAgoStart = new Date(previousWeekStart);\ntwoWeeksAgoStart.setDate(twoWeeksAgoStart.getDate() - 7);\nconst threeWeeksAgoStart = new Date(twoWeeksAgoStart);\nthreeWeeksAgoStart.setDate(threeWeeksAgoStart.getDate() - 7);\n\n// Функция для фильтрации данных по дням\nfunction getDailyReport(date) {\n    let totalCount = 0;      // Количество рейсов\n    let totalQuarryHours = 0; // Карьерные часы\n    let totalEarnings = 0;    // Общий заработок за день\n\n    inputData.forEach(entry => {\n        const entryDate = new Date(entry.date);\n\n        // Сравниваем даты без учета времени\n        if (entryDate.toISOString().split('T')[0] === date.toISOString().split('T')[0]) {\n            if (entry.total_count !== undefined && entry.total_earnings !== undefined) {\n                // Считаем данные по суммарным данным дня\n                totalCount += entry.total_count;  // Суммируем количество рейсов\n                totalEarnings += entry.total_earnings; // Суммируем заработок\n            }\n            // Для записей о работах в карьере\n            else if (entry.quarry_hours !== undefined && entry.total !== undefined) {\n                totalQuarryHours += entry.quarry_hours; // Суммируем карьерные часы\n                totalEarnings += entry.total; // Суммируем заработок за работы в карьере\n            }\n        }\n    });\n\n    return {\n        count: totalCount,\n        quarry_hours: totalQuarryHours,\n        total: totalEarnings\n    };\n}\n\n// Функция для генерации отчета по дням недели\nfunction getCurrentWeekReport() {\n    let textMessage = '📊 <b>Отчет за текущую неделю</b>\\n\\n';\n\n    // Проходим по каждому дню от текущего дня к понедельнику\n    let currentDate = new Date(today);\n    while (currentDate >= startOfWeek) {\n        const dayReport = getDailyReport(currentDate);\n        const dayOfWeek = currentDate.toLocaleDateString('ru-RU', { weekday: 'long' });\n        const dateStr = currentDate.toISOString().split('T')[0];\n\n        textMessage += `📅 <b>${dayOfWeek} (${dateStr}):</b>\\n`;\n        if (dayReport.count === 0 && dayReport.quarry_hours === 0) {\n            textMessage += 'Не было перевозок\\n\\n';\n        } else {\n            textMessage += `🚚 Количество рейсов: ${dayReport.count}\\n`;\n            textMessage += `🕑 Карьерные часы: ${dayReport.quarry_hours} ч\\n`;\n            textMessage += `💵 Заработок: ${dayReport.total} руб.\\n\\n`;\n        }\n\n        // Переходим к предыдущему дню\n        currentDate.setDate(currentDate.getDate() - 1);\n    }\n\n    return textMessage;\n}\n\n// Функция для получения отчета за неделю\nfunction getWeeklyReport(startDate, endDate) {\n    let totalCount = 0;\n    let totalQuarryHours = 0;\n    let totalEarnings = 0;\n\n    inputData.forEach(entry => {\n        const entryDate = new Date(entry.date);\n\n        if (entryDate >= startDate && entryDate < endDate) {\n            if (entry.total_count !== undefined && entry.total_earnings !== undefined) {\n                totalCount += entry.total_count;\n                totalEarnings += entry.total_earnings;\n            } else if (entry.quarry_hours !== undefined && entry.total !== undefined) {\n                totalQuarryHours += entry.quarry_hours; // Считаем карьерные часы\n                totalEarnings += entry.total; // Суммируем заработок за работы в карьере\n            }\n        }\n    });\n\n    return {\n        count: totalCount,\n        quarry_hours: totalQuarryHours,\n        total: totalEarnings\n    };\n}\n\n// Получаем отчеты за прошлые недели\nconst previousWeekReport = getWeeklyReport(previousWeekStart, startOfWeek);\nconst twoWeeksAgoReport = getWeeklyReport(twoWeeksAgoStart, previousWeekStart);\nconst threeWeeksAgoReport = getWeeklyReport(threeWeeksAgoStart, twoWeeksAgoStart);\n\n// Формируем текст отчета для Telegram\nlet textMessage = getCurrentWeekReport();  // Отчет за текущую неделю\n\ntextMessage += '📊 <b>Отчет за прошлые недели месяца</b>\\n\\n';\n\ntextMessage += `📅 <b>Неделя с ${previousWeekStart.toISOString().split('T')[0]} по ${startOfWeek.toISOString().split('T')[0]}:</b>\\n`;\ntextMessage += `🔹 Количество рейсов: ${previousWeekReport.count}\\n`;\ntextMessage += `🔹 Карьерные часы: ${previousWeekReport.quarry_hours} ч\\n`;\ntextMessage += `🔹 Заработок: ${previousWeekReport.total} руб.\\n\\n`;\n\ntextMessage += `📅 <b>Неделя с ${twoWeeksAgoStart.toISOString().split('T')[0]} по ${previousWeekStart.toISOString().split('T')[0]}:</b>\\n`;\ntextMessage += `🔹 Количество рейсов: ${twoWeeksAgoReport.count}\\n`;\ntextMessage += `🔹 Карьерные часы: ${twoWeeksAgoReport.quarry_hours} ч\\n`;\ntextMessage += `🔹 Заработок: ${twoWeeksAgoReport.total} руб.\\n\\n`;\n\ntextMessage += `📅 <b>Неделя с ${threeWeeksAgoStart.toISOString().split('T')[0]} по ${twoWeeksAgoStart.toISOString().split('T')[0]}:</b>\\n`;\ntextMessage += `🔹 Количество рейсов: ${threeWeeksAgoReport.count}\\n`;\ntextMessage += `🔹 Карьерные часы: ${threeWeeksAgoReport.quarry_hours} ч\\n`;\ntextMessage += `🔹 Заработок: ${threeWeeksAgoReport.total} руб.\\n\\n`;\n\n// Возвращаем результат в формате JSON\nreturn [\n    {\n        json: {\n            message: textMessage\n        }\n    }\n];\n"
+      },
+      "id": "f759e89c-b32a-452e-b602-f61a401b21f4",
+      "name": "Code6",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2020,
+        1080
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 146039191,
+          "update_id": 146039203,
           "message": {
-            "message_id": 96,
+            "message_id": 146,
             "from": {
-              "id": 799934256,
+              "id": 467549384,
               "is_bot": false,
-              "first_name": "Александр",
-              "username": "saniochek_22",
-              "language_code": "ru"
+              "first_name": "Sergio",
+              "username": "sergo_kf",
+              "language_code": "ru",
+              "is_premium": true
             },
             "chat": {
-              "id": 799934256,
-              "first_name": "Александр",
-              "username": "saniochek_22",
+              "id": 467549384,
+              "first_name": "Sergio",
+              "username": "sergo_kf",
               "type": "private"
             },
-            "date": 1727076906,
+            "date": 1727198960,
             "text": "Моя статистика"
           },
-          "tg_id": "799934256",
-          "odoo_id": 14,
+          "tg_id": "467549384",
+          "odoo_id": 4,
           "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
-          "end_request_id": 0,
+          "end_request_id": null,
           "materials_photo": false,
-          "end_request_hours": 0,
-          "car_id_while_inputing": 20,
-          "fuel_liters": 0,
-          "weight_measure": "Тонны",
+          "end_request_hours": null,
+          "car_id_while_inputing": 25,
+          "fuel_liters": 100,
+          "weight_measure": "10 Тонны ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
-          "transportation_for_certificate": 0,
-          "count_weight_photo": 0,
+          "transportation_for_certificate": null,
+          "count_weight_photo": 1,
           "count_weight_photo_sent": 0,
-          "current_quarry_hours": 4,
-          "end_round_message_id": null,
-          "last_message_text": null,
-          "cookie": "session_id=eb0ae787213f0270c48ccc4532016f5192ad9860; Expires=Tue, 23 Sep 2025 07:35:07 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "current_quarry_hours": 5,
+          "end_round_message_id": 21237,
+          "last_message_text": "Отлично, вы завершили рейс, хотите начать следующий?\nКарьер Ключевое - Карьер Ключевое\nПесок (Карьер Ключевое)\nОстаток кубометров по текущей перевозке - 7.4",
+          "logist_notifications": false,
+          "cookie": "session_id=803b97a8852e17931bbd13310de9c5a6740bef35; Expires=Wed, 24 Sep 2025 17:29:21 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -13229,6 +13239,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-09-23T10:47:56.530Z",
-  "versionId": "0b9efd72-1341-44a8-86be-64287bcfa00c"
+  "updatedAt": "2024-09-25T17:03:55.136Z",
+  "versionId": "3241f3bd-ff66-4e26-90aa-8e27419ce1dc"
 }
