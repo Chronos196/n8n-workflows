@@ -1,0 +1,374 @@
+{
+  "active": false,
+  "connections": {
+    "Получаем рейсы": {
+      "main": [
+        [
+          {
+            "node": "Объединение рейсов в один файл",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Получение работ в карьере2": {
+      "main": [
+        [
+          {
+            "node": "Code2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Объединение рейсов в один файл": {
+      "main": [
+        [
+          {
+            "node": "Code3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code3": {
+      "main": [
+        [
+          {
+            "node": "Merge7",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Code2": {
+      "main": [
+        [
+          {
+            "node": "Merge7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code6": {
+      "main": [
+        [
+          {
+            "node": "Telegram8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "No Operation, do nothing": {
+      "main": [
+        [
+          {
+            "node": "Получаем рейсы",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Получение работ в карьере2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge7": {
+      "main": [
+        [
+          {
+            "node": "Code6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2024-10-01T17:34:02.123Z",
+  "id": "F2N7DdR7nAVdTFUJ",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "test stat",
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "=transportation.round",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {
+          "fieldsList": [
+            "id",
+            "time_of_start",
+            "driver_rate",
+            "driver_with_trailer"
+          ]
+        },
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "driver",
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
+            },
+            {
+              "fieldName": "status",
+              "value": "Завершен"
+            }
+          ]
+        }
+      },
+      "id": "83efae95-e9d6-4eb9-a16d-3804bbee0e40",
+      "name": "Получаем рейсы",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        40,
+        480
+      ],
+      "alwaysOutputData": false,
+      "credentials": {
+        "odooApi": {
+          "id": "ITgOrhO4Hf2QcDtf",
+          "name": "odoo dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "=quarry.work",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {
+          "fieldsList": [
+            "id",
+            "quarry_hours",
+            "price_for_driver",
+            "create_date",
+            "start_time"
+          ]
+        },
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "driver",
+              "value": "={{ $json.odoo_id }}"
+            },
+            {
+              "fieldName": "status",
+              "value": "Завершены"
+            }
+          ]
+        }
+      },
+      "id": "418312a4-8291-46f1-85be-ac7c61ced82b",
+      "name": "Получение работ в карьере2",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        60,
+        680
+      ],
+      "alwaysOutputData": false,
+      "credentials": {
+        "odooApi": {
+          "id": "ITgOrhO4Hf2QcDtf",
+          "name": "odoo dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "id": "49774021-7850-4bcb-9fba-8ab261f35354",
+      "name": "Объединение рейсов в один файл",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        380,
+        460
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Получаем входные данные из предыдущего кубика\nconst inputData = items.map(item => item.json);\n\n// Функция для добавления 10 часов ко времени\nfunction addHoursToTime(timeStr, hours) {\n    const dateObj = new Date(timeStr.replace(\" \", \"T\")); // Преобразуем строку времени в объект Date\n    dateObj.setHours(dateObj.getHours() + hours); // Добавляем 10 часов\n    return dateObj.toISOString().replace(\"T\", \" \").split(\".\")[0]; // Преобразуем обратно в строку и убираем миллисекунды\n}\n\n// Функция для подсчета заработка и количества рейсов по датам\nfunction calculateTotalsByDate(data) {\n    const totalsByDate = {};\n\n    data.forEach(entry => {\n        entry.data.forEach(round => {\n            const { driver_rate, driver_with_trailer, time_of_start } = round;\n\n            // Добавляем 10 часов ко времени\n            const adjustedTime = addHoursToTime(time_of_start, 5);\n\n            // Извлекаем только дату из скорректированного времени\n            const date = adjustedTime.split(\" \")[0];\n\n            // Инициализируем данные для каждой новой даты\n            if (!totalsByDate[date]) {\n                totalsByDate[date] = {\n                    total_count: 0,  // Общее количество рейсов\n                    total_earnings: 0  // Общий заработок\n                };\n            }\n\n            // Увеличиваем количество рейсов\n            totalsByDate[date].total_count++;\n\n            // Увеличиваем сумму заработка\n            totalsByDate[date].total_earnings += driver_rate;\n        });\n    });\n\n    // Преобразуем объект в массив для удобства обработки\n    return Object.keys(totalsByDate).map(date => ({\n        date: date,\n        total_count: totalsByDate[date].total_count,\n        total_earnings: totalsByDate[date].total_earnings\n    }));\n}\n\n// Обрабатываем данные\nconst processedData = calculateTotalsByDate(inputData);\n\n// Возвращаем результат для следующего кубика\nreturn processedData.map(entry => ({ json: entry }));\n"
+      },
+      "id": "10f45fbf-449f-4598-a383-aea247cda2f7",
+      "name": "Code3",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Получаем входные данные из предыдущего кубика\nconst inputData = items.map(item => item.json);\n\n// Функция для обработки данных\nfunction calculateTotals(data) {\n    return data.map(entry => {\n        const { id, quarry_hours, price_for_driver, date, start_time } = entry;\n\n        // Если price_for_driver равен 0 или false, заработок равен 0\n        if (!price_for_driver) {\n            // Добавляем 10 часов к дате\n            const adjustedDate = new Date(start_time);\n            adjustedDate.setHours(adjustedDate.getHours() + 5); // Прибавляем 10 часов\n\n            return {\n                id: id,\n                quarry_hours: quarry_hours,  // Количество карьерных часов\n                total: 0,  // Заработок = 0\n                date: adjustedDate.toISOString(),  // Для вывода используем скорректированную дату\n                original_date: date  // Сохраняем оригинальную дату\n            };\n        }\n\n        // Цена водителя уже итоговая, просто передаем её в результат\n        const total = parseFloat(price_for_driver);\n\n        // Добавляем 10 часов к дате\n        const adjustedDate = new Date(start_time);\n        adjustedDate.setHours(adjustedDate.getHours() + 5); // Прибавляем 10 часов\n\n        return {\n            id: id,\n            quarry_hours: quarry_hours,  // Количество карьерных часов\n            total: total,  // Общий заработок = price_for_driver\n            date: adjustedDate.toISOString(),  // Для вывода используем скорректированную дату\n            original_date: date  // Сохраняем оригинальную дату\n        };\n    });\n}\n\n// Обрабатываем входные данные\nconst processedData = calculateTotals(inputData);\n\n// Возвращаем результат в формате JSON для следующего кубика\nreturn processedData.map(entry => ({ json: entry }));\n"
+      },
+      "id": "573d5cb0-707b-4dbb-ae3d-b2e477ccf9f9",
+      "name": "Code2",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        860,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Получаем входные данные через items\nconst inputData = items.map(item => item.json);\n\n// Задаем текущую дату для тестирования\nconst today = new Date('2024-09-23T00:00:00');\ntoday.setMinutes(today.getMinutes() + today.getTimezoneOffset() + (5 * 60));\n\n// Определяем начало текущей недели (понедельник текущей недели)\nconst startOfWeek = new Date(today);\nstartOfWeek.setDate(today.getDate() - today.getDay() + 1); // Понедельник текущей недели\n\n// Определяем начало и конец прошлых недель (понедельник - начало, воскресенье - конец)\nconst previousWeekStart = new Date(startOfWeek);\npreviousWeekStart.setDate(previousWeekStart.getDate() - 7);\nconst previousWeekEnd = new Date(previousWeekStart);\npreviousWeekEnd.setDate(previousWeekEnd.getDate() + 6);\n\nconst twoWeeksAgoStart = new Date(previousWeekStart);\ntwoWeeksAgoStart.setDate(twoWeeksAgoStart.getDate() - 7);\nconst twoWeeksAgoEnd = new Date(twoWeeksAgoStart);\ntwoWeeksAgoEnd.setDate(twoWeeksAgoEnd.getDate() + 6);\n\nconst threeWeeksAgoStart = new Date(twoWeeksAgoStart);\nthreeWeeksAgoStart.setDate(threeWeeksAgoStart.getDate() - 7);\nconst threeWeeksAgoEnd = new Date(threeWeeksAgoStart);\nthreeWeeksAgoEnd.setDate(threeWeeksAgoEnd.getDate() + 6);\n\n// Функция для обнуления времени в дате\nfunction resetTime(date) {\n    const newDate = new Date(date);\n    newDate.setHours(0, 0, 0, 0); // Убираем компоненты времени\n    return newDate;\n}\n\n// Функция для фильтрации данных по дням\nfunction getDailyReport(date) {\n    let totalCount = 0;      // Количество рейсов\n    let totalQuarryHours = 0; // Карьерные часы\n    let totalEarnings = 0;    // Общий заработок за день\n\n    const resetDate = resetTime(date);\n\n    inputData.forEach(entry => {\n        const entryDate = resetTime(new Date(entry.date));\n\n        // Сравниваем даты без учета времени\n        if (entryDate.toISOString().split('T')[0] === resetDate.toISOString().split('T')[0]) {\n            if (entry.total_count !== undefined && entry.total_earnings !== undefined) {\n                totalCount += entry.total_count;  // Суммируем количество рейсов\n                totalEarnings += entry.total_earnings; // Суммируем заработок\n            } else if (entry.quarry_hours !== undefined && entry.total !== undefined) {\n                totalQuarryHours += entry.quarry_hours; // Суммируем карьерные часы\n                totalEarnings += entry.total; // Суммируем заработок за работы в карьере\n            }\n        }\n    });\n\n    return {\n        count: totalCount,\n        quarry_hours: totalQuarryHours,\n        total: totalEarnings\n    };\n}\n\n// Функция для генерации отчета по дням недели\nfunction getCurrentWeekReport() {\n    let textMessage = '📊 <b>Отчет за текущую неделю</b>\\n\\n';\n\n    let currentDate = new Date(today);\n    while (currentDate >= startOfWeek) {\n        const dayReport = getDailyReport(currentDate);\n        const dayOfWeek = currentDate.toLocaleDateString('ru-RU', { weekday: 'long' });\n        const dateStr = currentDate.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit' });\n\n        textMessage += `📅 <b>${dayOfWeek} (${dateStr}):</b>\\n`;\n        if (dayReport.count === 0 && dayReport.quarry_hours === 0) {\n            textMessage += 'Не было перевозок\\n\\n';\n        } else {\n            textMessage += `🚚 Количество рейсов: ${dayReport.count}\\n`;\n            textMessage += `🕑 Карьерные часы: ${dayReport.quarry_hours} ч\\n`;\n            textMessage += `💵 Заработок: ${dayReport.total} руб.\\n\\n`;\n        }\n\n        // Переходим к предыдущему дню\n        currentDate.setDate(currentDate.getDate() - 1);\n    }\n\n    return textMessage;\n}\n\n// Функция для получения отчета за неделю\nfunction getWeeklyReport(startDate, endDate) {\n    let totalCount = 0;\n    let totalQuarryHours = 0;\n    let totalEarnings = 0;\n\n    // Обнуляем время для начала и конца недели\n    const start = resetTime(startDate);\n    const end = resetTime(endDate);\n\n    inputData.forEach(entry => {\n        const entryDate = resetTime(new Date(entry.date));\n\n        // Включаем в расчет как начало, так и конец недели\n        if (entryDate >= start && entryDate <= end) {\n            if (entry.total_count !== undefined && entry.total_earnings !== undefined) {\n                totalCount += entry.total_count;\n                totalEarnings += entry.total_earnings;\n            } else if (entry.quarry_hours !== undefined && entry.total !== undefined) {\n                totalQuarryHours += entry.quarry_hours; // Считаем карьерные часы\n                totalEarnings += entry.total; // Суммируем заработок за работы в карьере\n            }\n        }\n    });\n\n    return {\n        count: totalCount,\n        quarry_hours: totalQuarryHours,\n        total: totalEarnings\n    };\n}\n\n// Функция для проверки, относится ли неделя к прошлому месяцу\nfunction isFullWeekInPreviousMonth(startDate, endDate) {\n    const startMonth = startDate.getMonth();\n    const endMonth = endDate.getMonth();\n    return startMonth < today.getMonth() && endMonth < today.getMonth();\n}\n\n// Получаем отчеты за прошлые недели\nconst previousWeekReport = getWeeklyReport(previousWeekStart, previousWeekEnd);\nconst twoWeeksAgoReport = getWeeklyReport(twoWeeksAgoStart, twoWeeksAgoEnd);\nconst threeWeeksAgoReport = getWeeklyReport(threeWeeksAgoStart, threeWeeksAgoEnd);\n\n// Формируем текст отчета для Telegram\nlet textMessage = getCurrentWeekReport();  // Отчет за текущую неделю\n\nlet pastWeeksText = ''; // Текст для прошлых недель\n\n// Проверяем и добавляем прошлые недели\nif (!isFullWeekInPreviousMonth(previousWeekStart, previousWeekEnd)) {\n    pastWeeksText += `📅 <b>Неделя с ${previousWeekStart.toLocaleDateString('ru-RU')} по ${previousWeekEnd.toLocaleDateString('ru-RU')}:</b>\\n`;\n    pastWeeksText += `🚚 Количество рейсов: ${previousWeekReport.count}\\n`;\n    pastWeeksText += `🕑 Карьерные часы: ${previousWeekReport.quarry_hours} ч\\n`;\n    pastWeeksText += `💵 Заработок: ${previousWeekReport.total} руб.\\n\\n`;\n}\n\nif (!isFullWeekInPreviousMonth(twoWeeksAgoStart, twoWeeksAgoEnd)) {\n    pastWeeksText += `📅 <b>Неделя с ${twoWeeksAgoStart.toLocaleDateString('ru-RU')} по ${twoWeeksAgoEnd.toLocaleDateString('ru-RU')}:</b>\\n`;\n    pastWeeksText += `🚚 Количество рейсов: ${twoWeeksAgoReport.count}\\n`;\n    pastWeeksText += `🕑 Карьерные часы: ${twoWeeksAgoReport.quarry_hours} ч\\n`;\n    pastWeeksText += `💵 Заработок: ${twoWeeksAgoReport.total} руб.\\n\\n`;\n}\n\nif (!isFullWeekInPreviousMonth(threeWeeksAgoStart, threeWeeksAgoEnd)) {\n    pastWeeksText += `📅 <b>Неделя с ${threeWeeksAgoStart.toLocaleDateString('ru-RU')} по ${threeWeeksAgoEnd.toLocaleDateString('ru-RU')}:</b>\\n`;\n    pastWeeksText += `🚚 Количество рейсов: ${threeWeeksAgoReport.count}\\n`;\n    pastWeeksText += `🕑 Карьерные часы: ${threeWeeksAgoReport.quarry_hours} ч\\n`;\n    pastWeeksText += `💵 Заработок: ${threeWeeksAgoReport.total} руб.\\n\\n`;\n}\n\n// Если есть данные по прошлым неделям, добавляем заголовок\nif (pastWeeksText) {\n    textMessage += '📊 <b>Отчет за прошлые недели месяца</b>\\n\\n';\n    textMessage += pastWeeksText; // Добавляем текст прошлых недель\n}\n\n// Возвращаем результат в формате JSON\nreturn [\n    {\n        json: {\n            message: textMessage\n        }\n    }\n];\n"
+      },
+      "id": "4d258409-0935-4663-a5da-94b69e884dde",
+      "name": "Code6",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1280,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "467549384",
+        "text": "={{ $json.message }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "c46330e9-32f3-4f3d-b184-73571b83e354",
+      "name": "Telegram8",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1460,
+        500
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "uEAhGHyixvUTbCGm",
+          "name": "tg serg"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "a87c2b17-48a4-45a6-99c6-6629d2a89709",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        -460,
+        580
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "4ce4621a-66bd-4826-b28a-055a3e88b8d2",
+      "name": "No Operation, do nothing",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -180,
+        560
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "ed8d8546-a96a-4f87-be11-ab98670359dd",
+      "name": "Merge7",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1140,
+        500
+      ]
+    }
+  ],
+  "pinData": {
+    "Execute Workflow Trigger": [
+      {
+        "json": {
+          "update_id": 100629693,
+          "message": {
+            "message_id": 21959,
+            "from": {
+              "id": 7094417017,
+              "is_bot": false,
+              "first_name": "Сергей",
+              "last_name": "Косолапов",
+              "username": "sergio_kf",
+              "language_code": "ru"
+            },
+            "chat": {
+              "id": 7094417017,
+              "first_name": "Сергей",
+              "last_name": "Косолапов",
+              "username": "sergio_kf",
+              "type": "private"
+            },
+            "date": 1727879116,
+            "text": "Моя статистика"
+          },
+          "tg_id": "7094417017",
+          "odoo_id": 4,
+          "status": "authorized",
+          "only_mech": false,
+          "mech_photo": false,
+          "end_request_id": 407,
+          "materials_photo": false,
+          "end_request_hours": null,
+          "car_id_while_inputing": 19,
+          "fuel_liters": null,
+          "weight_measure": "5 м3 ",
+          "logist_alert_text": null,
+          "logist_recipient_name": null,
+          "transportation_for_certificate": null,
+          "count_weight_photo": null,
+          "count_weight_photo_sent": null,
+          "current_quarry_hours": null,
+          "end_round_message_id": null,
+          "last_message_text": null,
+          "logist_notifications": false,
+          "cookie": "session_id=6d538dcd38dc1fcb5754db73af461fe9b3c211fb; Expires=Thu, 02 Oct 2025 14:25:17 GMT; Max-Age=604800; HttpOnly; Path=/",
+          "seconds": 1.656
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-10-03T05:01:01.086Z",
+  "versionId": "001c21f1-0f20-4a76-b139-ed2fa26b5591"
+}
