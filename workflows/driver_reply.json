@@ -2648,7 +2648,7 @@
       "main": [
         [
           {
-            "node": "Неизвестная команда",
+            "node": "фильтр от лишних уведомлений в чате",
             "type": "main",
             "index": 0
           }
@@ -3271,6 +3271,17 @@
         [
           {
             "node": "Нет доступных перевозок1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "фильтр от лишних уведомлений в чате": {
+      "main": [
+        [
+          {
+            "node": "Неизвестная команда",
             "type": "main",
             "index": 0
           }
@@ -4422,8 +4433,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        1415,
-        3440
+        1020,
+        3700
       ],
       "credentials": {
         "telegramApi": {
@@ -14603,6 +14614,39 @@
           "name": "tg dev aleksey"
         }
       }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2ed3940a-2427-40e7-8024-081403f02a2f",
+              "leftValue": "={{ $json.message.chat.id }}",
+              "rightValue": -4161741739,
+              "operator": {
+                "type": "number",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "3aa9b315-6d4b-467e-b747-eef5ffdd10c2",
+      "name": "фильтр от лишних уведомлений в чате",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        740,
+        3800
+      ]
     }
   ],
   "pinData": {
@@ -14670,6 +14714,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-10-04T10:24:38.505Z",
-  "versionId": "85b79709-1c63-45b0-853b-0f0202fdff60"
+  "updatedAt": "2024-10-07T08:42:01.176Z",
+  "versionId": "fbc35faa-84ba-4af3-b910-b1e74007ecdb"
 }
