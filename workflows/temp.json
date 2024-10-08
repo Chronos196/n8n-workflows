@@ -5,84 +5,102 @@
       "main": [
         [
           {
-            "node": "Set start time1",
+            "node": "сегодня нулевой часовой пояс",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "авторизация": {
+    "сегодня нулевой часовой пояс": {
       "main": [
         [
           {
-            "node": "Set start time",
+            "node": "вчерашний день",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Set start time": {
+    "нулевой пояс (полночь по владивостоку)": {
       "main": [
         [
           {
-            "node": "получение перевозок4",
+            "node": "рейсы за сегодня",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "получение перевозок4": {
+    "рейсы за сегодня": {
       "main": [
         [
           {
-            "node": "Calculate duration1",
+            "node": "есть рейсы за сегодня?",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Set start time1": {
+    "есть рейсы за сегодня?": {
       "main": [
         [
           {
-            "node": "Odoo",
+            "node": "счёт рейсов",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "форматируем1",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Filter": {
+    "счёт рейсов": {
       "main": [
         [
           {
-            "node": "Calculate duration2",
+            "node": "форматируем",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Calculate duration": {
+    "форматируем": {
       "main": [
         [
           {
-            "node": "Filter",
+            "node": "отправляем сообщение 2",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Odoo": {
+    "вчерашний день": {
       "main": [
         [
           {
-            "node": "Calculate duration",
+            "node": "нулевой пояс (полночь по владивостоку)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "форматируем1": {
+      "main": [
+        [
+          {
+            "node": "отправляем сообщение 2",
             "type": "main",
             "index": 0
           }
@@ -99,132 +117,87 @@
   "nodes": [
     {
       "parameters": {},
-      "id": "cd899800-8d5f-4db2-89b1-0b07085ee51a",
+      "id": "ab5b4dd1-7944-4557-b2e3-0aff05eda220",
       "name": "When clicking ‘Test workflow’",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        220,
-        540
+        -60,
+        400
       ]
     },
     {
       "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "8ed6f8b4-9a13-44f0-96a8-1c77ca5894f9",
-              "name": "start",
-              "value": "={{ $now.toISO() }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "1703754c-b1e8-4308-98d9-05a7d5022579",
-      "name": "Set start time",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        600,
-        180
-      ]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://everest.lamart.site/web/session/authenticate",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"call\",\n    \"params\": {\n        \"db\": \"db\",\n        \"login\": \"aleksey.g@lamart.site\",\n        \"password\": \"cXYgjue4D8gVC9A\"\n    }\n}",
         "options": {
-          "response": {
-            "response": {
-              "fullResponse": true
-            }
-          }
+          "timezone": "UTC"
         }
       },
-      "id": "b4bbbbe9-9462-44be-886c-15c7392a3ca0",
-      "name": "авторизация",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
+      "id": "fc91c419-1615-445d-8459-c7719d2108af",
+      "name": "сегодня нулевой часовой пояс",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
       "position": [
-        380,
-        180
+        160,
+        400
       ]
     },
     {
       "parameters": {
-        "url": "https://everest.lamart.site/transportations_by_car",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "cookie",
-              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"number_car\": \"А 459 ТЕ\"\n}  ",
+        "operation": "formatDate",
+        "date": "={{ $json.newDate }}",
+        "format": "custom",
+        "customFormat": "yyyy-MM-dd 14:00:00",
         "options": {}
       },
-      "id": "f7c886f6-bbaf-40b6-99e1-0b26ec0c1555",
-      "name": "получение перевозок4",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
+      "id": "a7aab1e7-d680-49ae-a0eb-3dc53712d809",
+      "name": "нулевой пояс (полночь по владивостоку)",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
       "position": [
-        820,
-        180
-      ],
-      "onError": "continueErrorOutput"
+        600,
+        400
+      ]
     },
     {
       "parameters": {
-        "values": {
-          "number": [
+        "resource": "custom",
+        "customResource": "=transportation.round",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
             {
-              "name": "seconds",
-              "value": "={{ $now.diff(DateTime.fromISO($('Set start time').item.json.start)).as('seconds') }}"
+              "fieldName": "driver",
+              "value": "={{ 2 }}"
+            },
+            {
+              "fieldName": "status",
+              "value": "Завершен"
+            },
+            {
+              "fieldName": "time_of_end",
+              "operator": "greaterOrEqual",
+              "value": "={{ $json.formattedDate }}"
             }
           ]
-        },
-        "options": {}
+        }
       },
-      "id": "273398b6-92b1-4308-8763-ae17a63bfc0c",
-      "name": "Calculate duration1",
-      "type": "n8n-nodes-base.set",
+      "id": "98d5a59c-0e3a-4981-a4da-153fa4a4198e",
+      "name": "рейсы за сегодня",
+      "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        1140,
-        140
-      ]
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "8ed6f8b4-9a13-44f0-96a8-1c77ca5894f9",
-              "name": "start",
-              "value": "={{ $now.toISO() }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "31090641-fbc2-4013-9c74-4aef2939dc1c",
-      "name": "Set start time1",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        440,
-        540
-      ]
+        820,
+        400
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "ITgOrhO4Hf2QcDtf",
+          "name": "odoo dev"
+        }
+      }
     },
     {
       "parameters": {
@@ -237,22 +210,13 @@
           },
           "conditions": [
             {
-              "id": "0924e769-30f5-4878-a17e-e675ab11fbf7",
-              "leftValue": "={{ $json.status }}",
-              "rightValue": "Завершен",
+              "id": "6e8334de-8c33-406e-adfb-2f8e35f2ccb4",
+              "leftValue": "={{ $json }}",
+              "rightValue": "",
               "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            },
-            {
-              "id": "eccce815-1efe-4fa1-913e-e901b4cac846",
-              "leftValue": "={{ $json.driver[0] }}",
-              "rightValue": 2,
-              "operator": {
-                "type": "number",
-                "operation": "equals"
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
               }
             }
           ],
@@ -260,80 +224,94 @@
         },
         "options": {}
       },
-      "id": "56a24d42-1813-4a05-b001-fec47e565607",
-      "name": "Filter",
-      "type": "n8n-nodes-base.filter",
+      "id": "6d958c57-310c-4965-9d6e-f4a420c1a1e9",
+      "name": "есть рейсы за сегодня?",
+      "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1120,
-        540
-      ],
-      "onError": "continueRegularOutput"
+        1040,
+        400
+      ]
     },
     {
       "parameters": {
-        "values": {
-          "number": [
+        "fieldsToSummarize": {
+          "values": [
             {
-              "name": "seconds",
-              "value": "={{ $now.diff(DateTime.fromISO($('Set start time1').item.json.start)).as('seconds') }}"
+              "field": "id"
             }
           ]
         },
         "options": {}
       },
-      "id": "26100bb4-51c5-499a-8fde-3f23e8fd7299",
-      "name": "Calculate duration2",
-      "type": "n8n-nodes-base.set",
+      "id": "643feb4e-bc54-4707-9934-dca4a0503f8b",
+      "name": "счёт рейсов",
+      "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        1380,
-        540
+        1260,
+        280
       ]
     },
     {
       "parameters": {
-        "values": {
-          "number": [
-            {
-              "name": "seconds",
-              "value": "={{ $now.diff(DateTime.fromISO($('Set start time1').item.json.start)).as('seconds') }}"
-            }
-          ]
-        },
-        "options": {}
+        "jsCode": "var data = $('создаём динамически инлайн кнопки2').all()[0].json;\ndata.message.text = 'Количество завершенных рейсов: ' + $('счёт рейсов').all()[0].json.count_id + '\\n' + data.message.text;\nreturn data;"
       },
-      "id": "e63d15b3-6397-4e37-b4ab-42176992933f",
-      "name": "Calculate duration",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 1,
+      "id": "99047fc1-fa9f-4a73-940f-2141f2afcf1e",
+      "name": "форматируем",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
       "position": [
-        880,
-        540
+        1460,
+        280
       ]
     },
     {
       "parameters": {
-        "resource": "custom",
-        "customResource": "=hr.employee",
-        "operation": "getAll",
-        "returnAll": true,
+        "method": "POST",
+        "url": "={{ $json.url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.message }}",
         "options": {}
       },
-      "id": "5a8ad362-75f6-4c27-b653-6e71ad110a84",
-      "name": "Odoo",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
+      "id": "b35eaa5b-92f9-4ccd-bccd-fd69b7a7c7ac",
+      "name": "отправляем сообщение 2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
       "position": [
-        660,
-        540
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "ITgOrhO4Hf2QcDtf",
-          "name": "odoo dev"
-        }
-      }
+        1660,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "addToDate",
+        "magnitude": "={{ $json.currentDate }}",
+        "duration": -1,
+        "options": {}
+      },
+      "id": "73ddb426-c32b-4a82-92c9-41b0d91203b5",
+      "name": "вчерашний день",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        380,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "var data = $('создаём динамически инлайн кнопки2').all()[0].json;\nreturn data;"
+      },
+      "id": "b86ee310-f16e-4eea-8259-f04f8925b1b4",
+      "name": "форматируем1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1260,
+        460
+      ]
     }
   ],
   "pinData": {},
@@ -343,6 +321,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2024-10-02T06:53:59.519Z",
-  "versionId": "a78d0ca3-e854-4c18-b776-3de41fe33c33"
+  "updatedAt": "2024-10-07T11:02:14.618Z",
+  "versionId": "296cd286-0b60-4747-8c89-3fa34ced6842"
 }
