@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "добавляет пользователя, если не существует": {
       "main": [
@@ -761,11 +761,6 @@
         ]
       ]
     },
-    "воркфлоу ВОДИТЕЛЬ_РЕПЛАЙ": {
-      "main": [
-        []
-      ]
-    },
     "проверка роли после авторизации": {
       "main": [
         [
@@ -891,22 +886,22 @@
         ]
       ]
     },
-    "изменение данных в перевозке": {
+    "Telegram Trigger1": {
       "main": [
         [
           {
-            "node": "авто",
+            "node": "авторизация",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Telegram Trigger1": {
+    "изменение данных в перевозке": {
       "main": [
         [
           {
-            "node": "авторизация",
+            "node": "авто",
             "type": "main",
             "index": 0
           }
@@ -4241,29 +4236,6 @@
     },
     {
       "parameters": {
-        "httpMethod": "POST",
-        "path": "dev/update_transportation",
-        "authentication": "basicAuth",
-        "options": {}
-      },
-      "id": "e2032e4f-4ed6-462a-a080-221112967f50",
-      "name": "изменение данных в перевозке",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        -4160,
-        3560
-      ],
-      "webhookId": "90df170f-5431-43ec-a6ac-2fd2aa42683b",
-      "credentials": {
-        "httpBasicAuth": {
-          "id": "uHcFMSp9IXmPMRB4",
-          "name": "queue webhook"
-        }
-      }
-    },
-    {
-      "parameters": {
         "updates": [
           "message",
           "callback_query"
@@ -4283,6 +4255,29 @@
         "telegramApi": {
           "id": "s2yURwRj0JIo9urH",
           "name": "Everest production"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "prod/update_transportation",
+        "authentication": "basicAuth",
+        "options": {}
+      },
+      "id": "e2032e4f-4ed6-462a-a080-221112967f50",
+      "name": "изменение данных в перевозке",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -4160,
+        3560
+      ],
+      "webhookId": "90df170f-5431-43ec-a6ac-2fd2aa42683b",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "uHcFMSp9IXmPMRB4",
+          "name": "queue webhook"
         }
       }
     }
@@ -4545,7 +4540,11 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "staticData": null,
+  "staticData": {
+    "node:Schedule Trigger3": {
+      "recurrenceRules": []
+    }
+  },
   "tags": [
     {
       "createdAt": "2024-08-26T14:50:05.418Z",
@@ -4554,7 +4553,7 @@
       "name": "production"
     }
   ],
-  "triggerCount": 0,
-  "updatedAt": "2024-10-06T17:08:46.956Z",
-  "versionId": "3ee88df9-d13b-4e38-8c14-8b1cc4f00bf3"
+  "triggerCount": 5,
+  "updatedAt": "2024-10-07T15:41:49.779Z",
+  "versionId": "d82175d5-faf0-4659-8fee-c4c4f7af954e"
 }
