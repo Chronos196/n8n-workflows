@@ -1500,7 +1500,7 @@
       "main": [
         [
           {
-            "node": "сегодняшняя дата",
+            "node": "сегодняшнее число",
             "type": "main",
             "index": 0
           }
@@ -3352,50 +3352,6 @@
         ]
       ]
     },
-    "количество рейсов": {
-      "main": [
-        [
-          {
-            "node": "количество рейсов1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "сегодняшняя дата": {
-      "main": [
-        [
-          {
-            "node": "количество рейсов",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "количество рейсов1": {
-      "main": [
-        [
-          {
-            "node": "форматируем",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "форматируем": {
-      "main": [
-        [
-          {
-            "node": "отправляем сообщение 2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "поиск логистов": {
       "main": [
         [
@@ -3757,6 +3713,101 @@
         [
           {
             "node": "Нет доступных перевозок8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "рейсы за сегодня": {
+      "main": [
+        [
+          {
+            "node": "есть рейсы за сегодня?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "есть рейсы за сегодня?": {
+      "main": [
+        [
+          {
+            "node": "счёт рейсов",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "форматируем1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "счёт рейсов": {
+      "main": [
+        [
+          {
+            "node": "форматируем",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "форматируем": {
+      "main": [
+        [
+          {
+            "node": "отправляем сообщение 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "форматируем1": {
+      "main": [
+        [
+          {
+            "node": "отправляем сообщение 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "сегодняшнее число": {
+      "main": [
+        [
+          {
+            "node": "-10 часов",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "-10 часов": {
+      "main": [
+        [
+          {
+            "node": "форматируем время",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "форматируем время": {
+      "main": [
+        [
+          {
+            "node": "рейсы за сегодня",
             "type": "main",
             "index": 0
           }
@@ -9432,24 +9483,6 @@
           "name": "Everest production"
         }
       }
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "={{ $json.url }}",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={{ $json.message }}",
-        "options": {}
-      },
-      "id": "073ca525-6605-4ee1-a86e-49e04bd14944",
-      "name": "отправляем сообщение 2",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        2100,
-        8900
-      ]
     },
     {
       "parameters": {
@@ -19778,95 +19811,6 @@
     },
     {
       "parameters": {
-        "resource": "custom",
-        "customResource": "=transportation.round",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "driver",
-              "value": "={{ $('Execute Workflow Trigger').all()[0].json.odoo_id }}"
-            },
-            {
-              "fieldName": "status",
-              "value": "Завершен"
-            },
-            {
-              "fieldName": "time_of_end",
-              "operator": "greaterOrEqual",
-              "value": "={{ $json.currentDate.slice(0, 10) + ' 00:00:00' }}"
-            }
-          ]
-        }
-      },
-      "id": "0eed70a8-9301-4106-863d-6e9f87639e45",
-      "name": "количество рейсов",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        1440,
-        8940
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "8fI2woAI3HZ7dHDv",
-          "name": "Odoo production"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "includeTime": false,
-        "options": {
-          "timezone": "Asia/Vladivostok"
-        }
-      },
-      "id": "6e711256-ef41-4288-a627-6499f0a25d65",
-      "name": "сегодняшняя дата",
-      "type": "n8n-nodes-base.dateTime",
-      "typeVersion": 2,
-      "position": [
-        1200,
-        8940
-      ]
-    },
-    {
-      "parameters": {
-        "fieldsToSummarize": {
-          "values": [
-            {
-              "field": "id"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "9b99ef7e-ab29-4f9b-aee8-7c2767b4c1f3",
-      "name": "количество рейсов1",
-      "type": "n8n-nodes-base.summarize",
-      "typeVersion": 1,
-      "position": [
-        1640,
-        8940
-      ]
-    },
-    {
-      "parameters": {
-        "jsCode": "var data = $('создаём динамически инлайн кнопки2').all()[0].json;\ndata.message.text = 'Количество завершенных рейсов: ' + $('количество рейсов1').all()[0].json.count_id + '\\n' + data.message.text;\nreturn data;"
-      },
-      "id": "6c6e0939-41bb-43f6-a67e-51f78b4d5f5e",
-      "name": "форматируем",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1860,
-        8940
-      ]
-    },
-    {
-      "parameters": {
         "operation": "select",
         "schema": {
           "__rl": true,
@@ -20983,112 +20927,267 @@
           "name": "Everest production"
         }
       }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "=transportation.round",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "driver",
+              "value": "={{ $('Execute Workflow Trigger').all()[0].json.odoo_id }}"
+            },
+            {
+              "fieldName": "status",
+              "value": "Завершен"
+            },
+            {
+              "fieldName": "time_of_end",
+              "operator": "greaterOrEqual",
+              "value": "={{ $json.formattedDate }}"
+            }
+          ]
+        }
+      },
+      "id": "bd710837-999a-41d2-bb80-13468b603173",
+      "name": "рейсы за сегодня",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1820,
+        8980
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "8fI2woAI3HZ7dHDv",
+          "name": "Odoo production"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6e8334de-8c33-406e-adfb-2f8e35f2ccb4",
+              "leftValue": "={{ $json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "d47cd17d-c443-4542-a0eb-12efecf54af7",
+      "name": "есть рейсы за сегодня?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2040,
+        8980
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "field": "id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f316586d-5ea8-492a-bbad-97a8c768c737",
+      "name": "счёт рейсов",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        2260,
+        8860
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "var data = $('создаём динамически инлайн кнопки2').all()[0].json;\ndata.message.text = 'Количество завершенных рейсов: ' + $('счёт рейсов').all()[0].json.count_id + '\\n' + data.message.text;\nreturn data;"
+      },
+      "id": "670c4909-8134-4cae-904a-5227e5dc95d9",
+      "name": "форматируем",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2460,
+        8860
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.message }}",
+        "options": {}
+      },
+      "id": "4b963149-98fe-48ba-9808-271380fb392f",
+      "name": "отправляем сообщение 2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        2660,
+        8980
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "var data = $('создаём динамически инлайн кнопки2').all()[0].json;\nreturn data;"
+      },
+      "id": "a32f9b68-77e4-4c4a-9717-cdd3c06c4877",
+      "name": "форматируем1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2260,
+        9040
+      ]
+    },
+    {
+      "parameters": {
+        "includeTime": false,
+        "options": {
+          "timezone": "Asia/Vladivostok"
+        }
+      },
+      "id": "83ba4381-b57e-442d-9e00-7cd13a4a6f69",
+      "name": "сегодняшнее число",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        1160,
+        8980
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "addToDate",
+        "magnitude": "={{ $json.currentDate }}",
+        "timeUnit": "hours",
+        "duration": -10,
+        "options": {}
+      },
+      "id": "5dfd72fb-f0df-484d-a8f5-85a2de7dae85",
+      "name": "-10 часов",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        1380,
+        8980
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $json.newDate }}",
+        "format": "custom",
+        "customFormat": "yyyy-MM-dd 00:00:00",
+        "options": {}
+      },
+      "id": "23159e39-9d96-42a1-b2cb-3e43c1502815",
+      "name": "форматируем время",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        1600,
+        8980
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100629063,
+          "update_id": 628034765,
           "callback_query": {
-            "id": "2008109317455080439",
+            "id": "3010587260528232252",
             "from": {
-              "id": 467549384,
+              "id": 700956969,
               "is_bot": false,
-              "first_name": "Sergio",
-              "username": "sergo_kf",
-              "language_code": "ru",
-              "is_premium": true
+              "first_name": "Алексей",
+              "username": "Chronos196",
+              "language_code": "ru"
             },
             "message": {
-              "message_id": 21241,
+              "message_id": 19077,
               "from": {
-                "id": 7063451965,
+                "id": 7062531188,
                 "is_bot": true,
-                "first_name": "Everest n8n",
-                "username": "myn8nbotbot"
+                "first_name": "Everest",
+                "username": "everest_prod_bot"
               },
               "chat": {
-                "id": 467549384,
-                "first_name": "Sergio",
-                "username": "sergo_kf",
+                "id": 700956969,
+                "first_name": "Алексей",
+                "username": "Chronos196",
                 "type": "private"
               },
-              "date": 1727199192,
-              "text": "Ваша текущая перевозка:\n\nОтправитель - Эверест\nПолучатель - ООО Компания\nМаршрут - Карьер Ключевое-Торг. порт\nМатериал - Щебень (Карьер Ключевое)\nКомментарий - 132\nОстаток кубометров по перевозке - 100",
-              "entities": [
-                {
-                  "offset": 39,
-                  "length": 7,
-                  "type": "bold"
-                },
-                {
-                  "offset": 60,
-                  "length": 14,
-                  "type": "bold"
-                },
-                {
-                  "offset": 85,
-                  "length": 26,
-                  "type": "bold"
-                },
-                {
-                  "offset": 123,
-                  "length": 24,
-                  "type": "bold"
-                },
-                {
-                  "offset": 162,
-                  "length": 3,
-                  "type": "bold"
-                },
-                {
-                  "offset": 200,
-                  "length": 3,
-                  "type": "bold"
-                }
-              ],
+              "date": 1728315770,
+              "edit_date": 1728315782,
+              "text": "Вы уверены, что готовы завершить смену?",
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "Начать рейс",
-                      "callback_data": "pick"
-                    }
-                  ],
-                  [
+                      "text": "Завершить смену",
+                      "callback_data": "upload_sertificate"
+                    },
                     {
-                      "text": "Приступить к следующей перевозке",
-                      "callback_data": "transportation_to_tail"
+                      "text": "Назад",
+                      "callback_data": "check_final"
                     }
                   ]
                 ]
               }
             },
-            "chat_instance": "-8293046807322593726",
-            "data": "pick"
+            "chat_instance": "-8246741287932870992",
+            "data": "upload_sertificate"
           },
-          "tg_id": "467549384",
-          "odoo_id": 4,
+          "tg_id": "700956969",
+          "odoo_id": 5,
           "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
           "end_request_id": null,
           "materials_photo": false,
           "end_request_hours": null,
-          "car_id_while_inputing": 25,
+          "car_id_while_inputing": 48,
           "fuel_liters": 100,
-          "weight_measure": "10 Тонны ",
+          "weight_measure": "10 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
-          "count_weight_photo": 1,
-          "count_weight_photo_sent": 0,
-          "current_quarry_hours": 5,
-          "end_round_message_id": 21241,
-          "last_message_text": "Отлично, вы завершили рейс, хотите начать следующий?\nКарьер Ключевое - Карьер Ключевое\nПесок (Карьер Ключевое)\nОстаток кубометров по текущей перевозке - 7.4",
+          "count_weight_photo": null,
+          "count_weight_photo_sent": null,
+          "current_quarry_hours": null,
+          "end_round_message_id": 19077,
+          "last_message_text": "Отлично, вы завершили рейс, хотите начать следующий?\nТЕСТ - ТЕСТ\nТЕСТ (ТЕСТ)",
           "logist_notifications": false,
-          "cookie": "session_id=8109a9136f88c060a57dc692204528ef5a1e26f9; Expires=Wed, 24 Sep 2025 17:33:27 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=af0244f29594226289079d7b8b697a86d192474f; Expires=Tue, 07 Oct 2025 15:43:04 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -21106,6 +21205,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-10-06T17:10:50.273Z",
-  "versionId": "874dfaf0-52d9-4577-a75e-8728798d2d80"
+  "updatedAt": "2024-10-08T09:19:36.717Z",
+  "versionId": "f88c2bb9-8bb3-4274-8466-05ac8a26d679"
 }
