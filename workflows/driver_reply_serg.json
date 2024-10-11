@@ -2521,17 +2521,6 @@
         ]
       ]
     },
-    "Code1": {
-      "main": [
-        [
-          {
-            "node": "Telegram3",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Merge5": {
       "main": [
         [
@@ -2925,7 +2914,7 @@
         ],
         [
           {
-            "node": "Получение информации о водителе2",
+            "node": "No Operation, do nothing",
             "type": "main",
             "index": 0
           }
@@ -3001,7 +2990,7 @@
       "main": [
         [
           {
-            "node": "Получение информации о водителе2",
+            "node": "No Operation, do nothing",
             "type": "main",
             "index": 0
           }
@@ -3126,6 +3115,99 @@
         [
           {
             "node": "вывод графика на неделю",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Получаем рейсы": {
+      "main": [
+        [
+          {
+            "node": "Объединение рейсов в один файл",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Получение работ в карьере2": {
+      "main": [
+        [
+          {
+            "node": "считаем часы и заработок",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Объединение рейсов в один файл": {
+      "main": [
+        [
+          {
+            "node": "считаем по дням кол-во рейсов и заработок",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "No Operation, do nothing": {
+      "main": [
+        [
+          {
+            "node": "Получаем рейсы",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Получение работ в карьере2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "считаем по дням кол-во рейсов и заработок": {
+      "main": [
+        [
+          {
+            "node": "соединяем рейсы и работы",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "считаем часы и заработок": {
+      "main": [
+        [
+          {
+            "node": "соединяем рейсы и работы",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "сортируем все данные, считаем итоги, преобразуем в сообщение": {
+      "main": [
+        [
+          {
+            "node": "выводим недельную статистику",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "соединяем рейсы и работы": {
+      "main": [
+        [
+          {
+            "node": "сортируем все данные, считаем итоги, преобразуем в сообщение",
             "type": "main",
             "index": 0
           }
@@ -11902,47 +11984,6 @@
       ]
     },
     {
-      "parameters": {
-        "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.message.from.id }}",
-        "text": "={{ $json.message }}",
-        "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Назад",
-                    "additionalFields": {
-                      "callback_data": "after_stats"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {
-          "appendAttribution": false,
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "3714dd34-6912-4568-a046-2a0b7f808c54",
-      "name": "Telegram3",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        3340,
-        760
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "uEAhGHyixvUTbCGm",
-          "name": "tg serg"
-        }
-      }
-    },
-    {
       "parameters": {},
       "id": "cd7dea3e-1be7-472c-9496-ba6e33981dc4",
       "name": "Merge5",
@@ -12038,8 +12079,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        460,
-        460
+        220,
+        520
       ]
     },
     {
@@ -13823,6 +13864,267 @@
           "name": "tg serg"
         }
       }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "=transportation.round",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {
+          "fieldsList": [
+            "id",
+            "time_of_start",
+            "driver_rate",
+            "driver_with_trailer"
+          ]
+        },
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "driver",
+              "value": "={{ $json.odoo_id }}"
+            },
+            {
+              "fieldName": "status",
+              "value": "Завершен"
+            }
+          ]
+        }
+      },
+      "id": "f2cb79d5-ba98-4500-a0bc-287dc4932b95",
+      "name": "Получаем рейсы",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        1400
+      ],
+      "alwaysOutputData": false,
+      "credentials": {
+        "odooApi": {
+          "id": "ITgOrhO4Hf2QcDtf",
+          "name": "odoo dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "=quarry.work",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {
+          "fieldsList": [
+            "id",
+            "quarry_hours",
+            "price_for_driver",
+            "create_date",
+            "start_time"
+          ]
+        },
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "driver",
+              "value": "={{ $json.odoo_id }}"
+            },
+            {
+              "fieldName": "status",
+              "value": "Завершены"
+            }
+          ]
+        }
+      },
+      "id": "19a518ea-278e-4199-8454-b789028c0de6",
+      "name": "Получение работ в карьере2",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        1600
+      ],
+      "alwaysOutputData": false,
+      "credentials": {
+        "odooApi": {
+          "id": "ITgOrhO4Hf2QcDtf",
+          "name": "odoo dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "id": "bc9982cc-3ec3-4a58-b7e1-05a6452e7be6",
+      "name": "Объединение рейсов в один файл",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        1560,
+        1400
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.message.from.id }}",
+        "text": "={{ $json.message }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {}
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "06b0b8d6-c71c-449f-b5ba-cfc876bbba7c",
+      "name": "Telegram8",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2620,
+        1100
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "uEAhGHyixvUTbCGm",
+          "name": "tg serg"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "83c82871-0e91-42b3-88a0-0cb50fd8ff19",
+      "name": "No Operation, do nothing",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        980,
+        1500
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Получаем входные данные из предыдущего кубика\nconst inputData = items.map(item => item.json);\n\n// Функция для добавления 10 часов ко времени\nfunction addHoursToTime(timeStr, hours) {\n    const dateObj = new Date(timeStr.replace(\" \", \"T\")); // Преобразуем строку времени в объект Date\n    dateObj.setHours(dateObj.getHours() + hours); // Добавляем 10 часов\n    return dateObj.toISOString().replace(\"T\", \" \").split(\".\")[0]; // Преобразуем обратно в строку и убираем миллисекунды\n}\n\n// Функция для подсчета заработка и количества рейсов по датам\nfunction calculateTotalsByDate(data) {\n    const totalsByDate = {};\n\n    data.forEach(entry => {\n        entry.data.forEach(round => {\n            const { driver_rate, driver_with_trailer, time_of_start } = round;\n\n            // Добавляем 10 часов ко времени\n            const adjustedTime = addHoursToTime(time_of_start, 5);\n\n            // Извлекаем только дату из скорректированного времени\n            const date = adjustedTime.split(\" \")[0];\n\n            // Инициализируем данные для каждой новой даты\n            if (!totalsByDate[date]) {\n                totalsByDate[date] = {\n                    total_count: 0,  // Общее количество рейсов\n                    total_earnings: 0  // Общий заработок\n                };\n            }\n\n            // Увеличиваем количество рейсов\n            totalsByDate[date].total_count++;\n\n            // Увеличиваем сумму заработка\n            totalsByDate[date].total_earnings += driver_rate;\n        });\n    });\n\n    // Преобразуем объект в массив для удобства обработки\n    return Object.keys(totalsByDate).map(date => ({\n        date: date,\n        total_count: totalsByDate[date].total_count,\n        total_earnings: totalsByDate[date].total_earnings\n    }));\n}\n\n// Обрабатываем данные\nconst processedData = calculateTotalsByDate(inputData);\n\n// Возвращаем результат для следующего кубика\nreturn processedData.map(entry => ({ json: entry }));\n"
+      },
+      "id": "eb93b029-79f3-4496-b204-39d299352cfe",
+      "name": "считаем по дням кол-во рейсов и заработок",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1880,
+        1400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Получаем входные данные из предыдущего кубика\nconst inputData = items.map(item => item.json);\n\n// Функция для обработки данных\nfunction calculateTotals(data) {\n    return data.map(entry => {\n        const { id, quarry_hours, price_for_driver, date, start_time } = entry;\n\n        // Если price_for_driver равен 0 или false, заработок равен 0\n        if (!price_for_driver) {\n            // Добавляем 10 часов к дате\n            const adjustedDate = new Date(start_time);\n            adjustedDate.setHours(adjustedDate.getHours() + 5); // Прибавляем 10 часов\n\n            return {\n                id: id,\n                quarry_hours: quarry_hours,  // Количество карьерных часов\n                total: 0,  // Заработок = 0\n                date: adjustedDate.toISOString(),  // Для вывода используем скорректированную дату\n                original_date: date  // Сохраняем оригинальную дату\n            };\n        }\n\n        // Цена водителя уже итоговая, просто передаем её в результат\n        const total = parseFloat(price_for_driver);\n\n        // Добавляем 10 часов к дате\n        const adjustedDate = new Date(start_time);\n        adjustedDate.setHours(adjustedDate.getHours() + 5); // Прибавляем 10 часов\n\n        return {\n            id: id,\n            quarry_hours: quarry_hours,  // Количество карьерных часов\n            total: total,  // Общий заработок = price_for_driver\n            date: adjustedDate.toISOString(),  // Для вывода используем скорректированную дату\n            original_date: date  // Сохраняем оригинальную дату\n        };\n    });\n}\n\n// Обрабатываем входные данные\nconst processedData = calculateTotals(inputData);\n\n// Возвращаем результат в формате JSON для следующего кубика\nreturn processedData.map(entry => ({ json: entry }));\n"
+      },
+      "id": "58c98f7e-0f1d-4404-9ccf-4134277a4b55",
+      "name": "считаем часы и заработок",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        1600
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Получаем входные данные через items\nconst inputData = items.map(item => item.json);\n\n// Задаем текущую дату для тестирования\nconst today = new Date(); //'2024-10-11T00:00:00'\ntoday.setMinutes(today.getMinutes() + today.getTimezoneOffset() + (5 * 60));\n\n// Определяем начало текущей недели (понедельник текущей недели)\nconst startOfWeek = new Date(today);\nstartOfWeek.setDate(today.getDate() - today.getDay() + (today.getDay() === 0 ? -6 : 1)); // Учитываем воскресенье как последний день недели\n\n// Функция для обнуления времени в дате\nfunction resetTime(date) {\n    const newDate = new Date(date);\n    newDate.setHours(0, 0, 0, 0); // Убираем компоненты времени\n    return newDate;\n}\n\n// Функция для фильтрации данных по дням\nfunction getDailyReport(date) {\n    let totalCount = 0;      // Количество рейсов\n    let totalQuarryHours = 0; // Карьерные часы\n    let totalEarnings = 0;    // Общий заработок за день\n\n    const resetDate = resetTime(date);\n\n    inputData.forEach(entry => {\n        const entryDate = resetTime(new Date(entry.date));\n\n        // Сравниваем даты без учета времени\n        if (entryDate.toISOString().split('T')[0] === resetDate.toISOString().split('T')[0]) {\n            if (entry.total_count !== undefined && entry.total_earnings !== undefined) {\n                totalCount += entry.total_count;  // Суммируем количество рейсов\n                totalEarnings += entry.total_earnings; // Суммируем заработок\n            } else if (entry.quarry_hours !== undefined && entry.total !== undefined) {\n                totalQuarryHours += entry.quarry_hours; // Суммируем карьерные часы\n                totalEarnings += entry.total; // Суммируем заработок за работы в карьере\n            }\n        }\n    });\n\n    return {\n        count: totalCount,\n        quarry_hours: totalQuarryHours,\n        total: totalEarnings\n    };\n}\n\n// Функция для генерации отчета по дням недели\nfunction getCurrentWeekReport() {\n    let textMessage = '📊 <b>Отчет за текущую неделю</b>\\n\\n';\n\n    let currentDate = new Date(today);\n    while (currentDate >= startOfWeek) {\n        const dayReport = getDailyReport(currentDate);\n        const dayOfWeek = currentDate.toLocaleDateString('ru-RU', { weekday: 'long' });\n        const dateStr = currentDate.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit' });\n\n        textMessage += `📅 <b>${dayOfWeek} (${dateStr}):</b>\\n`;\n        if (dayReport.count === 0 && dayReport.quarry_hours === 0) {\n            textMessage += 'Не было перевозок\\n\\n';\n        } else {\n            textMessage += `🚚 Количество рейсов: ${dayReport.count}\\n`;\n            textMessage += `🕑 Карьерные часы: ${dayReport.quarry_hours} ч\\n`;\n            textMessage += `💵 Заработок: ${dayReport.total} руб.\\n\\n`;\n        }\n\n        // Переходим к предыдущему дню\n        currentDate.setDate(currentDate.getDate() - 1);\n    }\n\n    return textMessage;\n}\n\n// Функция для получения отчета за месяц\nfunction getMonthlyReport(startDate, endDate) {\n    let totalCount = 0;\n    let totalQuarryHours = 0;\n    let totalEarnings = 0;\n\n    const start = resetTime(startDate);\n    const end = resetTime(endDate);\n\n    inputData.forEach(entry => {\n        const entryDate = resetTime(new Date(entry.date));\n\n        if (entryDate >= start && entryDate <= end) {\n            if (entry.total_count !== undefined && entry.total_earnings !== undefined) {\n                totalCount += entry.total_count;\n                totalEarnings += entry.total_earnings;\n            } else if (entry.quarry_hours !== undefined && entry.total !== undefined) {\n                totalQuarryHours += entry.quarry_hours;\n                totalEarnings += entry.total;\n            }\n        }\n    });\n\n    return {\n        count: totalCount,\n        quarry_hours: totalQuarryHours,\n        total: totalEarnings\n    };\n}\n\n// Определяем начало и конец текущего месяца\nconst startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);\nconst endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0); // Последний день месяца\n\n// Получаем отчет за текущий месяц\nconst currentMonthReport = getMonthlyReport(startOfMonth, today);\n\n// Проверка на вывод отчета за прошлый месяц\nlet previousMonthText = '';\nconst firstOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);\nconst isInFirstTenDays = today >= firstOfMonth && today < new Date(today.getFullYear(), today.getMonth(), 11, 5, 0, 0);\n\n// Если нужно вывести отчет за прошлый месяц\nif (isInFirstTenDays) {\n    const startOfPreviousMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);\n    const endOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0); // Последний день прошлого месяца\n\n    const previousMonthReport = getMonthlyReport(startOfPreviousMonth, endOfPreviousMonth);\n\n    previousMonthText = `\n📊 <b>Отчет за прошлый месяц</b>\n\n🚚 Количество рейсов: ${previousMonthReport.count}\n🕑 Карьерные часы: ${previousMonthReport.quarry_hours} ч\n💵 Заработок: ${previousMonthReport.total} руб.\\n`;\n}\n\n// Формируем отчет за текущую неделю\nlet textMessage = getCurrentWeekReport();\n\n// Формируем отчет за текущий месяц\nlet currentMonthText = `📊 <b>Отчет за текущий месяц</b>\n\n🚚 Количество рейсов: ${currentMonthReport.count}\n🕑 Карьерные часы: ${currentMonthReport.quarry_hours} ч\n💵 Заработок: ${currentMonthReport.total} руб.\\n`;\n\n// Добавляем месячные отчеты\ntextMessage += currentMonthText;\n\n// Добавляем отчет за прошлый месяц в самом конце, если это необходимо\nif (previousMonthText) {\n    textMessage += previousMonthText;\n}\n\n// Возвращаем результат в формате JSON\nreturn [\n    {\n        json: {\n            message: textMessage\n        }\n    }\n];\n"
+      },
+      "id": "671cde1c-7ac2-4dd5-90ed-f3bf8179f3de",
+      "name": "сортируем все данные, считаем итоги, преобразуем в сообщение",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2560,
+        1480
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.message.from.id }}",
+        "text": "={{ $json.message }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "За месяц",
+                    "additionalFields": {
+                      "callback_data": "month_stats_reply"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Назад",
+                    "additionalFields": {
+                      "callback_data": "after_stats"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "3714dd34-6912-4568-a046-2a0b7f808c54",
+      "name": "выводим недельную статистику",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2840,
+        1480
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "uEAhGHyixvUTbCGm",
+          "name": "tg serg"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "eef9efd5-c57b-4913-b7eb-ccb698c3bf29",
+      "name": "соединяем рейсы и работы",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        2260,
+        1480
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Недельная статистика",
+        "height": 429.7260581551303,
+        "width": 2105.433654111054
+      },
+      "id": "ce82adb4-a59a-4bb8-85a7-4f3009c4a275",
+      "name": "Sticky Note12",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        900,
+        1360
+      ]
     }
   ],
   "pinData": {
@@ -13890,6 +14192,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-09-25T10:00:07.736Z",
-  "versionId": "ea5a1147-ac3b-48c7-b2e2-ff452edb5c70"
+  "updatedAt": "2024-10-11T06:21:22.082Z",
+  "versionId": "a843a1ef-45f9-4593-b903-c9807ed8aa57"
 }
