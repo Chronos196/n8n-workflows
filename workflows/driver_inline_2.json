@@ -518,60 +518,6 @@
         ]
       ]
     },
-    "отмена рейсов": {
-      "main": [
-        [
-          {
-            "node": "сохраняем текст сообщения1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "прошлое сообщение1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "получим авто по водителю1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "получим авто по водителю1": {
-      "main": [
-        [
-          {
-            "node": "отмена рейса",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "отмена рейса": {
-      "main": [
-        [
-          {
-            "node": "Telegram",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Stop and Error",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "следующая перевозка": {
       "main": [
         [
@@ -598,6 +544,42 @@
         [
           {
             "node": "заявки по авто",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "отмена рейсов": {
+      "main": [
+        [
+          {
+            "node": "сохраняем текст сообщения1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "прошлое сообщение1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "прошлое сообщение3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "прошлое сообщение3": {
+      "main": [
+        [
+          {
+            "node": "статус=ввод комментария",
             "type": "main",
             "index": 0
           }
@@ -2486,8 +2468,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.1,
       "position": [
-        -80,
-        1820
+        -100,
+        1500
       ]
     },
     {
@@ -2943,7 +2925,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        580,
+        600,
         2120
       ],
       "credentials": {
@@ -2952,90 +2934,6 @@
           "name": "tg dev aleksey"
         }
       }
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "cancel_round",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "e14ed3b3-446f-4596-be20-58b9fdce7618",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "cancel_round_back",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "cda9535a-3ff4-446a-911f-edbe0d2f9750",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "cancel_round_accept",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "88fa122d-763e-433d-b232-30de454d18df",
-      "name": "отмена рейсов",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3.2,
-      "position": [
-        260,
-        2120
-      ]
     },
     {
       "parameters": {
@@ -3081,125 +2979,6 @@
       "position": [
         600,
         1920
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "rJQteGH5Ng1RKmF4",
-          "name": "tg dev aleksey"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://dev.everest.lamart.site/cancellation_round",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "cookie",
-              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "number_car",
-              "value": "={{ $json.number_car }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "a64aff90-efc4-4f9f-9eac-4bc89742182d",
-      "name": "отмена рейса",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        620,
-        2320
-      ],
-      "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "cars.cars",
-        "operation": "getAll",
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "driver_id",
-              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
-            }
-          ]
-        }
-      },
-      "id": "c72fa7f4-9faf-4f52-963b-9c504cb46640",
-      "name": "получим авто по водителю1",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        420,
-        2320
-      ],
-      "alwaysOutputData": true,
-      "credentials": {
-        "odooApi": {
-          "id": "ITgOrhO4Hf2QcDtf",
-          "name": "odoo dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "errorMessage": "cancel round problem"
-      },
-      "id": "41a314bd-bc80-4df5-be2b-e5721b589a18",
-      "name": "Stop and Error",
-      "type": "n8n-nodes-base.stopAndError",
-      "typeVersion": 1,
-      "position": [
-        860,
-        2480
-      ]
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
-        "text": "=Вы отменили рейс в перевозке: <b>{{ $json.current_route }}</b>",
-        "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Приступить к следующей перевозке",
-                    "additionalFields": {
-                      "callback_data": "transportation_to_tail"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {
-          "appendAttribution": false,
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "59f2354c-4fc2-446a-9fbf-cb787a5432ab",
-      "name": "Telegram",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        840,
-        2300
       ],
       "credentials": {
         "telegramApi": {
@@ -3297,7 +3076,7 @@
     {
       "parameters": {
         "content": "## Отмена рейсов",
-        "height": 730.3367794577941,
+        "height": 625.9423518573242,
         "width": 940.0523646774368,
         "color": 6
       },
@@ -3309,15 +3088,355 @@
         260,
         1860
       ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "cancel_round",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "e14ed3b3-446f-4596-be20-58b9fdce7618",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "cancel_round_back",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "cda9535a-3ff4-446a-911f-edbe0d2f9750",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "cancel_round_accept",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "88fa122d-763e-433d-b232-30de454d18df",
+      "name": "отмена рейсов",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        260,
+        2120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $json.callback_query.from.id }}",
+        "messageId": "={{ $json.callback_query.message.message_id }}",
+        "text": "=Напишите причину отмены рейса:",
+        "additionalFields": {}
+      },
+      "id": "d612b676-2f7d-44e4-8386-8f3d5d21a540",
+      "name": "прошлое сообщение3",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        520,
+        2300
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tg_id": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+            "status": "inputing_cancel_round_coment"
+          },
+          "matchingColumns": [
+            "tg_id"
+          ],
+          "schema": [
+            {
+              "id": "tg_id",
+              "displayName": "tg_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "only_mech",
+              "displayName": "only_mech",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mech_photo",
+              "displayName": "mech_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_id",
+              "displayName": "end_request_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "materials_photo",
+              "displayName": "materials_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_hours",
+              "displayName": "end_request_hours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "car_id_while_inputing",
+              "displayName": "car_id_while_inputing",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "fuel_liters",
+              "displayName": "fuel_liters",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "weight_measure",
+              "displayName": "weight_measure",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "logist_alert_text",
+              "displayName": "logist_alert_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "logist_recipient_name",
+              "displayName": "logist_recipient_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "transportation_for_certificate",
+              "displayName": "transportation_for_certificate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "count_weight_photo",
+              "displayName": "count_weight_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "count_weight_photo_sent",
+              "displayName": "count_weight_photo_sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "current_quarry_hours",
+              "displayName": "current_quarry_hours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_round_message_id",
+              "displayName": "end_round_message_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "last_message_text",
+              "displayName": "last_message_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "79150a08-2aa0-4d06-9547-10f9b00d996a",
+      "name": "статус=ввод комментария",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        740,
+        2300
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "xrihBpyZE5y4OBiy",
+          "name": "pg dev"
+        }
+      }
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100630088,
+          "update_id": 100630456,
           "callback_query": {
-            "id": "3010587259824945884",
+            "id": "3010587261916845541",
             "from": {
               "id": 700956969,
               "is_bot": false,
@@ -3326,7 +3445,7 @@
               "language_code": "ru"
             },
             "message": {
-              "message_id": 22435,
+              "message_id": 22815,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -3339,28 +3458,21 @@
                 "username": "Chronos196",
                 "type": "private"
               },
-              "date": 1728384232,
-              "edit_date": 1728385638,
-              "text": "Вы уверены, что хотите отменить текущий рейс?",
+              "date": 1728627559,
+              "text": "График на текущую неделю (07.10 - 13.10)\n\n11.10 пт: Выходной день\n12.10 сб: А 459 ТЕ - SCANIA - Рабочий день с продленкой",
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "Да",
-                      "callback_data": "cancel_round_accept"
-                    }
-                  ],
-                  [
-                    {
-                      "text": "Назад",
-                      "callback_data": "cancel_round_back"
+                      "text": "График за месяц",
+                      "callback_data": "month_schedule"
                     }
                   ]
                 ]
               }
             },
             "chat_instance": "1908726007480408494",
-            "data": "cancel_round_accept"
+            "data": "month_schedule"
           },
           "tg_id": "700956969",
           "odoo_id": 2,
@@ -3372,18 +3484,18 @@
           "end_request_hours": null,
           "car_id_while_inputing": 18,
           "fuel_liters": null,
-          "weight_measure": "10 м3 ",
+          "weight_measure": "12 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
           "count_weight_photo": null,
           "count_weight_photo_sent": null,
           "current_quarry_hours": 10,
-          "end_round_message_id": 22435,
+          "end_round_message_id": 22693,
           "last_message_text": "Отлично, рейс активен, по его завершению нажмите на кнопку \"Завершить рейс\"",
           "logist_notifications": false,
-          "cookie": "session_id=c7fbfbf0302169a89f96c1df45e4ae9ddb2610f1; Expires=Wed, 08 Oct 2025 11:09:15 GMT; Max-Age=604800; HttpOnly; Path=/",
-          "seconds": 1.642
+          "cookie": "session_id=aae8ebf8928c0e0afafe0ca03f185c9fa857740c; Expires=Sat, 11 Oct 2025 06:19:47 GMT; Max-Age=604800; HttpOnly; Path=/",
+          "seconds": 1.676
         }
       }
     ]
@@ -3404,6 +3516,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-10-08T12:26:34.371Z",
-  "versionId": "db888d79-2e0d-4b57-8024-29a35e522101"
+  "updatedAt": "2024-10-11T06:20:06.607Z",
+  "versionId": "0fd5d81d-9b6f-4d2b-b46d-83912731ef86"
 }
