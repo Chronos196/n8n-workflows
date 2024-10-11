@@ -862,11 +862,6 @@
         ]
       ]
     },
-    "фильтр от лишних уведомлений в чате": {
-      "main": [
-        []
-      ]
-    },
     "ветки для ролей": {
       "main": [
         [
@@ -1687,6 +1682,16 @@
                 "buttons": [
                   {
                     "text": "Заявки по авто",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Мой график",
                     "additionalFields": {}
                   }
                 ]
@@ -4057,39 +4062,6 @@
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "2ed3940a-2427-40e7-8024-081403f02a2f",
-              "leftValue": "={{ $json.message.chat.id }}",
-              "rightValue": -4161741739,
-              "operator": {
-                "type": "number",
-                "operation": "notEquals"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "a9d12305-352c-4d46-8989-6cb54dcafadc",
-      "name": "фильтр от лишних уведомлений в чате",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        -3300,
-        1240
-      ]
-    },
-    {
-      "parameters": {
         "rules": {
           "values": [
             {
@@ -4343,7 +4315,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Пример функции для краткого форматирования даты в формате число.месяц.год\nfunction formatDate(date) {\n  if (!date) return '';  // Если дата отсутствует, возвращаем пустую строку\n  return new Date(date).toLocaleDateString('ru-RU');  // Форматируем дату в формате дд.мм.гггг\n}\n\nconst oldValues = $('изменение данных в перевозке').all()[0].json.body.old_values;\nconst newValues = $('изменение данных в перевозке').all()[0].json.body.updated;\n\nlet output = 'Произошли изменения в перевозке <b>' + oldValues.place_from + ' - ' + oldValues.place_to + '</b>:\\n\\n';\n\nfunction createLine(oldValue, newValue, label, isDate = false) {\n  // Если нужно форматировать дату\n  if (isDate) {\n    oldValue = formatDate(oldValue);\n    newValue = formatDate(newValue);\n  }\n  \n  // Проверяем, если значение изменилось и новое значение не undefined\n  if (newValue !== undefined && oldValue !== newValue) {\n    return `${label}: <s>${oldValue}</s> - ${newValue}\\n`;\n  }\n  return '';\n}\n\n// Проверяем только изменённые поля, исключая undefined значения\noutput += createLine(oldValues.date, newValues.date, 'Дата', true);  // true указывает на форматирование даты\noutput += createLine(oldValues.place_from, newValues.place_from, 'От');\noutput += createLine(oldValues.place_to, newValues.place_to, 'До');\noutput += createLine(oldValues.sender, newValues.sender, 'Отправитель');\noutput += createLine(oldValues.partner, newValues.partner, 'Получатель');\noutput += createLine(oldValues.carrier, newValues.carrier, 'Перевозчик');\noutput += createLine(oldValues.type, newValues.type, 'Тип');\noutput += createLine(oldValues.end_condition, newValues.end_condition, 'Условие завершения');\n\n// Возвращаем итоговую строку\nreturn {\n  output\n};\n"
+        "jsCode": "// Пример функции для краткого форматирования даты в формате число.месяц.год\nfunction formatDate(date) {\n  if (!date) return date;  // Если дата отсутствует, возвращаем пустую строку\n  return new Date(date).toLocaleDateString('ru-RU');  // Форматируем дату в формате дд.мм.гггг\n}\n\nconst oldValues = $('изменение данных в перевозке').all()[0].json.body.old_values;\nconst newValues = $('изменение данных в перевозке').all()[0].json.body.updated;\n\nlet output = 'Произошли изменения в перевозке <b>' + oldValues.place_from + ' - ' + oldValues.place_to + '</b>:\\n\\n';\n\nfunction createLine(oldValue, newValue, label, isDate = false) {\n  // Если нужно форматировать дату\n  if (isDate) {\n    oldValue = formatDate(oldValue);\n    newValue = formatDate(newValue);\n  }\n  \n  // Проверяем, если значение изменилось и новое значение не undefined\n  if (newValue !== undefined && oldValue !== newValue) {\n    return `${label}: <s>${oldValue}</s> - ${newValue}\\n`;\n  }\n  return '';\n}\n\n// Проверяем только изменённые поля, исключая undefined значения\noutput += createLine(oldValues.date, newValues.date, 'Дата', true);  // true указывает на форматирование даты\noutput += createLine(oldValues.place_from, newValues.place_from, 'От');\noutput += createLine(oldValues.place_to, newValues.place_to, 'До');\noutput += createLine(oldValues.sender, newValues.sender, 'Отправитель');\noutput += createLine(oldValues.partner, newValues.partner, 'Получатель');\noutput += createLine(oldValues.carrier, newValues.carrier, 'Перевозчик');\noutput += createLine(oldValues.type, newValues.type, 'Тип');\noutput += createLine(oldValues.end_condition, newValues.end_condition, 'Условие завершения');\n\n// Возвращаем итоговую строку\nreturn {\n  output\n};\n"
       },
       "id": "68940e9b-1de4-4f93-8b10-242200c861f5",
       "name": "текст",
@@ -4711,11 +4683,11 @@
         "json": {
           "headers": {
             "host": "n8n.everest.lamart.site",
-            "x-real-ip": "193.107.238.124",
-            "x-forwarded-for": "193.107.238.124",
+            "x-real-ip": "80.87.105.202",
+            "x-forwarded-for": "80.87.105.202",
             "x-forwarded-proto": "https",
             "connection": "close",
-            "content-length": "654",
+            "content-length": "916",
             "user-agent": "python-requests/2.25.1",
             "accept-encoding": "gzip, deflate",
             "accept": "*/*",
@@ -4726,22 +4698,22 @@
           "query": {},
           "body": {
             "car_id": 18,
-            "transportation_id": 969,
+            "transportation_id": 888888,
             "updated": {
-              "date": "2024-10-04"
+              "end_condition": "По перевезенным кубометрам"
             },
             "old_values": {
-              "date": "2024-10-05",
+              "date": "2024-10-09",
               "end_condition": "В течении смены",
-              "sender": "ООО \"Компания\"",
-              "place_from": "Торг. порт",
+              "sender": "ООО \"ЭВЕРЕСТ\"",
+              "place_from": "карьер Приморский",
               "type": "Запланированная",
-              "partner": "ООО \"Компания\"",
-              "carrier": "Эверест",
-              "place_to": "Тест_1"
+              "partner": "ООО \"ЭВЕРЕСТ\"",
+              "carrier": "ООО \"ЭВЕРЕСТ\"",
+              "place_to": "Карьер Ключевое"
             }
           },
-          "webhookUrl": "https://n8n.everest.lamart.site/webhook/dev/update_transportation",
+          "webhookUrl": "https://n8n.everest.lamart.site/webhook/prod/update_transportation",
           "executionMode": "production"
         }
       }
@@ -4767,6 +4739,6 @@
     }
   ],
   "triggerCount": 5,
-  "updatedAt": "2024-10-06T16:47:36.833Z",
-  "versionId": "628e62b8-c6f8-4b5c-8906-a4ca433b9dc5"
+  "updatedAt": "2024-10-10T10:27:37.008Z",
+  "versionId": "b2a98b34-3f17-45bc-bc21-7808396fef87"
 }
