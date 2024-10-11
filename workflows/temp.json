@@ -1,106 +1,44 @@
 {
   "active": false,
   "connections": {
-    "When clicking ‘Test workflow’": {
+    "сегодняшняя дата": {
       "main": [
         [
           {
-            "node": "сегодня нулевой часовой пояс",
+            "node": "какой сегодня день недели?",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "сегодня нулевой часовой пояс": {
+    "какой сегодня день недели?": {
       "main": [
         [
           {
-            "node": "вчерашний день",
+            "node": "конец недели",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "нулевой пояс (полночь по владивостоку)": {
+    "конец недели": {
       "main": [
         [
           {
-            "node": "рейсы за сегодня",
+            "node": "графики",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "рейсы за сегодня": {
+    "Execute Workflow Trigger": {
       "main": [
         [
           {
-            "node": "есть рейсы за сегодня?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "есть рейсы за сегодня?": {
-      "main": [
-        [
-          {
-            "node": "счёт рейсов",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "форматируем1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "счёт рейсов": {
-      "main": [
-        [
-          {
-            "node": "форматируем",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "форматируем": {
-      "main": [
-        [
-          {
-            "node": "отправляем сообщение 2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "вчерашний день": {
-      "main": [
-        [
-          {
-            "node": "нулевой пояс (полночь по владивостоку)",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "форматируем1": {
-      "main": [
-        [
-          {
-            "node": "отправляем сообщение 2",
+            "node": "сегодняшняя дата",
             "type": "main",
             "index": 0
           }
@@ -116,82 +54,86 @@
   "name": "temp",
   "nodes": [
     {
-      "parameters": {},
-      "id": "ab5b4dd1-7944-4557-b2e3-0aff05eda220",
-      "name": "When clicking ‘Test workflow’",
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [
-        -60,
-        400
-      ]
-    },
-    {
       "parameters": {
-        "options": {
-          "timezone": "UTC"
-        }
+        "includeTime": false,
+        "options": {}
       },
-      "id": "fc91c419-1615-445d-8459-c7719d2108af",
-      "name": "сегодня нулевой часовой пояс",
+      "id": "364b9f55-a957-42f0-8215-15d8a0137315",
+      "name": "сегодняшняя дата",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        160,
-        400
+        280,
+        240
       ]
     },
     {
       "parameters": {
         "operation": "formatDate",
-        "date": "={{ $json.newDate }}",
+        "date": "={{ $json.currentDate }}",
         "format": "custom",
-        "customFormat": "yyyy-MM-dd 14:00:00",
+        "customFormat": "c",
         "options": {}
       },
-      "id": "a7aab1e7-d680-49ae-a0eb-3dc53712d809",
-      "name": "нулевой пояс (полночь по владивостоку)",
+      "id": "816b598a-ee3e-4e38-8431-ed6751cf95fc",
+      "name": "какой сегодня день недели?",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        600,
-        400
+        500,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "addToDate",
+        "magnitude": "={{ $('сегодняшняя дата').item.json.currentDate }}",
+        "duration": "={{ 7 - $json.formattedDate}}",
+        "options": {}
+      },
+      "id": "8833d6df-1510-4426-9732-0165e79f3158",
+      "name": "конец недели",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        720,
+        240
       ]
     },
     {
       "parameters": {
         "resource": "custom",
-        "customResource": "=transportation.round",
+        "customResource": "=driver.schedule",
         "operation": "getAll",
         "returnAll": true,
         "options": {},
         "filterRequest": {
           "filter": [
             {
-              "fieldName": "driver",
-              "value": "={{ 2 }}"
-            },
-            {
-              "fieldName": "status",
-              "value": "Завершен"
-            },
-            {
-              "fieldName": "time_of_end",
+              "fieldName": "date",
               "operator": "greaterOrEqual",
-              "value": "={{ $json.formattedDate }}"
+              "value": "={{ $('сегодняшняя дата').item.json.currentDate }}"
+            },
+            {
+              "fieldName": "date",
+              "operator": "lesserOrEqual",
+              "value": "={{ $json.newDate }}"
+            },
+            {
+              "fieldName": "driver",
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
             }
           ]
         }
       },
-      "id": "98d5a59c-0e3a-4981-a4da-153fa4a4198e",
-      "name": "рейсы за сегодня",
+      "id": "145fd26e-0802-425e-ac91-79947f0fe0b4",
+      "name": "графики",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        820,
-        400
+        940,
+        240
       ],
-      "alwaysOutputData": true,
       "credentials": {
         "odooApi": {
           "id": "ITgOrhO4Hf2QcDtf",
@@ -200,127 +142,75 @@
       }
     },
     {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "6e8334de-8c33-406e-adfb-2f8e35f2ccb4",
-              "leftValue": "={{ $json }}",
-              "rightValue": "",
-              "operator": {
-                "type": "object",
-                "operation": "notEmpty",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "6d958c57-310c-4965-9d6e-f4a420c1a1e9",
-      "name": "есть рейсы за сегодня?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        1040,
-        400
-      ]
-    },
-    {
-      "parameters": {
-        "fieldsToSummarize": {
-          "values": [
-            {
-              "field": "id"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "643feb4e-bc54-4707-9934-dca4a0503f8b",
-      "name": "счёт рейсов",
-      "type": "n8n-nodes-base.summarize",
+      "parameters": {},
+      "id": "ab5b4dd1-7944-4557-b2e3-0aff05eda220",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        1260,
-        280
-      ]
-    },
-    {
-      "parameters": {
-        "jsCode": "var data = $('создаём динамически инлайн кнопки2').all()[0].json;\ndata.message.text = 'Количество завершенных рейсов: ' + $('счёт рейсов').all()[0].json.count_id + '\\n' + data.message.text;\nreturn data;"
-      },
-      "id": "99047fc1-fa9f-4a73-940f-2141f2afcf1e",
-      "name": "форматируем",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1460,
-        280
-      ]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "={{ $json.url }}",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={{ $json.message }}",
-        "options": {}
-      },
-      "id": "b35eaa5b-92f9-4ccd-bccd-fd69b7a7c7ac",
-      "name": "отправляем сообщение 2",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        1660,
-        400
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "addToDate",
-        "magnitude": "={{ $json.currentDate }}",
-        "duration": -1,
-        "options": {}
-      },
-      "id": "73ddb426-c32b-4a82-92c9-41b0d91203b5",
-      "name": "вчерашний день",
-      "type": "n8n-nodes-base.dateTime",
-      "typeVersion": 2,
-      "position": [
-        380,
-        400
-      ]
-    },
-    {
-      "parameters": {
-        "jsCode": "var data = $('создаём динамически инлайн кнопки2').all()[0].json;\nreturn data;"
-      },
-      "id": "b86ee310-f16e-4eea-8259-f04f8925b1b4",
-      "name": "форматируем1",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1260,
-        460
+        20,
+        240
       ]
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Execute Workflow Trigger": [
+      {
+        "json": {
+          "update_id": 100630175,
+          "message": {
+            "message_id": 22522,
+            "from": {
+              "id": 700956969,
+              "is_bot": false,
+              "first_name": "Алексей",
+              "username": "Chronos196",
+              "language_code": "ru"
+            },
+            "chat": {
+              "id": 700956969,
+              "first_name": "Алексей",
+              "username": "Chronos196",
+              "type": "private"
+            },
+            "date": 1728455415,
+            "text": "123"
+          },
+          "tg_id": "700956969",
+          "odoo_id": 2,
+          "status": "inputing_cancel_round_coment",
+          "only_mech": false,
+          "mech_photo": false,
+          "end_request_id": null,
+          "materials_photo": false,
+          "end_request_hours": null,
+          "car_id_while_inputing": 18,
+          "fuel_liters": null,
+          "weight_measure": "12 м3 ",
+          "logist_alert_text": null,
+          "logist_recipient_name": null,
+          "transportation_for_certificate": null,
+          "count_weight_photo": null,
+          "count_weight_photo_sent": null,
+          "current_quarry_hours": 10,
+          "end_round_message_id": 22520,
+          "last_message_text": "Отлично, рейс активен, по его завершению нажмите на кнопку \"Завершить рейс\"",
+          "logist_notifications": false,
+          "cookie": "session_id=e94d6241ebb9f7ea57532ab3ae86ee741ba9f3b5; Expires=Thu, 09 Oct 2025 06:30:16 GMT; Max-Age=604800; HttpOnly; Path=/",
+          "seconds": 1.611
+        }
+      }
+    ]
+  },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "timezone": "Asia/Vladivostok",
+    "saveManualExecutions": false,
+    "callerPolicy": "workflowsFromSameOwner"
   },
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2024-10-07T11:02:14.618Z",
-  "versionId": "296cd286-0b60-4747-8c89-3fa34ced6842"
+  "updatedAt": "2024-10-10T10:49:08.523Z",
+  "versionId": "dca5c297-18da-4122-b074-5fc99d5ccf33"
 }
