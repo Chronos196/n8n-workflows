@@ -767,7 +767,7 @@
       "main": [
         [
           {
-            "node": "выводим месячную статистику",
+            "node": "разделение запроса и реплай и инлайн",
             "type": "main",
             "index": 0
           }
@@ -786,6 +786,24 @@
         [
           {
             "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "разделение запроса и реплай и инлайн": {
+      "main": [
+        [
+          {
+            "node": "выводим месячную статистику",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "выводим месячную статистику1",
             "type": "main",
             "index": 0
           }
@@ -3421,7 +3439,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Получаем входные данные через items\nconst inputData = items.map(item => item.json);\n\n// Задаем текущую дату с учетом часового пояса Владивостока\nconst today = new Date(); //'2024-10-12T00:00:00'\ntoday.setMinutes(today.getMinutes() + today.getTimezoneOffset() + (5 * 60)); // UTC +10 Владивосток\n\n// Функция для обнуления времени в дате\nfunction resetTime(date) {\n    const newDate = new Date(date);\n    newDate.setHours(0, 0, 0, 0); // Убираем компоненты времени\n    return newDate;\n}\n\n// Функция для фильтрации данных по дням\nfunction getDailyReport(date) {\n    let totalCount = 0;      // Количество рейсов\n    let totalQuarryHours = 0; // Карьерные часы\n    let totalEarnings = 0;    // Общий заработок за день\n\n    const resetDate = resetTime(date);\n\n    inputData.forEach(entry => {\n        const entryDate = resetTime(new Date(entry.date));\n\n        // Сравниваем даты без учета времени\n        if (entryDate.toISOString().split('T')[0] === resetDate.toISOString().split('T')[0]) {\n            if (entry.total_count !== undefined && entry.total_earnings !== undefined) {\n                totalCount += entry.total_count;  // Суммируем количество рейсов\n                totalEarnings += entry.total_earnings; // Суммируем заработок\n            } else if (entry.quarry_hours !== undefined && entry.total !== undefined) {\n                totalQuarryHours += entry.quarry_hours; // Суммируем карьерные часы\n                totalEarnings += entry.total; // Суммируем заработок за работы в карьере\n            }\n        }\n    });\n    return {\n        count: totalCount,\n        quarry_hours: totalQuarryHours,\n        total: totalEarnings\n    };\n}\n\n// Функция для получения отчета за неделю\nfunction getWeeklyReport(startDate, endDate) {\n    let totalCount = 0;\n    let totalQuarryHours = 0;\n    let totalEarnings = 0;\n\n    // Обнуляем время для начала и конца недели\n    const start = resetTime(startDate);\n    const end = resetTime(endDate);\n\n    inputData.forEach(entry => {\n        const entryDate = resetTime(new Date(entry.date));\n\n        // Включаем в расчет как начало, так и конец недели\n        if (entryDate >= start && entryDate <= end) {\n            if (entry.total_count !== undefined && entry.total_earnings !== undefined) {\n                totalCount += entry.total_count;\n                totalEarnings += entry.total_earnings;\n            } else if (entry.quarry_hours !== undefined && entry.total !== undefined) {\n                totalQuarryHours += entry.quarry_hours; // Считаем карьерные часы\n                totalEarnings += entry.total; // Суммируем заработок за работы в карьере\n            }\n        }\n    });\n    return {\n        count: totalCount,\n        quarry_hours: totalQuarryHours,\n        total: totalEarnings\n    };\n}\n\n// Функция для генерации недельных срезов (обратный порядок)\nfunction getWeeklySlices(startDate, endDate) {\n    let currentWeekStart = new Date(startDate);\n    let weeklyReports = [];\n    let totalWeeklyEarnings = 0; // Общий заработок за все недели\n\n    while (currentWeekStart <= endDate) {\n        let currentWeekEnd = new Date(currentWeekStart);\n        currentWeekEnd.setDate(currentWeekStart.getDate() + 6); // Конец недели (воскресенье)\n\n        if (currentWeekEnd > endDate) {\n            currentWeekEnd = new Date(endDate); // Если неделя выходит за пределы месяца, ограничиваем её последним днем\n        }\n\n        const report = getWeeklyReport(currentWeekStart, currentWeekEnd);\n        totalWeeklyEarnings += report.total; // Суммируем заработок с каждой недели\n\n        let weekText = `📅 <b>Неделя с ${currentWeekStart.toLocaleDateString('ru-RU')} по ${currentWeekEnd.toLocaleDateString('ru-RU')}:</b>\\n`;\n        weekText += `🚚 Количество рейсов: ${report.count}\\n`;\n        weekText += `🕑 Карьерные часы: ${report.quarry_hours} ч\\n`;\n        weekText += `💵 Заработок: ${report.total} руб.\\n\\n`;\n\n        // Добавляем отчет для недели в массив\n        weeklyReports.push(weekText);\n\n        // Переходим к следующей неделе\n        currentWeekStart.setDate(currentWeekStart.getDate() + 7);\n    }\n\n    // Возвращаем текст недель в обратном порядке и общий заработок за все недели\n    return {\n        weeklyText: weeklyReports.reverse().join(''),\n        totalWeeklyEarnings: totalWeeklyEarnings\n    };\n}\n\n// Функция для получения отчета за прошлый месяц\nfunction getPreviousMonthReport() {\n    const previousMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);\n    const endOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0); // Последний день предыдущего месяца\n    return getWeeklySlices(previousMonth, endOfPreviousMonth);\n}\n\n// Функция для получения отчета за текущий месяц до текущего дня\nfunction getCurrentMonthReport() {\n    const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);\n    return getWeeklySlices(startOfMonth, today);\n}\n\n// Функция для подсчета бонусов, штрафов и комментариев\nfunction getMonthlyBonusesAndFines(month) {\n    let bonusAmount = 0;\n    let fineAmount = 0;\n    let comments = [];\n\n    inputData.forEach(entry => {\n        const entryMonth = entry.date;\n\n        // Если месяц записи совпадает с переданным месяцем\n        if (entryMonth === month) {\n            if (entry.required_bonus_amount && entry.required_bonus_amount !== 0) {\n                bonusAmount += entry.required_bonus_amount; // Суммируем премии\n            }\n\n            if (entry.required_fine_amount && entry.required_fine_amount !== 0) {\n                fineAmount += entry.required_fine_amount; // Суммируем штрафы\n            }\n\n            if (entry.required_comment && entry.required_comment !== false) {\n                comments.push(entry.required_comment); // Добавляем комментарии\n            }\n        }\n    });\n\n    return {\n        bonus: bonusAmount,\n        fine: fineAmount,\n        comments: comments\n    };\n}\n\n// Основная логика выбора отчета\nlet textMessage = '';\nlet totalEarnings = 0;\n\n// Проверяем текущие дату и время с учетом часового пояса Владивостока\nconst dayOfMonth = today.getDate();\nconst hourOfDay = today.getHours();\n\n// Определяем текущий месяц в формате \"YYYY-MM\"\nconst currentMonth = `${today.getFullYear()}-${('0' + (today.getMonth() + 1)).slice(-2)}`;\n\n// Если день месяца с 1 по 11 и время до 5:00 по Владивостоку, показываем прошлый месяц\nif (dayOfMonth < 11 || (dayOfMonth === 11 && hourOfDay < 5)) {\n    // Отчет за прошлый месяц\n    textMessage += '📊 <b>Отчет за прошлый месяц</b>\\n\\n';\n    const report = getPreviousMonthReport();\n    textMessage += report.weeklyText;\n\n    // Премии и штрафы за прошлый месяц\n    const previousMonth = `${today.getFullYear()}-${('0' + today.getMonth()).slice(-2)}`; // Получаем предыдущий месяц\n    const bonusesAndFines = getMonthlyBonusesAndFines(previousMonth);\n\n    // Добавляем в отчет информацию о премиях, штрафах и комментариях\n    if (bonusesAndFines.bonus > 0) {\n        textMessage += `💰 Премия: ${bonusesAndFines.bonus} руб.\\n`;\n    }\n    if (bonusesAndFines.fine > 0) {\n        textMessage += `⚠️ Штраф: ${bonusesAndFines.fine} руб.\\n`;\n    }\n    if (bonusesAndFines.comments.length > 0) {\n        textMessage += `📝 Комментарии: ${bonusesAndFines.comments.join(', ')}\\n`;\n    }\n\n    // Подсчитываем итоговый заработок за прошлый месяц\n    totalEarnings = report.totalWeeklyEarnings + bonusesAndFines.bonus - bonusesAndFines.fine;\n} else {\n    // Отчет за текущий месяц\n    textMessage += '📊 <b>Отчет за текущий месяц</b>\\n\\n';\n    const report = getCurrentMonthReport();\n    textMessage += report.weeklyText;\n\n    // Премии и штрафы за текущий месяц\n    const bonusesAndFines = getMonthlyBonusesAndFines(currentMonth);\n\n    // Добавляем в отчет информацию о премиях, штрафах и комментариях\n    if (bonusesAndFines.bonus > 0) {\n        textMessage += `💰 Премия: ${bonusesAndFines.bonus} руб.\\n`;\n    }\n    if (bonusesAndFines.fine > 0) {\n        textMessage += `⚠️ Штраф: ${bonusesAndFines.fine} руб.\\n`;\n    }\n    if (bonusesAndFines.comments.length > 0) {\n        textMessage += `📝 Комментарии: ${bonusesAndFines.comments.join(', ')}\\n`;\n    }\n\n    // Подсчитываем итоговый заработок за текущий месяц\n    totalEarnings = report.totalWeeklyEarnings + bonusesAndFines.bonus - bonusesAndFines.fine;\n}\n\n// Сумма итогового заработка\nconst finalTotal = totalEarnings; // Суммируем заработок, премии и вычитаем штрафы\ntextMessage += `\\n💵 <b>Сумма итого: ${finalTotal} руб.</b>`;\n\n// Возвращаем результат в формате JSON\nreturn [\n    {\n        json: {\n            message: textMessage\n        }\n    }\n];"
+        "jsCode": "// Получаем входные данные через items\nconst inputData = items.map(item => item.json);\n\n// Задаем текущую дату с учетом часового пояса Владивостока\nconst today = new Date();//'2024-10-07T00:00:00'\ntoday.setMinutes(today.getMinutes() + today.getTimezoneOffset() + (5 * 60)); // UTC +10 Владивосток\n\n// Функция для обнуления времени в дате\nfunction resetTime(date) {\n    const newDate = new Date(date);\n    newDate.setHours(0, 0, 0, 0); // Убираем компоненты времени\n    return newDate;\n}\n\n// Функция для фильтрации данных по дням\nfunction getDailyReport(date) {\n    let totalCount = 0;      // Количество рейсов\n    let totalQuarryHours = 0; // Карьерные часы\n    let totalEarnings = 0;    // Общий заработок за день\n\n    const resetDate = resetTime(date);\n\n    inputData.forEach(entry => {\n        const entryDate = resetTime(new Date(entry.date));\n\n        // Сравниваем даты без учета времени\n        if (entryDate.toISOString().split('T')[0] === resetDate.toISOString().split('T')[0]) {\n            if (entry.total_count !== undefined && entry.total_earnings !== undefined) {\n                totalCount += entry.total_count;  // Суммируем количество рейсов\n                totalEarnings += entry.total_earnings; // Суммируем заработок\n            } else if (entry.quarry_hours !== undefined && entry.total !== undefined) {\n                totalQuarryHours += entry.quarry_hours; // Суммируем карьерные часы\n                totalEarnings += entry.total; // Суммируем заработок за работы в карьере\n            }\n        }\n    });\n    return {\n        count: totalCount,\n        quarry_hours: totalQuarryHours,\n        total: totalEarnings\n    };\n}\n\n// Функция для получения отчета за неделю\nfunction getWeeklyReport(startDate, endDate) {\n    let totalCount = 0;\n    let totalQuarryHours = 0;\n    let totalEarnings = 0;\n\n    const start = resetTime(startDate);\n    const end = resetTime(endDate);\n\n    inputData.forEach(entry => {\n        const entryDate = resetTime(new Date(entry.date));\n\n        if (entryDate >= start && entryDate <= end) {\n            if (entry.total_count !== undefined && entry.total_earnings !== undefined) {\n                totalCount += entry.total_count;\n                totalEarnings += entry.total_earnings;\n            } else if (entry.quarry_hours !== undefined && entry.total !== undefined) {\n                totalQuarryHours += entry.quarry_hours;\n                totalEarnings += entry.total;\n            }\n        }\n    });\n    return {\n        count: totalCount,\n        quarry_hours: totalQuarryHours,\n        total: totalEarnings\n    };\n}\n\n// Функция для генерации срезов недели, где срезы заканчиваются воскресеньем\nfunction getWeeklySlices(startDate, endDate) {\n    let currentWeekStart = new Date(startDate);\n    let weeklyReports = [];\n    let totalWeeklyEarnings = 0;\n\n    while (currentWeekStart <= endDate) {\n        let currentWeekEnd = new Date(currentWeekStart);\n\n        // Определяем день недели (0 - воскресенье, 6 - суббота)\n        const dayOfWeek = currentWeekStart.getDay();\n\n        // Если это первый день, и он не понедельник, делаем срез только за один день\n        if (dayOfWeek === 0) {\n            currentWeekEnd = new Date(currentWeekStart); // Воскресенье, срез за 1 день\n        } else {\n            currentWeekEnd.setDate(currentWeekStart.getDate() + (7 - dayOfWeek)); // Заканчиваем срез в воскресенье\n        }\n\n        if (currentWeekEnd > endDate) {\n            currentWeekEnd = new Date(endDate); // Ограничиваем конец недели последним днем\n        }\n\n        const report = getWeeklyReport(currentWeekStart, currentWeekEnd);\n        totalWeeklyEarnings += report.total;\n\n        let weekText = `📅 <b>Неделя с ${currentWeekStart.toLocaleDateString('ru-RU')} по ${currentWeekEnd.toLocaleDateString('ru-RU')}:</b>\\n`;\n        weekText += `🚚 Количество рейсов: ${report.count}\\n`;\n        weekText += `🕑 Карьерные часы: ${report.quarry_hours} ч\\n`;\n        weekText += `💵 Заработок: ${report.total} руб.\\n\\n`;\n\n        weeklyReports.push(weekText);\n        currentWeekStart.setDate(currentWeekEnd.getDate() + 1); // Начинаем следующую неделю\n    }\n\n    return {\n        weeklyText: weeklyReports.reverse().join(''),\n        totalWeeklyEarnings: totalWeeklyEarnings\n    };\n}\n\n// Функция для получения отчета за прошлый месяц\nfunction getPreviousMonthReport() {\n    const previousMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);\n    const endOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0); // Последний день предыдущего месяца\n    return getWeeklySlices(previousMonth, endOfPreviousMonth);\n}\n\n// Функция для получения отчета за текущий месяц до текущего дня\nfunction getCurrentMonthReport() {\n    const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);\n    return getWeeklySlices(startOfMonth, today);\n}\n\n// Функция для подсчета бонусов, штрафов и комментариев\nfunction getMonthlyBonusesAndFines(month) {\n    let bonusAmount = 0;\n    let fineAmount = 0;\n    let comments = [];\n\n    inputData.forEach(entry => {\n        const entryMonth = entry.date;\n\n        if (entryMonth === month) {\n            if (entry.required_bonus_amount && entry.required_bonus_amount !== 0) {\n                bonusAmount += entry.required_bonus_amount;\n            }\n\n            if (entry.required_fine_amount && entry.required_fine_amount !== 0) {\n                fineAmount += entry.required_fine_amount;\n            }\n\n            if (entry.required_comment && entry.required_comment !== false) {\n                comments.push(entry.required_comment);\n            }\n        }\n    });\n\n    return {\n        bonus: bonusAmount,\n        fine: fineAmount,\n        comments: comments\n    };\n}\n\n// Основная логика выбора отчета\nlet textMessage = '';\nlet totalEarnings = 0;\n\nconst dayOfMonth = today.getDate();\nconst hourOfDay = today.getHours();\n\nconst currentMonth = `${today.getFullYear()}-${('0' + (today.getMonth() + 1)).slice(-2)}`;\n\n// Если день месяца с 1 по 11 и время до 5:00 по Владивостоку, показываем прошлый месяц\nif (dayOfMonth < 11 || (dayOfMonth === 11 && hourOfDay < 5)) {\n    textMessage += '📊 <b>Отчет за прошлый месяц</b>\\n\\n';\n    const report = getPreviousMonthReport();\n    textMessage += report.weeklyText;\n\n    const previousMonth = `${today.getFullYear()}-${('0' + today.getMonth()).slice(-2)}`;\n    const bonusesAndFines = getMonthlyBonusesAndFines(previousMonth);\n\n    if (bonusesAndFines.bonus > 0) {\n        textMessage += `💰 Премия: ${bonusesAndFines.bonus} руб.\\n`;\n    }\n    if (bonusesAndFines.fine > 0) {\n        textMessage += `⚠️ Штраф: ${bonusesAndFines.fine} руб.\\n`;\n    }\n    if (bonusesAndFines.comments.length > 0) {\n        textMessage += `📝 Комментарии: ${bonusesAndFines.comments.join(', ')}\\n`;\n    }\n\n    totalEarnings = report.totalWeeklyEarnings + bonusesAndFines.bonus - bonusesAndFines.fine;\n} else {\n    textMessage += '📊 <b>Отчет за текущий месяц</b>\\n\\n';\n    const report = getCurrentMonthReport();\n    textMessage += report.weeklyText;\n\n    const bonusesAndFines = getMonthlyBonusesAndFines(currentMonth);\n\n    if (bonusesAndFines.bonus > 0) {\n        textMessage += `💰 Премия: ${bonusesAndFines.bonus} руб.\\n`;\n    }\n    if (bonusesAndFines.fine > 0) {\n        textMessage += `⚠️ Штраф: ${bonusesAndFines.fine} руб.\\n`;\n    }\n    if (bonusesAndFines.comments.length > 0) {\n        textMessage += `📝 Комментарии: ${bonusesAndFines.comments.join(', ')}\\n`;\n    }\n\n    totalEarnings = report.totalWeeklyEarnings + bonusesAndFines.bonus - bonusesAndFines.fine;\n}\n\nconst finalTotal = totalEarnings;\ntextMessage += `\\n💵 <b>Сумма итого: ${finalTotal} руб.</b>`;\n\nreturn [\n    {\n        json: {\n            message: textMessage\n        }\n    }\n];"
       },
       "id": "17e28fb3-5562-48d1-b5b2-f34065a5890a",
       "name": "формируем месячную статистику и преобразуем в сообщение",
@@ -3438,7 +3456,7 @@
         "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.from.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.message.message_id }}",
         "replyMarkup": "inlineKeyboard",
-        "text": "={{ $json.message }}",
+        "text": "={{ $('формируем месячную статистику и преобразуем в сообщение').item.json.message }}",
         "inlineKeyboard": {
           "rows": [
             {
@@ -3464,8 +3482,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2580,
-        2580
+        2840,
+        2440
       ],
       "credentials": {
         "telegramApi": {
@@ -3478,7 +3496,7 @@
       "parameters": {
         "content": "## Месячная статистика",
         "height": 674.7443857922335,
-        "width": 2278.387767737244
+        "width": 2513.100860240324
       },
       "id": "1e4dc488-bbef-4c66-86ee-ecd2148b8421",
       "name": "Sticky Note3",
@@ -3550,6 +3568,109 @@
       "position": [
         140,
         2640
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.from.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "={{ $('формируем месячную статистику и преобразуем в сообщение').item.json.message }}",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Назад",
+                    "additionalFields": {
+                      "callback_data": "stats"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "e349f579-0458-4ac3-95f5-e7c13c3e74ab",
+      "name": "выводим месячную статистику1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2840,
+        2660
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "uEAhGHyixvUTbCGm",
+          "name": "tg serg"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.data }}",
+                    "rightValue": "month_stats_reply",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "a038aa73-8510-436e-bd16-830bbc32976b",
+                    "leftValue": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.data }}",
+                    "rightValue": "month_stats_inline",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fd4cd343-6908-4184-ad0f-40401ddfa100",
+      "name": "разделение запроса и реплай и инлайн",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        2580,
+        2580
       ]
     }
   ],
@@ -3641,6 +3762,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-10-11T06:20:41.761Z",
-  "versionId": "eb0c0cb9-80ec-4b3f-b990-be0530fbe3cb"
+  "updatedAt": "2024-10-11T10:58:34.600Z",
+  "versionId": "15711bcb-2e2c-459c-9f27-7ab592808465"
 }
