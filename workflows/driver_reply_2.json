@@ -70,15 +70,9 @@
             "node": "конец недели",
             "type": "main",
             "index": 0
-          }
-        ]
-      ]
-    },
-    "конец недели": {
-      "main": [
-        [
+          },
           {
-            "node": "графики",
+            "node": "начало недели",
             "type": "main",
             "index": 0
           }
@@ -89,40 +83,7 @@
       "main": [
         [
           {
-            "node": "Sort",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Edit Fields": {
-      "main": [
-        [
-          {
-            "node": "Summarize",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Summarize": {
-      "main": [
-        [
-          {
-            "node": "Telegram1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Sort": {
-      "main": [
-        [
-          {
-            "node": "Edit Fields",
+            "node": "есть данные?",
             "type": "main",
             "index": 0
           }
@@ -170,6 +131,101 @@
         [
           {
             "node": "фильтр от лишних уведомлений в чате",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "конец недели": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "начало недели": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "графики",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "объединяем": {
+      "main": [
+        [
+          {
+            "node": "Telegram1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "по возрастанию": {
+      "main": [
+        [
+          {
+            "node": "создаём строку",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "есть данные?": {
+      "main": [
+        [
+          {
+            "node": "по возрастанию",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Telegram1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "создаём строку": {
+      "main": [
+        [
+          {
+            "node": "объединяем",
             "type": "main",
             "index": 0
           }
@@ -500,8 +556,8 @@
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        1160,
-        440
+        1180,
+        320
       ]
     },
     {
@@ -516,7 +572,7 @@
             {
               "fieldName": "date",
               "operator": "greaterOrEqual",
-              "value": "={{ $('сегодняшняя дата').item.json.currentDate }}"
+              "value": "={{ $json.beginOfWeek }}"
             },
             {
               "fieldName": "date",
@@ -535,120 +591,16 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        1380,
+        1580,
         440
       ],
+      "alwaysOutputData": true,
       "credentials": {
         "odooApi": {
           "id": "ITgOrhO4Hf2QcDtf",
           "name": "odoo dev"
         }
       }
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "e9355f27-7149-4cc4-8672-570d0fcf1912",
-              "name": "data",
-              "value": "={{ $json.date.toDateTime().setLocale('ru').format('dd.MM ccc') }}: {{ $json.day_type[1] == \"Выходной день\" ? \"\" : $json.car[1] + \" - \" }}{{ $json.day_type[1] }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "235ac72a-43d9-4485-8dc4-62d21d2d4880",
-      "name": "Edit Fields",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        1820,
-        440
-      ]
-    },
-    {
-      "parameters": {
-        "fieldsToSummarize": {
-          "values": [
-            {
-              "aggregation": "concatenate",
-              "field": "data",
-              "separateBy": "\n"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "f4762efb-4865-4840-ad64-097f96aa25b7",
-      "name": "Summarize",
-      "type": "n8n-nodes-base.summarize",
-      "typeVersion": 1,
-      "position": [
-        2040,
-        440
-      ]
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
-        "text": "=График на текущую неделю ({{ $('конец недели').item.json.endOfWeek.toDateTime().minus(6, 'days').format('dd.MM') }} - {{ $('конец недели').item.json.endOfWeek.toDateTime().format('dd.MM') }})\n\n{{ $json.concatenated_data }}",
-        "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "График за месяц",
-                    "additionalFields": {
-                      "callback_data": "month_schedule"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {
-          "appendAttribution": false
-        }
-      },
-      "id": "59bca3bb-17ef-4627-917c-343abe902fb1",
-      "name": "Telegram1",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        2240,
-        440
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "rJQteGH5Ng1RKmF4",
-          "name": "tg dev aleksey"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "sortFieldsUi": {
-          "sortField": [
-            {
-              "fieldName": "date"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "fbb0f925-aa44-43cc-bfdf-03873f73fb60",
-      "name": "Sort",
-      "type": "n8n-nodes-base.sort",
-      "typeVersion": 1,
-      "position": [
-        1600,
-        440
-      ]
     },
     {
       "parameters": {
@@ -808,6 +760,200 @@
         600,
         1020
       ]
+    },
+    {
+      "parameters": {
+        "operation": "subtractFromDate",
+        "magnitude": "={{ $('сегодняшняя дата').item.json.currentDate }}",
+        "duration": "={{ $json.formattedDate.toNumber() - 1 }}",
+        "outputFieldName": "beginOfWeek",
+        "options": {}
+      },
+      "id": "351c2248-1c34-460f-b18b-c2cf7f7a1624",
+      "name": "начало недели",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        1180,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "e16cafc2-f7b8-45e5-b294-54ba8ab7fcbc",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1380,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "concatenate",
+              "field": "data",
+              "separateBy": "\n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f4762efb-4865-4840-ad64-097f96aa25b7",
+      "name": "объединяем",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        2420,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "date"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fbb0f925-aa44-43cc-bfdf-03873f73fb60",
+      "name": "по возрастанию",
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        2000,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4940aeb3-5f27-40c5-8a52-202f6205ef49",
+              "leftValue": "={{ $json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "41d9824c-66fb-474b-bcdf-b6841de81d35",
+      "name": "есть данные?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1800,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "text": "=График на текущую неделю ({{ $('начало недели').item.json.beginOfWeek.toDateTime().format('dd.MM') }} - {{ $('конец недели').item.json.endOfWeek.toDateTime().format('dd.MM') }})\n\n{{ $json.concatenated_data }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "График за месяц",
+                    "additionalFields": {
+                      "callback_data": "month_schedule"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "59bca3bb-17ef-4627-917c-343abe902fb1",
+      "name": "Telegram1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2600,
+        520
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3f6926f9-2585-4381-b682-1c2958d4eb91",
+              "name": "concatenated_data",
+              "value": "Нет данных",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "df4d693d-6314-49ab-aec4-8dc63b27bf0a",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2000,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e9355f27-7149-4cc4-8672-570d0fcf1912",
+              "name": "data",
+              "value": "={{ $json.date.toDateTime().setLocale('ru').format('dd.MM ccc') }}: {{ $json.day_type[1] == \"Выходной день\" ? \"\" : $json.car[1] + \" - \" }}{{ $json.day_type[1] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "235ac72a-43d9-4485-8dc4-62d21d2d4880",
+      "name": "создаём строку",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2200,
+        300
+      ]
     }
   ],
   "pinData": {
@@ -875,6 +1021,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-10-10T13:29:53.045Z",
-  "versionId": "ee6e29d4-b96a-4927-977a-fd4147bd86e9"
+  "updatedAt": "2024-10-11T07:52:49.827Z",
+  "versionId": "149289ed-37ee-46ee-8122-90ad0450b757"
 }
