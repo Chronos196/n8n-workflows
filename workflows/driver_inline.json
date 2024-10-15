@@ -696,7 +696,7 @@
       "main": [
         [
           {
-            "node": "Подтверждение завершения",
+            "node": "сохраняем текст сообщения1",
             "type": "main",
             "index": 0
           }
@@ -2011,7 +2011,7 @@
       "main": [
         [
           {
-            "node": "начатый рейс",
+            "node": "метры или тонны?1",
             "type": "main",
             "index": 0
           }
@@ -3241,7 +3241,7 @@
         ],
         [
           {
-            "node": "метры или тонны?",
+            "node": "получаем odoo id8",
             "type": "main",
             "index": 0
           }
@@ -3335,17 +3335,6 @@
         [
           {
             "node": "поиск тг айди логистов",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "начатый рейс": {
-      "main": [
-        [
-          {
-            "node": "выполняющиеся рейсы1",
             "type": "main",
             "index": 0
           }
@@ -3693,6 +3682,75 @@
           },
           {
             "node": "Получение работ в карьере2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "метры или тонны?1": {
+      "main": [
+        [
+          {
+            "node": "начатый рейс м3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "начатый рейс тонны",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "начатый рейс без условий",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "начатый рейс м3": {
+      "main": [
+        [
+          {
+            "node": "выполняющиеся рейсы1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "начатый рейс тонны": {
+      "main": [
+        [
+          {
+            "node": "выполняющиеся рейсы1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "начатый рейс без условий": {
+      "main": [
+        [
+          {
+            "node": "выполняющиеся рейсы1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "сохраняем текст сообщения1": {
+      "main": [
+        [
+          {
+            "node": "Подтверждение завершения",
             "type": "main",
             "index": 0
           }
@@ -4109,52 +4167,6 @@
         -720,
         1920
       ]
-    },
-    {
-      "parameters": {
-        "operation": "editMessageText",
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
-        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
-        "replyMarkup": "inlineKeyboard",
-        "text": "Вы уверены, что готовы завершить рейс?",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Завершить",
-                    "additionalFields": {
-                      "callback_data": "material_volume"
-                    }
-                  },
-                  {
-                    "text": "Назад",
-                    "additionalFields": {
-                      "callback_data": "back_pick"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {}
-      },
-      "id": "1d581f18-8e3a-4075-97c0-6e6a210ffbec",
-      "name": "Подтверждение завершения",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        960,
-        1520
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "rJQteGH5Ng1RKmF4",
-          "name": "tg dev aleksey"
-        }
-      }
     },
     {
       "parameters": {
@@ -14562,61 +14574,6 @@
     },
     {
       "parameters": {
-        "operation": "editMessageText",
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
-        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
-        "replyMarkup": "inlineKeyboard",
-        "text": "Отлично, рейс активен, по его завершению нажмите на кнопку <b><i>\"Завершить рейс\"</i></b>",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Завершить рейс",
-                    "additionalFields": {
-                      "callback_data": "Finish"
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Отменить рейс",
-                    "additionalFields": {
-                      "callback_data": "cancel_round"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "261e63f8-d395-467b-ae88-fcfb667c339b",
-      "name": "начатый рейс",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        760,
-        480
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "rJQteGH5Ng1RKmF4",
-          "name": "tg dev aleksey"
-        }
-      },
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
         "resource": "custom",
         "customResource": "cars.cars",
         "operation": "getAll",
@@ -15088,6 +15045,18 @@
                   }
                 ]
               }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Завершить смену",
+                    "additionalFields": {
+                      "callback_data": "complete_work"
+                    }
+                  }
+                ]
+              }
             }
           ]
         },
@@ -15436,6 +15405,18 @@
                   }
                 ]
               }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Завершить смену",
+                    "additionalFields": {
+                      "callback_data": "complete_work"
+                    }
+                  }
+                ]
+              }
             }
           ]
         },
@@ -15500,6 +15481,18 @@
                     "text": "Приступить к перевозке",
                     "additionalFields": {
                       "callback_data": "accept"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Завершить смену",
+                    "additionalFields": {
+                      "callback_data": "complete_work"
                     }
                   }
                 ]
@@ -17945,7 +17938,7 @@
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
         "replyMarkup": "inlineKeyboard",
-        "text": "Отлично, рейс активен, по его завершению нажмите на кнопку <b><i>\"Завершить рейс\"</i></b>",
+        "text": "={{ $json.last_message_text }}",
         "inlineKeyboard": {
           "rows": [
             {
@@ -20778,6 +20771,512 @@
         -140,
         6700
       ]
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "=Отлично, рейс активен. \n<i>\n{{ $json.place_from[1] }} - {{ $json.place_to[1] }}\n{{ $json.material[1] }}\nОстаток кубометров по текущей перевозке - {{ $json.diff_cubic_metre }}\n</i>\nПо его завершению нажмите на кнопку <b><i>\"Завершить рейс\"</i></b>",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Завершить рейс",
+                    "additionalFields": {
+                      "callback_data": "Finish"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Отменить рейс",
+                    "additionalFields": {
+                      "callback_data": "cancel_round"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "31a2d8a5-e2fb-44b4-82fd-612e91584fe9",
+      "name": "начатый рейс м3",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        840,
+        180
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "=Отлично, рейс активен. \n<i>\n{{ $json.place_from[1] }} - {{ $json.place_to[1] }}\n{{ $json.material[1] }}\nОстаток по текущей перевозке - {{ $json.diff_ton }} т.\n</i>\nПо его завершению нажмите на кнопку <b><i>\"Завершить рейс\"</i></b>",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Завершить рейс",
+                    "additionalFields": {
+                      "callback_data": "Finish"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Отменить рейс",
+                    "additionalFields": {
+                      "callback_data": "cancel_round"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "05ed3e38-0162-4cd8-8d4d-1f83b19c464a",
+      "name": "начатый рейс тонны",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        840,
+        340
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "=Отлично, рейс активен. \n<i>\n{{ $json.place_from[1] }} - {{ $json.place_to[1] }}\n{{ $json.material[1] }}\n</i>\nПо его завершению нажмите на кнопку <b><i>\"Завершить рейс\"</i></b>",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Завершить рейс",
+                    "additionalFields": {
+                      "callback_data": "Finish"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Отменить рейс",
+                    "additionalFields": {
+                      "callback_data": "cancel_round"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "235cff23-26da-474b-80f1-c4211b987bc8",
+      "name": "начатый рейс без условий",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        840,
+        500
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.end_condition }}",
+                    "rightValue": "По перевезенным кубометрам",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "966f91de-5633-4f42-947f-f1ea75b1d289",
+                    "leftValue": "={{ $json.end_condition }}",
+                    "rightValue": "По перевезенным тоннам",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "dce7fb44-553b-47d3-a044-166efc3e770a",
+      "name": "метры или тонны?1",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        540,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "Вы уверены, что готовы завершить рейс?",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Завершить",
+                    "additionalFields": {
+                      "callback_data": "material_volume"
+                    }
+                  },
+                  {
+                    "text": "Назад",
+                    "additionalFields": {
+                      "callback_data": "back_pick"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "id": "cdf13aee-047a-461c-adc7-84f27329fb4c",
+      "name": "Подтверждение завершения",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        1140,
+        1520
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tg_id": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
+            "last_message_text": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.text }}"
+          },
+          "matchingColumns": [
+            "tg_id"
+          ],
+          "schema": [
+            {
+              "id": "tg_id",
+              "displayName": "tg_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "only_mech",
+              "displayName": "only_mech",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mech_photo",
+              "displayName": "mech_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_id",
+              "displayName": "end_request_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "materials_photo",
+              "displayName": "materials_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_hours",
+              "displayName": "end_request_hours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "car_id_while_inputing",
+              "displayName": "car_id_while_inputing",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "fuel_liters",
+              "displayName": "fuel_liters",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "weight_measure",
+              "displayName": "weight_measure",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "logist_alert_text",
+              "displayName": "logist_alert_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "logist_recipient_name",
+              "displayName": "logist_recipient_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "transportation_for_certificate",
+              "displayName": "transportation_for_certificate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "count_weight_photo",
+              "displayName": "count_weight_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "count_weight_photo_sent",
+              "displayName": "count_weight_photo_sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "current_quarry_hours",
+              "displayName": "current_quarry_hours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_round_message_id",
+              "displayName": "end_round_message_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "last_message_text",
+              "displayName": "last_message_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d07e8bad-09fe-4e20-b8f2-12f42cfed37d",
+      "name": "сохраняем текст сообщения1",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        960,
+        1520
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "xrihBpyZE5y4OBiy",
+          "name": "pg dev"
+        }
+      }
     }
   ],
   "pinData": {
@@ -20871,6 +21370,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-10-11T14:17:51.906Z",
-  "versionId": "c2b016a6-4ad8-43a9-874f-8f71dd81be26"
+  "updatedAt": "2024-10-15T08:25:40.412Z",
+  "versionId": "9d5bf9f8-d63a-4041-a043-6245ab55b916"
 }
