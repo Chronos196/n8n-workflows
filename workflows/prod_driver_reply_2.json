@@ -1,0 +1,1023 @@
+{
+  "active": false,
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "текст",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "отмена рейса": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Stop and Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получим авто по водителю1": {
+      "main": [
+        [
+          {
+            "node": "отмена рейса",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram": {
+      "main": [
+        [
+          {
+            "node": "возвращаем статус2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "сегодняшняя дата": {
+      "main": [
+        [
+          {
+            "node": "какой сегодня день недели?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "какой сегодня день недели?": {
+      "main": [
+        [
+          {
+            "node": "конец недели",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "начало недели",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "графики": {
+      "main": [
+        [
+          {
+            "node": "есть данные?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "текст": {
+      "main": [
+        [
+          {
+            "node": "сегодняшняя дата",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "статусы",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "фильтр от лишних уведомлений в чате": {
+      "main": [
+        [
+          {
+            "node": "Неизвестная команда",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "статусы": {
+      "main": [
+        [
+          {
+            "node": "получим авто по водителю1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "фильтр от лишних уведомлений в чате",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "конец недели": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "начало недели": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "графики",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "объединяем": {
+      "main": [
+        [
+          {
+            "node": "Telegram1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "по возрастанию": {
+      "main": [
+        [
+          {
+            "node": "создаём строку",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "есть данные?": {
+      "main": [
+        [
+          {
+            "node": "по возрастанию",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Telegram1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "создаём строку": {
+      "main": [
+        [
+          {
+            "node": "объединяем",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2024-10-13T18:02:03.960Z",
+  "id": "vmigFdWajPQnRemB",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "prod_driver_reply_2",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "4f3c48bb-a5ac-4ecd-85ce-3d7f4018aa31",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1420,
+        780
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://everest.lamart.site/cancellation_round",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number_car",
+              "value": "={{ $json.number_car }}"
+            },
+            {
+              "name": "comment",
+              "value": "={{ $('Execute Workflow Trigger').item.json.message.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "cc93ebeb-c1c7-4c8d-8de3-dde3f896755f",
+      "name": "отмена рейса",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -480,
+        1000
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "cars.cars",
+        "operation": "getAll",
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "driver_id",
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
+            }
+          ]
+        }
+      },
+      "id": "3651eccc-6ca9-4059-87b3-9f55fa64eeb5",
+      "name": "получим авто по водителю1",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        -680,
+        1000
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "8fI2woAI3HZ7dHDv",
+          "name": "Odoo production"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "errorMessage": "cancel round problem"
+      },
+      "id": "ba983ef3-7f1a-482f-a7f2-42fb07eb4797",
+      "name": "Stop and Error",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        1160
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "text": "=Вы отменили рейс в перевозке: <b>{{ $json.current_route }}</b>",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Приступить к следующей перевозке",
+                    "additionalFields": {
+                      "callback_data": "transportation_to_tail"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "f93f389e-7c4e-4704-953c-585912c6d083",
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -260,
+        980
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "s2yURwRj0JIo9urH",
+          "name": "Everest production"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Отмена рейса",
+        "height": 381.28274062358184,
+        "width": 741.0356895064125,
+        "color": 6
+      },
+      "id": "0db7d78b-d8f4-4de9-8a68-65fdb2511d33",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -700,
+        940
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tg_id": "={{ $json.result.chat.id }}",
+            "status": "authorized"
+          },
+          "matchingColumns": [
+            "tg_id"
+          ],
+          "schema": [
+            {
+              "id": "tg_id",
+              "displayName": "tg_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "only_mech",
+              "displayName": "only_mech",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mech_photo",
+              "displayName": "mech_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_id",
+              "displayName": "end_request_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "materials_photo",
+              "displayName": "materials_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_hours",
+              "displayName": "end_request_hours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f60fe3c0-787b-43ae-951c-a1c2a420d759",
+      "name": "возвращаем статус2",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        -60,
+        980
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "cMlKL7XYShZtUnqo",
+          "name": "Everest production"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "includeTime": false,
+        "options": {}
+      },
+      "id": "70f43a3e-d1f3-47a9-9c33-dd353a461b85",
+      "name": "сегодняшняя дата",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        -820,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $json.currentDate }}",
+        "format": "custom",
+        "customFormat": "c",
+        "options": {}
+      },
+      "id": "7e536636-c0e8-4baa-ad2d-e2860d433df9",
+      "name": "какой сегодня день недели?",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        -600,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "addToDate",
+        "magnitude": "={{ $('сегодняшняя дата').item.json.currentDate }}",
+        "duration": "={{ 7 - $json.formattedDate}}",
+        "outputFieldName": "endOfWeek",
+        "options": {}
+      },
+      "id": "5a8846ee-fec7-4193-8c9d-953fc60e2917",
+      "name": "конец недели",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        -360,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "=driver.schedule",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "date",
+              "operator": "greaterOrEqual",
+              "value": "={{ $json.beginOfWeek }}"
+            },
+            {
+              "fieldName": "date",
+              "operator": "lesserOrEqual",
+              "value": "={{ $json.endOfWeek }}"
+            },
+            {
+              "fieldName": "driver",
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
+            }
+          ]
+        }
+      },
+      "id": "cad55c63-d071-48bd-8e1d-06cd5cf2db1f",
+      "name": "графики",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        40,
+        600
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "8fI2woAI3HZ7dHDv",
+          "name": "Odoo production"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d164d5d7-2d76-4582-a31e-61fdb8757af4",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "Мой график",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "e9d2e376-70fd-40c1-b4b1-aa86142efcff",
+      "name": "текст",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -1140,
+        780
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "text": "Неизвестная команда",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "bc28a40a-a94a-49dd-9b79-03b11ebad1c6",
+      "name": "Неизвестная команда",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        -420,
+        1460
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "s2yURwRj0JIo9urH",
+          "name": "Everest production"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2ed3940a-2427-40e7-8024-081403f02a2f",
+              "leftValue": "={{ $json.message.chat.id }}",
+              "rightValue": -1002392592613,
+              "operator": {
+                "type": "number",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "53722016-4708-4b2b-b5ad-2a0341811c58",
+      "name": "фильтр от лишних уведомлений в чате",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -700,
+        1480
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "inputing_cancel_round_coment",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "99953d9a-98f9-494c-8ef9-8898fa8c7070",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "authorized",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2d206515-ee80-4326-a197-bd01d1b2120d",
+      "name": "статусы",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -940,
+        1180
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "subtractFromDate",
+        "magnitude": "={{ $('сегодняшняя дата').item.json.currentDate }}",
+        "duration": "={{ $json.formattedDate.toNumber() - 1 }}",
+        "outputFieldName": "beginOfWeek",
+        "options": {}
+      },
+      "id": "8cc28e56-e50f-4a9e-9882-2db36e2c0705",
+      "name": "начало недели",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        -360,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "b17c84a0-69fa-41a8-aeed-59e46a02d462",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        -160,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "concatenate",
+              "field": "data",
+              "separateBy": "\n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a5973a1d-9af2-4c5f-93b3-a9b55fd6962c",
+      "name": "объединяем",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        880,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "date"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f5eedc86-878b-4580-9288-1a01726daa0f",
+      "name": "по возрастанию",
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        460,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4940aeb3-5f27-40c5-8a52-202f6205ef49",
+              "leftValue": "={{ $json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "da7b8b28-45cc-44ab-bb63-97df78e2dc8b",
+      "name": "есть данные?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        260,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "text": "=График на текущую неделю ({{ $('начало недели').item.json.beginOfWeek.toDateTime().format('dd.MM') }} - {{ $('конец недели').item.json.endOfWeek.toDateTime().format('dd.MM') }})\n\n{{ $json.concatenated_data }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "График за месяц",
+                    "additionalFields": {
+                      "callback_data": "month_schedule"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "09107f0d-59be-4282-97a4-0df45aaff38d",
+      "name": "Telegram1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1060,
+        680
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "s2yURwRj0JIo9urH",
+          "name": "Everest production"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3f6926f9-2585-4381-b682-1c2958d4eb91",
+              "name": "concatenated_data",
+              "value": "Нет данных",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "801ef9c0-679c-47b7-bde3-a3b903a170a2",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        460,
+        680
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e9355f27-7149-4cc4-8672-570d0fcf1912",
+              "name": "data",
+              "value": "={{ $json.date.toDateTime().setLocale('ru').format('dd.MM ccc') }}: {{ $json.day_type[1] == \"Выходной день\" ? \"\" : $json.car[1] + \" - \" }}{{ $json.day_type[1] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7a304a5c-3495-4873-86aa-b55cb738d08d",
+      "name": "создаём строку",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        660,
+        460
+      ]
+    }
+  ],
+  "pinData": {
+    "Execute Workflow Trigger": [
+      {
+        "json": {
+          "update_id": 100630349,
+          "message": {
+            "message_id": 22697,
+            "from": {
+              "id": 700956969,
+              "is_bot": false,
+              "first_name": "Алексей",
+              "username": "Chronos196",
+              "language_code": "ru"
+            },
+            "chat": {
+              "id": 700956969,
+              "first_name": "Алексей",
+              "username": "Chronos196",
+              "type": "private"
+            },
+            "date": 1728557637,
+            "text": "Мой график"
+          },
+          "tg_id": "700956969",
+          "odoo_id": 2,
+          "status": "authorized",
+          "only_mech": false,
+          "mech_photo": false,
+          "end_request_id": null,
+          "materials_photo": false,
+          "end_request_hours": null,
+          "car_id_while_inputing": 18,
+          "fuel_liters": null,
+          "weight_measure": "12 м3 ",
+          "logist_alert_text": null,
+          "logist_recipient_name": null,
+          "transportation_for_certificate": null,
+          "count_weight_photo": null,
+          "count_weight_photo_sent": null,
+          "current_quarry_hours": 10,
+          "end_round_message_id": 22693,
+          "last_message_text": "Отлично, рейс активен, по его завершению нажмите на кнопку \"Завершить рейс\"",
+          "logist_notifications": false,
+          "cookie": "session_id=0d929c6178be0a2dce3eac64b64347fd45aead9f; Expires=Fri, 10 Oct 2025 10:53:59 GMT; Max-Age=604800; HttpOnly; Path=/",
+          "seconds": 2.675
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2024-08-26T14:50:05.418Z",
+      "updatedAt": "2024-08-26T14:50:05.418Z",
+      "id": "6aWMzdObOVIXsJ6y",
+      "name": "production"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2024-10-13T18:02:08.989Z",
+  "versionId": "acd2a127-34d1-47a4-85e8-48e872389334"
+}
