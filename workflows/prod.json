@@ -886,17 +886,6 @@
         ]
       ]
     },
-    "Telegram Trigger1": {
-      "main": [
-        [
-          {
-            "node": "авторизация",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "изменение данных в перевозке": {
       "main": [
         [
@@ -907,10 +896,21 @@
           }
         ]
       ]
+    },
+    "Telegram Trigger1": {
+      "main": [
+        [
+          {
+            "node": "авторизация",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "createdAt": "2024-10-06T17:00:39.746Z",
-  "id": "AfUFLPsT4jXEgMmn",
+  "createdAt": "2024-10-13T17:58:21.917Z",
+  "id": "QXcxlJumUOoN40Lk",
   "meta": {
     "templateCredsSetupCompleted": true
   },
@@ -924,13 +924,13 @@
           "queryReplacement": "={{ \n  $('Telegram Trigger1').item.json.message?.from.id !== undefined \n  ? $('Telegram Trigger1').item.json.message.from.id \n  : $('Telegram Trigger1').item.json.callback_query.from.id \n}}"
         }
       },
-      "id": "00937ee0-c4fc-444f-9573-e814f7d4151c",
+      "id": "1b045ad6-06d7-4f39-aa78-fb8e3fdff320",
       "name": "добавляет пользователя, если не существует",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        -2180,
-        1380
+        -2380,
+        1540
       ],
       "credentials": {
         "postgres": {
@@ -963,13 +963,13 @@
         },
         "options": {}
       },
-      "id": "be2fe9d9-93ed-490c-8a17-938dc5d8e39b",
+      "id": "5cdd9feb-5694-4aef-8afd-3b50dd718746",
       "name": "есть ли статус",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -1780,
-        1380
+        -1980,
+        1540
       ]
     },
     {
@@ -996,13 +996,13 @@
         },
         "options": {}
       },
-      "id": "267f16e5-057c-4e1e-aac6-8450c91aa1d7",
+      "id": "87798e6a-7fde-46f1-9bfa-db45ba39bad0",
       "name": "получаем первый статус",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        -1980,
-        1380
+        -2180,
+        1540
       ],
       "credentials": {
         "postgres": {
@@ -1069,13 +1069,13 @@
         },
         "options": {}
       },
-      "id": "ce638811-66f8-444b-9832-5a616974370a",
+      "id": "21873ded-1f2f-4674-bb03-3d0b94ace510",
       "name": "меняем статус",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        -1580,
-        1500
+        -1780,
+        1660
       ],
       "credentials": {
         "postgres": {
@@ -1108,13 +1108,13 @@
         },
         "options": {}
       },
-      "id": "ee21450b-bcf2-49a6-aabf-c3124a9ec3d0",
+      "id": "56e05e3b-7fdc-4ed2-9ce1-a8aceb0cdeeb",
       "name": "актуальный статус",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        -1340,
-        1360
+        -1540,
+        1520
       ],
       "credentials": {
         "postgres": {
@@ -1180,13 +1180,13 @@
         },
         "options": {}
       },
-      "id": "6ddd7e2d-209e-4176-81ea-c834c16ab097",
+      "id": "c54e7ab0-e97e-4625-bda5-0f69054b4d17",
       "name": "меняем статус1",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        -680,
-        500
+        -880,
+        660
       ],
       "credentials": {
         "postgres": {
@@ -1223,13 +1223,13 @@
           "appendAttribution": false
         }
       },
-      "id": "84f6bd15-465f-4893-a49b-11baa143e813",
+      "id": "311707e1-9e56-4471-b651-e6cb0e77ec14",
       "name": "отправляем кнопку контакта",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        -420,
-        500
+        -620,
+        660
       ],
       "credentials": {
         "telegramApi": {
@@ -1262,13 +1262,13 @@
         },
         "options": {}
       },
-      "id": "78c59b6d-1e57-41f5-94d3-3666efd857e2",
+      "id": "ac736bb4-791f-4abc-84c0-5c66baacc484",
       "name": "проверка нажатия кнопки контакта",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -675,
-        700
+        -875,
+        860
       ]
     },
     {
@@ -1289,13 +1289,13 @@
           ]
         }
       },
-      "id": "3a17ff0a-f6c9-4b3f-9f75-2910d53f1144",
+      "id": "7cec8629-5604-453d-99ba-051a0b084cad",
       "name": "получаем id по mobile_phone",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -255,
-        700
+        -455,
+        860
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -1329,13 +1329,13 @@
         },
         "options": {}
       },
-      "id": "639c5964-66e3-4d5e-83d5-5a50d895df64",
+      "id": "7dae785e-61a8-4e4c-a964-96b3ffe8919c",
       "name": "проверяем наличие",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -75,
-        700
+        -275,
+        860
       ]
     },
     {
@@ -1346,13 +1346,13 @@
           "appendAttribution": false
         }
       },
-      "id": "3e784fbc-6d45-4f77-a333-9786987da8e6",
+      "id": "2f1c0441-d747-4551-b510-7947faada224",
       "name": "пишем, что номера нет",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        165,
-        820
+        -35,
+        980
       ],
       "credentials": {
         "telegramApi": {
@@ -1420,13 +1420,13 @@
         },
         "options": {}
       },
-      "id": "66f300ff-2ef5-4f76-a526-2c44730f6659",
+      "id": "f0fdaff7-8fc1-432f-83da-fdbfc9626c2a",
       "name": "меняем статус на \"авторизован\"",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        180,
-        600
+        -20,
+        760
       ],
       "credentials": {
         "postgres": {
@@ -1442,13 +1442,13 @@
         "width": 1591.8393730343007,
         "color": 6
       },
-      "id": "81f3b7ca-0727-4aec-87f7-210d50164a5c",
+      "id": "b782745a-f90f-4b14-9aba-dc19eba22ac9",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -720,
-        380
+        -920,
+        540
       ]
     },
     {
@@ -1475,13 +1475,13 @@
         },
         "options": {}
       },
-      "id": "e475701c-85ee-444b-bdd1-b7040e891158",
+      "id": "75eb1f2b-e24a-4687-9252-65f8655345b6",
       "name": "Проверка типа входных данных",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        460,
-        1720
+        260,
+        1880
       ]
     },
     {
@@ -1492,13 +1492,13 @@
         "customResourceId": "={{ $json.odoo_id }}",
         "options": {}
       },
-      "id": "a825b376-2c5b-4610-bbe2-78448089423f",
+      "id": "50fee9fe-f5f2-4493-8e24-d5ee17978bd2",
       "name": "получаем роль",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -640,
-        1540
+        -840,
+        1700
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -1515,13 +1515,13 @@
         "width": 727.3089586054689,
         "color": 6
       },
-      "id": "c6a1ead2-5e86-45d3-b88a-8a35dbe9f979",
+      "id": "79966bc1-091c-493a-8c93-726a6329444d",
       "name": "Sticky Note12",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -680,
-        1460
+        -880,
+        1620
       ]
     },
     {
@@ -1571,13 +1571,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "2c494c17-b10f-41c3-aecd-8e4458d0a61e",
+      "id": "00f61a60-ff49-42a7-8e2a-7bb278e80824",
       "name": "логист",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        660,
-        300
+        460,
+        460
       ],
       "credentials": {
         "telegramApi": {
@@ -1642,6 +1642,16 @@
                   }
                 ]
               }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Мой график",
+                    "additionalFields": {}
+                  }
+                ]
+              }
             }
           ]
         },
@@ -1653,13 +1663,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "30a77965-c455-4055-b914-64d730c36e13",
+      "id": "4613fbc3-d79d-49f2-ac5e-bc54030e985e",
       "name": "водитель",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        740,
-        500
+        540,
+        660
       ],
       "credentials": {
         "telegramApi": {
@@ -1695,13 +1705,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "70227252-135b-4c0c-990f-4858327d69ea",
+      "id": "b0ceafdb-1ce1-4169-ae49-c31e2066204c",
       "name": "механик",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        840,
-        360
+        640,
+        520
       ],
       "credentials": {
         "telegramApi": {
@@ -1717,13 +1727,13 @@
         "width": 857.69326295068,
         "color": 6
       },
-      "id": "ab9d8bcf-bcdc-4d39-8380-a6cc2b1aeafe",
+      "id": "14318fa3-87df-457d-b9ce-dd09f0338862",
       "name": "Sticky Note20",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -2240,
-        1300
+        -2440,
+        1460
       ]
     },
     {
@@ -1754,13 +1764,13 @@
           "appendAttribution": false
         }
       },
-      "id": "d680bccd-06e3-450f-9dd9-ce90d974de75",
+      "id": "daa67b14-a791-47b4-a33c-02f9f421a302",
       "name": "не ввели контакт",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        -420,
-        900
+        -620,
+        1060
       ],
       "credentials": {
         "telegramApi": {
@@ -1777,13 +1787,13 @@
           "appendAttribution": false
         }
       },
-      "id": "5c070194-4e40-49bc-8daf-5c8e62ec3207",
+      "id": "945c0d6d-b74d-4f9b-84fa-de0e85c74ceb",
       "name": "Нет роли",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        -20,
-        2040
+        -220,
+        2200
       ],
       "credentials": {
         "telegramApi": {
@@ -1806,13 +1816,13 @@
         },
         "options": {}
       },
-      "id": "4c4dc2e5-f61a-48a0-a6ca-5ed033fe9af5",
+      "id": "83fecf37-ef62-4d52-a949-d5f1d4a4602b",
       "name": "номер телефона",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        -415,
-        700
+        -615,
+        860
       ]
     },
     {
@@ -1823,13 +1833,13 @@
           "appendAttribution": false
         }
       },
-      "id": "52230b4a-dddb-48df-918a-aef678d93273",
+      "id": "fea3f2a0-dc59-4215-a95a-b2c0b1f51491",
       "name": "нет роли",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        540,
-        960
+        340,
+        1120
       ],
       "credentials": {
         "telegramApi": {
@@ -1853,55 +1863,55 @@
           }
         }
       },
-      "id": "45ea32a7-1326-41b3-ae87-d649df2fcd1b",
+      "id": "d6afe4cd-7654-4cd4-acd1-19d97605581a",
       "name": "авторизация",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        -2440,
-        1380
+        -2640,
+        1540
       ]
     },
     {
       "parameters": {
-        "workflowId": "lRAjM9xSDGaOJriv",
+        "workflowId": "pLd9IaX6KWIJHfBz",
         "options": {}
       },
-      "id": "ceb73c24-fc4a-4574-824c-5c0f7bab4cf0",
+      "id": "08bb25ec-3f90-4e01-9bf6-48bbfa5100c8",
       "name": "воркфлоу ЛОГИСТ",
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1,
       "position": [
-        340,
-        1260
+        140,
+        1420
       ]
     },
     {
       "parameters": {
-        "workflowId": "pATJVqufAGVpogm2",
+        "workflowId": "oYXPzroLpvh71lL8",
         "options": {}
       },
-      "id": "1fe56292-eed1-4150-a18d-ee23591f09dd",
+      "id": "063648e0-1b43-4eb2-a581-7803e30cd1ad",
       "name": "воркфлоу МЕХАНИК",
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1,
       "position": [
-        340,
-        1440
+        140,
+        1600
       ]
     },
     {
       "parameters": {
-        "workflowId": "xRXdXUtzumdRpMGW",
+        "workflowId": "p13WURYJVLsCIqa6",
         "options": {}
       },
-      "id": "38157b05-af1c-4d86-b6cd-64f7cb31960b",
+      "id": "bb40ed0a-b0c2-49e6-9a15-e6c045dc8d38",
       "name": "воркфлоу ВОДИТЕЛЬ_РЕПЛАЙ",
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1,
       "position": [
-        1020,
-        2280
+        820,
+        2440
       ]
     },
     {
@@ -1958,27 +1968,27 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "044e5475-bcc5-4537-b945-db4dfacea38f",
+      "id": "ed31497b-2017-4e79-a14a-7c429ad09425",
       "name": "проверка статуса авторизации1",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        -1040,
-        1360
+        -1240,
+        1520
       ]
     },
     {
       "parameters": {
-        "workflowId": "UHgpdMd8GBquqpRB",
+        "workflowId": "bWDcwDtBd0tePbO4",
         "options": {}
       },
-      "id": "bd8ca7db-1d2b-4d81-84c9-faaebeefa043",
+      "id": "79f48fc0-39e9-4dda-976d-96f507910a28",
       "name": "воркфлоу ВОДИТЕЛЬ_ИНЛАЙН",
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1,
       "position": [
-        740,
-        1880
+        540,
+        2040
       ]
     },
     {
@@ -1988,26 +1998,26 @@
         "width": 991.3552023907823,
         "color": 6
       },
-      "id": "b260392c-6edf-4105-a5d1-29e625721b41",
+      "id": "a2849c87-2a7f-4f01-98c8-3b396820b448",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        300,
-        1620
+        100,
+        1780
       ]
     },
     {
       "parameters": {
         "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nvar res = {};\n\nfor (const item of $input.all()) {\n  Object.assign(res, $('Telegram Trigger1').item.json);\n  Object.assign(res, $('актуальный статус').item.json);\n  Object.assign(res, { cookie: $('авторизация').item.json.headers['set-cookie'][0] });\n}\n\nreturn res;"
       },
-      "id": "6bacc447-b72d-4bec-a238-4081676d3095",
+      "id": "532d8bda-6b6e-43f8-b346-f0d54a3a0739",
       "name": "склеиваем данные",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -420,
-        1540
+        -620,
+        1700
       ]
     },
     {
@@ -2064,27 +2074,27 @@
         },
         "options": {}
       },
-      "id": "680baf8e-271c-49b3-8196-8d2ed72abce2",
+      "id": "b09a0c10-9505-457d-a375-b358ee4c606c",
       "name": "Проверка медиа",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        840,
-        1720
+        640,
+        1880
       ]
     },
     {
       "parameters": {
-        "workflowId": "vUZCMupYZrufjoAp",
+        "workflowId": "4Cdk8CJIcoAswej4",
         "options": {}
       },
-      "id": "cb9c870c-4aa8-4724-b211-49f3307e1ad8",
+      "id": "d20583d8-5617-4684-9c47-5d2d284bdff2",
       "name": "воркфлоу ВОДИТЕЛЬ МЕДИА",
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1,
       "position": [
-        1100,
-        1700
+        900,
+        1860
       ]
     },
     {
@@ -2100,13 +2110,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "29cde827-deab-42a9-88fa-0e9fdbef953e",
+      "id": "dac9aec9-c1da-47bf-b84d-0ca27b92c68c",
       "name": "диспетчер",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        920,
-        560
+        720,
+        720
       ],
       "credentials": {
         "telegramApi": {
@@ -2117,16 +2127,16 @@
     },
     {
       "parameters": {
-        "workflowId": "jv7n3SzXEG8zrGjf",
+        "workflowId": "uXIMdAYVHQh9SfS3",
         "options": {}
       },
-      "id": "b924da50-c220-4a05-93f0-d81dcc356d45",
+      "id": "1d2f1f85-175b-41fd-a2e4-3f5dab86ada2",
       "name": "воркфлоу ДИСПЕТЧЕР",
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1,
       "position": [
-        120,
-        1760
+        -80,
+        1920
       ]
     },
     {
@@ -2136,13 +2146,13 @@
         "width": 1212.5764986840902,
         "color": 6
       },
-      "id": "94c43262-3a19-48a2-9044-151678035f38",
+      "id": "50b6ab6a-8a25-49c1-9a8c-4f787f064d5b",
       "name": "Sticky Note21",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -4200,
-        1860
+        -4400,
+        2020
       ],
       "disabled": true
     },
@@ -2156,13 +2166,13 @@
           ]
         }
       },
-      "id": "f4eef513-62b4-4f39-8688-a4757048ef35",
+      "id": "bd4f6a1d-98e8-40ce-91ed-4db2ed6a3e0d",
       "name": "Schedule Trigger3",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.1,
       "position": [
-        -4160,
-        2420
+        -4360,
+        2580
       ]
     },
     {
@@ -2172,13 +2182,13 @@
         "duration": 7,
         "options": {}
       },
-      "id": "72be20ea-3a24-4bb3-8fd0-7751c2f5408c",
+      "id": "ad89642a-9ead-4434-a73c-7d158eec0244",
       "name": "дата через неделю1",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        -3980,
-        2420
+        -4180,
+        2580
       ]
     },
     {
@@ -2203,13 +2213,13 @@
           ]
         }
       },
-      "id": "57bccbbb-823f-43bb-961b-677a832112f9",
+      "id": "f97fee2f-7d42-4d7e-8cb1-e30545ce8ca8",
       "name": "документы с истекающим сроком1",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -3780,
-        2420
+        -3980,
+        2580
       ],
       "credentials": {
         "odooApi": {
@@ -2223,13 +2233,13 @@
         "language": "python",
         "pythonCode": "# Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor item in _input.all():\n    days = abs(item.json.timeDifference)\n    if days % 100 // 10 == 1:\n        item.json.sklonenie = \"дней\"\n    elif days % 10 == 1:\n        item.json.sklonenie = \"день\"\n    elif days % 10 in [2, 3, 4]:\n        item.json.sklonenie = \"дня\"\n    else:\n        item.json.sklonenie = \"дней\"\nreturn _input.all()"
       },
-      "id": "7ac33a52-5d0e-4687-866c-23f23c7c4a45",
+      "id": "3792a690-6b08-4f84-a0a4-a6ecfe2fa914",
       "name": "склоняем1",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -2940,
-        2580
+        -3140,
+        2740
       ]
     },
     {
@@ -2246,13 +2256,13 @@
         },
         "options": {}
       },
-      "id": "5eaf924b-2681-4bbe-8991-794d7fc14909",
+      "id": "042e9946-1cc3-4c54-91e0-2217079310df",
       "name": "округляем1",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        -3300,
-        2420
+        -3500,
+        2580
       ]
     },
     {
@@ -2262,13 +2272,13 @@
         "endDate": "={{ $json.expiration_date }}",
         "options": {}
       },
-      "id": "2b77b3fc-0f39-4604-89be-7315694054fe",
+      "id": "021545a7-6e9b-4011-9fbd-c6763cb62572",
       "name": "разница в днях1",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        -3540,
-        2420
+        -3740,
+        2580
       ]
     },
     {
@@ -2277,13 +2287,13 @@
         "combinationMode": "mergeByPosition",
         "options": {}
       },
-      "id": "7ab40a7a-7dec-4d89-ad64-37b6b13051ff",
+      "id": "5adaca86-a03a-4178-9d3d-b9a33e90ee3e",
       "name": "объединяем доки+дата с разницей во времени1",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        -3140,
-        2580
+        -3340,
+        2740
       ]
     },
     {
@@ -2300,13 +2310,13 @@
         },
         "options": {}
       },
-      "id": "07f03148-770c-4239-baa0-21e771497609",
+      "id": "c544cd1d-b378-450f-baa5-9dc83d701abc",
       "name": "склеиваем1",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        -2720,
-        2580
+        -2920,
+        2740
       ]
     },
     {
@@ -2322,13 +2332,13 @@
         },
         "options": {}
       },
-      "id": "05b52cd3-d624-4fe5-986d-a0bc13af7388",
+      "id": "b4ebb09d-c815-427c-b312-bca7e60d6c56",
       "name": "объединяем1",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        -2500,
-        2580
+        -2700,
+        2740
       ]
     },
     {
@@ -2338,13 +2348,13 @@
         "width": 2525.6327042306157,
         "color": 6
       },
-      "id": "34227177-9ed6-41dd-9f96-e8ec6c74053a",
+      "id": "d259f67b-cc1f-43ec-8751-c11ee386f0d5",
       "name": "Sticky Note8",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -4220,
-        2300
+        -4420,
+        2460
       ],
       "disabled": true
     },
@@ -2357,13 +2367,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "a3c57b72-9da3-4d9d-98a0-05f23de9b5e8",
+      "id": "98425293-a776-42d9-b463-056da65e5cb0",
       "name": "отправка сообщения1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        -1840,
-        2580
+        -2040,
+        2740
       ],
       "credentials": {
         "telegramApi": {
@@ -2390,13 +2400,13 @@
         "jsonBody": "={\n  \"number_car\": \"{{ $('поиск текущего авто1').item.json.number_car }}\"\n}  ",
         "options": {}
       },
-      "id": "02e7e271-b231-47ee-87e2-1015fd423314",
+      "id": "f534bc52-aa03-42ef-8789-3f66778b4db6",
       "name": "получение перевозок4",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        -2000,
-        3060
+        -2200,
+        3220
       ],
       "onError": "continueErrorOutput"
     },
@@ -2415,13 +2425,13 @@
           ]
         }
       },
-      "id": "1cd8ce62-1264-4a38-a07c-06394fbc1a5a",
+      "id": "f388ee13-d38b-46b8-b1b5-fc4efdb93f22",
       "name": "поиск текущего авто1",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -2400,
-        3060
+        -2600,
+        3220
       ],
       "credentials": {
         "odooApi": {
@@ -2434,13 +2444,13 @@
       "parameters": {
         "jsCode": "const items = $input.all();\n\nlet allItems = [];\n\nfor (let i = 0; i < items.length; i++) {\n    const { transportations, full_quarry_work } = items[i].json;\n\n    if (transportations && Array.isArray(transportations)) {\n        allItems = allItems.concat(transportations);\n    }\n    if (full_quarry_work && Array.isArray(full_quarry_work)) {\n        allItems = allItems.concat(full_quarry_work);\n    }\n}\n\nallItems = allItems.filter(item => item.hasOwnProperty('sequence'));\nallItems.sort((a, b) => a.sequence - b.sequence);\n\nreturn allItems.map(item => ({ json: item }));\n"
       },
-      "id": "5707e878-0161-4198-8e24-c91d3779e525",
+      "id": "0a7b784f-cd3f-4acd-98e9-38c198c96493",
       "name": "Сортировка перевозок и работ в карьере",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1720,
-        3060
+        -1920,
+        3220
       ],
       "alwaysOutputData": true
     },
@@ -2468,13 +2478,13 @@
         },
         "options": {}
       },
-      "id": "a52596d9-bb21-406b-8420-b97da483d96d",
+      "id": "7f25ea73-9978-41dc-a680-d6f8152de15f",
       "name": "есть ли перевозка1",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -1520,
-        3060
+        -1720,
+        3220
       ]
     },
     {
@@ -2492,13 +2502,13 @@
           ]
         }
       },
-      "id": "8ed31820-f143-4847-93ee-3574d0694d51",
+      "id": "fcea4ca0-5156-4654-8f23-c2606e8f3b67",
       "name": "данные авто1",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -980,
-        3100
+        -1180,
+        3260
       ],
       "credentials": {
         "odooApi": {
@@ -2527,13 +2537,13 @@
           ]
         }
       },
-      "id": "80d8cd9c-bd22-40cf-a336-1518ad5b07b7",
+      "id": "d0d2b26f-990b-4fc2-aa50-fd50f41593ce",
       "name": "данные карточек1",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -3680,
-        3080
+        -3880,
+        3240
       ],
       "credentials": {
         "odooApi": {
@@ -2544,24 +2554,24 @@
     },
     {
       "parameters": {},
-      "id": "ec8ad22d-ee48-4361-9947-298cbef62b71",
+      "id": "03eadb34-9ebe-430b-9ade-dfdfa5364beb",
       "name": "Limit",
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        -2580,
-        3060
+        -2780,
+        3220
       ]
     },
     {
       "parameters": {},
-      "id": "4377b1ad-f209-4938-aab8-03af6cddf023",
+      "id": "f88ad3e3-6ba2-4f24-ae22-36711de00ed6",
       "name": "объединяем в один список",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        -2780,
-        3060
+        -2980,
+        3220
       ]
     },
     {
@@ -2588,13 +2598,13 @@
         },
         "options": {}
       },
-      "id": "ca635455-8137-48c9-8b19-fe3012f57549",
+      "id": "da2f06ee-a19c-483d-848f-2eba7b32d355",
       "name": "айди водителя1",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        -780,
-        3100
+        -980,
+        3260
       ],
       "credentials": {
         "postgres": {
@@ -2618,26 +2628,26 @@
           }
         }
       },
-      "id": "970a9ca8-988b-4370-a4b6-8aa8fbb7a11c",
+      "id": "ebc9fdaf-b1ba-42c8-bc3c-3f551199537f",
       "name": "авторизация1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        -2200,
-        3060
+        -2400,
+        3220
       ]
     },
     {
       "parameters": {
         "errorMessage": "123"
       },
-      "id": "369497ae-a359-4657-832b-89a5aca68c27",
+      "id": "be6ab49b-dca3-4012-826f-2157146448f2",
       "name": "Stop and Error1",
       "type": "n8n-nodes-base.stopAndError",
       "typeVersion": 1,
       "position": [
-        -3920,
-        3260
+        -4120,
+        3420
       ],
       "disabled": true
     },
@@ -2646,13 +2656,13 @@
         "fieldToSplitOut": "body.resequenced_data",
         "options": {}
       },
-      "id": "5720f116-58d0-4b06-a848-67a932c9bb6c",
+      "id": "0137fd95-8dd9-44ef-8ab1-c342a24cdedb",
       "name": "получим карточки очереди1",
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        -3900,
-        3080
+        -4100,
+        3240
       ]
     },
     {
@@ -2670,13 +2680,13 @@
           ]
         }
       },
-      "id": "ebaa9273-62e2-4068-86bb-8ebc7451a9aa",
+      "id": "1a0dada4-54f4-4b9b-b0cc-c4b682209feb",
       "name": "данные перевозок2",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -3460,
-        3140
+        -3660,
+        3300
       ],
       "credentials": {
         "odooApi": {
@@ -2709,13 +2719,13 @@
         },
         "options": {}
       },
-      "id": "0357fb1b-011e-486b-a8d6-e30071d90d50",
+      "id": "47bf474b-ca92-40d7-8ed4-208ed3dae60c",
       "name": "сегодняшняя дата2",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2,
       "position": [
-        -3240,
-        3140
+        -3440,
+        3300
       ]
     },
     {
@@ -2742,13 +2752,13 @@
         },
         "options": {}
       },
-      "id": "42b30240-a2e3-47e9-b910-3a319a4b2e5c",
+      "id": "af4d0830-8462-4add-a020-962e7fcb907a",
       "name": "если не пустой2",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -3040,
-        3140
+        -3240,
+        3300
       ]
     },
     {
@@ -2757,13 +2767,13 @@
         "height": 394.06284454438725,
         "width": 1522.0410589173039
       },
-      "id": "ac97c174-31a8-4963-b472-a5f1f3cf4200",
+      "id": "56fe99e4-d766-44b3-a02f-052a56a4d73b",
       "name": "Sticky Note3",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -3980,
-        2920
+        -4180,
+        3080
       ]
     },
     {
@@ -2773,13 +2783,13 @@
         "width": 1816.0380574058086,
         "color": 5
       },
-      "id": "4c181200-30d3-4f3f-8633-a3fb54c17cc0",
+      "id": "304849a5-64a9-4ce3-832c-a94b8e794084",
       "name": "Sticky Note4",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -2440,
-        2920
+        -2640,
+        3080
       ]
     },
     {
@@ -2789,13 +2799,13 @@
         "width": 3601.576194341455,
         "color": 6
       },
-      "id": "a36e02f1-e6f6-4c31-8961-14809a69ed15",
+      "id": "3e639e8b-95cf-48ea-b5ce-9e85700e654b",
       "name": "Sticky Note5",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -4200,
-        2860
+        -4400,
+        3020
       ]
     },
     {
@@ -2822,13 +2832,13 @@
         },
         "options": {}
       },
-      "id": "635ab567-fa88-4346-b761-6020bc3ee7b9",
+      "id": "9816f6e4-1bbd-46f2-9956-aca460b5e254",
       "name": "сегодняшняя дата1",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2,
       "position": [
-        -3240,
-        3000
+        -3440,
+        3160
       ],
       "alwaysOutputData": false
     },
@@ -2856,13 +2866,13 @@
         },
         "options": {}
       },
-      "id": "91de3d7f-c1f5-4a5e-8ac9-54baba642603",
+      "id": "f7cdb48a-c64a-4014-bd3f-8df6a2e0f650",
       "name": "если не пустой1",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -3040,
-        3000
+        -3240,
+        3160
       ]
     },
     {
@@ -2880,13 +2890,13 @@
           ]
         }
       },
-      "id": "020f8e2e-def3-4192-9d11-51207590e9c5",
+      "id": "a05a2619-2913-404f-a8bd-7c2aed76549f",
       "name": "данные работ",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -3460,
-        3000
+        -3660,
+        3160
       ],
       "alwaysOutputData": false,
       "credentials": {
@@ -2913,13 +2923,13 @@
           ]
         }
       },
-      "id": "b4e83852-1984-48a1-8a5d-a4eaf65c98b1",
+      "id": "329fd38e-e733-4fa6-ba9e-56046616942f",
       "name": "поиск механиков+диспетчеров",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -2280,
-        2580
+        -2480,
+        2740
       ],
       "credentials": {
         "odooApi": {
@@ -2953,13 +2963,13 @@
         },
         "options": {}
       },
-      "id": "fd459b13-dcb7-4e50-88d9-b2053f47e9af",
+      "id": "84568b02-0ad1-40b4-b5e4-9edc69af3eb3",
       "name": "айди диспетчеров+механиков",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        -2060,
-        2580
+        -2260,
+        2740
       ],
       "credentials": {
         "postgres": {
@@ -3175,13 +3185,13 @@
         },
         "options": {}
       },
-      "id": "f75c200e-37e6-45ee-8784-d68fd3f80365",
+      "id": "cb904ad1-5b0c-49b4-a10d-109e7b24f521",
       "name": "айди последнего сообщения",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        900,
-        2840
+        700,
+        3000
       ],
       "credentials": {
         "postgres": {
@@ -3198,13 +3208,13 @@
         "text": "={{ $('пересылаем, чтобы получить текст прошлого сообщения').item.json.result.reply_to_message.text }}",
         "additionalFields": {}
       },
-      "id": "7bfcf719-aeec-4a89-b233-7a227e162398",
+      "id": "85def1f4-6cd6-4c1d-a8a6-813e9b2c38d0",
       "name": "Убираем кнопки",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1120,
-        2840
+        920,
+        3000
       ],
       "credentials": {
         "telegramApi": {
@@ -3225,13 +3235,13 @@
           "reply_to_message_id": "={{ $json.end_round_message_id }}"
         }
       },
-      "id": "e5b2192a-ac4e-46dc-a7ff-efb3ae587b11",
+      "id": "f559901f-acbd-4bbf-be7b-46d8d5006f6d",
       "name": "пересылаем, чтобы получить текст прошлого сообщения",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -500,
-        2960
+        -700,
+        3120
       ],
       "credentials": {
         "telegramApi": {
@@ -3245,13 +3255,13 @@
       "parameters": {
         "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const data = item.json;\n\n  const isQuarryWork = data.quarry && data.quarry.length > 1;\n\n  let message = \"\";\n\n  if (isQuarryWork) {\n    const quarry = data.quarry[1];\n    const requiredHours = data.required_hours || 0;\n    const comment = data.comment;\n\n    message = `<b>${index}.</b> Работа в карьере - <b>${quarry}</b>`;\n    if (data.end_condition === \"По часам\") {\n      message += `\\nНеобходимое количество часов - <b>${requiredHours}</b>`;\n    }\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    message += `\\n\\n`;\n  } else {\n    const sender = data.sender && data.sender.length > 1 ? data.sender[1] : \"\";\n    const partner = data.partner && data.partner.length > 1 ? data.partner[1] : \"\";\n    const placeFrom = data.place_from && data.place_from.length > 1 ? data.place_from[1] : \"\";\n    const placeTo = data.place_to && data.place_to.length > 1 ? data.place_to[1] : \"\";\n    const material = data.material && data.material.length > 1 ? data.material[1] : \"\";\n    const comment = data.comment;\n    const endCondition = data.end_condition;\n    const requiredCubicMetre = data.required_cubic_metre || 0;\n    const requiredTon = data.required_ton || 0;\n\n    let route = placeFrom && placeTo ? `${placeFrom}-${placeTo}` : \"\";\n\n    message = `<b>${index}.</b>`;\n    \n    if (sender) message += ` Отправитель - <b>${sender}</b>`;\n    if (partner) message += `\\nПолучатель - <b>${partner}</b>`;\n    if (route) message += `\\nМаршрут - <b>${route}</b>`;\n    if (material) message += `\\nМатериал - <b>${material}</b>`;\n    \n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n\n    if (endCondition === \"По перевезенным кубометрам\" && requiredCubicMetre > 0) {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n\n    if (endCondition === \"По перевезенным тоннам\" && requiredTon > 0) {\n      message += `\\nТребуемое количество тонн по перевозке - <b>${requiredTon}</b>`;\n    }\n\n    if (endCondition === \"Количество рейсов для каждого автомобиля\" && data.round_quantity_for_car > 0) {\n      message += `\\nКоличество рейсов для каждого автомобиля - <b>${data.round_quantity_for_car}</b>`;\n    }\n\n    message += (item.json.concatenated_driver1 ? \"\\n\\nВодители, выполняющие перевозку с вами:\\n\" + item.json.concatenated_driver1 : \"\");\n\n    message += `\\n\\n`;\n  }\n\n\n  combinedMessages += message;\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
       },
-      "id": "e9af11c9-7d99-40d2-85aa-226e97a224a0",
+      "id": "38a32998-d44f-4739-b147-8fb3c17ee622",
       "name": "в единое сообщение",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1240,
-        3040
+        -1440,
+        3200
       ]
     },
     {
@@ -3278,13 +3288,13 @@
         },
         "options": {}
       },
-      "id": "bade60bd-a7ac-46f3-b7a2-95d49bc7bf2e",
+      "id": "ff979033-8acd-4a2f-97d5-be54f7d0aee3",
       "name": "работа первая?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.1,
       "position": [
-        -140,
-        2960
+        -340,
+        3120
       ]
     },
     {
@@ -3311,13 +3321,13 @@
           ]
         }
       },
-      "id": "5fd8b646-66f3-4d8b-b03e-9bdfda3c37c5",
+      "id": "a2020f0f-273e-44ba-96bb-bb7d0e825c3a",
       "name": "рейсы первой перевозки",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        80,
-        3080
+        -120,
+        3240
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -3351,13 +3361,13 @@
         },
         "options": {}
       },
-      "id": "f86bf1a1-9e3c-4e33-985a-beb0218c0b2e",
+      "id": "653a3a47-ec9a-4d7e-9895-9abaeb04c302",
       "name": "новая перевозка",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.1,
       "position": [
-        480,
-        3100
+        280,
+        3260
       ]
     },
     {
@@ -3398,13 +3408,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "1cef0077-c4a1-4cbc-9756-b9368b5c46a9",
+      "id": "6ab6bd29-672e-47aa-875d-457cd6335868",
       "name": "первое=работа в карьере",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        520,
-        2820
+        320,
+        2980
       ],
       "credentials": {
         "telegramApi": {
@@ -3451,13 +3461,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "1ad9c92c-9fd9-459f-83f8-917b18506f2f",
+      "id": "5e226450-f032-4cf5-b992-4ed67c52b81a",
       "name": "уже начатая перевозка",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        720,
-        3140
+        520,
+        3300
       ],
       "credentials": {
         "telegramApi": {
@@ -3504,13 +3514,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "30fd2040-82e5-43b6-997b-8dcf8a84b5f6",
+      "id": "979798ce-baea-4263-bacd-a6862bbd1621",
       "name": "не начатая перевозка",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        660,
-        2940
+        460,
+        3100
       ],
       "credentials": {
         "telegramApi": {
@@ -3526,26 +3536,26 @@
         "width": 1775.1807115607076,
         "color": 6
       },
-      "id": "6ad5cc15-2fd4-45b9-bc49-b2994abc886a",
+      "id": "1b16473c-7859-4510-9726-9055c9c9ce70",
       "name": "Sticky Note2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -528.5935538336281,
-        2788.835406766163
+        -728.5935538336281,
+        2948.835406766163
       ]
     },
     {
       "parameters": {
         "errorMessage": "123"
       },
-      "id": "9e16c236-a44f-457a-9c99-7ec18846f3ab",
+      "id": "7c1515d1-1ad7-4fd2-8695-bc25b0280a2a",
       "name": "Stop and Error",
       "type": "n8n-nodes-base.stopAndError",
       "typeVersion": 1,
       "position": [
-        1340,
-        2840
+        1140,
+        3000
       ],
       "disabled": true
     },
@@ -3554,13 +3564,13 @@
         "aggregate": "aggregateAllItemData",
         "options": {}
       },
-      "id": "83c16007-1e9d-4bbf-adf7-09cc2f6bb2ec",
+      "id": "69ba0b61-5c35-4a12-9a7d-6a74762d2fec",
       "name": "Aggregate",
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        300,
-        3100
+        100,
+        3260
       ]
     },
     {
@@ -3569,13 +3579,13 @@
         "chatId": "={{ $json.result.chat.id }}",
         "messageId": "={{ $json.result.message_id }}"
       },
-      "id": "9bdfdf0d-8fbf-4b9a-b353-c5954462a4d0",
+      "id": "d6ba3ddc-c092-4161-8503-a02ee89e450c",
       "name": "удаляем прошлое",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -320,
-        2960
+        -520,
+        3120
       ],
       "credentials": {
         "telegramApi": {
@@ -3592,13 +3602,13 @@
         "authentication": "basicAuth",
         "options": {}
       },
-      "id": "55c3f85f-82b0-43a5-95b0-d9933ebd4264",
+      "id": "76fcfc8a-e1e3-46b3-a8df-12a689a826f8",
       "name": "Webhook1 dev1",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        -4140,
-        3080
+        -4340,
+        3240
       ],
       "webhookId": "e6a5dcca-6f85-49f3-96b8-8dbeb67aa115",
       "credentials": {
@@ -3617,13 +3627,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "7b183738-4a0a-4dc1-8915-e30747b56450",
+      "id": "dda1c105-674e-4bc6-a4a2-b49fe6bb49cf",
       "name": "Вывод статуса карточки1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        -3180,
-        1940
+        -3380,
+        2100
       ],
       "credentials": {
         "telegramApi": {
@@ -3657,13 +3667,13 @@
         },
         "options": {}
       },
-      "id": "525363e7-33d3-42b8-a657-4f4487e3eab9",
+      "id": "eca40e34-250b-4466-af1e-179e53ef7a4e",
       "name": "Получаем тг1",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        -3400,
-        1940
+        -3600,
+        2100
       ],
       "credentials": {
         "postgres": {
@@ -3692,13 +3702,13 @@
           ]
         }
       },
-      "id": "e5c6255a-a797-41a8-91a1-630c04106d0a",
+      "id": "df938c25-ff9b-4f81-9fb1-522d9b1d886d",
       "name": "найдём водителя по номеру автомобиля1",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -3600,
-        1940
+        -3800,
+        2100
       ],
       "credentials": {
         "odooApi": {
@@ -3731,13 +3741,13 @@
         },
         "options": {}
       },
-      "id": "7299c9b6-40aa-4441-bc02-0225b60000b8",
+      "id": "437a91e6-ce86-4c6c-8396-52ff740709a8",
       "name": "только готовые уведомляем",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.1,
       "position": [
-        -3880,
-        2020
+        -4080,
+        2180
       ]
     },
     {
@@ -3747,13 +3757,13 @@
         "authentication": "basicAuth",
         "options": {}
       },
-      "id": "40dfe7a6-1931-429b-8f2d-0b7d39d93444",
+      "id": "55ca3fee-5f33-4239-a2bc-0d22c8b0382b",
       "name": "смена статуса заявки",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        -4100,
-        2020
+        -4300,
+        2180
       ],
       "webhookId": "152d7c74-b120-4c93-8437-4209442ecc9a",
       "credentials": {
@@ -3886,46 +3896,13 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "0bef8ea3-2e11-4430-8cab-ca6c7d890828",
+      "id": "a9bc8ae9-baaf-4e72-b0fb-b128128473e3",
       "name": "проверка роли после авторизации",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        380,
-        600
-      ]
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "2ed3940a-2427-40e7-8024-081403f02a2f",
-              "leftValue": "={{ $json.message.chat.id }}",
-              "rightValue": -1002392592613,
-              "operator": {
-                "type": "number",
-                "operation": "notEquals"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "8a787b88-1770-40a2-91ce-9f2775a0054b",
-      "name": "фильтр от лишних уведомлений в чате",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        -2040,
-        1100
+        180,
+        760
       ]
     },
     {
@@ -4051,13 +4028,13 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "a67ceb18-5b93-4e9e-bc23-0f047fabf597",
+      "id": "2e8656e8-f043-4450-afff-92730b43b150",
       "name": "ветки для ролей",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        -180,
-        1540
+        -380,
+        1700
       ]
     },
     {
@@ -4097,13 +4074,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "4fb81db0-9d1c-4a98-9045-03aba26be1d4",
+      "id": "6bf7738d-b6b7-4dc8-b670-8fb5a819d9af",
       "name": "наёмник",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        720,
-        740
+        520,
+        900
       ],
       "credentials": {
         "telegramApi": {
@@ -4127,13 +4104,13 @@
           ]
         }
       },
-      "id": "f951c267-4812-410d-8759-767a44f85b31",
+      "id": "15f74e23-47fe-4f29-928c-5a444c9e8b58",
       "name": "авто",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -3940,
-        3560
+        -4140,
+        3720
       ],
       "credentials": {
         "odooApi": {
@@ -4166,13 +4143,13 @@
         },
         "options": {}
       },
-      "id": "ecc6e412-e5de-455d-823b-cd985cafc1b8",
+      "id": "53dcd1fd-6909-467d-8847-3e3658ea6cec",
       "name": "айди водителя",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        -3720,
-        3560
+        -3920,
+        3720
       ],
       "credentials": {
         "postgres": {
@@ -4185,13 +4162,13 @@
       "parameters": {
         "jsCode": "// Пример функции для краткого форматирования даты в формате число.месяц.год\nfunction formatDate(date) {\n  if (!date) return date;  // Если дата отсутствует, возвращаем пустую строку\n  return new Date(date).toLocaleDateString('ru-RU');  // Форматируем дату в формате дд.мм.гггг\n}\n\nconst oldValues = $('изменение данных в перевозке').all()[0].json.body.old_values;\nconst newValues = $('изменение данных в перевозке').all()[0].json.body.updated;\n\nlet output = 'Произошли изменения в перевозке <b>' + oldValues.place_from + ' - ' + oldValues.place_to + '</b>:\\n\\n';\n\nfunction createLine(oldValue, newValue, label, isDate = false) {\n  // Если нужно форматировать дату\n  if (isDate) {\n    oldValue = formatDate(oldValue);\n    newValue = formatDate(newValue);\n  }\n  \n  // Проверяем, если значение изменилось и новое значение не undefined\n  if (newValue !== undefined && oldValue !== newValue) {\n    return `${label}: <s>${oldValue}</s> - ${newValue}\\n`;\n  }\n  return '';\n}\n\n// Проверяем только изменённые поля, исключая undefined значения\noutput += createLine(oldValues.date, newValues.date, 'Дата', true);  // true указывает на форматирование даты\noutput += createLine(oldValues.place_from, newValues.place_from, 'От');\noutput += createLine(oldValues.place_to, newValues.place_to, 'До');\noutput += createLine(oldValues.sender, newValues.sender, 'Отправитель');\noutput += createLine(oldValues.partner, newValues.partner, 'Получатель');\noutput += createLine(oldValues.carrier, newValues.carrier, 'Перевозчик');\noutput += createLine(oldValues.type, newValues.type, 'Тип');\noutput += createLine(oldValues.end_condition, newValues.end_condition, 'Условие завершения');\n\n// Возвращаем итоговую строку\nreturn {\n  output\n};\n"
       },
-      "id": "f00122ae-f2c3-4437-834f-4e5d5e171dbb",
+      "id": "d4235cae-0464-4cf1-bc6e-16c7d720486e",
       "name": "текст",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -3500,
-        3560
+        -3700,
+        3720
       ]
     },
     {
@@ -4203,13 +4180,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "76e63b91-6b9c-467c-90c7-b5cebbd4eb4d",
+      "id": "f4982ee1-6ae8-478c-ab1d-3877f534b830",
       "name": "отправка уведомления",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -3280,
-        3560
+        -3480,
+        3720
       ],
       "credentials": {
         "telegramApi": {
@@ -4225,38 +4202,14 @@
         "width": 1018.060178588168,
         "color": 6
       },
-      "id": "ae352162-25ed-47d6-9b31-da8b82eac80c",
+      "id": "d30d9c0b-1a99-4524-aebd-3f5543a3adc5",
       "name": "Sticky Note6",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -4180,
-        3460
+        -4380,
+        3620
       ]
-    },
-    {
-      "parameters": {
-        "updates": [
-          "message",
-          "callback_query"
-        ],
-        "additionalFields": {}
-      },
-      "id": "80577477-3d66-44f5-b202-578bb57fc33e",
-      "name": "Telegram Trigger1",
-      "type": "n8n-nodes-base.telegramTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        -2900,
-        1380
-      ],
-      "webhookId": "8dd2461c-bca3-4e4f-955b-ddc7815e6990",
-      "credentials": {
-        "telegramApi": {
-          "id": "s2yURwRj0JIo9urH",
-          "name": "Everest production"
-        }
-      }
     },
     {
       "parameters": {
@@ -4265,19 +4218,43 @@
         "authentication": "basicAuth",
         "options": {}
       },
-      "id": "e2032e4f-4ed6-462a-a080-221112967f50",
+      "id": "21433834-0c04-4af3-9b86-fff7bae3a441",
       "name": "изменение данных в перевозке",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        -4160,
-        3560
+        -4360,
+        3720
       ],
       "webhookId": "90df170f-5431-43ec-a6ac-2fd2aa42683b",
       "credentials": {
         "httpBasicAuth": {
           "id": "uHcFMSp9IXmPMRB4",
           "name": "queue webhook"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "callback_query",
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "931916fb-f186-4f7f-82a7-d7c059c3f63c",
+      "name": "Telegram Trigger1",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -2920,
+        1540
+      ],
+      "webhookId": "0c3819fd-94d8-46ee-a2ee-780b53de147d",
+      "credentials": {
+        "telegramApi": {
+          "id": "s2yURwRj0JIo9urH",
+          "name": "Everest production"
         }
       }
     }
@@ -4501,11 +4478,11 @@
         "json": {
           "headers": {
             "host": "n8n.everest.lamart.site",
-            "x-real-ip": "193.107.238.124",
-            "x-forwarded-for": "193.107.238.124",
+            "x-real-ip": "80.87.105.202",
+            "x-forwarded-for": "80.87.105.202",
             "x-forwarded-proto": "https",
             "connection": "close",
-            "content-length": "654",
+            "content-length": "916",
             "user-agent": "python-requests/2.25.1",
             "accept-encoding": "gzip, deflate",
             "accept": "*/*",
@@ -4516,22 +4493,22 @@
           "query": {},
           "body": {
             "car_id": 18,
-            "transportation_id": 969,
+            "transportation_id": 888888,
             "updated": {
-              "date": "2024-10-04"
+              "end_condition": "По перевезенным кубометрам"
             },
             "old_values": {
-              "date": "2024-10-05",
+              "date": "2024-10-09",
               "end_condition": "В течении смены",
-              "sender": "ООО \"Компания\"",
-              "place_from": "Торг. порт",
+              "sender": "ООО \"ЭВЕРЕСТ\"",
+              "place_from": "карьер Приморский",
               "type": "Запланированная",
-              "partner": "ООО \"Компания\"",
-              "carrier": "Эверест",
-              "place_to": "Тест_1"
+              "partner": "ООО \"ЭВЕРЕСТ\"",
+              "carrier": "ООО \"ЭВЕРЕСТ\"",
+              "place_to": "Карьер Ключевое"
             }
           },
-          "webhookUrl": "https://n8n.everest.lamart.site/webhook/dev/update_transportation",
+          "webhookUrl": "https://n8n.everest.lamart.site/webhook/prod/update_transportation",
           "executionMode": "production"
         }
       }
@@ -4554,6 +4531,6 @@
     }
   ],
   "triggerCount": 5,
-  "updatedAt": "2024-10-11T06:51:51.579Z",
-  "versionId": "323a3172-120a-4e70-9462-8cbfbe757e71"
+  "updatedAt": "2024-10-13T18:06:57.148Z",
+  "versionId": "daf6848d-548f-49d7-9847-385096a9cd60"
 }
