@@ -1121,6 +1121,24 @@
         ]
       ]
     },
+    "разделение запроса и реплай и инлайн": {
+      "main": [
+        [
+          {
+            "node": "выводим месячную статистику",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "выводим месячную статистику1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "инлайн кнопки для статистики": {
       "main": [
         [
@@ -1136,21 +1154,105 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "проверка наличия взвешивания",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
-    "разделение запроса и реплай и инлайн": {
+    "получаем номер авто": {
       "main": [
         [
           {
-            "node": "выводим месячную статистику",
+            "node": "получаем перевозки из очереди авто",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получаем перевозки из очереди авто": {
+      "main": [
+        [
+          {
+            "node": "получаем рейсы в перевозке",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получаем рейсы в перевозке": {
+      "main": [
+        [
+          {
+            "node": "разделяем рейсы",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "разделяем рейсы": {
+      "main": [
+        [
+          {
+            "node": "берем выполняющийся рейс нужного авто",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "берем выполняющийся рейс нужного авто": {
+      "main": [
+        [
+          {
+            "node": "есть ли запись с весов",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "есть ли запись с весов": {
+      "main": [
+        [
+          {
+            "node": "подтверждение взвешивания",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "выводим месячную статистику1",
+            "node": "меняем callback на ввод объема",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "меняем callback на ввод объема": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка наличия взвешивания": {
+      "main": [
+        [
+          {
+            "node": "получаем номер авто",
             "type": "main",
             "index": 0
           }
@@ -4701,7 +4803,7 @@
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        320,
+        540,
         4100
       ]
     },
@@ -4737,7 +4839,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        380,
+        600,
         4820
       ],
       "alwaysOutputData": false,
@@ -4781,7 +4883,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        400,
+        620,
         5020
       ],
       "alwaysOutputData": false,
@@ -4802,7 +4904,7 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        720,
+        940,
         4800
       ],
       "alwaysOutputData": true
@@ -4814,8 +4916,8 @@
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        160,
-        4900
+        340,
+        4920
       ]
     },
     {
@@ -4827,7 +4929,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1020,
+        1240,
         4800
       ]
     },
@@ -4840,7 +4942,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1200,
+        1420,
         5040
       ]
     },
@@ -4851,7 +4953,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        1480,
+        1700,
         4840
       ]
     },
@@ -4864,7 +4966,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1760,
+        1980,
         4840
       ]
     },
@@ -4912,7 +5014,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2080,
+        2300,
         4840
       ],
       "credentials": {
@@ -4954,7 +5056,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        760,
+        980,
         3880
       ],
       "alwaysOutputData": false,
@@ -4998,7 +5100,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        760,
+        980,
         4080
       ],
       "alwaysOutputData": false,
@@ -5019,7 +5121,7 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        1000,
+        1220,
         3880
       ],
       "alwaysOutputData": true
@@ -5045,7 +5147,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        760,
+        980,
         4280
       ],
       "alwaysOutputData": false,
@@ -5085,7 +5187,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        1000,
+        1220,
         4280
       ],
       "alwaysOutputData": false,
@@ -5105,7 +5207,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1280,
+        1500,
         4280
       ]
     },
@@ -5118,7 +5220,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1280,
+        1500,
         3880
       ]
     },
@@ -5131,7 +5233,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1120,
+        1340,
         4080
       ]
     },
@@ -5142,7 +5244,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        1580,
+        1800,
         3960
       ]
     },
@@ -5153,7 +5255,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        1860,
+        2080,
         4040
       ]
     },
@@ -5166,7 +5268,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2160,
+        2380,
         4040
       ]
     },
@@ -5202,7 +5304,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2680,
+        2900,
         3900
       ],
       "credentials": {
@@ -5211,69 +5313,6 @@
           "name": "tg dev aleksey"
         }
       }
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "month_stats",
-                    "operator": {
-                      "type": "string",
-                      "operation": "startsWith"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "985d41f2-d159-4d0f-8ec8-8e638182474a",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "week_stats_back",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {
-          "fallbackOutput": "extra"
-        }
-      },
-      "id": "6d0ec78c-517e-41a5-90aa-eed7a6f9520b",
-      "name": "инлайн кнопки для статистики",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3.2,
-      "position": [
-        -20,
-        4100
-      ]
     },
     {
       "parameters": {
@@ -5307,7 +5346,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2680,
+        2900,
         4120
       ],
       "credentials": {
@@ -5374,7 +5413,7 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        2420,
+        2640,
         4040
       ]
     },
@@ -5389,7 +5428,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        60,
+        300,
         4700
       ]
     },
@@ -5407,24 +5446,399 @@
         300,
         3820
       ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "month_stats",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "985d41f2-d159-4d0f-8ec8-8e638182474a",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "week_stats_back",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "6d0ec78c-517e-41a5-90aa-eed7a6f9520b",
+      "name": "инлайн кнопки для статистики",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -20,
+        4100
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_car_by_driver",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"driver_id\": {{$json.odoo_id}}\n}  ",
+        "options": {}
+      },
+      "id": "f1a1d4ec-f777-4a27-b8e9-a0b997f9c547",
+      "name": "получаем номер авто",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        480,
+        5480
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "6wteHiVCwezCWPRg",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "id": "5c6a9e39-3dec-4463-8bef-37ad01b79ca5",
+      "name": "Execute Workflow",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.1,
+      "position": [
+        2420,
+        5660
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_car_queue",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"car_id\": {{$json.id}}\n}  ",
+        "options": {}
+      },
+      "id": "af53af1f-d7d3-4d97-9f65-de4de7712193",
+      "name": "получаем перевозки из очереди авто",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        800,
+        5480
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_rounds_by_transportation",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"transportation_id\": {{ $json.transportations[0].transportation }}\n}  ",
+        "options": {}
+      },
+      "id": "f10b205b-6ca9-4324-8ec6-10f30f93c794",
+      "name": "получаем рейсы в перевозке",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1100,
+        5480
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "transportation_rounds",
+        "options": {}
+      },
+      "id": "1fcaf2ec-b147-47b8-9084-ab382a6019fc",
+      "name": "разделяем рейсы",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1380,
+        5480
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1be79cd1-4df8-462a-bc43-2e3c34a8bf1f",
+              "leftValue": "={{ $json.car[0] }}",
+              "rightValue": "={{ $('получаем номер авто').item.json.id }}",
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "0d370ade-d290-4e87-8089-096b280c37ee",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "Выполняется",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "eef452f1-012e-4073-83bd-3b81d9c9c2f8",
+      "name": "берем выполняющийся рейс нужного авто",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        1620,
+        5480
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "05f1b7dc-c784-4b43-b1d8-1b6ec695e050",
+              "leftValue": "={{ $json.cargo_netto }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "8f684922-43a7-49cc-855c-adde055125e0",
+      "name": "есть ли запись с весов",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1880,
+        5480
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.from.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "=Подтвердите значение взвешивания - <b>{{ $json.cargo_netto }}</b> Нетто(Тонны)",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Подтвердить",
+                    "additionalFields": {
+                      "callback_data": "last"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Другое",
+                    "additionalFields": {
+                      "callback_data": "material_volume"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "e76bc190-4081-4247-9818-0306cf236891",
+      "name": "подтверждение взвешивания",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2160,
+        5440
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Получаем данные из ноды \"Execute Workflow Trigger\"\nconst triggerData = $node[\"Execute Workflow Trigger\"].json;\n\n// Проверяем и изменяем поле \"callback_query.data\"\nif (triggerData.callback_query && triggerData.callback_query.data === 'check_material_volume') {\n    triggerData.callback_query.data = 'material_volume';\n}\n\n// Возвращаем обновленные данные\nreturn triggerData;\n"
+      },
+      "id": "79b20ade-57f6-4618-947b-f55fc47f3f4a",
+      "name": "меняем callback на ввод объема",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2160,
+        5660
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "check_material_volume",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "3216b4ea-659c-4e38-abbc-466a163af9d4",
+      "name": "проверка наличия взвешивания",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        0,
+        5620
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Проверка записи о взвешивании в рейсе",
+        "height": 404.17703383081584,
+        "width": 2257.673384812532
+      },
+      "id": "4334e4ad-7343-49bc-b507-90fdf5ad14dc",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        360,
+        5420
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100630470,
+          "update_id": 100630852,
           "callback_query": {
-            "id": "3010587259050951216",
+            "id": "2008109316711304585",
             "from": {
-              "id": 700956969,
+              "id": 467549384,
               "is_bot": false,
-              "first_name": "Алексей",
-              "username": "Chronos196",
-              "language_code": "ru"
+              "first_name": "Sergio",
+              "username": "sergo_kf",
+              "language_code": "ru",
+              "is_premium": true
             },
             "message": {
-              "message_id": 22847,
+              "message_id": 23281,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -5432,77 +5846,54 @@
                 "username": "myn8nbotbot"
               },
               "chat": {
-                "id": 700956969,
-                "first_name": "Алексей",
-                "username": "Chronos196",
+                "id": 467549384,
+                "first_name": "Sergio",
+                "username": "sergo_kf",
                 "type": "private"
               },
-              "date": 1728632639,
-              "edit_date": 1728632647,
-              "text": "График на текущий месяц\n\n30.09 - 06.10\nНет данных\n\n07.10 - 13.10\nНет данных\n\n14.10 - 20.10\n18.10 пт: А 459 ТЕ - SCANIA - Рабочий день\n19.10 сб: А 459 ТЕ - SCANIA - Рабочий день\n\n21.10 - 27.10\n21.10 пн: А 459 ТЕ - SCANIA - Рабочий день\n22.10 вт: А 459 ТЕ - SCANIA - Рабочий день\n23.10 ср: А 459 ТЕ - SCANIA - Рабочий день\n24.10 чт: Выходной день\n25.10 пт: Выходной день\n26.10 сб: А 459 ТЕ - SCANIA - Рабочий день\n\n28.10 - 03.11\n28.10 пн: А 459 ТЕ - SCANIA - Рабочий день с продленкой\n29.10 вт: А 459 ТЕ - SCANIA - Рабочий день\n30.10 ср: А 459 ТЕ - SCANIA - Рабочий день\n31.10 чт: А 459 ТЕ - SCANIA - Рабочий день\n02.11 сб: А 459 ТЕ - SCANIA - Рабочий день\n03.11 вс: А 459 ТЕ - SCANIA - Рабочий день",
-              "entities": [
-                {
-                  "offset": 25,
-                  "length": 13,
-                  "type": "bold"
-                },
-                {
-                  "offset": 51,
-                  "length": 13,
-                  "type": "bold"
-                },
-                {
-                  "offset": 77,
-                  "length": 13,
-                  "type": "bold"
-                },
-                {
-                  "offset": 178,
-                  "length": 13,
-                  "type": "bold"
-                },
-                {
-                  "offset": 413,
-                  "length": 13,
-                  "type": "bold"
-                }
-              ],
+              "date": 1729024668,
+              "edit_date": 1729024712,
+              "text": "Вы уверены, что готовы завершить рейс?",
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
+                      "text": "Завершить",
+                      "callback_data": "check_material_volume"
+                    },
+                    {
                       "text": "Назад",
-                      "callback_data": "back_to_week_schedule"
+                      "callback_data": "back_pick"
                     }
                   ]
                 ]
               }
             },
-            "chat_instance": "1908726007480408494",
-            "data": "back_to_week_schedule"
+            "chat_instance": "-8293046807322593726",
+            "data": "check_material_volume"
           },
-          "tg_id": "700956969",
-          "odoo_id": 2,
+          "tg_id": "467549384",
+          "odoo_id": 4,
           "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
           "end_request_id": null,
           "materials_photo": false,
           "end_request_hours": null,
-          "car_id_while_inputing": 18,
-          "fuel_liters": null,
-          "weight_measure": "12 м3 ",
+          "car_id_while_inputing": 25,
+          "fuel_liters": 100,
+          "weight_measure": "32,25 Тонны ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
-          "count_weight_photo": null,
-          "count_weight_photo_sent": null,
+          "count_weight_photo": 1,
+          "count_weight_photo_sent": 0,
           "current_quarry_hours": 10,
-          "end_round_message_id": 22693,
-          "last_message_text": "Отлично, рейс активен, по его завершению нажмите на кнопку \"Завершить рейс\"",
+          "end_round_message_id": 23281,
+          "last_message_text": "Отлично, рейс активен. \n\nКарьер Ключевое - Торг. порт\nТест (Карьер Ключевое)\nОстаток кубометров по текущей перевозке - 99.93\n\nПо его завершению нажмите на кнопку \"Завершить рейс\"",
           "logist_notifications": false,
-          "cookie": "session_id=b3036bae1dce164cff71750bf56ce6bb55d73ae9; Expires=Sat, 11 Oct 2025 07:49:51 GMT; Max-Age=604800; HttpOnly; Path=/",
-          "seconds": 1.66
+          "cookie": "session_id=bcf9b20aaac58da166204d77efb1feaafbd340f2; Expires=Wed, 15 Oct 2025 20:43:56 GMT; Max-Age=604800; HttpOnly; Path=/",
+          "seconds": 0.907
         }
       }
     ]
@@ -5523,6 +5914,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-10-15T06:58:18.812Z",
-  "versionId": "4fc3667c-f7d3-4f75-a47a-6b31db5400a2"
+  "updatedAt": "2024-10-16T08:55:47.985Z",
+  "versionId": "4f246c85-bf92-4587-a6ca-27e060950c7e"
 }
