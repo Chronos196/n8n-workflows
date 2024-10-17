@@ -532,7 +532,7 @@
       "main": [
         [
           {
-            "node": "первое=работа в карьере",
+            "node": "работа в карьере",
             "type": "main",
             "index": 0
           }
@@ -874,17 +874,6 @@
         ]
       ]
     },
-    "Webhook1 dev1": {
-      "main": [
-        [
-          {
-            "node": "получим карточки очереди1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "поиск текущего авто1": {
       "main": [
         [
@@ -970,6 +959,68 @@
         [
           {
             "node": "сегодняшняя дата1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook1 dev1": {
+      "main": [
+        [
+          {
+            "node": "получим карточки очереди1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "работа в карьере": {
+      "main": [
+        [
+          {
+            "node": "только выполняющиеся",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "только выполняющиеся": {
+      "main": [
+        [
+          {
+            "node": "всего рейсов1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "всего рейсов1": {
+      "main": [
+        [
+          {
+            "node": "есть выполняющиеся?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "есть выполняющиеся?": {
+      "main": [
+        [
+          {
+            "node": "карьер без кнопок",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "первое=работа в карьере",
             "type": "main",
             "index": 0
           }
@@ -3261,8 +3312,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        20,
-        2760
+        160,
+        3140
       ],
       "credentials": {
         "telegramApi": {
@@ -4266,29 +4317,6 @@
     },
     {
       "parameters": {
-        "httpMethod": "POST",
-        "path": "dev/queue",
-        "authentication": "basicAuth",
-        "options": {}
-      },
-      "id": "4068bbcc-b220-4d6a-86db-bd4a8ee18617",
-      "name": "Webhook1 dev1",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        -4500,
-        3180
-      ],
-      "webhookId": "e6a5dcca-6f85-49f3-96b8-8dbeb67aa115",
-      "credentials": {
-        "httpBasicAuth": {
-          "id": "uHcFMSp9IXmPMRB4",
-          "name": "queue webhook"
-        }
-      }
-    },
-    {
-      "parameters": {
         "resource": "custom",
         "customResource": "cars.cars",
         "operation": "getAll",
@@ -4378,8 +4406,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        380,
-        3080
+        400,
+        3160
       ],
       "credentials": {
         "telegramApi": {
@@ -4507,9 +4535,218 @@
         3100
       ],
       "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "dev/queue",
+        "authentication": "basicAuth",
+        "options": {}
+      },
+      "id": "4068bbcc-b220-4d6a-86db-bd4a8ee18617",
+      "name": "Webhook1 dev1",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -4500,
+        3180
+      ],
+      "webhookId": "e6a5dcca-6f85-49f3-96b8-8dbeb67aa115",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "uHcFMSp9IXmPMRB4",
+          "name": "queue webhook"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "=quarry.work",
+        "operation": "getAll",
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "car",
+              "value": "={{ $('поиск текущего авто1').all()[0].json.id }}"
+            },
+            {
+              "fieldName": "start_time",
+              "operator": "greaterOrEqual",
+              "value": "={{ $today }}"
+            }
+          ]
+        }
+      },
+      "id": "26513a74-a008-4622-a7cd-7a59364e53e1",
+      "name": "работа в карьере",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        -500,
+        3020
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "ITgOrhO4Hf2QcDtf",
+          "name": "odoo dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d416c370-c4bf-4545-a03b-180013468e4f",
+              "leftValue": "={{ $json.count_id }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "4af5ee4c-7e50-4b72-bed7-159dd7bd6054",
+      "name": "есть выполняющиеся?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        40,
+        2940
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5f1ce84c-6a03-4a03-9646-a4f438302c46",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "Выполняются",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "4934a56f-9709-43e2-aba0-fe001814744d",
+      "name": "только выполняющиеся",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -320,
+        3020
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "field": "id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1d7806e9-ec1f-4003-8af0-e2e4351d3e0e",
+      "name": "всего рейсов1",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        -120,
+        3020
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('айди водителя1').item.json.tg_id }}",
+        "text": "={{ \"Изменился порядок перевозок на сегодня:\\n\\n\" + $('в единое сообщение').item.json.combinedMessages }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "66c053ab-d267-435d-8cb2-b63d01dcf332",
+      "name": "карьер без кнопок",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        260,
+        2920
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Webhook1 dev1": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8n.everest.lamart.site",
+            "x-real-ip": "193.107.238.124",
+            "x-forwarded-for": "193.107.238.124",
+            "x-forwarded-proto": "https",
+            "connection": "close",
+            "content-length": "114",
+            "user-agent": "python-requests/2.25.1",
+            "accept-encoding": "gzip, deflate",
+            "accept": "*/*",
+            "authorization": "Basic dXNlcjp6TmJiQU5FYzBpbFA=",
+            "content-type": "application/json"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "resequenced_data": [
+              {
+                "id": 786,
+                "car_id": 18,
+                "new_sequence": 3
+              },
+              {
+                "id": 785,
+                "car_id": 18,
+                "new_sequence": 4
+              }
+            ]
+          },
+          "webhookUrl": "https://n8n.everest.lamart.site/webhook/dev/queue",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
   "settings": {
     "executionOrder": "v1"
   },
@@ -4530,6 +4767,6 @@
     }
   ],
   "triggerCount": 5,
-  "updatedAt": "2024-10-15T21:35:47.576Z",
-  "versionId": "1f043056-902b-4eeb-b731-d242dc04377a"
+  "updatedAt": "2024-10-16T10:17:11.258Z",
+  "versionId": "4e30735b-8a38-4e10-939f-4e736b9c315e"
 }
