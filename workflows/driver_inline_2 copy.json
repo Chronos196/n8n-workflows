@@ -61,7 +61,7 @@
         ],
         [
           {
-            "node": "рейсы в перевозке",
+            "node": "получаем рейсы в перевозке1",
             "type": "main",
             "index": 0
           }
@@ -1238,38 +1238,6 @@
         ]
       ]
     },
-    "следующая перевозка": {
-      "main": [
-        [
-          {
-            "node": "сохраняем текст сообщения",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "прошлое сообщение",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "получаем авто по водителю1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "заявки по авто",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Execute Workflow Trigger": {
       "main": [
         [
@@ -1321,7 +1289,72 @@
         ]
       ]
     },
-    "рейсы в перевозке": {
+    "следующая перевозка": {
+      "main": [
+        [
+          {
+            "node": "сохраняем текст сообщения",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "прошлое сообщение",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "получаем авто по водителю1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "заявки по авто",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получаем рейсы в перевозке1": {
+      "main": [
+        [
+          {
+            "node": "разделяем рейсы3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "разделяем рейсы3": {
+      "main": [
+        [
+          {
+            "node": "убираем рейсы пользователя",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "убираем рейсы пользователя": {
+      "main": [
+        [
+          {
+            "node": "убираем рейсы без водителей",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "убираем рейсы без водителей": {
       "main": [
         [
           {
@@ -4605,8 +4638,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        640,
-        3700
+        1120,
+        3680
       ],
       "alwaysOutputData": false,
       "credentials": {
@@ -5932,7 +5965,7 @@
       "typeVersion": 1,
       "position": [
         180,
-        420
+        440
       ],
       "credentials": {
         "odooApi": {
@@ -5940,92 +5973,6 @@
           "name": "odoo dev"
         }
       }
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 1
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "transportation_to_tail",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 1
-                },
-                "conditions": [
-                  {
-                    "id": "0711410c-59a6-406a-a35f-6762937046c6",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "no_transfer_transportation",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 1
-                },
-                "conditions": [
-                  {
-                    "id": "d61e0f5b-e253-4f40-87e2-b52b4064f72f",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "next_transportation",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {
-          "fallbackOutput": "extra"
-        }
-      },
-      "id": "2316c51f-c9bd-4b9f-9aed-3e2e41caf7b2",
-      "name": "следующая перевозка",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3.1,
-      "position": [
-        -240,
-        340
-      ]
     },
     {
       "parameters": {},
@@ -6141,7 +6088,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"transportation_id\": {{ $json.transportations[0].transportation }}\n}  ",
+        "jsonBody": "={\n  \"transportation_id\": {{ $json.id }}\n}  ",
         "options": {}
       },
       "id": "dc419505-ca27-475c-9929-acb56a2dcb1b",
@@ -6195,6 +6142,176 @@
           "name": "odoo dev"
         }
       }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "transportation_to_tail",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "0711410c-59a6-406a-a35f-6762937046c6",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "no_transfer_transportation",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "d61e0f5b-e253-4f40-87e2-b52b4064f72f",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "next_transportation",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "2316c51f-c9bd-4b9f-9aed-3e2e41caf7b2",
+      "name": "следующая перевозка",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.1,
+      "position": [
+        -240,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "transportation_rounds",
+        "options": {}
+      },
+      "id": "61343eba-212b-4178-a379-32563e455fe0",
+      "name": "разделяем рейсы3",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2140,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4e6daad3-09a5-487c-9a43-97ca812a0151",
+              "leftValue": "={{ $json.driver[0] }}",
+              "rightValue": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}",
+              "operator": {
+                "type": "number",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "id": "0702984d-bbdf-4734-b819-2659e7a142ea",
+      "name": "убираем рейсы пользователя",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        2400,
+        -60
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "f109516a-fff1-4f95-97bd-21229baac10a",
+              "leftValue": "={{ $json.driver[0] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "id": "e39b3bc4-7562-4fab-80b2-c51f8807a733",
+      "name": "убираем рейсы без водителей",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        2620,
+        -60
+      ],
+      "alwaysOutputData": true
     }
   ],
   "pinData": {
@@ -6317,6 +6434,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-10-16T10:09:46.127Z",
-  "versionId": "bac16191-4c35-4219-b2c4-a86ce8c3f08f"
+  "updatedAt": "2024-10-17T16:13:06.004Z",
+  "versionId": "3b480283-e843-403c-b159-5c4bd09882ce"
 }
