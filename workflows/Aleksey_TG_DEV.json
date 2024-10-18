@@ -165,7 +165,7 @@
       "main": [
         [
           {
-            "node": "добавляет пользователя, если не существует",
+            "node": "Calculate duration3",
             "type": "main",
             "index": 0
           }
@@ -660,7 +660,7 @@
       "main": [
         [
           {
-            "node": "авторизация",
+            "node": "Calculate duration4",
             "type": "main",
             "index": 0
           }
@@ -1021,6 +1021,28 @@
         [
           {
             "node": "первое=работа в карьере",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate duration3": {
+      "main": [
+        [
+          {
+            "node": "добавляет пользователя, если не существует",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate duration4": {
+      "main": [
+        [
+          {
+            "node": "авторизация",
             "type": "main",
             "index": 0
           }
@@ -1965,7 +1987,8 @@
       "position": [
         -2640,
         1480
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -2104,7 +2127,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nvar res = {};\n\nfor (const item of $input.all()) {\n  Object.assign(res, $('Telegram Trigger1').item.json);\n  Object.assign(res, $('актуальный статус').item.json);\n  Object.assign(res, { cookie: $('авторизация').item.json.headers['set-cookie'][0] });\n}\n\nreturn res;"
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nvar res = {};\n\nfor (const item of $input.all()) {\n  Object.assign(res, $('Telegram Trigger1').item.json);\n  Object.assign(res, $('актуальный статус').item.json);\n  Object.assign(res, { cookie: 'session_id=88ccf62b42920ec8fc3a7e36c1bbc079208fa499; Expires=Fri, 17 Oct 2025 05:43:43 GMT; Max-Age=604800; HttpOnly; Path=/' });\n}\n\nreturn res;"
       },
       "id": "3d67466c-6eca-4c33-9cbd-702dca59406d",
       "name": "склеиваем данные",
@@ -3676,7 +3699,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -2840,
+        -2900,
         1480
       ]
     },
@@ -4168,7 +4191,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "={{ $('авторизация').item.json.headers['set-cookie'][0] }}"
+              "value": "session_id=88ccf62b42920ec8fc3a7e36c1bbc079208fa499; Expires=Fri, 17 Oct 2025 05:43:43 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -4706,43 +4729,176 @@
           "name": "tg dev aleksey"
         }
       }
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "seconds",
+              "value": "={{ $now.diff(DateTime.fromISO($('Set start time').item.json.start)).as('seconds') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e0d36a87-7d1e-49ef-a6bf-4d88e25535b6",
+      "name": "Calculate duration3",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -2520,
+        1240
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "seconds",
+              "value": "={{ $now.diff(DateTime.fromISO($('Set start time').item.json.start)).as('seconds') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a2d67bb1-1f7e-484e-8052-1221fad1ae29",
+      "name": "Calculate duration4",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -2760,
+        1240
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Поменяй потом\nsession_id=88ccf62b42920ec8fc3a7e36c1bbc079208fa499; Expires=Fri, 17 Oct 2025 05:43:43 GMT; Max-Age=604800; HttpOnly; Path=/\nна\n{{ $('авторизация').item.json.headers['set-cookie'][0] }}\n\nв двух нодах: получаем роль и склеиваем данные",
+        "height": 434.3417957083881,
+        "width": 676.2295720009513,
+        "color": 3
+      },
+      "id": "c640729e-b9d3-4b80-8b14-8a0366e0864c",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1180,
+        1920
+      ]
     }
   ],
   "pinData": {
-    "Webhook1 dev1": [
+    "воркфлоу МЕХАНИК": [
       {
         "json": {
-          "headers": {
-            "host": "n8n.everest.lamart.site",
-            "x-real-ip": "193.107.238.124",
-            "x-forwarded-for": "193.107.238.124",
-            "x-forwarded-proto": "https",
-            "connection": "close",
-            "content-length": "114",
-            "user-agent": "python-requests/2.25.1",
-            "accept-encoding": "gzip, deflate",
-            "accept": "*/*",
-            "authorization": "Basic dXNlcjp6TmJiQU5FYzBpbFA=",
-            "content-type": "application/json"
-          },
-          "params": {},
-          "query": {},
-          "body": {
-            "resequenced_data": [
-              {
-                "id": 786,
-                "car_id": 18,
-                "new_sequence": 3
+          "update_id": 100631305,
+          "callback_query": {
+            "id": "2800172965065761235",
+            "from": {
+              "id": 7094417017,
+              "is_bot": false,
+              "first_name": "Сергей",
+              "last_name": "Косолапов",
+              "username": "sergio_kf",
+              "language_code": "ru"
+            },
+            "message": {
+              "message_id": 23833,
+              "from": {
+                "id": 7063451965,
+                "is_bot": true,
+                "first_name": "Everest n8n",
+                "username": "myn8nbotbot"
               },
-              {
-                "id": 785,
-                "car_id": 18,
-                "new_sequence": 4
+              "chat": {
+                "id": 7094417017,
+                "first_name": "Сергей",
+                "last_name": "Косолапов",
+                "username": "sergio_kf",
+                "type": "private"
+              },
+              "date": 1729207173,
+              "text": "Заявки на проверке:",
+              "reply_markup": {
+                "inline_keyboard": [
+                  [
+                    {
+                      "text": "1. А 777 ЛО - .",
+                      "callback_data": "item_482_page_1"
+                    }
+                  ],
+                  [
+                    {
+                      "text": "2. А 657 АА - мойка тест за по…",
+                      "callback_data": "item_549_page_1"
+                    }
+                  ],
+                  [
+                    {
+                      "text": "3. А 459 ТЕ - текст",
+                      "callback_data": "item_557_page_1"
+                    }
+                  ],
+                  [
+                    {
+                      "text": "4. К 444 АУ - Тест",
+                      "callback_data": "item_559_page_1"
+                    }
+                  ],
+                  [
+                    {
+                      "text": "5. К 444 АУ - Помпа",
+                      "callback_data": "item_560_page_1"
+                    }
+                  ],
+                  [
+                    {
+                      "text": "6. О 666 ОО - 124456",
+                      "callback_data": "item_562_page_1"
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Следующая страница",
+                      "callback_data": "page_2"
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Назад",
+                      "callback_data": "del_maintenances"
+                    }
+                  ]
+                ]
               }
-            ]
+            },
+            "chat_instance": "-3242410479096206559",
+            "data": "item_549_page_1"
           },
-          "webhookUrl": "https://n8n.everest.lamart.site/webhook/dev/queue",
-          "executionMode": "production"
+          "tg_id": "7094417017",
+          "odoo_id": 22,
+          "status": "authorized",
+          "only_mech": false,
+          "mech_photo": false,
+          "end_request_id": 407,
+          "materials_photo": false,
+          "end_request_hours": null,
+          "car_id_while_inputing": 24,
+          "fuel_liters": null,
+          "weight_measure": "15 Тонны ",
+          "logist_alert_text": null,
+          "logist_recipient_name": null,
+          "transportation_for_certificate": null,
+          "count_weight_photo": null,
+          "count_weight_photo_sent": null,
+          "current_quarry_hours": null,
+          "end_round_message_id": 22183,
+          "last_message_text": null,
+          "logist_notifications": false,
+          "cookie": "session_id=88ccf62b42920ec8fc3a7e36c1bbc079208fa499; Expires=Fri, 17 Oct 2025 05:43:43 GMT; Max-Age=604800; HttpOnly; Path=/",
+          "seconds": 0.173
         }
       }
     ]
@@ -4767,6 +4923,6 @@
     }
   ],
   "triggerCount": 5,
-  "updatedAt": "2024-10-16T10:17:11.258Z",
-  "versionId": "4e30735b-8a38-4e10-939f-4e736b9c315e"
+  "updatedAt": "2024-10-17T23:37:43.848Z",
+  "versionId": "e7699806-88f6-4702-8626-09a4a516c744"
 }
