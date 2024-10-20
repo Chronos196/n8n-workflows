@@ -30,17 +30,6 @@
         ]
       ]
     },
-    "получим авто по водителю1": {
-      "main": [
-        [
-          {
-            "node": "отмена рейса",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Telegram": {
       "main": [
         [
@@ -73,17 +62,6 @@
           },
           {
             "node": "начало недели",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "графики": {
-      "main": [
-        [
-          {
-            "node": "есть данные?",
             "type": "main",
             "index": 0
           }
@@ -231,6 +209,28 @@
           }
         ]
       ]
+    },
+    "графики": {
+      "main": [
+        [
+          {
+            "node": "есть данные?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получим авто по водителю1": {
+      "main": [
+        [
+          {
+            "node": "отмена рейса",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-10-09T06:31:40.777Z",
@@ -284,41 +284,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1060,
-        840
+        1080,
+        820
       ],
       "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "cars.cars",
-        "operation": "getAll",
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "driver_id",
-              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
-            }
-          ]
-        }
-      },
-      "id": "316ea8c2-a557-4c60-839c-b736f36a27cd",
-      "name": "получим авто по водителю1",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        860,
-        840
-      ],
-      "alwaysOutputData": true,
-      "credentials": {
-        "odooApi": {
-          "id": "ITgOrhO4Hf2QcDtf",
-          "name": "odoo dev"
-        }
-      }
     },
     {
       "parameters": {
@@ -364,7 +333,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1280,
+        1300,
         820
       ],
       "credentials": {
@@ -559,48 +528,6 @@
         1180,
         320
       ]
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "=driver.schedule",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "date",
-              "operator": "greaterOrEqual",
-              "value": "={{ $json.beginOfWeek }}"
-            },
-            {
-              "fieldName": "date",
-              "operator": "lesserOrEqual",
-              "value": "={{ $json.endOfWeek }}"
-            },
-            {
-              "fieldName": "driver",
-              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
-            }
-          ]
-        }
-      },
-      "id": "2e97ec89-96c4-49d9-8a88-9afb3d96363c",
-      "name": "графики",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        1580,
-        440
-      ],
-      "alwaysOutputData": true,
-      "credentials": {
-        "odooApi": {
-          "id": "ITgOrhO4Hf2QcDtf",
-          "name": "odoo dev"
-        }
-      }
     },
     {
       "parameters": {
@@ -954,15 +881,91 @@
         2200,
         300
       ]
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_schedules_by_driver",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "driver_id",
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
+            },
+            {
+              "name": "start_date",
+              "value": "={{ $json.beginOfWeek.toDateTime().format('yyyy-MM-dd') }}"
+            },
+            {
+              "name": "end_date",
+              "value": "={{ $json.endOfWeek.toDateTime().format('yyyy-MM-dd') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "df4d9505-eecf-4b4d-9d7e-e4e86c412ae8",
+      "name": "графики",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1580,
+        440
+      ],
+      "alwaysOutputData": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_car_by_driver",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "driver_id",
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9ebb19ad-b7b5-4eb0-b734-c1b7c007a22d",
+      "name": "получим авто по водителю1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        860,
+        840
+      ],
+      "alwaysOutputData": true,
+      "onError": "continueErrorOutput"
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100630349,
+          "update_id": 100631512,
           "message": {
-            "message_id": 22697,
+            "message_id": 24048,
             "from": {
               "id": 700956969,
               "is_bot": false,
@@ -976,12 +979,12 @@
               "username": "Chronos196",
               "type": "private"
             },
-            "date": 1728557637,
-            "text": "Мой график"
+            "date": 1729234127,
+            "text": "1234"
           },
           "tg_id": "700956969",
           "odoo_id": 2,
-          "status": "authorized",
+          "status": "inputing_cancel_round_coment",
           "only_mech": false,
           "mech_photo": false,
           "end_request_id": null,
@@ -989,18 +992,18 @@
           "end_request_hours": null,
           "car_id_while_inputing": 18,
           "fuel_liters": null,
-          "weight_measure": "12 м3 ",
+          "weight_measure": "5 Тонны ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
           "count_weight_photo": null,
           "count_weight_photo_sent": null,
-          "current_quarry_hours": 10,
-          "end_round_message_id": 22693,
-          "last_message_text": "Отлично, рейс активен, по его завершению нажмите на кнопку \"Завершить рейс\"",
+          "current_quarry_hours": 6,
+          "end_round_message_id": 24047,
+          "last_message_text": "Отлично, рейс активен. \n\nКарьер Ключевое - Карьер Ключевое\nНеназначенный (Не указан)\n\nПо его завершению нажмите на кнопку \"Завершить рейс\"",
           "logist_notifications": false,
-          "cookie": "session_id=0d929c6178be0a2dce3eac64b64347fd45aead9f; Expires=Fri, 10 Oct 2025 10:53:59 GMT; Max-Age=604800; HttpOnly; Path=/",
-          "seconds": 2.675
+          "cookie": "session_id=88ccf62b42920ec8fc3a7e36c1bbc079208fa499; Expires=Fri, 17 Oct 2025 05:43:43 GMT; Max-Age=604800; HttpOnly; Path=/",
+          "seconds": 0.185
         }
       }
     ]
@@ -1021,6 +1024,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-10-11T07:52:49.827Z",
-  "versionId": "149289ed-37ee-46ee-8122-90ad0450b757"
+  "updatedAt": "2024-10-18T06:50:13.601Z",
+  "versionId": "ca237012-e1cf-47b9-be4b-6dcb13a7ae91"
 }
