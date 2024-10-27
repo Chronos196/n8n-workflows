@@ -365,22 +365,6 @@
         ]
       ]
     },
-    "Sort": {
-      "main": [
-        [
-          {
-            "node": "разница в днях",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "объединяем доки+дата с разницей во времени",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
     "если истекло": {
       "main": [
         [
@@ -425,17 +409,6 @@
         ]
       ]
     },
-    "документы с истекающим сроком1": {
-      "main": [
-        [
-          {
-            "node": "Merge",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "дата и время 23:1": {
       "main": [
         [
@@ -454,17 +427,6 @@
             "node": "документы с истекающим сроком2",
             "type": "main",
             "index": 0
-          }
-        ]
-      ]
-    },
-    "документы с истекающим сроком2": {
-      "main": [
-        [
-          {
-            "node": "Merge",
-            "type": "main",
-            "index": 1
           }
         ]
       ]
@@ -503,17 +465,6 @@
         [
           {
             "node": "документы с истекающим сроком3",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "документы с истекающим сроком3": {
-      "main": [
-        [
-          {
-            "node": "Merge1",
             "type": "main",
             "index": 0
           }
@@ -821,7 +772,7 @@
       "main": [
         [
           {
-            "node": "выбор заявки(первая страница)",
+            "node": "Есть ли заявки на проверке",
             "type": "main",
             "index": 0
           }
@@ -1108,6 +1059,73 @@
         [
           {
             "node": "заявки на проверке",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Есть ли заявки на проверке": {
+      "main": [
+        [
+          {
+            "node": "выбор заявки(первая страница)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "нет заявок на проверке",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort": {
+      "main": [
+        [
+          {
+            "node": "разница в днях",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "объединяем доки+дата с разницей во времени",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "документы с истекающим сроком1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "документы с истекающим сроком2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "документы с истекающим сроком3": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
             "type": "main",
             "index": 0
           }
@@ -2225,26 +2243,6 @@
     },
     {
       "parameters": {
-        "sortFieldsUi": {
-          "sortField": [
-            {
-              "fieldName": "expiration_date"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "7294994d-a043-4825-8fa0-19011c61cc39",
-      "name": "Sort",
-      "type": "n8n-nodes-base.sort",
-      "typeVersion": 1,
-      "position": [
-        1060,
-        2840
-      ]
-    },
-    {
-      "parameters": {
         "assignments": {
           "assignments": [
             {
@@ -2371,43 +2369,6 @@
     },
     {
       "parameters": {
-        "resource": "custom",
-        "customResource": "documents.documents",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "expiration_date",
-              "operator": "lesserOrEqual",
-              "value": "={{ $json.newformattedDate }}"
-            },
-            {
-              "fieldName": "expiration_date",
-              "operator": "greaterOrEqual",
-              "value": "={{ $('дата и время 23:1').item.json.newformattedDate1 }}"
-            }
-          ]
-        }
-      },
-      "id": "e01959aa-c0dc-4644-b565-5000585b8d13",
-      "name": "документы с истекающим сроком1",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        1260,
-        3180
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "8fI2woAI3HZ7dHDv",
-          "name": "Odoo production"
-        }
-      }
-    },
-    {
-      "parameters": {
         "operation": "formatDate",
         "date": "={{ $json.newDate }}",
         "format": "=yyyy-MM-dd, 00:00:00",
@@ -2439,38 +2400,6 @@
         680,
         3340
       ]
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "documents.documents",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "expiration_date",
-              "operator": "lesserOrEqual",
-              "value": "={{ $json.newformattedDate }}"
-            }
-          ]
-        }
-      },
-      "id": "5a90bab4-e7ea-4fea-b702-4998a665c34d",
-      "name": "документы с истекающим сроком2",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        880,
-        3340
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "8fI2woAI3HZ7dHDv",
-          "name": "Odoo production"
-        }
-      }
     },
     {
       "parameters": {
@@ -2572,43 +2501,6 @@
         1020,
         3540
       ]
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "documents.documents",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "expiration_date",
-              "operator": "lesserOrEqual",
-              "value": "={{ $json.newformattedDate }}"
-            },
-            {
-              "fieldName": "expiration_date",
-              "operator": "greaterOrEqual",
-              "value": "={{ $('дата и время 23:3').item.json.newformattedDate1 }}"
-            }
-          ]
-        }
-      },
-      "id": "96fa9995-1790-4589-9df7-8839bf68d44e",
-      "name": "документы с истекающим сроком3",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        1260,
-        3540
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "8fI2woAI3HZ7dHDv",
-          "name": "Odoo production"
-        }
-      }
     },
     {
       "parameters": {
@@ -2948,7 +2840,7 @@
       "parameters": {
         "content": "## Блок сценария для механика",
         "height": 626.7989191511062,
-        "width": 1267.9135979457083
+        "width": 1492.342150151122
       },
       "id": "6e100b3c-35a0-444e-8261-108fdb7002bd",
       "name": "Sticky Note8",
@@ -3792,7 +3684,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        1360,
+        1260,
         1200
       ],
       "alwaysOutputData": true,
@@ -3817,8 +3709,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        1800,
-        1200
+        1960,
+        1040
       ]
     },
     {
@@ -4060,8 +3952,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1580,
-        1200
+        1740,
+        1040
       ]
     },
     {
@@ -5153,6 +5045,210 @@
         960,
         5740
       ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2a5d035d-235a-47f4-87f1-88ba998b6fe4",
+              "leftValue": "={{ $('получим все неисправности1').item.json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "22fc2a07-8602-4ba2-9a3a-f29ff5e721f9",
+      "name": "Есть ли заявки на проверке",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1480,
+        1200
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "text": "На данный момент нет заявок, требующих проверки!",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Назад",
+                    "additionalFields": {
+                      "callback_data": "del_maintenances"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "3b549190-4e7c-4952-94e4-ad84d9f47efa",
+      "name": "нет заявок на проверке",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        1840,
+        1220
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "s2yURwRj0JIo9urH",
+          "name": "Everest production"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "expiration_date"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7294994d-a043-4825-8fa0-19011c61cc39",
+      "name": "Sort",
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        2840
+      ],
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "documents.documents",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "expiration_date",
+              "operator": "lesserOrEqual",
+              "value": "={{ $json.newformattedDate }}"
+            },
+            {
+              "fieldName": "expiration_date",
+              "operator": "greaterOrEqual",
+              "value": "={{ $('дата и время 23:1').item.json.newformattedDate1 }}"
+            }
+          ]
+        }
+      },
+      "id": "e01959aa-c0dc-4644-b565-5000585b8d13",
+      "name": "документы с истекающим сроком1",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1260,
+        3180
+      ],
+      "alwaysOutputData": false,
+      "credentials": {
+        "odooApi": {
+          "id": "8fI2woAI3HZ7dHDv",
+          "name": "Odoo production"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "documents.documents",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "expiration_date",
+              "operator": "lesserOrEqual",
+              "value": "={{ $json.newformattedDate }}"
+            }
+          ]
+        }
+      },
+      "id": "5a90bab4-e7ea-4fea-b702-4998a665c34d",
+      "name": "документы с истекающим сроком2",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        880,
+        3340
+      ],
+      "alwaysOutputData": false,
+      "credentials": {
+        "odooApi": {
+          "id": "8fI2woAI3HZ7dHDv",
+          "name": "Odoo production"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "documents.documents",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "expiration_date",
+              "operator": "lesserOrEqual",
+              "value": "={{ $json.newformattedDate }}"
+            },
+            {
+              "fieldName": "expiration_date",
+              "operator": "greaterOrEqual",
+              "value": "={{ $('дата и время 23:3').item.json.newformattedDate1 }}"
+            }
+          ]
+        }
+      },
+      "id": "96fa9995-1790-4589-9df7-8839bf68d44e",
+      "name": "документы с истекающим сроком3",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1260,
+        3540
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "8fI2woAI3HZ7dHDv",
+          "name": "Odoo production"
+        }
+      }
     }
   ],
   "pinData": {
@@ -5277,6 +5373,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-10-20T12:55:51.343Z",
-  "versionId": "0622d3c4-b718-472d-84db-c94ec248df4c"
+  "updatedAt": "2024-10-23T17:53:05.102Z",
+  "versionId": "bf5e3b97-689a-499d-aea7-84d27483c9df"
 }
