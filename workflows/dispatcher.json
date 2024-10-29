@@ -483,17 +483,6 @@
         ]
       ]
     },
-    "данные водителя": {
-      "main": [
-        [
-          {
-            "node": "сообщение отправлено",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "статус диспетчера": {
       "main": [
         [],
@@ -565,6 +554,17 @@
         [
           {
             "node": "разделение на дни для документов",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "данные водителя": {
+      "main": [
+        [
+          {
+            "node": "сообщение отправлено",
             "type": "main",
             "index": 0
           }
@@ -2080,36 +2080,6 @@
     },
     {
       "parameters": {
-        "resource": "custom",
-        "customResource": "=hr.employee",
-        "operation": "getAll",
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "id",
-              "value": "={{ $json.odoo_id }}"
-            }
-          ]
-        }
-      },
-      "id": "300e5f93-7f1a-4c1b-a06a-7676a469b53a",
-      "name": "данные водителя",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        820,
-        380
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "ITgOrhO4Hf2QcDtf",
-          "name": "odoo dev"
-        }
-      }
-    },
-    {
-      "parameters": {
         "rules": {
           "values": [
             {
@@ -2510,15 +2480,48 @@
         -100,
         1280
       ]
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_driver_by_id",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "session_id=88ccf62b42920ec8fc3a7e36c1bbc079208fa499; Expires=Fri, 17 Oct 2025 05:43:43 GMT; Max-Age=604800; HttpOnly; Path=/"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "driver_id",
+              "value": "={{ $json.odoo_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "795c693f-2b4d-4511-8eb6-52610a991eb1",
+      "name": "данные водителя",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        800,
+        380
+      ],
+      "onError": "continueErrorOutput"
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100626331,
+          "update_id": 100632169,
           "callback_query": {
-            "id": "2782501073602434925",
+            "id": "2782501069857244352",
             "from": {
               "id": 7090302459,
               "is_bot": false,
@@ -2527,7 +2530,7 @@
               "language_code": "ru"
             },
             "message": {
-              "message_id": 18072,
+              "message_id": 24752,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -2540,54 +2543,61 @@
                 "last_name": "Go",
                 "type": "private"
               },
-              "date": 1725290331,
-              "voice": {
-                "duration": 1,
-                "mime_type": "audio/ogg",
-                "file_id": "AwACAgIAAxkDAAJGmGbV11tbndmnV8qv3DILW39XSi6CAALRUQACXJSxSh3FJFWgaUW_NQQ",
-                "file_unique_id": "AgAD0VEAAlyUsUo",
-                "file_size": 4568
-              },
-              "caption": "Сообщение от водителя автомобиля А 459 ТЕ, Алексей Горемыкин, +79124406618",
-              "caption_entities": [
-                {
-                  "offset": 62,
-                  "length": 12,
-                  "type": "phone_number"
-                }
-              ],
+              "date": 1729581688,
+              "text": "Выберите за какой период хотите проверить документы:",
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "Ответить на сообщение",
-                      "callback_data": "answer_to_not_urgent_700956969"
+                      "text": "1-7 дней",
+                      "callback_data": "7_days"
+                    }
+                  ],
+                  [
+                    {
+                      "text": "8-14 дней",
+                      "callback_data": "14_days"
+                    }
+                  ],
+                  [
+                    {
+                      "text": "15-21 день",
+                      "callback_data": "21_days"
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Назад",
+                      "callback_data": "delete_date"
                     }
                   ]
                 ]
               }
             },
             "chat_instance": "4841481297779052467",
-            "data": "answer_to_not_urgent_700956969"
+            "data": "7_days"
           },
           "tg_id": "7090302459",
           "odoo_id": 19,
-          "status": "not_urgent_700956969",
+          "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
-          "end_request_id": null,
+          "end_request_id": 481,
           "materials_photo": false,
           "end_request_hours": null,
-          "car_id_while_inputing": null,
+          "car_id_while_inputing": 49,
           "fuel_liters": null,
-          "weight_measure": null,
+          "weight_measure": "2 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
           "count_weight_photo": null,
           "count_weight_photo_sent": null,
-          "current_quarry_hours": null,
-          "cookie": "session_id=5bdaca9bbd0a9f6dc8c5c096549f730886b5969f; Expires=Tue, 02 Sep 2025 15:18:58 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "current_quarry_hours": 50,
+          "end_round_message_id": 23981,
+          "last_message_text": "Отлично, рейс активен. \n\nКарьер Ключевое - Карьер Ключевое\nНеназначенный (Не указан)\n\nПо его завершению нажмите на кнопку \"Завершить рейс\"",
+          "logist_notifications": true,
+          "cookie": "session_id=88ccf62b42920ec8fc3a7e36c1bbc079208fa499; Expires=Fri, 17 Oct 2025 05:43:43 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -2605,6 +2615,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-09-02T15:49:03.382Z",
-  "versionId": "4d88aaca-0b72-46f2-b4b8-93c02ab0f878"
+  "updatedAt": "2024-10-22T07:28:03.013Z",
+  "versionId": "cc5729de-2447-44ec-843a-2d729124f36d"
 }
