@@ -2315,17 +2315,6 @@
         ]
       ]
     },
-    "Получаем рейсы2": {
-      "main": [
-        [
-          {
-            "node": "Объединение рейсов в один файл3",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Получение работ в карьере4": {
       "main": [
         [
@@ -2352,12 +2341,12 @@
       "main": [
         [
           {
-            "node": "Получаем рейсы2",
+            "node": "Получение работ в карьере4",
             "type": "main",
             "index": 0
           },
           {
-            "node": "Получение работ в карьере4",
+            "node": "рейсы для статы",
             "type": "main",
             "index": 0
           }
@@ -2749,7 +2738,7 @@
         ],
         [
           {
-            "node": "рейсы по авто",
+            "node": "работы по авто",
             "type": "main",
             "index": 0
           }
@@ -2757,17 +2746,6 @@
         [
           {
             "node": "водитель/наёмник2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "рейсы по авто": {
-      "main": [
-        [
-          {
-            "node": "Split Out2",
             "type": "main",
             "index": 0
           }
@@ -3205,6 +3183,50 @@
         [
           {
             "node": "айди для отправки сообщения3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "работы по авто": {
+      "main": [
+        [
+          {
+            "node": "Split Out2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "рейсы для статы": {
+      "main": [
+        [
+          {
+            "node": "Split Out4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out4": {
+      "main": [
+        [
+          {
+            "node": "Получаем рейсы2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Получаем рейсы2": {
+      "main": [
+        [
+          {
+            "node": "Объединение рейсов в один файл3",
             "type": "main",
             "index": 0
           }
@@ -9546,6 +9568,18 @@
               "row": {
                 "buttons": [
                   {
+                    "text": "Приступить к следующей перевозке",
+                    "additionalFields": {
+                      "callback_data": "transportation_to_tail"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
                     "text": "Завершить смену",
                     "additionalFields": {
                       "callback_data": "complete_work"
@@ -11385,6 +11419,18 @@
               "row": {
                 "buttons": [
                   {
+                    "text": "Приступить к следующей перевозке",
+                    "additionalFields": {
+                      "callback_data": "transportation_to_tail"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
                     "text": "Завершить смену",
                     "additionalFields": {
                       "callback_data": "complete_work"
@@ -12057,49 +12103,6 @@
     {
       "parameters": {
         "resource": "custom",
-        "customResource": "=transportation.round",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {
-          "fieldsList": [
-            "id",
-            "time_of_start",
-            "driver_rate",
-            "driver_with_trailer"
-          ]
-        },
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "driver",
-              "value": "={{ $json.odoo_id }}"
-            },
-            {
-              "fieldName": "status",
-              "value": "Завершен"
-            }
-          ]
-        }
-      },
-      "id": "df43e166-8978-4f4f-84ca-3359f0aecc8d",
-      "name": "Получаем рейсы2",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        1340,
-        720
-      ],
-      "alwaysOutputData": false,
-      "credentials": {
-        "odooApi": {
-          "id": "ITgOrhO4Hf2QcDtf",
-          "name": "odoo dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "custom",
         "customResource": "=quarry.work",
         "operation": "getAll",
         "returnAll": true,
@@ -12151,8 +12154,8 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        1660,
-        720
+        1800,
+        660
       ],
       "alwaysOutputData": true
     },
@@ -12170,7 +12173,7 @@
     {
       "parameters": {
         "content": "## Недельная статистика",
-        "height": 429.7260581551303,
+        "height": 485.8229350991478,
         "width": 2105.433654111054
       },
       "id": "80a0f40d-ef36-4bbf-96f0-f929d0356d47",
@@ -12179,7 +12182,7 @@
       "typeVersion": 1,
       "position": [
         1000,
-        680
+        623.9031230559824
       ]
     },
     {
@@ -13914,40 +13917,6 @@
     },
     {
       "parameters": {
-        "url": "https://dev.everest.lamart.site/get_quarry_work_by_car",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "cookie",
-              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "car_id",
-              "value": "={{ $('ищем автомобиль с таким же сотрудником').item.json.id }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "6e8be7c7-5e19-45f8-99b1-2fe15f2e826b",
-      "name": "рейсы по авто",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        4820,
-        2280
-      ],
-      "alwaysOutputData": true,
-      "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
         "fieldToSplitOut": "quarry_works",
         "options": {}
       },
@@ -15131,6 +15100,121 @@
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_quarry_work_by_car",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "car_id",
+              "value": "={{ $('ищем автомобиль с таким же сотрудником').item.json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6e8be7c7-5e19-45f8-99b1-2fe15f2e826b",
+      "name": "работы по авто",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        4820,
+        2280
+      ],
+      "alwaysOutputData": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_rounds_by_driver",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "driver_id",
+              "value": "={{ $json.odoo_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a349c691-c06d-4e39-b02f-404837a63aa9",
+      "name": "рейсы для статы",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1260,
+        680
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e8ae4282-14b8-4fba-b58f-4c4829df241c",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "Завершен",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "2da05c90-a0d0-4b52-a72a-5ce281be3c25",
+      "name": "Получаем рейсы2",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        1620,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "transportation_rounds",
+        "options": {}
+      },
+      "id": "7d1f1aea-7326-46c4-9339-4804b2c6a264",
+      "name": "Split Out4",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1440,
+        660
+      ]
     }
   ],
   "pinData": {
@@ -15197,6 +15281,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-10-21T14:47:53.255Z",
-  "versionId": "323f5e6d-6cce-4bfd-a915-9d8cab84116e"
+  "updatedAt": "2024-10-22T08:04:13.447Z",
+  "versionId": "d77301be-74b9-4e89-a0d3-d1acdb38f91e"
 }
