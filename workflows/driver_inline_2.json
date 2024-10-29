@@ -12,17 +12,6 @@
         ]
       ]
     },
-    "сохраняем текст сообщения": {
-      "main": [
-        [
-          {
-            "node": "Завершить текущую перевозку?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "поиск авто": {
       "main": [
         [
@@ -487,38 +476,6 @@
         [
           {
             "node": "отменить рейс?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "следующая перевозка": {
-      "main": [
-        [
-          {
-            "node": "сохраняем текст сообщения",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "прошлое сообщение",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "поиск авто",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "заявки по авто",
             "type": "main",
             "index": 0
           }
@@ -1258,6 +1215,85 @@
           }
         ]
       ]
+    },
+    "работа в карьере?": {
+      "main": [
+        [
+          {
+            "node": "Завершить для работы",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Завершить текущую перевозку?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Завершить текущую перевозку?": {
+      "main": [
+        [
+          {
+            "node": "сохраняем текст сообщения",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Завершить для работы": {
+      "main": [
+        [
+          {
+            "node": "сохраняем текст сообщения",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "следующая перевозка": {
+      "main": [
+        [
+          {
+            "node": "работа в карьере?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "прошлое сообщение",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "поиск авто",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "прошлое сообщение2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "заявки по авто",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-09-20T05:04:19.453Z",
@@ -1320,8 +1356,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        360,
-        100
+        280,
+        140
       ],
       "credentials": {
         "telegramApi": {
@@ -1347,8 +1383,8 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "tg_id": "={{ $json.callback_query.from.id }}",
-            "last_message_text": "={{ $json.callback_query.message.text }}"
+            "tg_id": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
+            "last_message_text": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.text }}"
           },
           "matchingColumns": [
             "tg_id"
@@ -1552,8 +1588,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        180,
-        100
+        500,
+        80
       ],
       "credentials": {
         "postgres": {
@@ -1949,7 +1985,7 @@
     {
       "parameters": {
         "content": "## Кнопка следующей перевозки",
-        "height": 753.6597040203603,
+        "height": 918.5981928669721,
         "width": 618.4840105643988,
         "color": 6
       },
@@ -1959,7 +1995,7 @@
       "typeVersion": 1,
       "position": [
         140,
-        20
+        -144.9384888466118
       ]
     },
     {
@@ -2184,6 +2220,18 @@
                     "text": "Приступить к работе в карьере",
                     "additionalFields": {
                       "callback_data": "accept_quarry"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Приступить к следующей перевозке",
+                    "additionalFields": {
+                      "callback_data": "transportation_to_tail"
                     }
                   }
                 ]
@@ -3621,92 +3669,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 1
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "transportation_to_tail",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 1
-                },
-                "conditions": [
-                  {
-                    "id": "0711410c-59a6-406a-a35f-6762937046c6",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "no_transfer_transportation",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 1
-                },
-                "conditions": [
-                  {
-                    "id": "d61e0f5b-e253-4f40-87e2-b52b4064f72f",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "next_transportation",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {
-          "fallbackOutput": "extra"
-        }
-      },
-      "id": "6256273b-45d3-4a92-8d07-43bc100642e1",
-      "name": "следующая перевозка",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3.1,
-      "position": [
-        -240,
-        340
-      ]
-    },
-    {
-      "parameters": {
         "content": "## Отмена рейсов",
         "height": 625.9423518573242,
         "width": 940.0523646774368,
@@ -4344,7 +4306,7 @@
       "typeVersion": 3.1,
       "position": [
         -100,
-        1500
+        1340
       ]
     },
     {
@@ -5820,25 +5782,282 @@
         360,
         5420
       ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "22d02c31-2fd8-494a-9406-9bc0830c1a93",
+              "leftValue": "={{ $json.callback_query.message.reply_markup.inline_keyboard[0][0].callback_data }}",
+              "rightValue": "quarry",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "1feb63e5-2ecd-43ea-9776-cb00b3f89d6a",
+      "name": "работа в карьере?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        40,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "Вы уверены, что хотите приступить к следующей перевозке?",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Да",
+                    "additionalFields": {
+                      "callback_data": "next_transportation"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Назад",
+                    "additionalFields": {
+                      "callback_data": "no_transfer_transportation_quarry"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "id": "ebd7744e-410b-42dd-b76c-d98d4749abb8",
+      "name": "Завершить для работы",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        280,
+        -60
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "transportation_to_tail",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "0711410c-59a6-406a-a35f-6762937046c6",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "no_transfer_transportation",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "d61e0f5b-e253-4f40-87e2-b52b4064f72f",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "next_transportation",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "d41500f9-0e68-45f9-b3c0-18f53e94799a",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "no_transfer_transportation_quarry",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "6256273b-45d3-4a92-8d07-43bc100642e1",
+      "name": "следующая перевозка",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.1,
+      "position": [
+        -240,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $json.callback_query.from.id }}",
+        "messageId": "={{ $json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "={{ $json.last_message_text }}",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Приступить к работе в карьере",
+                    "additionalFields": {
+                      "callback_data": "accept_quarry"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Приступить к следующей перевозке",
+                    "additionalFields": {
+                      "callback_data": "transportation_to_tail"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Завершить смену",
+                    "additionalFields": {
+                      "callback_data": "complete_work"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "id": "39a68446-168e-4a49-a803-2fea4fbc5f3a",
+      "name": "прошлое сообщение2",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        200,
+        620
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100630950,
+          "update_id": 100632206,
           "callback_query": {
-            "id": "2008109316115463928",
+            "id": "3010587258172832547",
             "from": {
-              "id": 467549384,
+              "id": 700956969,
               "is_bot": false,
-              "first_name": "Sergio",
-              "username": "sergo_kf",
-              "language_code": "ru",
-              "is_premium": true
+              "first_name": "Алексей",
+              "username": "Chronos196",
+              "language_code": "ru"
             },
             "message": {
-              "message_id": 23347,
+              "message_id": 24816,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -5846,82 +6065,111 @@
                 "username": "myn8nbotbot"
               },
               "chat": {
-                "id": 467549384,
-                "first_name": "Sergio",
-                "username": "sergo_kf",
+                "id": 700956969,
+                "first_name": "Алексей",
+                "username": "Chronos196",
                 "type": "private"
               },
-              "date": 1729068972,
-              "text": "📊 Отчет за текущую неделю\n\n📅 среда (16.10):\n🚚 Количество рейсов: 14\n🕑 Карьерные часы: 0 ч\n💵 Заработок: 1775 руб.\n\n📅 вторник (15.10):\nНе было перевозок\n\n📅 понедельник (14.10):\nНе было перевозок\n\n📊 Отчет за текущий месяц\n\n🚚 Количество рейсов: 26\n🕑 Карьерные часы: 21 ч\n💵 Заработок: 13887.5 руб.",
+              "date": 1729583112,
+              "text": "На сегодня Вам назначены перевозки в следующем порядке:\n\n1. Работа в карьере - Карьер Ключевое\nКомментарий - 123\n\n2. Отправитель - Эверест\nПолучатель - Новая компания\nМаршрут - Карьер Ключевое-Карьер Ключевое\nМатериал - Неназначенный (Не указан)\nКомментарий - 123",
               "entities": [
                 {
-                  "offset": 3,
-                  "length": 23,
+                  "offset": 0,
+                  "length": 55,
                   "type": "bold"
                 },
                 {
-                  "offset": 31,
+                  "offset": 57,
+                  "length": 22,
+                  "type": "italic"
+                },
+                {
+                  "offset": 57,
+                  "length": 2,
+                  "type": "bold"
+                },
+                {
+                  "offset": 79,
+                  "length": 33,
+                  "type": "italic"
+                },
+                {
+                  "offset": 79,
+                  "length": 15,
+                  "type": "bold"
+                },
+                {
+                  "offset": 114,
+                  "length": 2,
+                  "type": "bold"
+                },
+                {
+                  "offset": 131,
+                  "length": 7,
+                  "type": "bold"
+                },
+                {
+                  "offset": 152,
                   "length": 14,
                   "type": "bold"
                 },
                 {
-                  "offset": 122,
-                  "length": 16,
+                  "offset": 177,
+                  "length": 31,
                   "type": "bold"
                 },
                 {
-                  "offset": 161,
-                  "length": 20,
+                  "offset": 220,
+                  "length": 25,
                   "type": "bold"
                 },
                 {
-                  "offset": 204,
-                  "length": 22,
-                  "type": "bold"
+                  "offset": 260,
+                  "length": 3,
+                  "type": "italic"
                 }
               ],
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "За месяц",
-                      "callback_data": "month_stats_reply"
+                      "text": "Приступить к работе в карьере",
+                      "callback_data": "accept_quarry"
                     }
                   ],
                   [
                     {
-                      "text": "Назад",
-                      "callback_data": "after_stats"
+                      "text": "Приступить к следующей перевозке",
+                      "callback_data": "transportation_to_tail"
                     }
                   ]
                 ]
               }
             },
-            "chat_instance": "-8293046807322593726",
-            "data": "month_stats_reply"
+            "chat_instance": "1908726007480408494",
+            "data": "transportation_to_tail"
           },
-          "tg_id": "467549384",
-          "odoo_id": 4,
-          "status": "inputing_material_volume",
+          "tg_id": "700956969",
+          "odoo_id": 2,
+          "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
           "end_request_id": null,
           "materials_photo": false,
           "end_request_hours": null,
-          "car_id_while_inputing": 25,
-          "fuel_liters": 100,
-          "weight_measure": "Тонны",
+          "car_id_while_inputing": 18,
+          "fuel_liters": null,
+          "weight_measure": "1 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
-          "count_weight_photo": 1,
-          "count_weight_photo_sent": 0,
-          "current_quarry_hours": 10,
-          "end_round_message_id": 23342,
-          "last_message_text": "Объём материала не может быть больше 100, повторите попытку",
+          "count_weight_photo": null,
+          "count_weight_photo_sent": null,
+          "current_quarry_hours": 5,
+          "end_round_message_id": 24816,
+          "last_message_text": "Отправитель - Эверест\nПолучатель - Новая компания\nМаршрут - Карьер Ключевое-Карьер Ключевое\nМатериал - Неназначенный (Не указан)\nКомментарий - 123",
           "logist_notifications": false,
-          "cookie": "session_id=a5a2b09e93196c0df1eb9ce8d7fa46e6ca2be7c5; Expires=Thu, 16 Oct 2025 08:56:25 GMT; Max-Age=604800; HttpOnly; Path=/",
-          "seconds": 0.983
+          "cookie": "session_id=88ccf62b42920ec8fc3a7e36c1bbc079208fa499; Expires=Fri, 17 Oct 2025 05:43:43 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -5942,6 +6190,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-10-16T10:09:53.232Z",
-  "versionId": "08a9259d-c8e5-48cd-88fa-6fad79466880"
+  "updatedAt": "2024-10-22T08:10:30.948Z",
+  "versionId": "c590a56b-5dd9-45b5-b491-98c4f5b91002"
 }
