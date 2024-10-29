@@ -1,86 +1,244 @@
 {
   "active": false,
   "connections": {
-    "Execute Workflow Trigger": {
+    "если не равно нулю": {
       "main": [
         [
           {
-            "node": "кнопки принятия и завершения заказа",
+            "node": "группируем",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "поиск текущего авто": {
+    "склоняем": {
       "main": [
         [
           {
-            "node": "выполняющиеся рейсы",
+            "node": "отправим сообщение",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "выполняющиеся рейсы": {
+    "итоговое кол-во": {
       "main": [
         [
           {
-            "node": "есть рейсы выполняющиеся",
+            "node": "если не равно нулю",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "группируем": {
+      "main": [
+        [
+          {
+            "node": "данные водителя",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "есть рейсы выполняющиеся": {
+    "данные водителя": {
       "main": [
         [
           {
-            "node": "сохраняем текст сообщения1",
+            "node": "очередь поменялась?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "очередь поменялась?": {
+      "main": [
+        [
+          {
+            "node": "сохраним текст",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "склоняем",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "отправим сообщение": {
+      "main": [
+        []
+      ]
+    },
+    "график на завтра": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "рейсы": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "на завтра1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "работы": {
+      "main": [
+        [
+          {
+            "node": "Split Out2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out2": {
+      "main": [
+        [
+          {
+            "node": "работы на завтра1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "работы на завтра1": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "на завтра1": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "итоговое кол-во",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "нет рейсов",
+            "node": "No Operation, do nothing2",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "нет рейсов": {
+    "No Operation, do nothing2": {
       "main": [
         [
           {
-            "node": "удалим инлайн кнопку",
+            "node": "рейсы",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "работы",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "кнопки принятия и завершения заказа": {
+    "No Operation, do nothing": {
       "main": [
-        [],
-        [],
         [
           {
-            "node": "поиск текущего авто",
+            "node": "Loop Over Items",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "сохраняем текст сообщения1": {
+    "авто с завершённой сменой": {
       "main": [
         [
           {
-            "node": "Подтверждение завершения",
+            "node": "история взятия",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "авто с завершённой сменой",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "история взятия": {
+      "main": [
+        [
+          {
+            "node": "график на завтра",
             "type": "main",
             "index": 0
           }
@@ -96,145 +254,32 @@
   "name": "temp",
   "nodes": [
     {
-      "parameters": {},
-      "id": "cc47cd41-86fd-4873-a375-cf6c1c95408c",
-      "name": "Execute Workflow Trigger",
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [
-        400,
-        180
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "editMessageText",
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
-        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
-        "replyMarkup": "inlineKeyboard",
-        "text": "Вы уверены, что готовы завершить рейс?",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Завершить",
-                    "additionalFields": {
-                      "callback_data": "material_volume"
-                    }
-                  },
-                  {
-                    "text": "Назад",
-                    "additionalFields": {
-                      "callback_data": "back_pick"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {}
-      },
-      "id": "4fdf16c7-cf58-4b1f-bd16-23db702247e9",
-      "name": "Подтверждение завершения",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        2080,
-        40
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "rJQteGH5Ng1RKmF4",
-          "name": "tg dev aleksey"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "cars.cars",
-        "operation": "getAll",
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "driver_id",
-              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
-            }
-          ]
-        }
-      },
-      "id": "4e7df3ba-0120-46f8-9289-603658cd8678",
-      "name": "поиск текущего авто",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        1280,
-        134
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "ITgOrhO4Hf2QcDtf",
-          "name": "odoo dev"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "transportation.round",
-        "operation": "getAll",
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "car",
-              "value": "={{ $json.id }}"
-            },
-            {
-              "fieldName": "status",
-              "value": "Выполняется"
-            }
-          ]
-        }
-      },
-      "id": "6228f21e-f3ab-4319-9d50-59936752fda5",
-      "name": "выполняющиеся рейсы",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        1500,
-        134
-      ],
-      "alwaysOutputData": true,
-      "credentials": {
-        "odooApi": {
-          "id": "ITgOrhO4Hf2QcDtf",
-          "name": "odoo dev"
-        }
-      }
-    },
-    {
       "parameters": {
         "conditions": {
           "options": {
             "caseSensitive": true,
             "leftValue": "",
             "typeValidation": "strict",
-            "version": 1
+            "version": 2
           },
           "conditions": [
             {
-              "id": "2eed836a-a22c-4f31-abfd-431debae8854",
-              "leftValue": "={{ $json }}",
-              "rightValue": "",
+              "id": "308060bc-fb9d-4379-af49-994a6c61365b",
+              "leftValue": "={{ $json.count_id }}",
+              "rightValue": 0,
               "operator": {
-                "type": "object",
-                "operation": "notEmpty",
+                "type": "number",
+                "operation": "exists",
                 "singleValue": true
+              }
+            },
+            {
+              "id": "d8cd196a-394b-4169-aadf-fd3499170c52",
+              "leftValue": "={{ $json.count_id }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "notEquals"
               }
             }
           ],
@@ -242,232 +287,77 @@
         },
         "options": {}
       },
-      "id": "59a132d6-2852-493e-8438-85caae84960b",
-      "name": "есть рейсы выполняющиеся",
+      "id": "b57c729b-6091-4379-98f4-b26c4148d5c6",
+      "name": "если не равно нулю",
       "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
+      "typeVersion": 2.2,
       "position": [
-        1720,
-        134
+        2060,
+        100
       ]
     },
     {
       "parameters": {
-        "resource": "callback",
-        "queryId": "={{ $('Execute Workflow Trigger').item.json.callback_query.id }}",
-        "additionalFields": {
-          "show_alert": true,
-          "text": "У вас нет выполняющихся рейсов"
-        }
+        "jsCode": "const groupedFlights = {};\n\n$('Loop Over Items').all().forEach(it => {\n  var entry = it.json;\n  const carName = entry.car[1]; // Извлекаем название автомобиля\n  const flightInfo = entry.transportation !== undefined ? entry.transportation[1].substring(11) : entry.shift[1].substring(11); // Извлекаем информацию о рейсе\n\n  if (!groupedFlights[carName]) {\n    groupedFlights[carName] = [];\n  }\n\n  groupedFlights[carName].push(flightInfo);\n});\n\n// Формирование итоговой строки\nlet result = '';\n\nfor (const [car, flights] of Object.entries(groupedFlights)) {\n  result += `${car}:\\n`;\n  result += flights.join('\\n') + '\\n\\n';\n}\n\n// Вывод результата\nreturn {res: result};"
       },
-      "id": "a37e4995-8fdf-4a19-ad2a-1d1701d07bc9",
-      "name": "нет рейсов",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
+      "id": "3cefa89b-56ef-4f28-92e0-d2e275f624e3",
+      "name": "группируем",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
       "position": [
-        1920,
-        234
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "rJQteGH5Ng1RKmF4",
-          "name": "tg dev aleksey"
-        }
-      }
+        2280,
+        80
+      ]
     },
     {
       "parameters": {
-        "content": "## Подтверждение завершения рейса",
-        "height": 339.93292480078713,
-        "width": 1030.963710220358,
+        "jsCode": "function getTransportationWord(count) {\n  const lastDigit = count % 10;\n  const lastTwoDigits = count % 100;\n\n  let transportationWord;\n  if (lastDigit === 1 && lastTwoDigits !== 11) {\n    transportationWord = \"перевозка\";\n  } else if ((lastDigit >= 2 && lastDigit <= 4) && (lastTwoDigits < 12 || lastTwoDigits > 14)) {\n    transportationWord = \"перевозки\";\n  } else {\n    transportationWord = \"перевозок\";\n  }\n\n  return `${count} ${transportationWord}`;\n}\n\n// Функция для склонения слова \"запланировано\"\nfunction getPlannedWord(count) {\n  const lastDigit = count % 10;\n  const lastTwoDigits = count % 100;\n\n  if (lastDigit === 1 && lastTwoDigits !== 11) {\n    return \"запланирована\";\n  } else if ((lastDigit >= 2 && lastDigit <= 4) && (lastTwoDigits < 12 || lastTwoDigits > 14)) {\n    return \"запланированы\";\n  } else {\n    return \"запланированы\";\n  }\n}\nvar count = $('итоговое кол-во').all()[0].json.count_id;\nvar ans = getPlannedWord(count) + ' ' + getTransportationWord(count);\nreturn {'trans': ans}"
+      },
+      "id": "b97e92a9-7b16-4b26-8975-0960017126a1",
+      "name": "склоняем",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2860,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Вывод на завтра",
+        "height": 902.7271656633407,
+        "width": 1995.518970913985,
         "color": 6
       },
-      "id": "ff5cdeda-de32-4dfa-b6d2-3df785eeeb8f",
-      "name": "Sticky Note55",
+      "id": "e7b9a67c-d054-4fcd-868f-89a79d2d61db",
+      "name": "Sticky Note19",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1240,
-        40
+        1500,
+        -33.5747171301
       ]
     },
     {
       "parameters": {
-        "operation": "editMessageText",
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
-        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
-        "text": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.text }}",
-        "additionalFields": {}
-      },
-      "id": "bb2b8877-d3a2-4201-a23d-e60f60c39fea",
-      "name": "удалим инлайн кнопку",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        2140,
-        234
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "rJQteGH5Ng1RKmF4",
-          "name": "tg dev aleksey"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "rules": {
+        "fieldsToSummarize": {
           "values": [
             {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 1
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "pick",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 1
-                },
-                "conditions": [
-                  {
-                    "id": "ab29fac3-d8a1-4277-9aac-c46a8ca3e960",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "final",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 1
-                },
-                "conditions": [
-                  {
-                    "id": "1fb76a2e-1b73-4555-8e9c-fb47193d2c4b",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "Finish",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 1
-                },
-                "conditions": [
-                  {
-                    "id": "e7143341-d29c-49ad-8647-8595445df788",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "accept",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 1
-                },
-                "conditions": [
-                  {
-                    "id": "3a3f51d5-25e1-4bec-a3eb-9615ed6e6ce3",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "check_final",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 1
-                },
-                "conditions": [
-                  {
-                    "id": "e71b3d59-f632-4d5e-a233-7cf24d288f7c",
-                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
-                    "rightValue": "back_pick",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
+              "field": "id"
             }
           ]
         },
-        "options": {
-          "fallbackOutput": "extra"
-        }
+        "options": {}
       },
-      "id": "163884f8-40a5-4f68-bdc2-ef566e324ec0",
-      "name": "кнопки принятия и завершения заказа",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
+      "id": "f30ddf30-c177-4974-9bdc-62dc719dd93f",
+      "name": "итоговое кол-во",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
       "position": [
-        740,
-        100
-      ]
+        1860,
+        120
+      ],
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -486,8 +376,8 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "tg_id": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
-            "last_message_text": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.text }}"
+            "tg_id": "={{ $json.tg_id }}",
+            "last_message_text": "={{ $('группируем').item.json.res }}"
           },
           "matchingColumns": [
             "tg_id"
@@ -681,18 +571,28 @@
               "display": true,
               "type": "string",
               "canBeUsedToMatch": true
+            },
+            {
+              "id": "logist_notifications",
+              "displayName": "logist_notifications",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
             }
           ]
         },
         "options": {}
       },
-      "id": "64091647-5193-4f31-b102-c83bd0bf8e42",
-      "name": "сохраняем текст сообщения1",
+      "id": "1b3ec922-ebc1-4782-8074-629dae44e660",
+      "name": "сохраним текст",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        1900,
-        40
+        2860,
+        -20
       ],
       "credentials": {
         "postgres": {
@@ -700,94 +600,454 @@
           "name": "pg dev"
         }
       }
-    }
-  ],
-  "pinData": {
-    "Execute Workflow Trigger": [
-      {
-        "json": {
-          "update_id": 100630740,
-          "callback_query": {
-            "id": "3010587260303876608",
-            "from": {
-              "id": 700956969,
-              "is_bot": false,
-              "first_name": "Алексей",
-              "username": "Chronos196",
-              "language_code": "ru"
-            },
-            "message": {
-              "message_id": 23081,
-              "from": {
-                "id": 7063451965,
-                "is_bot": true,
-                "first_name": "Everest n8n",
-                "username": "myn8nbotbot"
-              },
-              "chat": {
-                "id": 700956969,
-                "first_name": "Алексей",
-                "username": "Chronos196",
-                "type": "private"
-              },
-              "date": 1728980091,
-              "edit_date": 1728980150,
-              "text": "Отлично, рейс активен. \n\nКарьер Ключевое - Торг. порт\nЩебень (Карьер Ключевое)\nОстаток по текущей перевозке - 445.6 т.\n\nПо его завершению нажмите на кнопку \"Завершить рейс\"",
-              "reply_markup": {
-                "inline_keyboard": [
-                  [
-                    {
-                      "text": "Завершить рейс",
-                      "callback_data": "Finish"
-                    }
-                  ],
-                  [
-                    {
-                      "text": "Отменить рейс",
-                      "callback_data": "cancel_round"
-                    }
-                  ]
-                ]
-              }
-            },
-            "chat_instance": "1908726007480408494",
-            "data": "Finish"
-          },
-          "tg_id": "700956969",
-          "odoo_id": 2,
-          "status": "authorized",
-          "only_mech": false,
-          "mech_photo": false,
-          "end_request_id": null,
-          "materials_photo": false,
-          "end_request_hours": null,
-          "car_id_while_inputing": 18,
-          "fuel_liters": null,
-          "weight_measure": "3 м3 ",
-          "logist_alert_text": null,
-          "logist_recipient_name": null,
-          "transportation_for_certificate": null,
-          "count_weight_photo": null,
-          "count_weight_photo_sent": null,
-          "current_quarry_hours": 10,
-          "end_round_message_id": 23081,
-          "last_message_text": "Отлично, рейс активен. \n\nКарьер Ключевое - Торг. порт\nЩебень (Карьер Ключевое)\nОстаток по текущей перевозке - 445.6 т.\n\nПо его завершению нажмите на кнопку \"Завершить рейс\"",
-          "logist_notifications": false,
-          "cookie": "session_id=171df01743dedc779f15d2f7fad6bcfe4b562145; Expires=Wed, 15 Oct 2025 08:16:27 GMT; Max-Age=604800; HttpOnly; Path=/",
-          "seconds": 1.717
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('данные водителя').item.json.tg_id }}",
+        "text": "=<b>Изменение перевозок</b>\n\nНа завтра у вас {{ $json.trans }}!\n\n{{ $('группируем').item.json.res }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "db7beaae-232b-44ad-85a1-0d30403e3ba8",
+      "name": "отправим сообщение",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3040,
+        140
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
         }
       }
-    ]
-  },
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "odoo_id",
+              "value": "={{ $('история взятия').all()[0].json.employee[0] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6d4a4437-c985-4ddf-9104-2ad47582573c",
+      "name": "данные водителя",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        2460,
+        80
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "xrihBpyZE5y4OBiy",
+          "name": "pg dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "de602108-41b5-4245-810b-0f3b96f0a60d",
+              "leftValue": "={{ $json.last_message_text }}",
+              "rightValue": "={{ $('группируем').item.json.res }}",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "1ddd11c8-7418-45d1-a46e-7b2531089d3e",
+      "name": "очередь поменялась?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2640,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_schedules_by_driver",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "=session_id=79266f2c0e575e562fb29ee8040fb9799f9baa5b; Expires=Sat, 25 Oct 2025 06:12:48 GMT; Max-Age=604800; HttpOnly; Path=/"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "driver_id",
+              "value": "={{ $json.employee[0] }}"
+            },
+            {
+              "name": "start_date",
+              "value": "={{ $today.plus(1, 'days').format('yyyy-MM-dd') }}"
+            },
+            {
+              "name": "end_date",
+              "value": "={{ $today.plus(1, 'days').format('yyyy-MM-dd') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e9bb6c02-db9e-4d5d-847a-2dfa254f2c60",
+      "name": "график на завтра",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1240,
+        500
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_rounds_by_car",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "=session_id=79266f2c0e575e562fb29ee8040fb9799f9baa5b; Expires=Sat, 25 Oct 2025 06:12:48 GMT; Max-Age=604800; HttpOnly; Path=/"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "car_id",
+              "value": "={{ $json.car[0] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8f85c63c-6690-4399-95a5-35607c4f4c77",
+      "name": "рейсы",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        2120,
+        380
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "transportation_rounds",
+        "options": {}
+      },
+      "id": "90fbfed7-b217-4f09-b56e-1e5b7564b7b4",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2340,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d43dbc66-2b4b-4df6-b25a-2c1fd1a22f32",
+              "leftValue": "={{ $json.transportation[1].slice(0, 10) }}",
+              "rightValue": "={{ $today.plus(1, 'days') }}",
+              "operator": {
+                "type": "dateTime",
+                "operation": "afterOrEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "d0139895-b603-4d01-98da-89a0ca497af9",
+      "name": "на завтра1",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        2560,
+        360
+      ],
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c53394e2-1089-482a-a9bc-66194a5588b8",
+              "leftValue": "={{ $json.shift[1].slice(0, 10) }}",
+              "rightValue": "={{ $today.plus(1, 'days') }}",
+              "operator": {
+                "type": "dateTime",
+                "operation": "afterOrEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "2625d7c3-afb1-4f50-8127-746a0e422ad2",
+      "name": "работы на завтра1",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        2560,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_quarry_work_by_car",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "=session_id=79266f2c0e575e562fb29ee8040fb9799f9baa5b; Expires=Sat, 25 Oct 2025 06:12:48 GMT; Max-Age=604800; HttpOnly; Path=/"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "car_id",
+              "value": "={{ $json.car[0] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e8d7f78d-10f4-4963-bc00-317ded2d0646",
+      "name": "работы",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        2120,
+        620
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "quarry_works",
+        "options": {}
+      },
+      "id": "a122a219-b2ab-4be5-a706-3eb6cdf4b558",
+      "name": "Split Out2",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2340,
+        600
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "96d33581-5ace-47da-a7fc-96da0b5d3e8f",
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        2940,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "577c7ff0-a726-4c4e-b6e6-d5d540208054",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1560,
+        380
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "2f366a8c-275e-4f07-a615-aea1bfb220d6",
+      "name": "No Operation, do nothing2",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1880,
+        500
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "b9a81309-d8a9-4242-93d8-0e3bd364ab17",
+      "name": "No Operation, do nothing",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        3160,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "cars.cars",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "finish_status",
+              "operator": "notEqual",
+              "value": "Не завершали"
+            }
+          ]
+        }
+      },
+      "id": "1b04e5d2-9b6c-45e4-99ec-d950346a135b",
+      "name": "авто с завершённой сменой",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        800,
+        500
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "ITgOrhO4Hf2QcDtf",
+          "name": "odoo dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "story.car",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {},
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "id",
+              "value": "={{ $json.story_for_car[0] }}"
+            }
+          ]
+        }
+      },
+      "id": "c079fd1c-32b1-4c76-af03-21b17ab68b40",
+      "name": "история взятия",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1020,
+        500
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "ITgOrhO4Hf2QcDtf",
+          "name": "odoo dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 7-23/2 * * *"
+            }
+          ]
+        }
+      },
+      "id": "741ccdb4-5c3c-4dd2-8470-b72b71dbec9d",
+      "name": "Schedule Trigger1",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        600,
+        500
+      ]
+    }
+  ],
+  "pinData": {},
   "settings": {
     "executionOrder": "v1",
-    "timezone": "Asia/Vladivostok",
+    "timezone": "Asia/Yekaterinburg",
     "saveManualExecutions": false,
     "callerPolicy": "workflowsFromSameOwner"
   },
-  "staticData": null,
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    }
+  },
   "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2024-10-15T08:22:32.701Z",
-  "versionId": "903b89ff-307c-47c3-9002-8dba3dddf628"
+  "triggerCount": 1,
+  "updatedAt": "2024-10-28T14:17:48.767Z",
+  "versionId": "dcbbf548-67e9-44fc-b072-59220e508e6e"
 }
