@@ -30,17 +30,6 @@
         ]
       ]
     },
-    "получим авто по водителю1": {
-      "main": [
-        [
-          {
-            "node": "отмена рейса",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Telegram": {
       "main": [
         [
@@ -73,17 +62,6 @@
           },
           {
             "node": "начало недели",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "графики": {
-      "main": [
-        [
-          {
-            "node": "есть данные?",
             "type": "main",
             "index": 0
           }
@@ -231,10 +209,32 @@
           }
         ]
       ]
+    },
+    "графики": {
+      "main": [
+        [
+          {
+            "node": "есть данные?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получим авто по водителю1": {
+      "main": [
+        [
+          {
+            "node": "отмена рейса",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "createdAt": "2024-10-13T18:02:03.960Z",
-  "id": "vmigFdWajPQnRemB",
+  "createdAt": "2024-10-20T12:54:22.798Z",
+  "id": "giZN8mm74rrnJ2Qj",
   "meta": {
     "templateCredsSetupCompleted": true
   },
@@ -242,7 +242,7 @@
   "nodes": [
     {
       "parameters": {},
-      "id": "4f3c48bb-a5ac-4ecd-85ce-3d7f4018aa31",
+      "id": "c10585ec-f401-4889-a3eb-85837efdb96c",
       "name": "Execute Workflow Trigger",
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1,
@@ -279,52 +279,21 @@
         },
         "options": {}
       },
-      "id": "cc93ebeb-c1c7-4c8d-8de3-dde3f896755f",
+      "id": "077cec38-06d6-4306-bcce-4c6550ed2aae",
       "name": "отмена рейса",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -480,
-        1000
+        -460,
+        980
       ],
       "onError": "continueErrorOutput"
     },
     {
       "parameters": {
-        "resource": "custom",
-        "customResource": "cars.cars",
-        "operation": "getAll",
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "driver_id",
-              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
-            }
-          ]
-        }
-      },
-      "id": "3651eccc-6ca9-4059-87b3-9f55fa64eeb5",
-      "name": "получим авто по водителю1",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        -680,
-        1000
-      ],
-      "alwaysOutputData": true,
-      "credentials": {
-        "odooApi": {
-          "id": "8fI2woAI3HZ7dHDv",
-          "name": "Odoo production"
-        }
-      }
-    },
-    {
-      "parameters": {
         "errorMessage": "cancel round problem"
       },
-      "id": "ba983ef3-7f1a-482f-a7f2-42fb07eb4797",
+      "id": "bbb42b8b-e62e-4736-8217-4c6b661c232e",
       "name": "Stop and Error",
       "type": "n8n-nodes-base.stopAndError",
       "typeVersion": 1,
@@ -359,12 +328,12 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "f93f389e-7c4e-4704-953c-585912c6d083",
+      "id": "bbdbdd20-d7f1-40ac-967f-a3f85148eaff",
       "name": "Telegram",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -260,
+        -240,
         980
       ],
       "credentials": {
@@ -381,7 +350,7 @@
         "width": 741.0356895064125,
         "color": 6
       },
-      "id": "0db7d78b-d8f4-4de9-8a68-65fdb2511d33",
+      "id": "0ea48030-9b3b-4e9f-9c02-d474552d98a3",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -497,7 +466,7 @@
         },
         "options": {}
       },
-      "id": "f60fe3c0-787b-43ae-951c-a1c2a420d759",
+      "id": "d289ff2a-f018-44da-ad33-34804917b105",
       "name": "возвращаем статус2",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -517,7 +486,7 @@
         "includeTime": false,
         "options": {}
       },
-      "id": "70f43a3e-d1f3-47a9-9c33-dd353a461b85",
+      "id": "98488bb5-3b22-40c2-8ef5-25f6c7664e4f",
       "name": "сегодняшняя дата",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -534,7 +503,7 @@
         "customFormat": "c",
         "options": {}
       },
-      "id": "7e536636-c0e8-4baa-ad2d-e2860d433df9",
+      "id": "ee3f8c68-6d28-470d-99df-3742065ad9e8",
       "name": "какой сегодня день недели?",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -551,7 +520,7 @@
         "outputFieldName": "endOfWeek",
         "options": {}
       },
-      "id": "5a8846ee-fec7-4193-8c9d-953fc60e2917",
+      "id": "ac6bacc7-b231-47aa-a00b-da7706bb6554",
       "name": "конец недели",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -559,48 +528,6 @@
         -360,
         480
       ]
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "=driver.schedule",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "date",
-              "operator": "greaterOrEqual",
-              "value": "={{ $json.beginOfWeek }}"
-            },
-            {
-              "fieldName": "date",
-              "operator": "lesserOrEqual",
-              "value": "={{ $json.endOfWeek }}"
-            },
-            {
-              "fieldName": "driver",
-              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
-            }
-          ]
-        }
-      },
-      "id": "cad55c63-d071-48bd-8e1d-06cd5cf2db1f",
-      "name": "графики",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        40,
-        600
-      ],
-      "alwaysOutputData": true,
-      "credentials": {
-        "odooApi": {
-          "id": "8fI2woAI3HZ7dHDv",
-          "name": "Odoo production"
-        }
-      }
     },
     {
       "parameters": {
@@ -635,7 +562,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "e9d2e376-70fd-40c1-b4b1-aa86142efcff",
+      "id": "dbe917ab-f7de-4728-81ee-cbee44903d93",
       "name": "текст",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
@@ -652,7 +579,7 @@
           "appendAttribution": false
         }
       },
-      "id": "bc28a40a-a94a-49dd-9b79-03b11ebad1c6",
+      "id": "01a6477a-159e-4727-880b-2a2301687065",
       "name": "Неизвестная команда",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -691,7 +618,7 @@
         },
         "options": {}
       },
-      "id": "53722016-4708-4b2b-b5ad-2a0341811c58",
+      "id": "d20f1f0c-66b1-46eb-b710-7375304dcb44",
       "name": "фильтр от лишних уведомлений в чате",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -752,7 +679,7 @@
         },
         "options": {}
       },
-      "id": "2d206515-ee80-4326-a197-bd01d1b2120d",
+      "id": "d81f59e8-0c1d-4330-b062-a1b1e028f189",
       "name": "статусы",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
@@ -769,7 +696,7 @@
         "outputFieldName": "beginOfWeek",
         "options": {}
       },
-      "id": "8cc28e56-e50f-4a9e-9882-2db36e2c0705",
+      "id": "5c5549a5-24ee-4c49-97bd-e6f972150b7d",
       "name": "начало недели",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -784,7 +711,7 @@
         "combineBy": "combineByPosition",
         "options": {}
       },
-      "id": "b17c84a0-69fa-41a8-aeed-59e46a02d462",
+      "id": "4641e0a8-0d65-4c85-aac3-68aa71c587c9",
       "name": "Merge",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
@@ -806,7 +733,7 @@
         },
         "options": {}
       },
-      "id": "a5973a1d-9af2-4c5f-93b3-a9b55fd6962c",
+      "id": "ad7df656-880f-4288-9229-2ae365e8b213",
       "name": "объединяем",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
@@ -826,7 +753,7 @@
         },
         "options": {}
       },
-      "id": "f5eedc86-878b-4580-9288-1a01726daa0f",
+      "id": "ca15c74d-3dfd-40b2-8663-9478422f5392",
       "name": "по возрастанию",
       "type": "n8n-nodes-base.sort",
       "typeVersion": 1,
@@ -860,7 +787,7 @@
         },
         "options": {}
       },
-      "id": "da7b8b28-45cc-44ab-bb63-97df78e2dc8b",
+      "id": "5b6b3f6c-8cc7-465c-b7b2-67c6733f81f9",
       "name": "есть данные?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -894,7 +821,7 @@
           "appendAttribution": false
         }
       },
-      "id": "09107f0d-59be-4282-97a4-0df45aaff38d",
+      "id": "0c8e511d-3ae8-4cc1-b034-acc92d702cfc",
       "name": "Telegram1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -923,7 +850,7 @@
         },
         "options": {}
       },
-      "id": "801ef9c0-679c-47b7-bde3-a3b903a170a2",
+      "id": "2d65f9b2-8482-4fd0-83e1-f7ed14c5cbd7",
       "name": "Edit Fields",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -946,7 +873,7 @@
         },
         "options": {}
       },
-      "id": "7a304a5c-3495-4873-86aa-b55cb738d08d",
+      "id": "524aeb33-b120-44ac-a526-03c6a844807a",
       "name": "создаём строку",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -954,15 +881,91 @@
         660,
         460
       ]
+    },
+    {
+      "parameters": {
+        "url": "https://everest.lamart.site/get_schedules_by_driver",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "driver_id",
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
+            },
+            {
+              "name": "start_date",
+              "value": "={{ $json.beginOfWeek.toDateTime().format('yyyy-MM-dd') }}"
+            },
+            {
+              "name": "end_date",
+              "value": "={{ $json.endOfWeek.toDateTime().format('yyyy-MM-dd') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6e3611b0-af1c-4982-9190-61649ac3afc0",
+      "name": "графики",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        40,
+        600
+      ],
+      "alwaysOutputData": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "https://everest.lamart.site/get_car_by_driver",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "driver_id",
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "aec9b3be-d59f-41cf-b17d-5badc2b30155",
+      "name": "получим авто по водителю1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -680,
+        1000
+      ],
+      "alwaysOutputData": true,
+      "onError": "continueErrorOutput"
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100630349,
+          "update_id": 100631512,
           "message": {
-            "message_id": 22697,
+            "message_id": 24048,
             "from": {
               "id": 700956969,
               "is_bot": false,
@@ -976,12 +979,12 @@
               "username": "Chronos196",
               "type": "private"
             },
-            "date": 1728557637,
-            "text": "Мой график"
+            "date": 1729234127,
+            "text": "1234"
           },
           "tg_id": "700956969",
           "odoo_id": 2,
-          "status": "authorized",
+          "status": "inputing_cancel_round_coment",
           "only_mech": false,
           "mech_photo": false,
           "end_request_id": null,
@@ -989,18 +992,18 @@
           "end_request_hours": null,
           "car_id_while_inputing": 18,
           "fuel_liters": null,
-          "weight_measure": "12 м3 ",
+          "weight_measure": "5 Тонны ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
           "count_weight_photo": null,
           "count_weight_photo_sent": null,
-          "current_quarry_hours": 10,
-          "end_round_message_id": 22693,
-          "last_message_text": "Отлично, рейс активен, по его завершению нажмите на кнопку \"Завершить рейс\"",
+          "current_quarry_hours": 6,
+          "end_round_message_id": 24047,
+          "last_message_text": "Отлично, рейс активен. \n\nКарьер Ключевое - Карьер Ключевое\nНеназначенный (Не указан)\n\nПо его завершению нажмите на кнопку \"Завершить рейс\"",
           "logist_notifications": false,
-          "cookie": "session_id=0d929c6178be0a2dce3eac64b64347fd45aead9f; Expires=Fri, 10 Oct 2025 10:53:59 GMT; Max-Age=604800; HttpOnly; Path=/",
-          "seconds": 2.675
+          "cookie": "session_id=88ccf62b42920ec8fc3a7e36c1bbc079208fa499; Expires=Fri, 17 Oct 2025 05:43:43 GMT; Max-Age=604800; HttpOnly; Path=/",
+          "seconds": 0.185
         }
       }
     ]
@@ -1018,6 +1021,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-10-20T12:47:12.329Z",
-  "versionId": "5703023f-90c0-4241-8456-c0aa4a9e9176"
+  "updatedAt": "2024-10-27T17:44:17.462Z",
+  "versionId": "c70a4f70-6649-4e0a-b924-a7534485994b"
 }
