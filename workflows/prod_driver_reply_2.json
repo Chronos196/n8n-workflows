@@ -16,7 +16,7 @@
       "main": [
         [
           {
-            "node": "Telegram",
+            "node": "вы отменили рейс",
             "type": "main",
             "index": 0
           }
@@ -24,17 +24,6 @@
         [
           {
             "node": "Stop and Error",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Telegram": {
-      "main": [
-        [
-          {
-            "node": "возвращаем статус2",
             "type": "main",
             "index": 0
           }
@@ -231,10 +220,21 @@
           }
         ]
       ]
+    },
+    "вы отменили рейс": {
+      "main": [
+        [
+          {
+            "node": "возвращаем статус2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "createdAt": "2024-10-20T12:54:22.798Z",
-  "id": "giZN8mm74rrnJ2Qj",
+  "createdAt": "2024-10-27T18:09:13.181Z",
+  "id": "5SOmRQcBy3Mkf28I",
   "meta": {
     "templateCredsSetupCompleted": true
   },
@@ -242,7 +242,7 @@
   "nodes": [
     {
       "parameters": {},
-      "id": "c10585ec-f401-4889-a3eb-85837efdb96c",
+      "id": "0050203c-b466-495b-9835-ee0d393ca79d",
       "name": "Execute Workflow Trigger",
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1,
@@ -279,7 +279,7 @@
         },
         "options": {}
       },
-      "id": "077cec38-06d6-4306-bcce-4c6550ed2aae",
+      "id": "83b6cf41-69c4-493f-aa3e-e0d15f2ebf47",
       "name": "отмена рейса",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -293,7 +293,7 @@
       "parameters": {
         "errorMessage": "cancel round problem"
       },
-      "id": "bbb42b8b-e62e-4736-8217-4c6b661c232e",
+      "id": "bf3e9223-9236-496c-87c4-29b7102bb3ef",
       "name": "Stop and Error",
       "type": "n8n-nodes-base.stopAndError",
       "typeVersion": 1,
@@ -304,53 +304,12 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
-        "text": "=Вы отменили рейс в перевозке: <b>{{ $json.current_route }}</b>",
-        "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Приступить к следующей перевозке",
-                    "additionalFields": {
-                      "callback_data": "transportation_to_tail"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {
-          "appendAttribution": false,
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "bbdbdd20-d7f1-40ac-967f-a3f85148eaff",
-      "name": "Telegram",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        -240,
-        980
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "s2yURwRj0JIo9urH",
-          "name": "Everest production"
-        }
-      }
-    },
-    {
-      "parameters": {
         "content": "## Отмена рейса",
         "height": 381.28274062358184,
         "width": 741.0356895064125,
         "color": 6
       },
-      "id": "0ea48030-9b3b-4e9f-9c02-d474552d98a3",
+      "id": "4d626a4c-12e4-458c-9eb0-ae0c07eb797b",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -466,7 +425,7 @@
         },
         "options": {}
       },
-      "id": "d289ff2a-f018-44da-ad33-34804917b105",
+      "id": "762e0404-e90e-49e4-a055-197039114853",
       "name": "возвращаем статус2",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -486,7 +445,7 @@
         "includeTime": false,
         "options": {}
       },
-      "id": "98488bb5-3b22-40c2-8ef5-25f6c7664e4f",
+      "id": "ca617f4c-ded7-464b-a818-48fdd646a806",
       "name": "сегодняшняя дата",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -503,7 +462,7 @@
         "customFormat": "c",
         "options": {}
       },
-      "id": "ee3f8c68-6d28-470d-99df-3742065ad9e8",
+      "id": "76e0374b-ceac-4925-ace0-aba2441e502c",
       "name": "какой сегодня день недели?",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -520,7 +479,7 @@
         "outputFieldName": "endOfWeek",
         "options": {}
       },
-      "id": "ac6bacc7-b231-47aa-a00b-da7706bb6554",
+      "id": "540cd11c-ecdc-4f77-88f0-ccc081c6d647",
       "name": "конец недели",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -562,7 +521,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "dbe917ab-f7de-4728-81ee-cbee44903d93",
+      "id": "47fd4f21-345f-48db-b19b-3275920e4b40",
       "name": "текст",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
@@ -579,7 +538,7 @@
           "appendAttribution": false
         }
       },
-      "id": "01a6477a-159e-4727-880b-2a2301687065",
+      "id": "9ce46498-27e2-44c9-bc2a-651739999756",
       "name": "Неизвестная команда",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -618,7 +577,7 @@
         },
         "options": {}
       },
-      "id": "d20f1f0c-66b1-46eb-b710-7375304dcb44",
+      "id": "040c906b-a945-4586-8584-1f7a81c4f63b",
       "name": "фильтр от лишних уведомлений в чате",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -679,7 +638,7 @@
         },
         "options": {}
       },
-      "id": "d81f59e8-0c1d-4330-b062-a1b1e028f189",
+      "id": "360d1202-08a5-4db4-92b2-e8f0f399a67d",
       "name": "статусы",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
@@ -696,7 +655,7 @@
         "outputFieldName": "beginOfWeek",
         "options": {}
       },
-      "id": "5c5549a5-24ee-4c49-97bd-e6f972150b7d",
+      "id": "a1bc9af3-64f6-49cb-a56b-c43f8c587410",
       "name": "начало недели",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -711,7 +670,7 @@
         "combineBy": "combineByPosition",
         "options": {}
       },
-      "id": "4641e0a8-0d65-4c85-aac3-68aa71c587c9",
+      "id": "ef5a50b1-c85a-41cd-9b93-198ee31d90dc",
       "name": "Merge",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
@@ -733,7 +692,7 @@
         },
         "options": {}
       },
-      "id": "ad7df656-880f-4288-9229-2ae365e8b213",
+      "id": "35f2e80e-5a0d-468d-b0e6-73583c98c6bd",
       "name": "объединяем",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
@@ -753,7 +712,7 @@
         },
         "options": {}
       },
-      "id": "ca15c74d-3dfd-40b2-8663-9478422f5392",
+      "id": "c2d25c51-8789-4b1f-85f9-b50622150e63",
       "name": "по возрастанию",
       "type": "n8n-nodes-base.sort",
       "typeVersion": 1,
@@ -787,7 +746,7 @@
         },
         "options": {}
       },
-      "id": "5b6b3f6c-8cc7-465c-b7b2-67c6733f81f9",
+      "id": "588563f8-9d41-42ea-bc33-2080dd0480a0",
       "name": "есть данные?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -821,7 +780,7 @@
           "appendAttribution": false
         }
       },
-      "id": "0c8e511d-3ae8-4cc1-b034-acc92d702cfc",
+      "id": "761acfdd-a328-4345-bd93-556019a0cf50",
       "name": "Telegram1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -850,7 +809,7 @@
         },
         "options": {}
       },
-      "id": "2d65f9b2-8482-4fd0-83e1-f7ed14c5cbd7",
+      "id": "a99fab5c-faaf-4f4c-8466-6f3278969fb1",
       "name": "Edit Fields",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -873,7 +832,7 @@
         },
         "options": {}
       },
-      "id": "524aeb33-b120-44ac-a526-03c6a844807a",
+      "id": "71da9110-6c68-4b25-b47e-32b0a9994142",
       "name": "создаём строку",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -913,7 +872,7 @@
         },
         "options": {}
       },
-      "id": "6e3611b0-af1c-4982-9190-61649ac3afc0",
+      "id": "7dc05600-a1c4-4522-a188-da365e23bb56",
       "name": "графики",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -947,7 +906,7 @@
         },
         "options": {}
       },
-      "id": "aec9b3be-d59f-41cf-b17d-5badc2b30155",
+      "id": "a83a5b43-cee1-4834-ae96-1ec039275ec9",
       "name": "получим авто по водителю1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -957,6 +916,59 @@
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "text": "=Вы отменили рейс в перевозке: <b>{{ $json.current_route }}</b>",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Приступить к следующей перевозке",
+                    "additionalFields": {
+                      "callback_data": "transportation_to_tail"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Завершить смену",
+                    "additionalFields": {
+                      "callback_data": "complete_work"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "ff45101a-1448-4199-8b84-d30ff5fa1380",
+      "name": "вы отменили рейс",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -240,
+        980
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "s2yURwRj0JIo9urH",
+          "name": "Everest production"
+        }
+      }
     }
   ],
   "pinData": {
@@ -1021,6 +1033,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-10-20T12:54:25.456Z",
-  "versionId": "c269529e-2fbb-4aff-8de6-979e48c06d7f"
+  "updatedAt": "2024-10-27T18:09:13.181Z",
+  "versionId": "72993679-e36a-4b95-a726-93de57a88f6e"
 }
