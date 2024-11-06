@@ -3513,28 +3513,6 @@
       "main": [
         [
           {
-            "node": "-10 часов",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "-10 часов": {
-      "main": [
-        [
-          {
-            "node": "форматируем время",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "форматируем время": {
-      "main": [
-        [
-          {
             "node": "рейсы за сегодня",
             "type": "main",
             "index": 0
@@ -20468,7 +20446,7 @@
             {
               "fieldName": "time_of_end",
               "operator": "greaterOrEqual",
-              "value": "={{ $json.formattedDate }}"
+              "value": "={{ $('сегодняшнее число').item.json.currentDate.toDateTime().format('yyyy-MM-dd 00:00:00') }}"
             }
           ]
         }
@@ -20478,7 +20456,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        2380,
+        1940,
         8820
       ],
       "alwaysOutputData": true,
@@ -20519,7 +20497,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2600,
+        2160,
         8820
       ]
     },
@@ -20539,7 +20517,7 @@
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        2820,
+        2380,
         8700
       ]
     },
@@ -20552,7 +20530,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3020,
+        2580,
         8700
       ]
     },
@@ -20570,7 +20548,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        3220,
+        2780,
         8820
       ]
     },
@@ -20583,7 +20561,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2820,
+        2380,
         8880
       ]
     },
@@ -20600,40 +20578,6 @@
       "typeVersion": 2,
       "position": [
         1720,
-        8820
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "addToDate",
-        "magnitude": "={{ $json.currentDate }}",
-        "timeUnit": "hours",
-        "duration": -10,
-        "options": {}
-      },
-      "id": "eab44d4f-df89-4e19-bd15-4d624b650f51",
-      "name": "-10 часов",
-      "type": "n8n-nodes-base.dateTime",
-      "typeVersion": 2,
-      "position": [
-        1940,
-        8820
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "formatDate",
-        "date": "={{ $json.newDate }}",
-        "format": "custom",
-        "customFormat": "yyyy-MM-dd 00:00:00",
-        "options": {}
-      },
-      "id": "a82bed85-f9bd-4059-ac05-4fbbe9135f64",
-      "name": "форматируем время",
-      "type": "n8n-nodes-base.dateTime",
-      "typeVersion": 2,
-      "position": [
-        2160,
         8820
       ]
     },
@@ -22170,18 +22114,18 @@
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100632609,
+          "update_id": 100633779,
           "callback_query": {
-            "id": "3435691471014982421",
+            "id": "3010587257886022266",
             "from": {
-              "id": 799934256,
+              "id": 700956969,
               "is_bot": false,
-              "first_name": "Александр",
-              "username": "saniochek_22",
+              "first_name": "Алексей",
+              "username": "Chronos196",
               "language_code": "ru"
             },
             "message": {
-              "message_id": 25123,
+              "message_id": 26435,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -22189,54 +22133,54 @@
                 "username": "myn8nbotbot"
               },
               "chat": {
-                "id": 799934256,
-                "first_name": "Александр",
-                "username": "saniochek_22",
+                "id": 700956969,
+                "first_name": "Алексей",
+                "username": "Chronos196",
                 "type": "private"
               },
-              "date": 1729764321,
-              "text": "Количество завершенных рейсов: 2\nПроверьте наличие ТТН и Весовых справок в перевозке.\nВыберите необходимую перевозку🛻",
+              "date": 1730880795,
+              "edit_date": 1730880801,
+              "text": "Вы уверены, что готовы завершить смену?",
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "Карьер Ключевое-Чебаркуль, Новый",
-                      "callback_data": "TS_1078"
-                    }
-                  ],
-                  [
+                      "text": "Завершить смену",
+                      "callback_data": "upload_sertificate"
+                    },
                     {
-                      "text": "Завершить проверку",
-                      "callback_data": "check_fuel"
+                      "text": "Назад",
+                      "callback_data": "check_final"
                     }
                   ]
                 ]
               }
             },
-            "chat_instance": "-5027017175737254521",
-            "data": "TS_1078"
+            "chat_instance": "1908726007480408494",
+            "data": "upload_sertificate"
           },
-          "tg_id": "799934256",
-          "odoo_id": 14,
+          "tg_id": "700956969",
+          "odoo_id": 2,
           "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
           "end_request_id": null,
           "materials_photo": false,
           "end_request_hours": null,
-          "car_id_while_inputing": 19,
-          "fuel_liters": 0,
-          "weight_measure": "37 м3 ",
+          "car_id_while_inputing": 18,
+          "fuel_liters": 40,
+          "weight_measure": "60 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
-          "count_weight_photo": 0,
+          "count_weight_photo": 1,
           "count_weight_photo_sent": 0,
-          "current_quarry_hours": 4,
-          "end_round_message_id": 25121,
-          "last_message_text": "Отлично, рейс активен. \n\nКарьер Ключевое - Чебаркуль, Новый\nТЕСТ (Карьер Ключевое)\n\nПо его завершению нажмите на кнопку \"Завершить рейс\"",
-          "logist_notifications": true,
-          "cookie": "session_id=88ccf62b42920ec8fc3a7e36c1bbc079208fa499; Expires=Fri, 17 Oct 2025 05:43:43 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "current_quarry_hours": 1,
+          "end_round_message_id": 26435,
+          "last_message_text": "Отлично, рейс активен. \n\nКарьер Ключевое - Карьер Ключевое\nНеназначенный (Не указан)\n\nПо его завершению нажмите на кнопку \"Завершить рейс\"",
+          "logist_notifications": false,
+          "creating_transportation": null,
+          "cookie": "session_id=b9c645092bc728c977a98c4be377c7c2ac0a2e9e; Expires=Mon, 03 Nov 2025 14:04:36 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -22257,6 +22201,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-10-28T14:10:53.046Z",
-  "versionId": "ed0854fa-62a3-42cb-9087-f2a8d9a93fb4"
+  "updatedAt": "2024-11-06T08:20:34.819Z",
+  "versionId": "0ad87598-aa6b-4eb3-ac52-95f53dcbff35"
 }
