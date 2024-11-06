@@ -1212,6 +1212,11 @@
             "node": "получаем номер авто",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "записываем объём материала",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -5772,14 +5777,14 @@
       "parameters": {
         "content": "## Проверка записи о взвешивании в рейсе",
         "height": 404.17703383081584,
-        "width": 2257.673384812532
+        "width": 2406.118024774483
       },
       "id": "4334e4ad-7343-49bc-b507-90fdf5ad14dc",
       "name": "Sticky Note7",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        360,
+        211.555360038049,
         5420
       ]
     },
@@ -6040,24 +6045,178 @@
           "name": "tg dev aleksey"
         }
       }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tg_id": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+            "weight_measure": "=0 Тонны "
+          },
+          "matchingColumns": [
+            "tg_id"
+          ],
+          "schema": [
+            {
+              "id": "tg_id",
+              "displayName": "tg_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "only_mech",
+              "displayName": "only_mech",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mech_photo",
+              "displayName": "mech_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_id",
+              "displayName": "end_request_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "materials_photo",
+              "displayName": "materials_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_hours",
+              "displayName": "end_request_hours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "car_id_while_inputing",
+              "displayName": "car_id_while_inputing",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "fuel_liters",
+              "displayName": "fuel_liters",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "weight_measure",
+              "displayName": "weight_measure",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "86eff43a-5098-4d38-bc32-b144bc25c626",
+      "name": "записываем объём материала",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        280,
+        5280
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "xrihBpyZE5y4OBiy",
+          "name": "pg dev"
+        }
+      }
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100632206,
+          "update_id": 100633628,
           "callback_query": {
-            "id": "3010587258172832547",
+            "id": "2008109316038872006",
             "from": {
-              "id": 700956969,
+              "id": 467549384,
               "is_bot": false,
-              "first_name": "Алексей",
-              "username": "Chronos196",
-              "language_code": "ru"
+              "first_name": "Sergio",
+              "username": "sergo_kf",
+              "language_code": "ru",
+              "is_premium": true
             },
             "message": {
-              "message_id": 24816,
+              "message_id": 26280,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -6065,111 +6224,54 @@
                 "username": "myn8nbotbot"
               },
               "chat": {
-                "id": 700956969,
-                "first_name": "Алексей",
-                "username": "Chronos196",
+                "id": 467549384,
+                "first_name": "Sergio",
+                "username": "sergo_kf",
                 "type": "private"
               },
-              "date": 1729583112,
-              "text": "На сегодня Вам назначены перевозки в следующем порядке:\n\n1. Работа в карьере - Карьер Ключевое\nКомментарий - 123\n\n2. Отправитель - Эверест\nПолучатель - Новая компания\nМаршрут - Карьер Ключевое-Карьер Ключевое\nМатериал - Неназначенный (Не указан)\nКомментарий - 123",
-              "entities": [
-                {
-                  "offset": 0,
-                  "length": 55,
-                  "type": "bold"
-                },
-                {
-                  "offset": 57,
-                  "length": 22,
-                  "type": "italic"
-                },
-                {
-                  "offset": 57,
-                  "length": 2,
-                  "type": "bold"
-                },
-                {
-                  "offset": 79,
-                  "length": 33,
-                  "type": "italic"
-                },
-                {
-                  "offset": 79,
-                  "length": 15,
-                  "type": "bold"
-                },
-                {
-                  "offset": 114,
-                  "length": 2,
-                  "type": "bold"
-                },
-                {
-                  "offset": 131,
-                  "length": 7,
-                  "type": "bold"
-                },
-                {
-                  "offset": 152,
-                  "length": 14,
-                  "type": "bold"
-                },
-                {
-                  "offset": 177,
-                  "length": 31,
-                  "type": "bold"
-                },
-                {
-                  "offset": 220,
-                  "length": 25,
-                  "type": "bold"
-                },
-                {
-                  "offset": 260,
-                  "length": 3,
-                  "type": "italic"
-                }
-              ],
+              "date": 1730773923,
+              "edit_date": 1730774091,
+              "text": "Вы уверены, что готовы завершить рейс?",
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "Приступить к работе в карьере",
-                      "callback_data": "accept_quarry"
-                    }
-                  ],
-                  [
+                      "text": "Завершить",
+                      "callback_data": "check_material_volume"
+                    },
                     {
-                      "text": "Приступить к следующей перевозке",
-                      "callback_data": "transportation_to_tail"
+                      "text": "Назад",
+                      "callback_data": "back_pick"
                     }
                   ]
                 ]
               }
             },
-            "chat_instance": "1908726007480408494",
-            "data": "transportation_to_tail"
+            "chat_instance": "-8293046807322593726",
+            "data": "check_material_volume"
           },
-          "tg_id": "700956969",
-          "odoo_id": 2,
+          "tg_id": "467549384",
+          "odoo_id": 4,
           "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
           "end_request_id": null,
           "materials_photo": false,
           "end_request_hours": null,
-          "car_id_while_inputing": 18,
-          "fuel_liters": null,
-          "weight_measure": "1 м3 ",
+          "car_id_while_inputing": 25,
+          "fuel_liters": 100,
+          "weight_measure": "Тонны ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
-          "count_weight_photo": null,
-          "count_weight_photo_sent": null,
+          "count_weight_photo": 1,
+          "count_weight_photo_sent": 0,
           "current_quarry_hours": 5,
-          "end_round_message_id": 24816,
-          "last_message_text": "Отправитель - Эверест\nПолучатель - Новая компания\nМаршрут - Карьер Ключевое-Карьер Ключевое\nМатериал - Неназначенный (Не указан)\nКомментарий - 123",
+          "end_round_message_id": 26280,
+          "last_message_text": "Отлично, рейс активен. \n\nКарьер Ключевое - улица Карла Маркса, 43\nПесок (Карьер Ключевое)\nОстаток по текущей перевозке - 17.89 т.\n\nПо его завершению нажмите на кнопку \"Завершить рейс\"",
           "logist_notifications": false,
-          "cookie": "session_id=88ccf62b42920ec8fc3a7e36c1bbc079208fa499; Expires=Fri, 17 Oct 2025 05:43:43 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "creating_transportation": null,
+          "cookie": "session_id=b9c645092bc728c977a98c4be377c7c2ac0a2e9e; Expires=Mon, 03 Nov 2025 14:04:36 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -6190,6 +6292,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-10-22T08:10:30.948Z",
-  "versionId": "c590a56b-5dd9-45b5-b491-98c4f5b91002"
+  "updatedAt": "2024-11-05T02:43:50.542Z",
+  "versionId": "2ab1acea-80f0-4df3-b2d9-d95cffbf9dd2"
 }
