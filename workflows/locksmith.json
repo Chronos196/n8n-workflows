@@ -71,17 +71,6 @@
         ]
       ]
     },
-    "получим все неисправности1": {
-      "main": [
-        [
-          {
-            "node": "Есть ли заявки на проверке",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Есть ли заявки на проверке": {
       "main": [
         [
@@ -115,7 +104,7 @@
       "main": [
         [
           {
-            "node": "получим все неисправности1",
+            "node": "неисправности1",
             "type": "main",
             "index": 0
           }
@@ -650,6 +639,28 @@
           }
         ]
       ]
+    },
+    "неисправности1": {
+      "main": [
+        [
+          {
+            "node": "получим все неисправности3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получим все неисправности3": {
+      "main": [
+        [
+          {
+            "node": "Есть ли заявки на проверке",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-10-24T03:45:07.253Z",
@@ -920,42 +931,6 @@
     },
     {
       "parameters": {
-        "resource": "custom",
-        "customResource": "technical.maintenance",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "status",
-              "value": "К выполнению"
-            },
-            {
-              "fieldName": "performer",
-              "value": "={{ $json.odoo_id }}"
-            }
-          ]
-        }
-      },
-      "id": "b3d4e550-8428-4687-9d64-b2104c71d78d",
-      "name": "получим все неисправности1",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        2820,
-        -380
-      ],
-      "alwaysOutputData": true,
-      "credentials": {
-        "odooApi": {
-          "id": "ITgOrhO4Hf2QcDtf",
-          "name": "odoo dev"
-        }
-      }
-    },
-    {
-      "parameters": {
         "conditions": {
           "options": {
             "caseSensitive": true,
@@ -966,7 +941,7 @@
           "conditions": [
             {
               "id": "2a5d035d-235a-47f4-87f1-88ba998b6fe4",
-              "leftValue": "={{ $('получим все неисправности1').item.json }}",
+              "leftValue": "={{ $('получим все неисправности3').item.json }}",
               "rightValue": "",
               "operator": {
                 "type": "object",
@@ -984,8 +959,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        3040,
-        -380
+        3120,
+        -400
       ]
     },
     {
@@ -3540,15 +3515,88 @@
         2760,
         -500
       ]
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_all_maintenances",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "id": "3410ee56-1023-43f1-9d15-b6d49d749354",
+      "name": "неисправности1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        2740,
+        -340
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "030d374e-9358-4f14-a3f8-447482e95d7a",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "К выполнению",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "a8d52b16-d080-44b7-be10-51bc6a96eceb",
+              "leftValue": "={{ $json.locksmith[0] }}",
+              "rightValue": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}",
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "63bb066a-6034-4416-ac26-2a921ca40f3b",
+      "name": "получим все неисправности3",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        2920,
+        -400
+      ],
+      "onError": "continueRegularOutput"
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100632910,
-          "callback_query": {
-            "id": "2008109314138324869",
+          "update_id": 100634587,
+          "message": {
+            "message_id": 27285,
             "from": {
               "id": 467549384,
               "is_bot": false,
@@ -3557,61 +3605,37 @@
               "language_code": "ru",
               "is_premium": true
             },
-            "message": {
-              "message_id": 25449,
-              "from": {
-                "id": 7063451965,
-                "is_bot": true,
-                "first_name": "Everest n8n",
-                "username": "myn8nbotbot"
-              },
-              "chat": {
-                "id": 467549384,
-                "first_name": "Sergio",
-                "username": "sergo_kf",
-                "type": "private"
-              },
-              "date": 1729862118,
-              "text": "Нужно приложить фото исправления?",
-              "reply_markup": {
-                "inline_keyboard": [
-                  [
-                    {
-                      "text": "Да",
-                      "callback_data": "yes_request_photo"
-                    },
-                    {
-                      "text": "Нет",
-                      "callback_data": "no_request_photo"
-                    }
-                  ]
-                ]
-              }
+            "chat": {
+              "id": 467549384,
+              "first_name": "Sergio",
+              "username": "sergo_kf",
+              "type": "private"
             },
-            "chat_instance": "-8293046807322593726",
-            "data": "no_request_photo"
+            "date": 1731066606,
+            "text": "Заявки на ТО/Ремонт"
           },
           "tg_id": "467549384",
           "odoo_id": 4,
           "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
-          "end_request_id": 606,
+          "end_request_id": null,
           "materials_photo": false,
-          "end_request_hours": 3,
+          "end_request_hours": null,
           "car_id_while_inputing": 25,
           "fuel_liters": 100,
-          "weight_measure": "35,35 Тонны ",
+          "weight_measure": "0 Тонны ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
           "count_weight_photo": 1,
           "count_weight_photo_sent": 0,
-          "current_quarry_hours": 3,
-          "end_round_message_id": 55,
-          "last_message_text": "Отлично, рейс активен. \n\nТорг. порт - Чебаркуль, Новый\nЩебень (Карьер Ключевое)\nОстаток по текущей перевозке - 29.65 т.\n\nПо его завершению нажмите на кнопку \"Завершить рейс\"",
+          "current_quarry_hours": 5,
+          "end_round_message_id": 26283,
+          "last_message_text": "Отлично, вы завершили рейс, хотите начать следующий?\nКарьер Ключевое - улица Карла Маркса, 43\nПесок (Карьер Ключевое)\nОстаток по текущей перевозке -  12.57 т.",
           "logist_notifications": false,
-          "cookie": "session_id=79266f2c0e575e562fb29ee8040fb9799f9baa5b; Expires=Sat, 25 Oct 2025 06:12:48 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "creating_transportation": null,
+          "cookie": "session_id=b9c645092bc728c977a98c4be377c7c2ac0a2e9e; Expires=Mon, 03 Nov 2025 14:04:36 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -3629,6 +3653,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-10-25T13:21:58.750Z",
-  "versionId": "06dbf26f-b944-439b-b6ec-95bacbc2cccb"
+  "updatedAt": "2024-11-08T11:59:18.122Z",
+  "versionId": "23fcc131-39f4-4dc5-961e-991d0f89c7d3"
 }
