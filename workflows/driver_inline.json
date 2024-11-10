@@ -6144,7 +6144,7 @@
     {
       "parameters": {
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
-        "text": "=У вас есть доступные рейсы\n{{ $('первая перевозка').item.json.place_from[1] }} - {{ $('первая перевозка').item.json.place_to[1] }}\n{{ $('первая перевозка').item.json.material[1] }}\n{{ $json.message }}",
+        "text": "=У вас есть доступные рейсы\n{{ $('первая перевозка').item.json.place_from[1] }} - {{ $('первая перевозка').item.json.place_to[1] }}\n{{ $('первая перевозка').item.json.material[1].replace(/\\s*\\(.*?\\)\\s*/g, \"\") }}\n{{ $json.message }}",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -9434,7 +9434,7 @@
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
         "replyMarkup": "inlineKeyboard",
-        "text": "=Выберите документ, который хотите проверить по перевозке:\nОтправитель - {{ $json.sender[1] }}\nПолучатель - {{ $json.partner[1] }}\nМаршрут - {{ $json.place_from[1] }}-{{ $json.place_to[1] }}\nМатериал - {{ $json.material[1] }}",
+        "text": "=Выберите документ, который хотите проверить по перевозке:\nОтправитель - {{ $json.sender[1] }}\nПолучатель - {{ $json.partner[1] }}\nМаршрут - {{ $json.place_from[1] }}-{{ $json.place_to[1] }}\nМатериал - {{ $json.material[1].replace(/\\s*\\(.*?\\)\\s*/g, \"\") }}",
         "inlineKeyboard": {
           "rows": [
             {
@@ -15052,7 +15052,7 @@
     },
     {
       "parameters": {
-        "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const data = item.json;\n\n  const isQuarryWork = data.quarry && data.quarry.length > 1;\n\n  let message = \"\";\n\n  if (isQuarryWork) {\n    const quarry = data.quarry[1];\n    const requiredHours = data.required_hours || 0;\n    const comment = data.comment;\n\n    message = `<b>${index}.</b> Работа в карьере - <b>${quarry}</b>`;\n    if (data.end_condition === \"По часам\") {\n      message += `\\nНеобходимое количество часов - <b>${requiredHours}</b>`;\n    }\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    message += `\\n\\n`;\n  } else {\n    const sender = data.sender && data.sender.length > 1 ? data.sender[1] : \"\";\n    const partner = data.partner && data.partner.length > 1 ? data.partner[1] : \"\";\n    const placeFrom = data.place_from && data.place_from.length > 1 ? data.place_from[1] : \"\";\n    const placeTo = data.place_to && data.place_to.length > 1 ? data.place_to[1] : \"\";\n    const material = data.material && data.material.length > 1 ? data.material[1] : \"\";\n    const comment = data.comment;\n    const endCondition = data.end_condition;\n    const requiredCubicMetre = data.required_cubic_metre|| 0;\n    const requiredTon = data.required_ton|| 0;\n\n    let route = placeFrom && placeTo ? `${placeFrom}-${placeTo}` : \"\";\n\n    message = `<b>${index}.</b>`;\n    \n    if (sender) message += ` Отправитель - <b>${sender}</b>`;\n    if (partner) message += `\\nПолучатель - <b>${partner}</b>`;\n    if (route) message += `\\nМаршрут - <b>${route}</b>`;\n    if (material) message += `\\nМатериал - <b>${material}</b>`;\n    \n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n\n    if (endCondition === \"По перевезенным кубометрам\" && requiredCubicMetre > 0) {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n\n    if (endCondition === \"По перевезенным тоннам\" && requiredTon > 0) {\n      message += `\\nТребуемое количество тонн по перевозке - <b>${requiredTon}</b>`;\n    }\n\n    message += (item.json.concatenated_driver1 ? \"\\n\\nВодители, выполняющие перевозку с вами:\\n\" + item.json.concatenated_driver1 : \"\");\n\n    message += `\\n\\n`;\n  }\n\n  if (index === 1) {\n    message = `<i>${message.trim()}</i>\\n\\n`;\n  }\n\n  combinedMessages += message;\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
+        "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const data = item.json;\n\n  const isQuarryWork = data.quarry && data.quarry.length > 1;\n\n  let message = \"\";\n\n  if (isQuarryWork) {\n    const quarry = data.quarry[1];\n    const requiredHours = data.required_hours || 0;\n    const comment = data.comment;\n\n    message = `<b>${index}.</b> Работа в карьере - <b>${quarry}</b>`;\n    if (data.end_condition === \"По часам\") {\n      message += `\\nНеобходимое количество часов - <b>${requiredHours}</b>`;\n    }\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    message += `\\n\\n`;\n  } else {\n    const sender = data.sender && data.sender.length > 1 ? data.sender[1] : \"\";\n    const partner = data.partner && data.partner.length > 1 ? data.partner[1] : \"\";\n    const placeFrom = data.place_from && data.place_from.length > 1 ? data.place_from[1] : \"\";\n    const placeTo = data.place_to && data.place_to.length > 1 ? data.place_to[1] : \"\";\n    const material = data.material[1].replace(/\\s*\\(.*?\\)\\s*/g, \"\");\n    const comment = data.comment;\n    const endCondition = data.end_condition;\n    const requiredCubicMetre = data.required_cubic_metre|| 0;\n    const requiredTon = data.required_ton|| 0;\n\n    let route = placeFrom && placeTo ? `${placeFrom}-${placeTo}` : \"\";\n\n    message = `<b>${index}.</b>`;\n    \n    if (sender) message += ` Отправитель - <b>${sender}</b>`;\n    if (partner) message += `\\nПолучатель - <b>${partner}</b>`;\n    if (route) message += `\\nМаршрут - <b>${route}</b>`;\n    if (material) message += `\\nМатериал - <b>${material}</b>`;\n    \n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n\n    if (endCondition === \"По перевезенным кубометрам\" && requiredCubicMetre > 0) {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n\n    if (endCondition === \"По перевезенным тоннам\" && requiredTon > 0) {\n      message += `\\nТребуемое количество тонн по перевозке - <b>${requiredTon}</b>`;\n    }\n\n    message += (item.json.concatenated_driver1 ? \"\\n\\nВодители, выполняющие перевозку с вами:\\n\" + item.json.concatenated_driver1 : \"\");\n\n    message += `\\n\\n`;\n  }\n\n  if (index === 1) {\n    message = `<i>${message.trim()}</i>\\n\\n`;\n  }\n\n  combinedMessages += message;\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
       },
       "id": "2435792b-786c-48a9-92a6-3f7bcce70a54",
       "name": "в единое сообщение",
@@ -15353,7 +15353,7 @@
     },
     {
       "parameters": {
-        "jsCode": "let combinedMessages = \"\";\n\nfor (const item of $input.all()) {\n  const data = item.json;\n\n  const isQuarryWork = data.quarry && data.quarry.length > 1;\n\n  let message = \"\";\n\n  if (isQuarryWork) {\n    const quarry = data.quarry[1];\n    const requiredHours = data.required_hours || 0;\n    const comment = data.comment;\n\n    message = `Работа в карьере - <b>${quarry}</b>`;\n    if (data.end_condition === \"По часам\") {\n      message += `\\nНеобходимое количество часов - <b>${requiredHours}</b>`;\n    }\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    message += `\\n\\n`;\n  } else {\n    const sender = data.sender && data.sender.length > 1 ? data.sender[1] : \"\";\n    const partner = data.partner && data.partner.length > 1 ? data.partner[1] : \"\";\n    const placeFrom = data.place_from && data.place_from.length > 1 ? data.place_from[1] : \"\";\n    const placeTo = data.place_to && data.place_to.length > 1 ? data.place_to[1] : \"\";\n    const material = data.material && data.material.length > 1 ? data.material[1] : \"\";\n    const comment = data.comment;\n    const endCondition = data.end_condition;\n    const requiredCubicMetre = data.required_cubic_metre || 0;\n    const requiredTon = data.required_ton|| 0;\n\n    let route = placeFrom && placeTo ? `${placeFrom}-${placeTo}` : \"\";\n\n    if (sender) message += `Отправитель - <b>${sender}</b>`;\n    if (partner) message += `\\nПолучатель - <b>${partner}</b>`;\n    if (route) message += `\\nМаршрут - <b>${route}</b>`;\n    if (material) message += `\\nМатериал - <b>${material}</b>`;\n    \n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n\n    if (endCondition === \"По перевезенным кубометрам\" && requiredCubicMetre > 0) {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n\n    if (endCondition === \"По перевезенным тоннам\" && requiredTon > 0) {\n      message += `\\nТребуемое количество тонн по перевозке - <b>${requiredTon}</b>`;\n    }\n\n    message += `\\n\\n`;\n  }\n\n  combinedMessages += message;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];"
+        "jsCode": "let combinedMessages = \"\";\n\nfor (const item of $input.all()) {\n  const data = item.json;\n\n  const isQuarryWork = data.quarry && data.quarry.length > 1;\n\n  let message = \"\";\n\n  if (isQuarryWork) {\n    const quarry = data.quarry[1];\n    const requiredHours = data.required_hours || 0;\n    const comment = data.comment;\n\n    message = `Работа в карьере - <b>${quarry}</b>`;\n    if (data.end_condition === \"По часам\") {\n      message += `\\nНеобходимое количество часов - <b>${requiredHours}</b>`;\n    }\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    message += `\\n\\n`;\n  } else {\n    const sender = data.sender && data.sender.length > 1 ? data.sender[1] : \"\";\n    const partner = data.partner && data.partner.length > 1 ? data.partner[1] : \"\";\n    const placeFrom = data.place_from && data.place_from.length > 1 ? data.place_from[1] : \"\";\n    const placeTo = data.place_to && data.place_to.length > 1 ? data.place_to[1] : \"\";\n    const material = data.material[1].replace(/\\s*\\(.*?\\)\\s*/g, \"\");\n    const comment = data.comment;\n    const endCondition = data.end_condition;\n    const requiredCubicMetre = data.required_cubic_metre || 0;\n    const requiredTon = data.required_ton|| 0;\n\n    let route = placeFrom && placeTo ? `${placeFrom}-${placeTo}` : \"\";\n\n    if (sender) message += `Отправитель - <b>${sender}</b>`;\n    if (partner) message += `\\nПолучатель - <b>${partner}</b>`;\n    if (route) message += `\\nМаршрут - <b>${route}</b>`;\n    if (material) message += `\\nМатериал - <b>${material}</b>`;\n    \n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n\n    if (endCondition === \"По перевезенным кубометрам\" && requiredCubicMetre > 0) {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n\n    if (endCondition === \"По перевезенным тоннам\" && requiredTon > 0) {\n      message += `\\nТребуемое количество тонн по перевозке - <b>${requiredTon}</b>`;\n    }\n\n    message += `\\n\\n`;\n  }\n\n  combinedMessages += message;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];"
       },
       "id": "7eaff24d-9707-4414-a22e-9e464da88a8a",
       "name": "преобразуем в сообщение",
@@ -15794,7 +15794,7 @@
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
         "replyMarkup": "inlineKeyboard",
-        "text": "=Отлично, вы завершили рейс, хотите начать следующий?\n<b>{{ $('находим какая сейчас перевозка').item.json.place_from[1] }} - {{ $('находим какая сейчас перевозка').item.json.place_to[1] }}\n{{ $('находим какая сейчас перевозка').item.json.material[1] }}\nОстаток кубометров по текущей перевозке - {{ $('находим какая сейчас перевозка').item.json.diff_cubic_metre }}</b>",
+        "text": "=Отлично, вы завершили рейс, хотите начать следующий?\n<b>{{ $('находим какая сейчас перевозка').item.json.place_from[1] }} - {{ $('находим какая сейчас перевозка').item.json.place_to[1] }}\n{{ $('находим какая сейчас перевозка').item.json.material[1].replace(/\\s*\\(.*?\\)\\s*/g, \"\") }}\nОстаток кубометров по текущей перевозке - {{ $('находим какая сейчас перевозка').item.json.diff_cubic_metre }}</b>",
         "inlineKeyboard": {
           "rows": [
             {
@@ -15860,7 +15860,7 @@
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
         "replyMarkup": "inlineKeyboard",
-        "text": "=Отлично, вы завершили рейс, хотите начать следующий?\n<b>{{ $('находим какая сейчас перевозка').item.json.place_from[1] }} - {{ $('находим какая сейчас перевозка').item.json.place_to[1] }}\n{{ $('находим какая сейчас перевозка').item.json.material[1] }}\nОстаток по текущей перевозке -  {{ $('находим какая сейчас перевозка').item.json.diff_ton }} т.</b>",
+        "text": "=Отлично, вы завершили рейс, хотите начать следующий?\n<b>{{ $('находим какая сейчас перевозка').item.json.place_from[1] }} - {{ $('находим какая сейчас перевозка').item.json.place_to[1] }}\n{{ $('находим какая сейчас перевозка').item.json.material[1].replace(/\\s*\\(.*?\\)\\s*/g, \"\") }}\nОстаток по текущей перевозке -  {{ $('находим какая сейчас перевозка').item.json.diff_ton }} т.</b>",
         "inlineKeyboard": {
           "rows": [
             {
@@ -16371,7 +16371,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"car_id\": {{ $('поиск текущего авто3').item.json.id }},\n  \"hours\": {{ $('Получение введенных часов').item.json.current_quarry_hours }}\n}     ",
+        "jsonBody": "={\n  \"car_id\": {{ $('поиск текущего авто3').item.json.id }},\n  \"hours\": {{ $('Получение введенных часов').item.json.current_quarry_hours }},\n  \"count_rounds\": 1\n}     ",
         "options": {}
       },
       "id": "65da090f-94b5-4d99-8ceb-c7be6e4e90cf",
@@ -16530,6 +16530,18 @@
                     "text": "Посмотреть следующую перевозку",
                     "additionalFields": {
                       "callback_data": "перевозки"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Завершить смену",
+                    "additionalFields": {
+                      "callback_data": "complete_work"
                     }
                   }
                 ]
@@ -17334,7 +17346,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"car_id\": {{ $('поиск текущего авто3').item.json.id }},\n  \"hours\": {{ $('Получение введенных часов').item.json.current_quarry_hours }}\n}     ",
+        "jsonBody": "={\n  \"car_id\": {{ $('поиск текущего авто3').item.json.id }},\n  \"hours\": {{ $('Получение введенных часов').item.json.current_quarry_hours }},\n  \"count_rounds\": 1\n}     ",
         "options": {}
       },
       "id": "f249c5ce-9010-41d4-a596-93a0e1030d97",
@@ -17354,6 +17366,18 @@
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Посмотреть следующую перевозку",
+                    "additionalFields": {
+                      "callback_data": "перевозки"
+                    }
+                  }
+                ]
+              }
+            },
             {
               "row": {
                 "buttons": [
@@ -18074,7 +18098,7 @@
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
         "replyMarkup": "inlineKeyboard",
-        "text": "=Отлично, вы завершили рейс, хотите начать следующий?\n<b>{{ $('находим какая сейчас перевозка').item.json.place_from[1] }} - {{ $('находим какая сейчас перевозка').item.json.place_to[1] }}\n{{ $('находим какая сейчас перевозка').item.json.material[1] }}</b>",
+        "text": "=Отлично, вы завершили рейс, хотите начать следующий?\n<b>{{ $('находим какая сейчас перевозка').item.json.place_from[1] }} - {{ $('находим какая сейчас перевозка').item.json.place_to[1] }}\n{{ $('находим какая сейчас перевозка').item.json.material[1].replace(/\\s*\\(.*?\\)\\s*/g, \"\") }}</b>",
         "inlineKeyboard": {
           "rows": [
             {
@@ -18832,7 +18856,7 @@
     },
     {
       "parameters": {
-        "jsCode": "let combinedMessages = \"\";\n\nfor (const item of $(\"Filter1\").all()) {\n  const data = item.json;\n\n  const isQuarryWork = data.quarry && data.quarry.length > 1;\n\n  let message = \"\";\n\n  if (isQuarryWork) {\n    const quarry = data.quarry[1];\n    const requiredHours = data.required_hours || 0;\n    const comment = data.comment;\n\n    message = `Работа в карьере - <b>${quarry}</b>`;\n    if (data.end_condition === \"По часам\") {\n      message += `\\nНеобходимое количество часов - <b>${requiredHours}</b>`;\n    }\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    message += `\\n\\n`;\n  } else {\n    const sender = data.sender && data.sender.length > 1 ? data.sender[1] : \"\";\n    const partner = data.partner && data.partner.length > 1 ? data.partner[1] : \"\";\n    const placeFrom = data.place_from && data.place_from.length > 1 ? data.place_from[1] : \"\";\n    const placeTo = data.place_to && data.place_to.length > 1 ? data.place_to[1] : \"\";\n    const material = data.material && data.material.length > 1 ? data.material[1] : \"\";\n    const comment = data.comment;\n    const endCondition = data.end_condition;\n    const requiredCubicMetre = data.required_cubic_metre || 0;\n    const requiredTon = data.required_ton|| 0;\n\n    let route = placeFrom && placeTo ? `${placeFrom}-${placeTo}` : \"\";\n\n    if (sender) message += `Отправитель - <b>${sender}</b>`;\n    if (partner) message += `\\nПолучатель - <b>${partner}</b>`;\n    if (route) message += `\\nМаршрут - <b>${route}</b>`;\n    if (material) message += `\\nМатериал - <b>${material}</b>`;\n    \n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n\n    if (endCondition === \"По перевезенным кубометрам\" && requiredCubicMetre > 0) {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n\n    if (endCondition === \"По перевезенным тоннам\" && requiredTon > 0) {\n      message += `\\nТребуемое количество тонн по перевозке - <b>${requiredTon}</b>`;\n    }\n\n    message += `\\n\\n`;\n  }\n\n  combinedMessages += message;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];"
+        "jsCode": "let combinedMessages = \"\";\n\nfor (const item of $(\"Filter1\").all()) {\n  const data = item.json;\n\n  const isQuarryWork = data.quarry && data.quarry.length > 1;\n\n  let message = \"\";\n\n  if (isQuarryWork) {\n    const quarry = data.quarry[1];\n    const requiredHours = data.required_hours || 0;\n    const comment = data.comment;\n\n    message = `Работа в карьере - <b>${quarry}</b>`;\n    if (data.end_condition === \"По часам\") {\n      message += `\\nНеобходимое количество часов - <b>${requiredHours}</b>`;\n    }\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    message += `\\n\\n`;\n  } else {\n    const sender = data.sender && data.sender.length > 1 ? data.sender[1] : \"\";\n    const partner = data.partner && data.partner.length > 1 ? data.partner[1] : \"\";\n    const placeFrom = data.place_from && data.place_from.length > 1 ? data.place_from[1] : \"\";\n    const placeTo = data.place_to && data.place_to.length > 1 ? data.place_to[1] : \"\";\n    const material = data.material && data.material.length > 1 ? data.material[1] : \"\";\n    material = material.replace(/\\s*\\(.*?\\)\\s*/g, \"\");\n    const comment = data.comment;\n    const endCondition = data.end_condition;\n    const requiredCubicMetre = data.required_cubic_metre || 0;\n    const requiredTon = data.required_ton|| 0;\n\n    let route = placeFrom && placeTo ? `${placeFrom}-${placeTo}` : \"\";\n\n    if (sender) message += `Отправитель - <b>${sender}</b>`;\n    if (partner) message += `\\nПолучатель - <b>${partner}</b>`;\n    if (route) message += `\\nМаршрут - <b>${route}</b>`;\n    if (material) message += `\\nМатериал - <b>${material}</b>`;\n    \n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n\n    if (endCondition === \"По перевезенным кубометрам\" && requiredCubicMetre > 0) {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n\n    if (endCondition === \"По перевезенным тоннам\" && requiredTon > 0) {\n      message += `\\nТребуемое количество тонн по перевозке - <b>${requiredTon}</b>`;\n    }\n\n    message += `\\n\\n`;\n  }\n\n  combinedMessages += message;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];"
       },
       "id": "bd9395fe-a1aa-4c41-a36a-cfa3076805d9",
       "name": "преобразуем в сообщение1",
@@ -20804,7 +20828,7 @@
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
         "replyMarkup": "inlineKeyboard",
-        "text": "=Отлично, рейс активен. \n<i>\n{{ $json.place_from[1] }} - {{ $json.place_to[1] }}\n{{ $json.material[1] }}\nОстаток кубометров по текущей перевозке - {{ $json.diff_cubic_metre }}\n</i>\nПо его завершению нажмите на кнопку <b><i>\"Завершить рейс\"</i></b>",
+        "text": "=Отлично, рейс активен. \n<i>\n{{ $json.place_from[1] }} - {{ $json.place_to[1] }}\n{{ $json.material[1].replace(/\\s*\\(.*?\\)\\s*/g, \"\") }}\nОстаток кубометров по текущей перевозке - {{ $json.diff_cubic_metre }}\n</i>\nПо его завершению нажмите на кнопку <b><i>\"Завершить рейс\"</i></b>",
         "inlineKeyboard": {
           "rows": [
             {
@@ -20859,7 +20883,7 @@
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
         "replyMarkup": "inlineKeyboard",
-        "text": "=Отлично, рейс активен. \n<i>\n{{ $json.place_from[1] }} - {{ $json.place_to[1] }}\n{{ $json.material[1] }}\nОстаток по текущей перевозке - {{ $json.diff_ton }} т.\n</i>\nПо его завершению нажмите на кнопку <b><i>\"Завершить рейс\"</i></b>",
+        "text": "=Отлично, рейс активен. \n<i>\n{{ $json.place_from[1] }} - {{ $json.place_to[1] }}\n{{ $json.material[1].replace(/\\s*\\(.*?\\)\\s*/g, \"\") }}\nОстаток по текущей перевозке - {{ $json.diff_ton }} т.\n</i>\nПо его завершению нажмите на кнопку <b><i>\"Завершить рейс\"</i></b>",
         "inlineKeyboard": {
           "rows": [
             {
@@ -20914,7 +20938,7 @@
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
         "replyMarkup": "inlineKeyboard",
-        "text": "=Отлично, рейс активен. \n<i>\n{{ $json.place_from[1] }} - {{ $json.place_to[1] }}\n{{ $json.material[1] }}\n</i>\nПо его завершению нажмите на кнопку <b><i>\"Завершить рейс\"</i></b>",
+        "text": "=Отлично, рейс активен. \n<i>\n{{ $json.place_from[1] }} - {{ $json.place_to[1] }}\n{{ $json.material[1].replace(/\\s*\\(.*?\\)\\s*/g, \"\") }}\n</i>\nПо его завершению нажмите на кнопку <b><i>\"Завершить рейс\"</i></b>",
         "inlineKeyboard": {
           "rows": [
             {
@@ -22201,6 +22225,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-11-06T08:20:34.819Z",
-  "versionId": "0ad87598-aa6b-4eb3-ac52-95f53dcbff35"
+  "updatedAt": "2024-11-08T15:26:20.152Z",
+  "versionId": "c71227e4-b360-4bb4-9acd-8fb532dc985e"
 }
