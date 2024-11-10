@@ -94,17 +94,6 @@
         ]
       ]
     },
-    "Execute Workflow Trigger": {
-      "main": [
-        [
-          {
-            "node": "No Operation, do nothing1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Получаем рейсы1": {
       "main": [
         [
@@ -246,6 +235,95 @@
           }
         ]
       ]
+    },
+    "неисправности1": {
+      "main": [
+        [
+          {
+            "node": "получим все неисправности3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получим все неисправности3": {
+      "main": [
+        [
+          {
+            "node": "Есть ли заявки к выполнению",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Есть ли заявки к выполнению": {
+      "main": [
+        [
+          {
+            "node": "Sort",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "нет заявок к выполнению",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "выбор заявки(первая страница)1": {
+      "main": [
+        [
+          {
+            "node": "отправляем сообщение 9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort": {
+      "main": [
+        [
+          {
+            "node": "выбор заявки(первая страница)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram8": {
+      "main": [
+        []
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "неисправности",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "неисправности": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-10-01T17:34:02.123Z",
@@ -262,8 +340,8 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1,
       "position": [
-        -460,
-        100
+        -860,
+        460
       ],
       "disabled": true
     },
@@ -412,6 +490,20 @@
       "parameters": {
         "chatId": "467549384",
         "text": "={{ $json.message }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            }
+          ]
+        },
         "additionalFields": {
           "appendAttribution": false,
           "parse_mode": "HTML"
@@ -461,8 +553,8 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -740,
-        840
+        -1160,
+        -240
       ]
     },
     {
@@ -747,6 +839,242 @@
           "name": "tg serg"
         }
       }
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_all_maintenances",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "session_id=b9c645092bc728c977a98c4be377c7c2ac0a2e9e; Expires=Mon, 03 Nov 2025 14:04:36 GMT; Max-Age=604800; HttpOnly; Path=/"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "id": "2c9753fb-3683-40e0-8643-feed1253fd3e",
+      "name": "неисправности1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -580,
+        -500
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "030d374e-9358-4f14-a3f8-447482e95d7a",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "К выполнению",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "6b881a1e-5238-44a1-b121-7cccce2ef8a4",
+      "name": "получим все неисправности3",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -300,
+        -540
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2a5d035d-235a-47f4-87f1-88ba998b6fe4",
+              "leftValue": "={{ $('получим все неисправности3').item.json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "5acb2434-8780-4159-bf39-5b92821598c4",
+      "name": "Есть ли заявки к выполнению",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -60,
+        -480
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Получаем все элементы из входных данных\nconst items = $input.all();\n\n// Определяем максимальное количество элементов на одной странице\nconst maxItemsPerPage = 6;\n\n// Задаем максимальное количество символов для описания заявки\nconst maxDescriptionLength = 16;\n\n// Получаем номер страницы из callback_data или оставляем 1 по умолчанию\nlet page = 1; // Стандартная первая страница\nlet messageId; // Для хранения message_id\n\n// Проверяем, есть ли callback_query\nconst callbackQuery = $('Execute Workflow Trigger').all()[0].json.callback_query;\nif (callbackQuery) {\n    const callbackData = callbackQuery.data;\n    const match = callbackData.match(/page_(\\d+)/);\n    if (match) {\n        page = parseInt(match[1], 10);\n    }\n    // Получаем message_id из callback_query\n    messageId = callbackQuery.message.message_id; // Получаем message_id из объекта callback_query\n} else {\n    // Если это не callback_query, возвращаемся к стандартному поведению\n    messageId = $('Execute Workflow Trigger').all()[0].json.message.message_id; // Получаем message_id из сообщения\n}\n\n// Определяем начальный и конечный индексы для отображаемых элементов на странице\nconst startIndex = (page - 1) * maxItemsPerPage;\nconst endIndex = startIndex + maxItemsPerPage;\n\n// Определяем, какие элементы будем выводить на текущей странице\nconst displayItems = items.slice(startIndex, endIndex);\n\n// Функция для обрезки описания с троеточием\nconst truncateDescription = (description) => {\n    if (description.length > maxDescriptionLength) {\n        return description.slice(0, maxDescriptionLength) + '…';\n    }\n    return description;\n};\n\n// Формируем массив кнопок с информацией по каждому элементу\nconst buttons = displayItems.map((item, index) => {\n    // Разделяем строку по дефису и оставляем только номер авто (первая часть)\n    const carInfo = item.json.car_id[1].split(' - ')[0];\n    // Обрезаем описание заявки, если оно слишком длинное\n    const truncatedDescription = truncateDescription(item.json.description_of_maintenance);\n    \n    // Проверяем, является ли заявка срочной\n    const isUrgent = item.json.urgently === true ? '❗' : '';\n\n    return {\n        text: `${isUrgent}${startIndex + index + 1}. ${carInfo} - ${truncatedDescription}`, // Используем startIndex для правильной нумерации и добавляем ❗\n        callback_data: `all_item_${item.json.id}_page_${page}` // Добавляем номер страницы\n    };\n});\n\n// Создаем объект с inline-клавиатурой\nconst inlineKeyboard = {\n    inline_keyboard: [\n        ...buttons.map(button => [button]), // Каждая кнопка на своей строке\n    ]\n};\n\n// Добавляем кнопки \"Следующая страница\" и \"Назад\", если нужно\nif (items.length > endIndex) {\n    inlineKeyboard.inline_keyboard.push([{ text: \"Следующая страница\", callback_data: `all_page_${page + 1}` }]);\n}\nif (page > 1) {\n    inlineKeyboard.inline_keyboard.push([{ text: \"Предыдущая страница\", callback_data: `all_page_${page - 1}` }]);\n}\n\n// Добавляем постоянную кнопку \"Назад\"\ninlineKeyboard.inline_keyboard.push([{ text: \"Назад\", callback_data: \"del_maintenances\" }]);\n\n// Логируем для отладки\nconsole.log(JSON.stringify(inlineKeyboard, null, 2));\n\n// Получаем chat_id из входного JSON\nconst chatId = $('Execute Workflow Trigger').all()[0].json.message.from.id;\n\n// Токен бота\nconst token = '7063451965:AAGARL6Eluwh3zgS84WnaZozqdz6-m0RLzg';\n\n// URL для отправки сообщения через API Telegram\nconst url = `https://api.telegram.org/bot${token}/sendMessage`;\n\n// Формируем сообщение для отправки\nconst message = {\n    chat_id: chatId,\n    text: \"Заявки, ожидающие выполнения:\",\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n\n// Обработка выбора заявки\nconst selectedCallbackData = callbackQuery.data;\nconst selectedMatch = selectedCallbackData.match(/item_(\\d+)_page_(\\d+)/);\nif (selectedMatch) {\n    const itemId = selectedMatch[1]; // ID выбранной заявки\n    const returnPage = parseInt(selectedMatch[2], 10); // Номер страницы для возврата\n\n    // Здесь можно добавить логику для обработки выбранной заявки\n    // Например, отправить информацию о заявке или выполнить другую логику\n\n    // После этого можно вернуться к странице с заявками\n    const returnMessage = {\n        chat_id: chatId,\n        message_id: messageId,\n        text: \"Заявки, ожидающие выполнения:\",\n        reply_markup: inlineKeyboard // Используем тот же inlineKeyboard с сохраненной страницей\n    };\n\n    return [\n        {\n            json: {\n                url,\n                message: returnMessage\n            }\n        }\n    ];\n}\n"
+      },
+      "id": "ed2c735e-b5fa-46cf-ba14-762b42e24081",
+      "name": "выбор заявки(первая страница)1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        820,
+        -660
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "text": "На данный момент нет заявок, которые можно выполнить!",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Назад",
+                    "additionalFields": {
+                      "callback_data": "del_maintenances"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "8ba83ed6-1584-45c6-ac3e-0292ec9e8767",
+      "name": "нет заявок к выполнению",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        500,
+        -400
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.message }}",
+        "options": {}
+      },
+      "id": "074b6791-c6fb-4ee0-ab44-3f39607dfa35",
+      "name": "отправляем сообщение 9",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1220,
+        -660
+      ]
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "urgently",
+              "order": "descending"
+            },
+            {
+              "fieldName": "date"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c41721c3-bbd2-444d-9923-80953ab58615",
+      "name": "Sort",
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        320,
+        -660
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "sendLocation",
+        "additionalFields": {}
+      },
+      "id": "a86cbaf5-448f-4da9-8606-452372c1d9db",
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -260,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_all_maintenances",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "session_id=b9c645092bc728c977a98c4be377c7c2ac0a2e9e; Expires=Mon, 03 Nov 2025 14:04:36 GMT; Max-Age=604800; HttpOnly; Path=/"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"transportation_id\": 0\n}",
+        "options": {}
+      },
+      "id": "593e4a9a-e2f7-44c5-a56d-678bd1b02046",
+      "name": "неисправности",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -720,
+        -200
+      ],
+      "onError": "continueErrorOutput"
     }
   ],
   "pinData": {
@@ -862,6 +1190,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-10-15T20:04:48.865Z",
-  "versionId": "f864b467-77c2-41a5-8114-ed52a86a38bb"
+  "updatedAt": "2024-11-08T19:25:21.924Z",
+  "versionId": "bf333aa5-9015-4295-9d03-694ad4937e61"
 }
