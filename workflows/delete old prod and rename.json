@@ -16,7 +16,7 @@
       "main": [
         [
           {
-            "node": "олд?",
+            "node": "Limit",
             "type": "main",
             "index": 0
           }
@@ -63,17 +63,6 @@
         ]
       ]
     },
-    "обновим": {
-      "main": [
-        [
-          {
-            "node": "мэйн?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "мэйн?": {
       "main": [
         [
@@ -90,6 +79,17 @@
         [
           {
             "node": "обновим1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "олд?",
             "type": "main",
             "index": 0
           }
@@ -117,7 +117,9 @@
     },
     {
       "parameters": {
-        "filters": {},
+        "filters": {
+          "tags": "production"
+        },
         "requestOptions": {}
       },
       "id": "f4d692b5-5cd3-43f9-bc24-ac90494afc90",
@@ -150,7 +152,7 @@
       "type": "n8n-nodes-base.n8n",
       "typeVersion": 1,
       "position": [
-        1100,
+        1320,
         120
       ],
       "credentials": {
@@ -158,7 +160,8 @@
           "id": "Vmg6hJDctwZTPAGM",
           "name": "n8n account"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -189,7 +192,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        880,
+        1100,
         260
       ]
     },
@@ -223,8 +226,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1100,
-        360
+        1280,
+        580
       ]
     },
     {
@@ -236,6 +239,12 @@
               "name": "name",
               "value": "=old_{{ $json.name }}",
               "type": "string"
+            },
+            {
+              "id": "98dac0db-98ad-4445-816b-bb709f7b26cf",
+              "name": "settings",
+              "value": "={{ $json.settings.removeField('callerPolicy').toJsonString() }}",
+              "type": "object"
             }
           ]
         },
@@ -247,35 +256,9 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1340,
-        320
+        1520,
+        560
       ]
-    },
-    {
-      "parameters": {
-        "operation": "update",
-        "workflowId": {
-          "__rl": true,
-          "value": "={{ $json.id }}",
-          "mode": "id"
-        },
-        "workflowObject": "={{ $json.toJsonString() }}",
-        "requestOptions": {}
-      },
-      "id": "3b6c088d-ace0-4ef6-bd84-627b29e5513c",
-      "name": "обновим",
-      "type": "n8n-nodes-base.n8n",
-      "typeVersion": 1,
-      "position": [
-        1580,
-        320
-      ],
-      "credentials": {
-        "n8nApi": {
-          "id": "Vmg6hJDctwZTPAGM",
-          "name": "n8n account"
-        }
-      }
     },
     {
       "parameters": {
@@ -307,7 +290,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1800,
+        2020,
         320
       ],
       "disabled": true
@@ -332,7 +315,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        2020,
+        2240,
         260
       ],
       "disabled": true
@@ -353,7 +336,7 @@
       "type": "n8n-nodes-base.n8n",
       "typeVersion": 1,
       "position": [
-        2220,
+        2440,
         260
       ],
       "credentials": {
@@ -378,6 +361,44 @@
         1340,
         -60
       ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "workflowId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "workflowObject": "={{ $json.toJsonString() }}",
+        "requestOptions": {}
+      },
+      "id": "b4d37362-c09e-42fe-acd1-a6dc5338c5a9",
+      "name": "обновим",
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "position": [
+        1960,
+        560
+      ],
+      "credentials": {
+        "n8nApi": {
+          "id": "Vmg6hJDctwZTPAGM",
+          "name": "n8n account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "97d398d6-37f4-4a60-893f-5e9be7395aec",
+      "name": "Limit",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        880,
+        260
+      ],
+      "disabled": true
     }
   ],
   "pinData": {},
@@ -394,6 +415,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-10-28T14:21:15.832Z",
-  "versionId": "8bd9e2ea-4308-4536-8b3c-1df924b064ea"
+  "updatedAt": "2024-11-10T15:09:03.613Z",
+  "versionId": "c600d762-1b12-4012-983f-c6e5015a5aa1"
 }
