@@ -1180,7 +1180,7 @@
       "main": [
         [
           {
-            "node": "подтверждение взвешивания",
+            "node": "записываем объём материала",
             "type": "main",
             "index": 0
           }
@@ -1210,11 +1210,6 @@
         [
           {
             "node": "получаем номер авто",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "записываем объём материала",
             "type": "main",
             "index": 0
           }
@@ -1294,6 +1289,17 @@
         [
           {
             "node": "заявки по авто",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "записываем объём материала": {
+      "main": [
+        [
+          {
+            "node": "подтверждение взвешивания1",
             "type": "main",
             "index": 0
           }
@@ -5710,8 +5716,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2480,
-        6044.938488846612
+        3360,
+        5780
       ],
       "credentials": {
         "telegramApi": {
@@ -6064,7 +6070,7 @@
           "mappingMode": "defineBelow",
           "value": {
             "tg_id": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
-            "weight_measure": "=0 Тонны "
+            "weight_measure": "={{ $json.cargo_netto }} Тонны "
           },
           "matchingColumns": [
             "tg_id"
@@ -6184,17 +6190,71 @@
         },
         "options": {}
       },
-      "id": "4eb54ff5-7fe0-4b53-9179-fc9ffc271dff",
+      "id": "6decdbb1-c1e8-4cc6-ae9d-4b2d487a4cb5",
       "name": "записываем объём материала",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        600,
-        5884.938488846612
+        2460,
+        6060
       ],
       "credentials": {
         "postgres": {
           "id": "cMlKL7XYShZtUnqo",
+          "name": "Everest production"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.from.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "=Подтвердите значение взвешивания - <b>{{ $('есть ли запись с весов').item.json.cargo_netto }}</b> Нетто(Тонны)",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Подтвердить",
+                    "additionalFields": {
+                      "callback_data": "last"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Другое",
+                    "additionalFields": {
+                      "callback_data": "material_volume"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "f2777736-5583-4ee9-b9f2-69aea0047f67",
+      "name": "подтверждение взвешивания1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2760,
+        6060
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "s2yURwRj0JIo9urH",
           "name": "Everest production"
         }
       }
@@ -6292,6 +6352,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-11-10T15:21:34.008Z",
-  "versionId": "eb712abd-23f8-4b05-ad2a-4dbc66ecf158"
+  "updatedAt": "2024-11-12T05:58:11.287Z",
+  "versionId": "bf12fef1-e98c-4c88-834e-b0de582b9f51"
 }
