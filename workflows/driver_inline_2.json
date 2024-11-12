@@ -1180,7 +1180,7 @@
       "main": [
         [
           {
-            "node": "подтверждение взвешивания",
+            "node": "записываем объём материала",
             "type": "main",
             "index": 0
           }
@@ -1210,11 +1210,6 @@
         [
           {
             "node": "получаем номер авто",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "записываем объём материала",
             "type": "main",
             "index": 0
           }
@@ -1294,6 +1289,17 @@
         [
           {
             "node": "заявки по авто",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "записываем объём материала": {
+      "main": [
+        [
+          {
+            "node": "подтверждение взвешивания",
             "type": "main",
             "index": 0
           }
@@ -5672,7 +5678,7 @@
         "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.from.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.message.message_id }}",
         "replyMarkup": "inlineKeyboard",
-        "text": "=Подтвердите значение взвешивания - <b>{{ $json.cargo_netto }}</b> Нетто(Тонны)",
+        "text": "=Подтвердите значение взвешивания - <b>{{ $('есть ли запись с весов').item.json.cargo_netto }}</b> Нетто(Тонны)",
         "inlineKeyboard": {
           "rows": [
             {
@@ -5710,7 +5716,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2160,
+        2480,
         5440
       ],
       "credentials": {
@@ -6064,7 +6070,7 @@
           "mappingMode": "defineBelow",
           "value": {
             "tg_id": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
-            "weight_measure": "=0 Тонны "
+            "weight_measure": "={{ $json.cargo_netto }} Тонны "
           },
           "matchingColumns": [
             "tg_id"
@@ -6189,8 +6195,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        280,
-        5280
+        2180,
+        5440
       ],
       "credentials": {
         "postgres": {
@@ -6204,9 +6210,9 @@
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100633628,
+          "update_id": 100635028,
           "callback_query": {
-            "id": "2008109316038872006",
+            "id": "2008109316160763974",
             "from": {
               "id": 467549384,
               "is_bot": false,
@@ -6216,7 +6222,7 @@
               "is_premium": true
             },
             "message": {
-              "message_id": 26280,
+              "message_id": 27735,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -6229,8 +6235,8 @@
                 "username": "sergo_kf",
                 "type": "private"
               },
-              "date": 1730773923,
-              "edit_date": 1730774091,
+              "date": 1731378879,
+              "edit_date": 1731390768,
               "text": "Вы уверены, что готовы завершить рейс?",
               "reply_markup": {
                 "inline_keyboard": [
@@ -6260,18 +6266,18 @@
           "end_request_hours": null,
           "car_id_while_inputing": 25,
           "fuel_liters": 100,
-          "weight_measure": "Тонны ",
+          "weight_measure": "15 Тонны ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
           "count_weight_photo": 1,
           "count_weight_photo_sent": 0,
           "current_quarry_hours": 5,
-          "end_round_message_id": 26280,
-          "last_message_text": "Отлично, рейс активен. \n\nКарьер Ключевое - улица Карла Маркса, 43\nПесок (Карьер Ключевое)\nОстаток по текущей перевозке - 17.89 т.\n\nПо его завершению нажмите на кнопку \"Завершить рейс\"",
+          "end_round_message_id": 27735,
+          "last_message_text": "Отлично, рейс активен. \n\nКарьер Ключевое - Владивосток\nСкальный грунт\n\nПо его завершению нажмите на кнопку \"Завершить рейс\"",
           "logist_notifications": false,
-          "creating_transportation": null,
-          "cookie": "session_id=b9c645092bc728c977a98c4be377c7c2ac0a2e9e; Expires=Mon, 03 Nov 2025 14:04:36 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "creating_transportation": "657;\nКарьер Ключевое;",
+          "cookie": "session_id=c3e4a62a1a8d37aac55955740fe40fb4fbfdb108; Expires=Tue, 11 Nov 2025 06:56:02 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -6292,6 +6298,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-11-08T15:26:37.261Z",
-  "versionId": "86498c82-111e-4fff-a1b6-e13f83de1e77"
+  "updatedAt": "2024-11-12T05:54:46.040Z",
+  "versionId": "c2359713-051e-442e-afb7-11ea653f4dc2"
 }
