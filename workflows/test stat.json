@@ -298,11 +298,6 @@
         ]
       ]
     },
-    "Telegram8": {
-      "main": [
-        []
-      ]
-    },
     "Execute Workflow Trigger": {
       "main": [
         [
@@ -1038,6 +1033,9 @@
     {
       "parameters": {
         "operation": "sendLocation",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "latitude": "={{ $json.latitude }}",
+        "longitude": "={{ $json.longitude }}",
         "additionalFields": {}
       },
       "id": "a86cbaf5-448f-4da9-8606-452372c1d9db",
@@ -1047,23 +1045,29 @@
       "position": [
         -260,
         -160
-      ]
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
     },
     {
       "parameters": {
-        "url": "https://dev.everest.lamart.site/get_all_maintenances",
+        "url": "https://dev.everest.lamart.site/get_coordinates_by_transportation",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
             {
               "name": "cookie",
-              "value": "session_id=b9c645092bc728c977a98c4be377c7c2ac0a2e9e; Expires=Mon, 03 Nov 2025 14:04:36 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "session_id=c3e4a62a1a8d37aac55955740fe40fb4fbfdb108; Expires=Tue, 11 Nov 2025 06:56:02 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "{\n  \"transportation_id\": 0\n}",
+        "jsonBody": "{\n  \"transportation_id\": 1164\n}",
         "options": {}
       },
       "id": "593e4a9a-e2f7-44c5-a56d-678bd1b02046",
@@ -1190,6 +1194,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-11-08T19:25:21.924Z",
-  "versionId": "bf333aa5-9015-4295-9d03-694ad4937e61"
+  "updatedAt": "2024-11-11T15:07:50.232Z",
+  "versionId": "990ef14b-b8bf-4589-8036-a5288e2b8502"
 }
