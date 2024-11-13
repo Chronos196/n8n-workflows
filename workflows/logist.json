@@ -725,7 +725,7 @@
         ],
         [
           {
-            "node": "Сообщение о создании перевозки",
+            "node": "тип создания",
             "type": "main",
             "index": 0
           }
@@ -997,6 +997,17 @@
         ]
       ]
     },
+    "Статус создания перевозки false3": {
+      "main": [
+        [
+          {
+            "node": "тип создания1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Создание перевозки": {
       "main": [
         [
@@ -1050,25 +1061,28 @@
             "type": "main",
             "index": 0
           }
-        ]
-      ]
-    },
-    "Удаление прошлого сообщения2": {
-      "main": [
+        ],
         [
           {
-            "node": "Удаление прошлого сообщения3",
+            "node": "Сообщение о создании перевозки",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Switch",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Статус создания перевозки false3": {
+    "Switch": {
       "main": [
         [
           {
-            "node": "Удаление прошлого сообщения2",
+            "node": "места",
             "type": "main",
             "index": 0
           }
@@ -2664,8 +2678,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1580,
-        2920
+        1740,
+        2940
       ]
     },
     {
@@ -2988,7 +3002,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1600,
+        1820,
         3500
       ]
     },
@@ -3384,7 +3398,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1600,
+        1820,
         3820
       ]
     },
@@ -4169,7 +4183,7 @@
       "parameters": {
         "content": "## Рассылка конкретному водителю",
         "height": 291.3280243517646,
-        "width": 1062.8959494683481,
+        "width": 1357.8959494683481,
         "color": 6
       },
       "id": "679b8432-ce5b-449e-9efb-0e746c18bc31",
@@ -4177,7 +4191,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1600,
+        1800,
         4160
       ]
     },
@@ -8216,8 +8230,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        2820,
-        1100
+        1720,
+        5980
       ],
       "credentials": {
         "postgres": {
@@ -8228,9 +8242,11 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $json.message.from.id }}",
-        "text": "=Шаблон для перевозки:\nНомера машин;\nМатериал, количество ед.измерения;\nОт - До, Компания-получатель;\nКомментарий\n\n\nКомментарии к шаблону:\nНомера машин перечисляются через запятую без пробела. Материал, От, До и Компанию-получателя необходимо указывать, так как они указаны в Odoo в именительном падеже. Комментарий не может занимать несколько строк. Единицы измерения указываются как т и м3. Комментарий может быть не указан.",
+        "operation": "editMessageText",
+        "chatId": "={{ $json.callback_query.from.id }}",
+        "messageId": "={{ $json.callback_query.message.message_id }}",
         "replyMarkup": "inlineKeyboard",
+        "text": "=Шаблон для перевозки:\nНомера машин;\nМатериал, количество ед.измерения;\nОт - До, Компания-получатель;\nКомментарий\n\n\nКомментарии к шаблону:\nНомера машин перечисляются через запятую без пробела. Материал, От, До и Компанию-получателя необходимо указывать, так как они указаны в Odoo в именительном падеже. Комментарий не может занимать несколько строк. Единицы измерения указываются как т и м3. Комментарий может быть не указан.",
         "inlineKeyboard": {
           "rows": [
             {
@@ -8247,17 +8263,15 @@
             }
           ]
         },
-        "additionalFields": {
-          "appendAttribution": false
-        }
+        "additionalFields": {}
       },
       "id": "d3d28388-560c-4be8-8ab3-a0edfc4f397d",
       "name": "Сообщение о создании перевозки",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2600,
-        1100
+        1620,
+        5760
       ],
       "credentials": {
         "telegramApi": {
@@ -8265,180 +8279,6 @@
           "name": "tg dev aleksey"
         }
       }
-    },
-    {
-      "parameters": {
-        "operation": "deleteMessage",
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
-        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id - 1}}"
-      },
-      "id": "08d76ca1-d54e-4022-ad09-5297a748f97c",
-      "name": "Удаление прошлого сообщения3",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        2900,
-        5460
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "rJQteGH5Ng1RKmF4",
-          "name": "tg dev aleksey"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "back_create",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "420c75cf-0f6b-4c6a-8652-f46d12217ea7",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "no_pattern",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "52f588c0-e27d-45cf-ac2b-fac6c2c80a1c",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "pick_type",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "cbc9f514-874c-447c-b8f1-c79e76bbe89d",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "pattern_delete_user_message",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "2cf700ed-c3c8-4c2b-bf08-4026b691ed36",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "no_pattern_delete_user_message",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "2f2cdac4-5159-4117-b48c-a9b0ef781277",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "send_to_dispetcher",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "86462300-e419-409c-b113-d9e5993cb8dc",
-      "name": "Создание перевозки",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3.2,
-      "position": [
-        1400,
-        5480
-      ]
     },
     {
       "parameters": {
@@ -8948,27 +8788,6 @@
     },
     {
       "parameters": {
-        "operation": "deleteMessage",
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
-        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}"
-      },
-      "id": "df118f5a-643e-490b-909a-ef1da4cfbbee",
-      "name": "Удаление прошлого сообщения2",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        2640,
-        5460
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "rJQteGH5Ng1RKmF4",
-          "name": "tg dev aleksey"
-        }
-      }
-    },
-    {
-      "parameters": {
         "operation": "update",
         "schema": {
           "__rl": true,
@@ -9219,25 +9038,390 @@
           "name": "pg dev"
         }
       }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.from.id }}",
+        "text": "Выберите способ создания:",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Без шаблона",
+                    "additionalFields": {
+                      "callback_data": "no_template"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "По шаблону",
+                    "additionalFields": {
+                      "callback_data": "by_template"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "4158f91b-dfc4-4ad6-8a5c-97fa5e46196f",
+      "name": "тип создания",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2360,
+        1060
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "Выберите способ создания:",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Без шаблона",
+                    "additionalFields": {
+                      "callback_data": "no_template"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "По шаблону",
+                    "additionalFields": {
+                      "callback_data": "by_template"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "id": "1c3f354c-635e-434d-9be1-b5f26701e033",
+      "name": "тип создания1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2680,
+        5460
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "back_create",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "420c75cf-0f6b-4c6a-8652-f46d12217ea7",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "no_pattern",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "52f588c0-e27d-45cf-ac2b-fac6c2c80a1c",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "pick_type",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "cbc9f514-874c-447c-b8f1-c79e76bbe89d",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "pattern_delete_user_message",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2cf700ed-c3c8-4c2b-bf08-4026b691ed36",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "no_pattern_delete_user_message",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2f2cdac4-5159-4117-b48c-a9b0ef781277",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "send_to_dispetcher",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "e774867e-5286-45e3-8184-cd19ec529116",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "no_template",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "86462300-e419-409c-b113-d9e5993cb8dc",
+      "name": "Создание перевозки",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1400,
+        5480
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "by_template",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "36a88b43-9b1c-414b-9a34-5890398f0936",
+                    "leftValue": "",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00e0bcd6-5fb9-4684-9d43-a1a9303d1333",
+      "name": "Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1380,
+        7140
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "=transportation.place",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {}
+      },
+      "id": "24c4c157-6fcf-4a8f-bad8-ddf45d056a89",
+      "name": "места",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        1640,
+        7120
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "ITgOrhO4Hf2QcDtf",
+          "name": "odoo dev"
+        }
+      }
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100634667,
+          "update_id": 100635307,
           "callback_query": {
-            "id": "2008109315278822623",
+            "id": "2782501071231414245",
             "from": {
-              "id": 467549384,
+              "id": 7090302459,
               "is_bot": false,
-              "first_name": "Sergio",
-              "username": "sergo_kf",
-              "language_code": "ru",
-              "is_premium": true
+              "first_name": "Al",
+              "last_name": "Go",
+              "language_code": "ru"
             },
             "message": {
-              "message_id": 27346,
+              "message_id": 27928,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -9245,55 +9429,57 @@
                 "username": "myn8nbotbot"
               },
               "chat": {
-                "id": 467549384,
-                "first_name": "Sergio",
-                "username": "sergo_kf",
+                "id": 7090302459,
+                "first_name": "Al",
+                "last_name": "Go",
                 "type": "private"
               },
-              "date": 1731072901,
-              "text": "Вы подтверждаете заявку?",
+              "date": 1731413410,
+              "edit_date": 1731413415,
+              "text": "Выберите способ создания:",
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "Да",
-                      "callback_data": "send_to_dispetcher"
+                      "text": "Без шаблона",
+                      "callback_data": "no_template"
                     }
                   ],
                   [
                     {
-                      "text": "Изменить",
-                      "callback_data": "pattern_delete_user_message"
+                      "text": "По шаблону",
+                      "callback_data": "by_template"
                     }
                   ]
                 ]
               }
             },
-            "chat_instance": "-8293046807322593726",
-            "data": "send_to_dispetcher"
+            "chat_instance": "4841481297779052467",
+            "data": "by_template"
           },
-          "tg_id": "467549384",
-          "odoo_id": 4,
+          "tg_id": "7090302459",
+          "odoo_id": 19,
           "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
-          "end_request_id": null,
+          "end_request_id": 634,
           "materials_photo": false,
           "end_request_hours": null,
-          "car_id_while_inputing": 25,
-          "fuel_liters": 100,
-          "weight_measure": "0 Тонны ",
+          "car_id_while_inputing": 49,
+          "fuel_liters": null,
+          "weight_measure": "2 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
-          "count_weight_photo": 1,
-          "count_weight_photo_sent": 0,
-          "current_quarry_hours": 5,
-          "end_round_message_id": 26283,
-          "last_message_text": "Отлично, вы завершили рейс, хотите начать следующий?\nКарьер Ключевое - улица Карла Маркса, 43\nПесок (Карьер Ключевое)\nОстаток по текущей перевозке -  12.57 т.",
-          "logist_notifications": false,
-          "creating_transportation": "657;\nПесок, 30т;\nКлючевое - Ключевое, Физ лица;",
-          "cookie": "session_id=b9c645092bc728c977a98c4be377c7c2ac0a2e9e; Expires=Mon, 03 Nov 2025 14:04:36 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "count_weight_photo": null,
+          "count_weight_photo_sent": null,
+          "current_quarry_hours": 50,
+          "end_round_message_id": 23981,
+          "last_message_text": "{\"message_id\":26825,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":7090302459,\"first_name\":\"Al\",\"last_name\":\"Go\",\"type\":\"private\"},\"date\":1730969494,\"edit_date\":1730969510,\"text\":\"У автомобиля А 459 ТЕ водитель: Алексей Горемыкин +79124406618,  проблема: \\n\\n15 \\n\\nСсылка на заявку в Odoo\",\"entities\":[{\"offset\":13,\"length\":8,\"type\":\"bold\"},{\"offset\":32,\"length\":17,\"type\":\"bold\"},{\"offset\":50,\"length\":12,\"type\":\"phone_number\"},{\"offset\":77,\"length\":2,\"type\":\"italic\"},{\"offset\":82,\"length\":23,\"type\":\"text_link\",\"url\":\"https://dev.everest.lamart.site/web#id=644&model=technical.maintenance&view_type=form\"}],\"link_preview_options\":{\"url\":\"https://dev.everest.lamart.site/web\"},\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Провести ТО\",\"callback_data\":\"do_to\"}],[{\"text\":\"Взять в ремонт\",\"callback_data\":\"take_to_fix\"}]]}}",
+          "logist_notifications": true,
+          "creating_transportation": "123",
+          "round_active_msg_id": null,
+          "cookie": "session_id=c3e4a62a1a8d37aac55955740fe40fb4fbfdb108; Expires=Tue, 11 Nov 2025 06:56:02 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -9311,6 +9497,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-11-08T14:17:05.932Z",
-  "versionId": "02b60743-c732-4890-a55b-6c489c379a92"
+  "updatedAt": "2024-11-12T12:34:50.044Z",
+  "versionId": "49444256-a09d-46e2-9288-59d434052ae3"
 }
