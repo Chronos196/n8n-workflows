@@ -1,6 +1,54 @@
 {
   "active": true,
-  "connections": {},
+  "connections": {
+    "текст": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "карьер",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "получатель",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
   "createdAt": "2024-10-02T06:12:26.174Z",
   "id": "zwP3Q1MFVqKmTkog",
   "meta": {
@@ -10,26 +58,220 @@
   "nodes": [
     {
       "parameters": {
-        "httpMethod": "POST",
-        "path": "dev/no_taking_shift",
-        "authentication": "basicAuth",
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d1540d00-c536-4d99-b110-8e192043b1a7",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "/start",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
         "options": {}
       },
-      "id": "415124e6-5a3d-450c-95cc-9425d5888c1f",
-      "name": "Webhook",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
+      "id": "e345b7bf-1ec2-4991-a1da-6fb1cc7e3327",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
       "position": [
-        2020,
-        440
+        1280,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message",
+          "inline_query"
+        ],
+        "additionalFields": {}
+      },
+      "id": "b0c52d70-8c6b-4dca-9b6d-c3da9e0bb885",
+      "name": "текст",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        1060,
+        0
       ],
-      "webhookId": "e48cff51-ea72-4b82-a844-ac15b292794e",
+      "webhookId": "bd2ecacf-b3c3-47f6-8c65-a474d26211e4",
       "credentials": {
-        "httpBasicAuth": {
-          "id": "uHcFMSp9IXmPMRB4",
-          "name": "queue webhook"
+        "telegramApi": {
+          "id": "lqkzPoJVFiXxwD5z",
+          "name": "Telegram account 2"
         }
       }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "Текст сообщения",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Поиска карьеров",
+                    "additionalFields": {
+                      "switch_inline_query_current_chat": "Carrier"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Поиск получателей",
+                    "additionalFields": {
+                      "switch_inline_query_current_chat": "Partner"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "98315bbd-8b2c-4b29-88d0-3e845cff5cbe",
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1720,
+        0
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "lqkzPoJVFiXxwD5z",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "callback",
+        "operation": "answerInlineQuery",
+        "queryId": "={{ $json.inline_query.id }}",
+        "results": "=[\n    {\n      \"type\": \"article\",\n      \"id\": \"1\",\n      \"title\": \"Карьера «Северный»\",\n      \"input_message_content\": {\n        \"message_text\": \"Вы выбрали карьер: Карьера «Северный»\"\n      }\n    },\n    {\n      \"type\": \"article\",\n      \"id\": \"2\",\n      \"title\": \"Карьера «Южный»\",\n      \"input_message_content\": {\n        \"message_text\": \"Вы выбрали карьер: Карьера «Южный»\"\n      }\n    },\n    {\n      \"type\": \"article\",\n      \"id\": \"3\",\n      \"title\": \"Карьера «Западный»\",\n      \"input_message_content\": {\n        \"message_text\": \"Вы выбрали карьер: Карьера «Западный»\"\n      }\n    }\n  ]",
+        "additionalFields": {}
+      },
+      "id": "badf5639-99be-4da9-a292-953648be2426",
+      "name": "карьер",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1740,
+        200
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "lqkzPoJVFiXxwD5z",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "callback",
+        "operation": "answerInlineQuery",
+        "queryId": "={{ $json.inline_query.id }}",
+        "results": "=[\n    {\n        \"type\": \"article\",\n        \"id\": \"1\",\n        \"title\": \"Реселлеры\",\n        \"input_message_content\": {\n            \"message_text\": \"Вы выбрали партнера: Реселлеры\"\n        }\n    },\n    {\n        \"type\": \"article\",\n        \"id\": \"2\",\n        \"title\": \"Технологические партнеры\",\n        \"input_message_content\": {\n            \"message_text\": \"Вы выбрали партнера: Технологические партнеры\"\n        }\n    },\n    {\n        \"type\": \"article\",\n        \"id\": \"3\",\n        \"title\": \"Партнеры по рекомендациям\",\n        \"input_message_content\": {\n            \"message_text\": \"Вы выбрали партнера: Партнеры по рекомендациям\"\n        }\n    },\n    {\n        \"type\": \"article\",\n        \"id\": \"4\",\n        \"title\": \"Аффилиаты\",\n        \"input_message_content\": {\n            \"message_text\": \"Вы выбрали партнера: Аффилиаты\"\n        }\n    },\n    {\n        \"type\": \"article\",\n        \"id\": \"5\",\n        \"title\": \"Дистрибьюторы\",\n        \"input_message_content\": {\n            \"message_text\": \"Вы выбрали партнера: Дистрибьюторы\"\n        }\n    },\n    {\n        \"type\": \"article\",\n        \"id\": \"6\",\n        \"title\": \"Оптовики\",\n        \"input_message_content\": {\n            \"message_text\": \"Вы выбрали партнера: Оптовики\"\n        }\n    },\n    {\n        \"type\": \"article\",\n        \"id\": \"7\",\n        \"title\": \"Реселлеры с добавленной стоимостью (VAR)\",\n        \"input_message_content\": {\n            \"message_text\": \"Вы выбрали партнера: Реселлеры с добавленной стоимостью (VAR)\"\n        }\n    },\n    {\n        \"type\": \"article\",\n        \"id\": \"8\",\n        \"title\": \"Дистрибьюторы с добавленной стоимостью (VAD)\",\n        \"input_message_content\": {\n            \"message_text\": \"Вы выбрали партнера: Дистрибьюторы с добавленной стоимостью (VAD)\"\n        }\n    },\n    {\n        \"type\": \"article\",\n        \"id\": \"9\",\n        \"title\": \"Независимые разработчики программного обеспечения (ISV)\",\n        \"input_message_content\": {\n            \"message_text\": \"Вы выбрали партнера: Независимые разработчики программного обеспечения (ISV)\"\n        }\n    },\n    {\n        \"type\": \"article\",\n        \"id\": \"10\",\n        \"title\": \"Интеграторы систем\",\n        \"input_message_content\": {\n            \"message_text\":  \"Вы выбрали партнера: Интеграторы систем\"\n        }\n    },\n    {\n        \"type\": \"article\",\n        \"id\":\"11\",\n        \"title\":\"Поставщики управляемых услуг (MSP)\",\n        \"input_message_content\":{\n            \"message_text\":\"Вы выбрали партнера: Поставщики управляемых услуг (MSP)\"\n        }\n    },\n    {\n        \"type\":\"article\",\n        \"id\":\"12\",\n        \"title\":\"Специалисты по внедрению\",\n        \"input_message_content\":{\n            \"message_text\":\"Вы выбрали партнера: Специалисты по внедрению\"\n        }\n    },\n    {\n        \"type\":\"article\",\n        \"id\":\"13\",\n        \"title\":\"Специалисты по вертикальным решениям\",\n        \"input_message_content\":{\n            \"message_text\":\"Вы выбрали партнера: Специалисты по вертикальным решениям\"\n        }\n    },\n    {\n        \"type\":\"article\",\n        \"id\":\"14\",\n        \"title\":\"Дилеры\",\n        \"input_message_content\":{\n            \"message_text\":\"Вы выбрали партнера: Дилеры\"\n        }\n    },\n    {\n        \"type\":\"article\",\n        \"id\":\"15\",\n        \"title\":\"Консультанты и советники\",\n        \"input_message_content\":{\n            \"message_text\":\"Вы выбрали партнера: Консультанты и советники\"\n        }\n    }\n]",
+        "additionalFields": {}
+      },
+      "id": "85f35773-fc92-495e-9907-80cb4a3cafdd",
+      "name": "получатель",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1800,
+        380
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "lqkzPoJVFiXxwD5z",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.inline_query.query }}",
+                    "rightValue": "Carrier",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "3e35ea6e-b1a5-4b2a-a392-7223925d36ab",
+                    "leftValue": "={{ $json.inline_query.query }}",
+                    "rightValue": "Partner",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a5120ef9-558b-48cf-abce-677aa047524f",
+      "name": "Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1440,
+        240
+      ]
     }
   ],
   "pinData": {},
@@ -49,6 +291,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-11-11T16:13:47.796Z",
-  "versionId": "e5d4d5da-da27-477c-9901-0e4ae238566c"
+  "updatedAt": "2024-11-12T13:48:21.437Z",
+  "versionId": "b61b54f6-6f88-478d-83ca-7bda31c204a1"
 }
