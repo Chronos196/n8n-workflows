@@ -1205,17 +1205,6 @@
         ]
       ]
     },
-    "проверка наличия взвешивания": {
-      "main": [
-        [
-          {
-            "node": "получаем номер авто",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "работа в карьере?": {
       "main": [
         [
@@ -1300,6 +1289,86 @@
         [
           {
             "node": "подтверждение взвешивания",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "данные авто": {
+      "main": [
+        [
+          {
+            "node": "координаты",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "координаты": {
+      "main": [
+        [
+          {
+            "node": "координаты1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "тип ошибки",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "тип ошибки": {
+      "main": [
+        [
+          {
+            "node": "Нет координат",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка наличия взвешивания": {
+      "main": [
+        [
+          {
+            "node": "получаем номер авто",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "данные авто",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "координаты1": {
+      "main": [
+        [
+          {
+            "node": "ответ",
             "type": "main",
             "index": 0
           }
@@ -3587,6 +3656,18 @@
               "row": {
                 "buttons": [
                   {
+                    "text": "Навигатор",
+                    "additionalFields": {
+                      "callback_data": "navigator"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
                     "text": "Завершить рейс",
                     "additionalFields": {
                       "callback_data": "Finish"
@@ -5741,46 +5822,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "check_material_volume",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {
-          "fallbackOutput": "extra"
-        }
-      },
-      "id": "3216b4ea-659c-4e38-abbc-466a163af9d4",
-      "name": "проверка наличия взвешивания",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3.2,
-      "position": [
-        0,
-        5620
-      ]
-    },
-    {
-      "parameters": {
         "content": "## Проверка записи о взвешивании в рейсе",
         "height": 404.17703383081584,
         "width": 2406.118024774483
@@ -6204,25 +6245,553 @@
           "name": "pg dev"
         }
       }
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_car_by_driver",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "driver_id",
+              "value": "={{ $json.odoo_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "12a26a35-8048-4bb4-8889-7a1d0754f786",
+      "name": "данные авто",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        280,
+        6220
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "sendLocation",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+        "latitude": "={{ $json.latitude }}",
+        "longitude": "={{ $json.longitude }}",
+        "replyMarkup": "forceReply",
+        "forceReply": {
+          "force_reply": false,
+          "selective": false
+        },
+        "additionalFields": {}
+      },
+      "id": "0c5a3107-7541-4dca-9496-8ca4bcb4aefc",
+      "name": "координаты1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        720,
+        6060
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_coordinates_by_transportation",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "transportation_id",
+              "value": "={{ $json.current_transportation[0] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e1b662ef-fee1-4832-ae6e-0ecd1a73bdd4",
+      "name": "координаты",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        500,
+        6220
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "731b3910-a1c3-4f45-a31b-ddfb53321b63",
+              "leftValue": "={{ $json.error.message }}",
+              "rightValue": "404 - \"{\\\"error\\\": \\\"No coordinates\\\"}\"",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "c91a7e55-eded-4a27-9f50-5c0407b4e53e",
+      "name": "тип ошибки",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        720,
+        6320
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "check_material_volume",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "3216b4ea-659c-4e38-abbc-466a163af9d4",
+      "name": "проверка наличия взвешивания",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        0,
+        5620
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "navigator",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ca0c3b52-9ae0-4772-a33f-5f3469f4f99f",
+      "name": "Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        0,
+        6060
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "callback",
+        "queryId": "={{ $('Execute Workflow Trigger').item.json.callback_query.id }}",
+        "additionalFields": {
+          "show_alert": true,
+          "text": "Для данного маршрута нет координат в Odoo"
+        }
+      },
+      "id": "ef07aefb-203b-4486-9c81-43cd59fd48a6",
+      "name": "Нет координат",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        940,
+        6320
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list",
+          "cachedResultName": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tg_id": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+            "round_active_msg_id": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}"
+          },
+          "matchingColumns": [
+            "tg_id"
+          ],
+          "schema": [
+            {
+              "id": "tg_id",
+              "displayName": "tg_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "only_mech",
+              "displayName": "only_mech",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mech_photo",
+              "displayName": "mech_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_id",
+              "displayName": "end_request_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "materials_photo",
+              "displayName": "materials_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_hours",
+              "displayName": "end_request_hours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "car_id_while_inputing",
+              "displayName": "car_id_while_inputing",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "fuel_liters",
+              "displayName": "fuel_liters",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "weight_measure",
+              "displayName": "weight_measure",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "logist_alert_text",
+              "displayName": "logist_alert_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "logist_recipient_name",
+              "displayName": "logist_recipient_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "transportation_for_certificate",
+              "displayName": "transportation_for_certificate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "count_weight_photo",
+              "displayName": "count_weight_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "count_weight_photo_sent",
+              "displayName": "count_weight_photo_sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "current_quarry_hours",
+              "displayName": "current_quarry_hours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_round_message_id",
+              "displayName": "end_round_message_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "last_message_text",
+              "displayName": "last_message_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "logist_notifications",
+              "displayName": "logist_notifications",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "creating_transportation",
+              "displayName": "creating_transportation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "round_active_msg_id",
+              "displayName": "round_active_msg_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a905ef75-1951-4541-a4c2-0f9372ebfb0e",
+      "name": "айди сообщения в бд",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        1160,
+        6040
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "xrihBpyZE5y4OBiy",
+          "name": "pg dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "callback",
+        "queryId": "={{ $('Execute Workflow Trigger').item.json.callback_query.id }}",
+        "additionalFields": {}
+      },
+      "id": "8f1a7617-8cdc-4300-8973-4423e196c7fe",
+      "name": "ответ",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        940,
+        6060
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Вывод локации",
+        "height": 475.03251369702855,
+        "width": 1069.6405988984573,
+        "color": 6
+      },
+      "id": "126abdd0-3e77-431f-88e6-cd6de728318d",
+      "name": "Sticky Note8",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        272.5922667300823,
+        5969.698593811177
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100635028,
+          "update_id": 100635069,
           "callback_query": {
-            "id": "2008109316160763974",
+            "id": "3010587261542876627",
             "from": {
-              "id": 467549384,
+              "id": 700956969,
               "is_bot": false,
-              "first_name": "Sergio",
-              "username": "sergo_kf",
-              "language_code": "ru",
-              "is_premium": true
+              "first_name": "Алексей",
+              "username": "Chronos196",
+              "language_code": "ru"
             },
             "message": {
-              "message_id": 27735,
+              "message_id": 27784,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -6230,53 +6799,63 @@
                 "username": "myn8nbotbot"
               },
               "chat": {
-                "id": 467549384,
-                "first_name": "Sergio",
-                "username": "sergo_kf",
+                "id": 700956969,
+                "first_name": "Алексей",
+                "username": "Chronos196",
                 "type": "private"
               },
-              "date": 1731378879,
-              "edit_date": 1731390768,
-              "text": "Вы уверены, что готовы завершить рейс?",
+              "date": 1731398990,
+              "location": {
+                "latitude": 56.834997,
+                "longitude": 60.626194
+              },
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "Завершить",
-                      "callback_data": "check_material_volume"
-                    },
+                      "text": "Навигатор",
+                      "callback_data": "navigator"
+                    }
+                  ],
+                  [
                     {
-                      "text": "Назад",
-                      "callback_data": "back_pick"
+                      "text": " Завершить рейс",
+                      "callback_data": "Finish"
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Отменить рейс",
+                      "callback_data": "cancel_round"
                     }
                   ]
                 ]
               }
             },
-            "chat_instance": "-8293046807322593726",
-            "data": "check_material_volume"
+            "chat_instance": "1908726007480408494",
+            "data": "navigator"
           },
-          "tg_id": "467549384",
-          "odoo_id": 4,
+          "tg_id": "700956969",
+          "odoo_id": 2,
           "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
           "end_request_id": null,
           "materials_photo": false,
           "end_request_hours": null,
-          "car_id_while_inputing": 25,
-          "fuel_liters": 100,
-          "weight_measure": "15 Тонны ",
+          "car_id_while_inputing": 40,
+          "fuel_liters": 50,
+          "weight_measure": "10 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
           "count_weight_photo": 1,
           "count_weight_photo_sent": 0,
-          "current_quarry_hours": 5,
-          "end_round_message_id": 27735,
-          "last_message_text": "Отлично, рейс активен. \n\nКарьер Ключевое - Владивосток\nСкальный грунт\n\nПо его завершению нажмите на кнопку \"Завершить рейс\"",
+          "current_quarry_hours": 50,
+          "end_round_message_id": 27772,
+          "last_message_text": "Отлично, рейс активен. \n\nКарьер Ключевое - Карьер Ключевое\nТест1\n\nПо его завершению нажмите на кнопку \"Завершить рейс\"",
           "logist_notifications": false,
-          "creating_transportation": "657;\nКарьер Ключевое;",
+          "creating_transportation": null,
           "cookie": "session_id=c3e4a62a1a8d37aac55955740fe40fb4fbfdb108; Expires=Tue, 11 Nov 2025 06:56:02 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
@@ -6298,6 +6877,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-11-12T05:54:46.040Z",
-  "versionId": "c2359713-051e-442e-afb7-11ea653f4dc2"
+  "updatedAt": "2024-11-12T09:23:33.695Z",
+  "versionId": "1db81601-ff5d-4e5d-8b55-7bb35ee6d875"
 }
