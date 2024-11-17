@@ -1916,6 +1916,26 @@
                   }
                 ]
               }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Создание заявки на перевозку",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Начали смену?",
+                    "additionalFields": {}
+                  }
+                ]
+              }
             }
           ]
         },
@@ -2336,7 +2356,7 @@
     },
     {
       "parameters": {
-        "workflowId": "6wteHiVCwezCWPRg",
+        "workflowId": "AaXtdja6Uz7g1KeN",
         "options": {}
       },
       "id": "66a3efd4-49b9-4fbb-9ee8-9e0014df8714",
@@ -2383,7 +2403,8 @@
           "options": {
             "caseSensitive": true,
             "leftValue": "",
-            "typeValidation": "strict"
+            "typeValidation": "strict",
+            "version": 1
           },
           "conditions": [
             {
@@ -2711,7 +2732,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "={{ $('авторизация1').item.json.headers['set-cookie'][0] }}"
+              "value": "=session_id=c3e4a62a1a8d37aac55955740fe40fb4fbfdb108; Expires=Tue, 11 Nov 2025 06:56:02 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -4062,7 +4083,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "={{ $('авторизация1').item.json.headers['set-cookie'][0] }}"
+              "value": "=session_id=c3e4a62a1a8d37aac55955740fe40fb4fbfdb108; Expires=Tue, 11 Nov 2025 06:56:02 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -4095,7 +4116,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "={{ $('авторизация1').all()[0].json.headers['set-cookie'][0] }}"
+              "value": "=session_id=c3e4a62a1a8d37aac55955740fe40fb4fbfdb108; Expires=Tue, 11 Nov 2025 06:56:02 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -4286,7 +4307,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "={{ $('авторизация1').item.json.headers['set-cookie'][0] }}"
+              "value": "=session_id=c3e4a62a1a8d37aac55955740fe40fb4fbfdb108; Expires=Tue, 11 Nov 2025 06:56:02 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -5057,7 +5078,7 @@
       "typeVersion": 4.1,
       "position": [
         -3660,
-        4414
+        4420
       ],
       "onError": "continueErrorOutput"
     },
@@ -5499,7 +5520,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "={{ $('авторизация1').item.json.headers['set-cookie'][0] }}"
+              "value": "=session_id=c3e4a62a1a8d37aac55955740fe40fb4fbfdb108; Expires=Tue, 11 Nov 2025 06:56:02 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -5547,7 +5568,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "session_id=b9c645092bc728c977a98c4be377c7c2ac0a2e9e; Expires=Mon, 03 Nov 2025 14:04:36 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "session_id=c3e4a62a1a8d37aac55955740fe40fb4fbfdb108; Expires=Tue, 11 Nov 2025 06:56:02 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -5709,7 +5730,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "={{ $('авторизация1').all()[0].json.headers['set-cookie'][0] }}"
+              "value": "=session_id=c3e4a62a1a8d37aac55955740fe40fb4fbfdb108; Expires=Tue, 11 Nov 2025 06:56:02 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -5838,12 +5859,58 @@
         "options": {}
       },
       "id": "5452c456-125e-4bee-aee7-c9c647c26ead",
-      "name": "Webhook",
+      "name": "опоздания водителей",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
         -4340,
         4840
+      ],
+      "webhookId": "e48cff51-ea72-4b82-a844-ac15b292794e",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "uHcFMSp9IXmPMRB4",
+          "name": "queue webhook"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "dev/wialon_take_auto",
+        "authentication": "basicAuth",
+        "options": {}
+      },
+      "id": "2bc2d6e9-2d58-40a3-9198-8f5c7ca37347",
+      "name": "виалон авто взят",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -4340,
+        5000
+      ],
+      "webhookId": "e48cff51-ea72-4b82-a844-ac15b292794e",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "uHcFMSp9IXmPMRB4",
+          "name": "queue webhook"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "dev/wialon_end_shift",
+        "authentication": "basicAuth",
+        "options": {}
+      },
+      "id": "bd51a5b0-c3f8-447f-884e-76b93f008d6a",
+      "name": "виалон смена закончена",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -4360,
+        5160
       ],
       "webhookId": "e48cff51-ea72-4b82-a844-ac15b292794e",
       "credentials": {
@@ -5877,7 +5944,7 @@
       "name": "aleksey"
     }
   ],
-  "triggerCount": 7,
-  "updatedAt": "2024-11-13T13:56:16.610Z",
-  "versionId": "d80c03d1-a5a5-4c3b-a5bd-782d5f62d23f"
+  "triggerCount": 9,
+  "updatedAt": "2024-11-15T20:22:48.650Z",
+  "versionId": "b8050876-34f2-4041-bbe5-a1898630299e"
 }
