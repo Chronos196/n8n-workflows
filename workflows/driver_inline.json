@@ -3185,17 +3185,6 @@
         ]
       ]
     },
-    "ищем перевозку": {
-      "main": [
-        [
-          {
-            "node": "находим какая сейчас перевозка",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "находим какая сейчас перевозка": {
       "main": [
         [
@@ -4281,6 +4270,17 @@
         [
           {
             "node": "меняем статус на дефолтный6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ищем перевозку": {
+      "main": [
+        [
+          {
+            "node": "находим какая сейчас перевозка",
             "type": "main",
             "index": 0
           }
@@ -10007,7 +10007,8 @@
           "options": {
             "caseSensitive": true,
             "leftValue": "",
-            "typeValidation": "strict"
+            "typeValidation": "strict",
+            "version": 1
           },
           "conditions": [
             {
@@ -20001,7 +20002,8 @@
       "position": [
         1460,
         1740
-      ]
+      ],
+      "alwaysOutputData": true
     },
     {
       "parameters": {
@@ -20033,32 +20035,6 @@
     },
     {
       "parameters": {
-        "url": "https://dev.everest.lamart.site//get_transportation_by_id",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "cookie",
-              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"transportation_id\": {{ $json.current_transportation[0] }}\n} ",
-        "options": {}
-      },
-      "id": "47e1cf0e-13d3-4dd6-9e59-a5b3b08f7fa9",
-      "name": "ищем перевозку",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        460,
-        1560
-      ]
-    },
-    {
-      "parameters": {
         "fieldToSplitOut": "transportation",
         "options": {}
       },
@@ -20069,7 +20045,8 @@
       "position": [
         680,
         1560
-      ]
+      ],
+      "alwaysOutputData": true
     },
     {
       "parameters": {
@@ -23234,15 +23211,43 @@
           "name": "tg dev aleksey"
         }
       }
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site//get_transportation_by_id",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"transportation_id\": {{ $json.current_transportation[0] }}\n} ",
+        "options": {}
+      },
+      "id": "47e1cf0e-13d3-4dd6-9e59-a5b3b08f7fa9",
+      "name": "ищем перевозку",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        460,
+        1560
+      ],
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100635853,
+          "update_id": 100636182,
           "callback_query": {
-            "id": "2008109316609488533",
+            "id": "2008109314257304851",
             "from": {
               "id": 467549384,
               "is_bot": false,
@@ -23252,7 +23257,7 @@
               "is_premium": true
             },
             "message": {
-              "message_id": 28401,
+              "message_id": 28639,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -23265,58 +23270,54 @@
                 "username": "sergo_kf",
                 "type": "private"
               },
-              "date": 1731698642,
-              "text": "По графику ваш автомобиль  \nА 657 АА - SCANIA",
-              "entities": [
-                {
-                  "offset": 28,
-                  "length": 17,
-                  "type": "bold"
-                }
-              ],
+              "date": 1731921386,
+              "edit_date": 1731921387,
+              "text": "Отправить фотографию весовой справки?",
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "Выбрать",
-                      "callback_data": "pick_car"
-                    },
+                      "text": "Отправить",
+                      "callback_data": "document"
+                    }
+                  ],
+                  [
                     {
-                      "text": "Взять другой",
-                      "callback_data": "other_car"
+                      "text": "Отправить в конце смены",
+                      "callback_data": "final"
                     }
                   ]
                 ]
               }
             },
             "chat_instance": "-8293046807322593726",
-            "data": "pick_car"
+            "data": "final"
           },
           "tg_id": "467549384",
           "odoo_id": 4,
-          "status": "inputing_odometer",
+          "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
-          "end_request_id": 591,
+          "end_request_id": null,
           "materials_photo": false,
           "end_request_hours": null,
           "car_id_while_inputing": 25,
           "fuel_liters": 15,
-          "weight_measure": "15 Тонны ",
+          "weight_measure": "30 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
-          "transportation_for_certificate": 1207,
-          "count_weight_photo": 4,
+          "transportation_for_certificate": null,
+          "count_weight_photo": 2,
           "count_weight_photo_sent": 0,
           "current_quarry_hours": 5,
-          "end_round_message_id": 28389,
-          "last_message_text": "Отлично, рейс активен. \n\nКарьер Ключевое - улица Карла Маркса, 43\nТЕСТ\nОстаток кубометров по текущей перевозке - 99.84\n\nПо его завершению нажмите на кнопку \"Завершить рейс\"",
+          "end_round_message_id": 28637,
+          "last_message_text": "Отлично, рейс активен. \n\nКарьер Ключевое - Карьер Ключевое\nПесок\nОстаток кубометров по текущей перевозке - 30\n\nПо его завершению нажмите на кнопку \"Завершить рейс\"",
           "logist_notifications": false,
           "creating_transportation": "657;\nКарьер Ключевое;",
-          "round_active_msg_id": 28389,
+          "round_active_msg_id": 28637,
           "no_taking_shift_logist_notify": false,
           "logist_template": null,
-          "cookie": "session_id=c3e4a62a1a8d37aac55955740fe40fb4fbfdb108; Expires=Tue, 11 Nov 2025 06:56:02 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=2ebaa13c7ff63a0f9a902bde0af38c77a72d4582; Expires=Mon, 17 Nov 2025 16:32:51 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -23337,6 +23338,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-11-15T20:27:42.799Z",
-  "versionId": "16ca17f2-d3ce-46de-8f7d-9602d32e1cbf"
+  "updatedAt": "2024-11-18T09:17:16.966Z",
+  "versionId": "f85b1d53-201a-4545-a1b6-e5d59b447515"
 }
