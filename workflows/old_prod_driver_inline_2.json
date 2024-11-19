@@ -1180,7 +1180,7 @@
       "main": [
         [
           {
-            "node": "подтверждение взвешивания",
+            "node": "записываем объём материала",
             "type": "main",
             "index": 0
           }
@@ -1294,10 +1294,21 @@
           }
         ]
       ]
+    },
+    "записываем объём материала": {
+      "main": [
+        [
+          {
+            "node": "подтверждение взвешивания1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "createdAt": "2024-11-02T13:19:45.269Z",
-  "id": "1sNMsJ5RHIuJKARi",
+  "createdAt": "2024-11-10T15:13:59.101Z",
+  "id": "Bu6QgkdbtHDt5qHn",
   "meta": {
     "templateCredsSetupCompleted": true
   },
@@ -1305,7 +1316,7 @@
   "nodes": [
     {
       "parameters": {},
-      "id": "91633580-9cf6-4fdd-bc7d-475edf332931",
+      "id": "f6b99f11-3145-4bfc-be2f-33803732ba64",
       "name": "Execute Workflow Trigger",
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1,
@@ -1351,7 +1362,7 @@
         },
         "additionalFields": {}
       },
-      "id": "70b59940-25df-4668-9d80-f5aeab575b1d",
+      "id": "48cdf046-bc3c-420c-80f1-c7a3a622e57a",
       "name": "Завершить текущую перевозку?",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -1583,7 +1594,7 @@
         },
         "options": {}
       },
-      "id": "b4231703-0006-410b-a1f8-ef5ef5bf5ee7",
+      "id": "0458f7cf-76ef-4c64-991d-6b1714823e62",
       "name": "сохраняем текст сообщения",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
@@ -1647,7 +1658,7 @@
         },
         "additionalFields": {}
       },
-      "id": "921f25d0-7a1a-4475-9c83-72282f297976",
+      "id": "d1831741-bd76-461e-ad57-1cf4148fdd15",
       "name": "прошлое сообщение",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -1677,7 +1688,7 @@
           ]
         }
       },
-      "id": "22d27843-94d6-4db9-be70-e7aec328670b",
+      "id": "45554ef3-9752-441e-9f78-a25a5fcb6207",
       "name": "поиск авто",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -1694,7 +1705,7 @@
     },
     {
       "parameters": {},
-      "id": "fc8274eb-192f-4ca5-bd97-0ef57b80d36b",
+      "id": "e000a675-02eb-4c61-aadb-c228ec9217d9",
       "name": "Limit",
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
@@ -1710,7 +1721,7 @@
         "width": 2587.9615410901815,
         "color": 6
       },
-      "id": "f95b3c6b-2cd7-480a-82ce-22d6d3dcdbd7",
+      "id": "a6168dd7-e96a-4990-acfb-7e50dde69df9",
       "name": "Sticky Note49",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1736,7 +1747,7 @@
         "jsonBody": "={\n  \"number_car\": {{'\"'+ $('поиск авто').item.json.number_car +'\"'}}\n}",
         "options": {}
       },
-      "id": "0ed9b403-92d6-43db-a629-085894e9fb1d",
+      "id": "395fa19b-0285-46b8-9715-1712f08fdb39",
       "name": "получение перевозок",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -1750,7 +1761,7 @@
       "parameters": {
         "jsCode": "const items = $input.all();\n\nlet allItems = [];\n\nfor (let i = 0; i < items.length; i++) {\n    const { transportations, full_quarry_work } = items[i].json;\n\n    if (transportations && Array.isArray(transportations)) {\n        allItems = allItems.concat(transportations);\n    }\n    if (full_quarry_work && Array.isArray(full_quarry_work)) {\n        allItems = allItems.concat(full_quarry_work);\n    }\n}\n\nallItems = allItems.filter(item => item.hasOwnProperty('sequence'));\nallItems.sort((a, b) => a.sequence - b.sequence);\n\nreturn allItems.map(item => ({ json: item }));\n"
       },
-      "id": "f39a32a2-1301-4e7b-9aa4-6511e76e9bba",
+      "id": "03d04c60-360b-4f70-8674-4d238fa1b983",
       "name": "Сортировка перевозок и работ в карьере1",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1967,7 +1978,7 @@
         },
         "options": {}
       },
-      "id": "b26a3c49-f4f5-43bd-aa1a-6331538174e9",
+      "id": "1793160a-b67a-4f63-b45a-138d89a6073d",
       "name": "айди последнего сообщения2",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
@@ -1989,7 +2000,7 @@
         "width": 618.4840105643988,
         "color": 6
       },
-      "id": "6b7b5297-2ced-4da9-a4ea-deae84f9ab2c",
+      "id": "9cd4666a-37bf-4929-ad09-5ca9fa9cb888",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -2006,7 +2017,7 @@
         "text": "Вы завершили перевозку. Ваша следующая перевозка:",
         "additionalFields": {}
       },
-      "id": "8f9d9a7e-ca68-4324-ad81-e9c71d5ff767",
+      "id": "714ab4af-2576-44f3-8cb1-0e42f87ef586",
       "name": "убираем кнопки",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -2026,7 +2037,7 @@
       "parameters": {
         "options": {}
       },
-      "id": "2cc8f317-191b-4b12-91fb-661a3dc7de20",
+      "id": "d4632a4c-8056-4de0-b6ba-cea740ae2d75",
       "name": "Loop Over Items3",
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
@@ -2061,7 +2072,7 @@
           ]
         }
       },
-      "id": "58d262d6-ddca-4a01-9c80-b1f4418f00cc",
+      "id": "00acdeb1-0e24-41d6-9072-973804b21301",
       "name": "рейсы в перевозке",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -2083,7 +2094,7 @@
         "fieldsToCompare": "driver[1]",
         "options": {}
       },
-      "id": "fe9ebea9-9b5e-426a-bc14-b386b84e8071",
+      "id": "22e3294e-e947-4ce7-af4c-ca4bfd2314dc",
       "name": "Remove Duplicates1",
       "type": "n8n-nodes-base.removeDuplicates",
       "typeVersion": 1.1,
@@ -2108,7 +2119,7 @@
           "continueIfFieldNotFound": true
         }
       },
-      "id": "749fd8c1-ef4e-4e4a-b07a-cf450e9d2401",
+      "id": "889c121a-3b2b-4251-85d7-1c4d39f66ddc",
       "name": "склеить имена водителей",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
@@ -2120,7 +2131,7 @@
     },
     {
       "parameters": {},
-      "id": "1a1070a3-2ebf-426f-bd63-2b6b2bbbd974",
+      "id": "b1ed4290-c13a-4f8d-9c40-6a2a83425c5f",
       "name": "Replace Me3",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
@@ -2136,7 +2147,7 @@
         "width": 1115.923707913178,
         "color": 6
       },
-      "id": "a0651e69-9c80-4dcc-a7a8-8697f8a1b4e6",
+      "id": "36a9ba10-a44a-426d-b5ae-97e77f38df2a",
       "name": "Sticky Note12",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -2151,7 +2162,7 @@
         "combineBy": "combineByPosition",
         "options": {}
       },
-      "id": "012ad58d-accf-4e97-a8b5-b58751534b05",
+      "id": "5edfc51e-a377-41a3-9d65-7556f18e743e",
       "name": "перевозки+имена",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
@@ -2184,7 +2195,7 @@
         },
         "options": {}
       },
-      "id": "cfb05a54-179c-4fc7-8e65-40bf948c47f7",
+      "id": "c776a2c3-000d-4925-96cb-9845910182fb",
       "name": "первой работа или перевозка",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -2195,9 +2206,9 @@
     },
     {
       "parameters": {
-        "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const data = item.json;\n\n  const isQuarryWork = data.quarry && data.quarry.length > 1;\n\n  let message = \"\";\n\n  if (isQuarryWork) {\n    const quarry = data.quarry[1];\n    const requiredHours = data.required_hours || 0;\n    const comment = data.comment;\n\n    message = `Работа в карьере - <b>${quarry}</b>`;\n    if (data.end_condition === \"По часам\") {\n      message += `\\nНеобходимое количество часов - <b>${requiredHours}</b>`;\n    }\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    message += `\\n\\n`;\n  } else {\n    const sender = data.sender && data.sender.length > 1 ? data.sender[1] : \"\";\n    const partner = data.partner && data.partner.length > 1 ? data.partner[1] : \"\";\n    const placeFrom = data.place_from && data.place_from.length > 1 ? data.place_from[1] : \"\";\n    const placeTo = data.place_to && data.place_to.length > 1 ? data.place_to[1] : \"\";\n    const material = data.material && data.material.length > 1 ? data.material[1] : \"\";\n    const comment = data.comment;\n    const endCondition = data.end_condition;\n    const requiredCubicMetre = data.required_cubic_metre|| 0;\n    const requiredTon = data.required_ton|| 0;\n\n    let route = placeFrom && placeTo ? `${placeFrom}-${placeTo}` : \"\";\n\n    message = ``;\n    \n    if (sender) message += ` Отправитель - <b>${sender}</b>`;\n    if (partner) message += `\\nПолучатель - <b>${partner}</b>`;\n    if (route) message += `\\nМаршрут - <b>${route}</b>`;\n    if (material) message += `\\nМатериал - <b>${material}</b>`;\n    \n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n\n    if (endCondition === \"По перевезенным кубометрам\" && requiredCubicMetre > 0) {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n\n    if (endCondition === \"По перевезенным тоннам\" && requiredTon > 0) {\n      message += `\\nТребуемое количество тонн по перевозке - <b>${requiredTon}</b>`;\n    }\n\n    message += (item.json.concatenated_driver1 ? \"\\n\\nВодители, выполняющие перевозку с вами:\\n\" + item.json.concatenated_driver1 : \"\");\n\n    message += `\\n\\n`;\n  }\n\n  if (index === 1) {\n    message = `<i>${message.trim()}</i>\\n\\n`;\n  }\n\n  combinedMessages += message;\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
+        "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const data = item.json;\n\n  const isQuarryWork = data.quarry && data.quarry.length > 1;\n\n  let message = \"\";\n\n  if (isQuarryWork) {\n    const quarry = data.quarry[1];\n    const requiredHours = data.required_hours || 0;\n    const comment = data.comment;\n\n    message = `Работа в карьере - <b>${quarry}</b>`;\n    if (data.end_condition === \"По часам\") {\n      message += `\\nНеобходимое количество часов - <b>${requiredHours}</b>`;\n    }\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    message += `\\n\\n`;\n  } else {\n    const sender = data.sender && data.sender.length > 1 ? data.sender[1] : \"\";\n    const partner = data.partner && data.partner.length > 1 ? data.partner[1] : \"\";\n    const placeFrom = data.place_from && data.place_from.length > 1 ? data.place_from[1] : \"\";\n    const placeTo = data.place_to && data.place_to.length > 1 ? data.place_to[1] : \"\";\n    const material = data.material[1].replace(/\\s*\\(.*?\\)\\s*/g, \"\");\n    const comment = data.comment;\n    const endCondition = data.end_condition;\n    const requiredCubicMetre = data.required_cubic_metre|| 0;\n    const requiredTon = data.required_ton|| 0;\n\n    let route = placeFrom && placeTo ? `${placeFrom}-${placeTo}` : \"\";\n\n    message = ``;\n    \n    if (sender) message += ` Отправитель - <b>${sender}</b>`;\n    if (partner) message += `\\nПолучатель - <b>${partner}</b>`;\n    if (route) message += `\\nМаршрут - <b>${route}</b>`;\n    if (material) message += `\\nМатериал - <b>${material}</b>`;\n    \n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n\n    if (endCondition === \"По перевезенным кубометрам\" && requiredCubicMetre > 0) {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n\n    if (endCondition === \"По перевезенным тоннам\" && requiredTon > 0) {\n      message += `\\nТребуемое количество тонн по перевозке - <b>${requiredTon}</b>`;\n    }\n\n    message += (item.json.concatenated_driver1 ? \"\\n\\nВодители, выполняющие перевозку с вами:\\n\" + item.json.concatenated_driver1 : \"\");\n\n    message += `\\n\\n`;\n  }\n\n  if (index === 1) {\n    message = `<i>${message.trim()}</i>\\n\\n`;\n  }\n\n  combinedMessages += message;\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
       },
-      "id": "0b5e008e-5814-41c8-ad1c-ef39d7accb86",
+      "id": "669b07fc-b66d-47e5-b146-72583db504e1",
       "name": "в единое сообщение",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -2256,7 +2267,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "a4224a3c-54b3-41c0-9894-0726db45f796",
+      "id": "a6ca57a4-bf20-4f2f-96be-f02f1b469b57",
       "name": "работа в карьере",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -2321,7 +2332,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "ac0fe0fc-3834-4cea-aeb9-32ee7a79e8cf",
+      "id": "0cb86542-6dab-46d5-b4fe-f1532b470603",
       "name": "первая перевозка",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -2360,7 +2371,7 @@
         },
         "options": {}
       },
-      "id": "5bd41bca-2ac6-41dc-ab9c-8bea4c37a22e",
+      "id": "aebd8a7d-792c-44c1-9ff9-924699d36b3d",
       "name": "HTTP Request",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -2398,7 +2409,7 @@
         },
         "options": {}
       },
-      "id": "e43eed23-1936-480f-8d6b-4b6385eb53cd",
+      "id": "e01fa823-c613-4e99-b011-f1f07d2984e1",
       "name": "ошибки",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.1,
@@ -2416,7 +2427,7 @@
           "text": "=В Odoo для авто {{ $('поиск авто').item.json.number_car }} не найдена перевозка или работа в карьере.\n\nОбратитесь к диспетчеру или логисту"
         }
       },
-      "id": "6ef823ea-21b8-475f-a6c0-2954fee3fa7b",
+      "id": "d0207f17-b350-4408-9dcd-32ef80baf484",
       "name": "Нет перевозки или работы в карьере",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -2446,7 +2457,7 @@
           ]
         }
       },
-      "id": "0084853d-52ff-4321-b2c8-9719ff679170",
+      "id": "ea909984-50e5-4c0b-965e-99a3d12c9669",
       "name": "получим авто по водителю",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -2483,7 +2494,7 @@
           ]
         }
       },
-      "id": "de9b335b-f42c-4533-9cc1-a6451626f0f9",
+      "id": "f09d1769-127a-4100-bfaa-7a1b100cecf6",
       "name": "получим все заявки",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -2523,7 +2534,7 @@
         },
         "options": {}
       },
-      "id": "f978c18c-2a6e-4b85-9bdc-6f13a6c07660",
+      "id": "9280284d-3151-417a-999a-05214945ee67",
       "name": "есть ли неисправности1",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -2542,7 +2553,7 @@
           "timezone": true
         }
       },
-      "id": "be773300-94ae-4a81-851d-2b396f94fc58",
+      "id": "467eece9-b87b-444d-900c-0f1334b879ad",
       "name": "форматируем время в удобный формат1",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -2557,7 +2568,7 @@
         "combinationMode": "mergeByPosition",
         "options": {}
       },
-      "id": "6c47b8a9-3dd0-439f-89fc-03f1af417007",
+      "id": "926131da-1d8e-44db-8b7a-4f556047cb9b",
       "name": "объединяем время и текст1",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
@@ -2581,7 +2592,7 @@
         "includeOtherFields": true,
         "options": {}
       },
-      "id": "6a57ac9b-d5da-4a0d-9c30-2b70093dabe7",
+      "id": "c2b9cfe8-d3a6-4ab7-8608-451c65d3a483",
       "name": "Добавляем теги",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
@@ -2664,7 +2675,7 @@
           "fallbackOutput": "none"
         }
       },
-      "id": "bd1c2521-5693-4d4f-b493-224f60e60e5e",
+      "id": "fe8b6c7a-6347-4fe5-b4d1-c039edc5d217",
       "name": "Разделяем по статусам",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
@@ -2686,7 +2697,7 @@
         },
         "options": {}
       },
-      "id": "90924baf-6d3a-4620-ac84-fb8b6cae89fe",
+      "id": "448d5fbe-79fc-464b-aff6-eeddf5e2991f",
       "name": "добавим перевод на новую строку",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
@@ -2709,7 +2720,7 @@
         },
         "options": {}
       },
-      "id": "c1130ab1-9de1-4462-a9dc-f7f5d87cbcb1",
+      "id": "e56b4544-0a14-45de-8e33-57ba60ec74ff",
       "name": "к выполнению2",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
@@ -2731,7 +2742,7 @@
         },
         "options": {}
       },
-      "id": "909aa58d-83d1-4e72-8826-7fd9dc0466e2",
+      "id": "2d401a9e-b765-47ee-a9a7-eaf923f0fda1",
       "name": "добавим перевод на новую строку1",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
@@ -2753,7 +2764,7 @@
         },
         "options": {}
       },
-      "id": "4fdec67b-d5ac-4863-9fe7-13874b7421b3",
+      "id": "b21a1c91-7791-4cee-ba97-b1e7487f4dbe",
       "name": "добавим перевод на новую строку2",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
@@ -2776,7 +2787,7 @@
         },
         "options": {}
       },
-      "id": "b548d6d2-4616-42a6-8169-4864a0379f7b",
+      "id": "b85b2992-f27b-4018-b131-b3284247184a",
       "name": "в работе",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
@@ -2800,7 +2811,7 @@
         },
         "options": {}
       },
-      "id": "c0563cd7-2188-4358-9015-544dc04e19c5",
+      "id": "1e180819-9834-416c-b765-9e57d832c719",
       "name": "требуется проверка",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
@@ -2811,7 +2822,7 @@
     },
     {
       "parameters": {},
-      "id": "8f8571f4-e9bd-471d-ac90-109b3c51ffb0",
+      "id": "22fe26fb-e92f-4b9d-8248-37c6af88a6b3",
       "name": "Merge",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
@@ -2822,7 +2833,7 @@
     },
     {
       "parameters": {},
-      "id": "e85e1010-9160-4328-b285-62672b90819b",
+      "id": "03055f49-0828-4f30-a484-93387f739ea0",
       "name": "Merge2",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
@@ -2844,7 +2855,7 @@
         },
         "options": {}
       },
-      "id": "952a2c20-f23f-4c98-9ebf-9d0cca37b391",
+      "id": "6a7ebdbf-5282-4ec6-8a7a-eb6fbf22574a",
       "name": "в один текст объединяем",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
@@ -2873,7 +2884,7 @@
           ]
         }
       },
-      "id": "7d7b363b-6162-48bb-81b3-6991608e22b1",
+      "id": "31ee6555-fe1e-4cd4-b9a9-afbfea11b5bc",
       "name": "получим все заявки \"В работе\"",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -2913,7 +2924,7 @@
         },
         "options": {}
       },
-      "id": "59fa46ec-14de-451f-806c-deeac6715d13",
+      "id": "421c45f3-8ea3-42f8-ab04-67b32c88db68",
       "name": "Проверка есть ли такие заявки",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -2973,7 +2984,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "4c378672-2304-44c8-8041-7ac81e6d5efc",
+      "id": "7da85c6f-57bc-4318-9de8-50fbd78e3abd",
       "name": "Вывод с кнопкой \"завершить заявку\"",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -2995,7 +3006,7 @@
         "width": 3958.293696830338,
         "color": 6
       },
-      "id": "c4fc6cc7-52ed-48f6-aac8-0ce74a217c0d",
+      "id": "1dec8ead-560c-4bbb-8fd4-3edc62fc12ea",
       "name": "Sticky Note28",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -3055,7 +3066,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "c83fa043-b90c-4af9-ac1c-dc56269a9eac",
+      "id": "0b6b9d45-bb98-415d-8a03-db202361beda",
       "name": "Вывод с кнопкой \"назад\"",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -3137,7 +3148,7 @@
         },
         "options": {}
       },
-      "id": "d302d758-a751-431b-92bc-b00a7a0d5ecd",
+      "id": "9781164c-c621-4026-a51c-90ed627d6943",
       "name": "меняем статус - ввод текста запроса",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -3259,7 +3270,7 @@
         },
         "options": {}
       },
-      "id": "a96b1250-e9bc-4107-9899-00418a141aab",
+      "id": "8dcdbbac-be15-405a-b589-10b637b83e7c",
       "name": "возвращаем статус5",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -3280,7 +3291,7 @@
         "height": 186.2926857992457,
         "width": 472.9182352408684
       },
-      "id": "6e300412-6c78-40a2-b2e1-163f81bbab9c",
+      "id": "2c2ef3b5-32cc-486e-8c2f-19c3feea144f",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -3316,7 +3327,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "9888267c-986c-436c-b018-371770ff43b5",
+      "id": "db162638-7dce-4797-aa8a-a88b673746fd",
       "name": "описание заявки для работы",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -3548,7 +3559,7 @@
         },
         "options": {}
       },
-      "id": "fbb033f5-2759-4179-b06c-d52f147ed52f",
+      "id": "a3458509-1214-491c-a958-5efc084b3e85",
       "name": "сохраняем текст сообщения1",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
@@ -3600,7 +3611,7 @@
         },
         "additionalFields": {}
       },
-      "id": "188787da-5ab5-49a6-a7d7-3e5728ccc3c3",
+      "id": "aa3f84ce-9121-426e-9169-37ef677fc360",
       "name": "прошлое сообщение1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -3652,7 +3663,7 @@
         },
         "additionalFields": {}
       },
-      "id": "0fca7063-91ae-45ad-86f2-d8cc82a8d9cd",
+      "id": "f6f15f3b-b447-49b2-92b7-18c00d37be0d",
       "name": "отменить рейс?",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -3674,7 +3685,7 @@
         "width": 940.0523646774368,
         "color": 6
       },
-      "id": "920c1235-d64b-413e-9476-7f844aeb08dd",
+      "id": "4fa9246b-1a39-4009-845a-91edf1fb3766",
       "name": "Sticky Note2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -3691,7 +3702,7 @@
         "text": "=Напишите причину отмены рейса:",
         "additionalFields": {}
       },
-      "id": "a5006d06-7f1b-4487-bb8a-eed9d7631af1",
+      "id": "f587804c-d0f1-4c5c-8bd6-af30f6920b01",
       "name": "прошлое сообщение3",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -3924,7 +3935,7 @@
         },
         "options": {}
       },
-      "id": "27ce9356-7c10-4423-9e8c-114e9169ae28",
+      "id": "f9adad55-7677-495c-985e-02d809c0a765",
       "name": "статус=ввод комментария",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
@@ -3943,7 +3954,7 @@
       "parameters": {
         "jsCode": "// Часовой пояс Владивостока (UTC+10)\nconst timeZone = 'Asia/Vladivostok';\n\n// Получение текущего года и месяца\nconst now = new Date();\nconst year = now.getFullYear();\nconst month = now.getMonth(); // Текущий месяц (от 0 до 11)\n\nfunction getWeeksOfMonth(year, month) {\n    const weeks = [];\n    \n    // Первая и последняя дата месяца\n    const firstDayOfMonth = new Date(Date.UTC(year, month, 1));\n    const lastDayOfMonth = new Date(Date.UTC(year, month + 1, 0));\n    \n    // Первая неделя начинается с первого дня месяца или ближайшего понедельника\n    let currentWeekStart = new Date(firstDayOfMonth);\n    \n    // Если первый день месяца не понедельник, сдвигаем на предыдущий понедельник\n    const dayOfWeek = currentWeekStart.getUTCDay();\n    if (dayOfWeek !== 1) {\n        currentWeekStart.setUTCDate(currentWeekStart.getUTCDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));\n    }\n    \n    while (currentWeekStart <= lastDayOfMonth) {\n        const currentWeekEnd = new Date(currentWeekStart);\n        currentWeekEnd.setUTCDate(currentWeekStart.getUTCDate() + 6);\n\n        // Добавляем начало и конец недели с учетом часового пояса\n        weeks.push({\n            weekStart: new Date(currentWeekStart.toLocaleString('en-US', { timeZone })),\n            weekEnd: new Date(currentWeekEnd.toLocaleString('en-US', { timeZone }))\n        });\n\n        // Переходим к следующей неделе\n        currentWeekStart.setUTCDate(currentWeekStart.getUTCDate() + 7);\n    }\n    \n    return weeks;\n}\n\nconst weeksOfMonth = getWeeksOfMonth(year, month);\n\nreturn weeksOfMonth;\n"
       },
-      "id": "f4239331-fdfb-4488-b6cb-b2c0981d150a",
+      "id": "b6afa19f-23d6-48ee-8c9c-70b7a509035f",
       "name": "недели",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -3956,7 +3967,7 @@
       "parameters": {
         "options": {}
       },
-      "id": "bea6f4ea-8eca-4efc-8531-8eb89405b28a",
+      "id": "43aeeb41-819b-4fc1-8f95-0799e442a191",
       "name": "Loop Over Items",
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
@@ -3967,7 +3978,7 @@
     },
     {
       "parameters": {},
-      "id": "0abadb1e-136e-4b37-8177-b2d421b3b9cf",
+      "id": "1108e7bd-4e57-4249-85b7-1654b215cc10",
       "name": "Replace Me",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
@@ -4002,7 +4013,7 @@
           ]
         }
       },
-      "id": "4ab5beac-f34b-4d02-aace-64ea04059388",
+      "id": "6146458d-9f93-4fed-a224-4edc8092065f",
       "name": "графики",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -4029,7 +4040,7 @@
         },
         "options": {}
       },
-      "id": "f54e6967-d4b3-4293-8423-cf14213b3843",
+      "id": "f6fb4352-b998-4c81-b550-11d60a353f74",
       "name": "по возрастанию",
       "type": "n8n-nodes-base.sort",
       "typeVersion": 1,
@@ -4063,7 +4074,7 @@
         },
         "options": {}
       },
-      "id": "bfbf3195-df26-49c8-8d3d-7bd60c016079",
+      "id": "dfe3827c-3411-4c47-948f-f3b4f0fbc417",
       "name": "есть данные?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -4085,7 +4096,7 @@
         },
         "options": {}
       },
-      "id": "8bc4d601-712e-4083-9118-8b28c6e92734",
+      "id": "20c4a475-4d47-4a8d-a904-a39fbaac7c08",
       "name": "объединяем1",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
@@ -4108,7 +4119,7 @@
         },
         "options": {}
       },
-      "id": "8e34ca86-0462-4df2-83ee-de8240fec163",
+      "id": "4c5fc43b-c6a3-4042-9230-77fbafb1b56d",
       "name": "создаём строку1",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -4131,7 +4142,7 @@
         },
         "options": {}
       },
-      "id": "8d71c29e-116b-4be7-a654-7555285da785",
+      "id": "fe61d095-20a2-453d-8a5f-7a7454c929cc",
       "name": "создаём строку2",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -4154,7 +4165,7 @@
         },
         "options": {}
       },
-      "id": "647b83e5-3761-4477-b283-206b634497a2",
+      "id": "3470f0e2-a1c6-4a45-b6a4-a4759b7f664f",
       "name": "Добавляем недели",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -4190,7 +4201,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "023dbdd8-b768-406e-a32e-1ce0ec996b45",
+      "id": "03e7e200-f4a0-4ed0-9a05-82e8a656d364",
       "name": "Telegram",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -4219,7 +4230,7 @@
         },
         "options": {}
       },
-      "id": "29371fea-d78e-46c8-9860-1a9d69bb39a1",
+      "id": "42707311-a88f-40bd-a8c0-e160d3b623fe",
       "name": "отделяем недели",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
@@ -4235,7 +4246,7 @@
         "width": 1752.3999587655694,
         "color": 6
       },
-      "id": "8edbaae4-2bde-4218-a38c-cffedce131f7",
+      "id": "558e3e2f-ed80-4ed8-aac9-b3b4fe28b0b4",
       "name": "Sticky Note3",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -4300,7 +4311,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "b8c75998-a525-43ee-96a7-09634a438b85",
+      "id": "1b3cc46b-0399-4993-a6c8-023b72ae543a",
       "name": "заявки по авто",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.1,
@@ -4386,7 +4397,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "3bdb8645-34a0-4b92-ab76-bad23b7c71e9",
+      "id": "ebd0882a-fb8d-401a-9ead-fa2b5fb71ed8",
       "name": "отмена рейсов",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
@@ -4400,7 +4411,7 @@
         "includeTime": false,
         "options": {}
       },
-      "id": "6a0783a9-5c62-414e-a040-e75d24be6c81",
+      "id": "46cf5063-ed42-4203-a695-b10a571fa071",
       "name": "сегодняшняя дата",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -4417,7 +4428,7 @@
         "customFormat": "c",
         "options": {}
       },
-      "id": "dc043533-4b3e-4853-b2eb-c0e74070b4f2",
+      "id": "197eab8a-75ae-49d6-a901-2a45075ae5c0",
       "name": "какой сегодня день недели?",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -4434,7 +4445,7 @@
         "outputFieldName": "endOfWeek",
         "options": {}
       },
-      "id": "a679a956-8987-46c6-8272-8dc5702d6f3b",
+      "id": "2bed9310-6d09-4232-916d-f7ac5ea1f48a",
       "name": "конец недели",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -4451,7 +4462,7 @@
         "outputFieldName": "beginOfWeek",
         "options": {}
       },
-      "id": "a6f75a94-d59b-4c23-8481-b32af4848c53",
+      "id": "847aa08c-5479-4ab7-853b-d2ca23714746",
       "name": "начало недели",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -4473,7 +4484,7 @@
         },
         "options": {}
       },
-      "id": "9fceeacb-f8ac-43bc-acff-c84f2295ea47",
+      "id": "e72f7e73-dd97-4db0-8fda-92a4e2f449be",
       "name": "объединяем",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
@@ -4507,7 +4518,7 @@
         },
         "additionalFields": {}
       },
-      "id": "ccd8c74d-8263-47da-b414-59ab3da04452",
+      "id": "2c8e95ad-014e-41ef-a063-6b6103014d59",
       "name": "Telegram1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -4536,7 +4547,7 @@
         },
         "options": {}
       },
-      "id": "2519f3d7-896a-4b84-95e2-90ea62b508b8",
+      "id": "e505778c-9e92-4a29-b2d5-1e8602bbb851",
       "name": "Edit Fields",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -4559,7 +4570,7 @@
         },
         "options": {}
       },
-      "id": "2cc564e5-ccea-49bf-a9ad-3a536ec4dddd",
+      "id": "fb2cd9c1-f70f-4726-81b2-20a29e97d4a0",
       "name": "создаём строку",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -4594,7 +4605,7 @@
           ]
         }
       },
-      "id": "e7c733f7-c490-40eb-a928-941c147bdaad",
+      "id": "26d3ae83-e5f5-41d4-b97a-75f3a048799d",
       "name": "графики1",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -4616,7 +4627,7 @@
         "combineBy": "combineByPosition",
         "options": {}
       },
-      "id": "352e21bd-1c57-43d5-b9e2-510299d801f2",
+      "id": "03544a70-d924-4c85-a411-cbcfeb57b862",
       "name": "Merge1",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
@@ -4636,7 +4647,7 @@
         },
         "options": {}
       },
-      "id": "a323c3be-d8da-4836-8770-de9f04e7b9f9",
+      "id": "a6414e90-b9c3-431f-9dd4-de6145ef4f39",
       "name": "по возрастанию1",
       "type": "n8n-nodes-base.sort",
       "typeVersion": 1,
@@ -4670,7 +4681,7 @@
         },
         "options": {}
       },
-      "id": "a108b592-6d36-41f2-a114-a15b14255ab3",
+      "id": "adaffede-c741-4e34-b55b-e76588d63475",
       "name": "есть данные?1",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -4686,7 +4697,7 @@
         "width": 2109.5516091973923,
         "color": 6
       },
-      "id": "9b4c974d-7845-4628-a1ad-a95f0354f59e",
+      "id": "71545458-9237-4ec1-88a6-6491febb8822",
       "name": "Sticky Note4",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -4749,7 +4760,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "b0da5b0c-3ccb-4711-941b-bd7c30ba11d0",
+      "id": "07314241-b96e-4d1b-b935-98cc350ec41c",
       "name": "график",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
@@ -4760,7 +4771,7 @@
     },
     {
       "parameters": {},
-      "id": "2f7a95a1-478c-4992-bc18-a1ac46c53e9c",
+      "id": "824fa4ad-b6a0-4e49-8719-39be4ce9e08e",
       "name": "No Operation, do nothing1",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
@@ -4796,7 +4807,7 @@
           ]
         }
       },
-      "id": "c63adc7a-4560-44b9-b390-746c1164476c",
+      "id": "0725a5e2-9e71-4091-aa92-b727f6fed2ef",
       "name": "Получаем рейсы",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -4840,7 +4851,7 @@
           ]
         }
       },
-      "id": "240efbf6-71a0-454f-b462-e0286498a3f6",
+      "id": "ee44cfcd-8c1f-4243-afe5-d56f43a985f2",
       "name": "Получение работ в карьере2",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -4861,7 +4872,7 @@
         "aggregate": "aggregateAllItemData",
         "options": {}
       },
-      "id": "b309d1c4-7863-48f3-891e-e61f3db5602c",
+      "id": "b4f5834a-f128-47a2-ba30-e320eec5e7f5",
       "name": "Объединение рейсов в один файл",
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
@@ -4873,7 +4884,7 @@
     },
     {
       "parameters": {},
-      "id": "11b0ca3e-98b0-4422-a460-e0f080e136df",
+      "id": "77b88e54-59cf-4b10-9089-017102c2e1f0",
       "name": "No Operation, do nothing",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
@@ -4886,7 +4897,7 @@
       "parameters": {
         "jsCode": "// Получаем входные данные из предыдущего кубика\nconst inputData = items.map(item => item.json);\n\n// Функция для добавления 10 часов ко времени\nfunction addHoursToTime(timeStr, hours) {\n    const dateObj = new Date(timeStr.replace(\" \", \"T\")); // Преобразуем строку времени в объект Date\n    dateObj.setHours(dateObj.getHours() + hours); // Добавляем 10 часов\n    return dateObj.toISOString().replace(\"T\", \" \").split(\".\")[0]; // Преобразуем обратно в строку и убираем миллисекунды\n}\n\n// Функция для подсчета заработка и количества рейсов по датам\nfunction calculateTotalsByDate(data) {\n    const totalsByDate = {};\n\n    data.forEach(entry => {\n        entry.data.forEach(round => {\n            const { driver_rate, driver_with_trailer, time_of_start } = round;\n\n            // Добавляем 10 часов ко времени\n            const adjustedTime = addHoursToTime(time_of_start, 10);\n\n            // Извлекаем только дату из скорректированного времени\n            const date = adjustedTime.split(\" \")[0];\n\n            // Инициализируем данные для каждой новой даты\n            if (!totalsByDate[date]) {\n                totalsByDate[date] = {\n                    total_count: 0,  // Общее количество рейсов\n                    total_earnings: 0  // Общий заработок\n                };\n            }\n\n            // Увеличиваем количество рейсов\n            totalsByDate[date].total_count++;\n\n            // Увеличиваем сумму заработка\n            totalsByDate[date].total_earnings += driver_rate;\n        });\n    });\n\n    // Преобразуем объект в массив для удобства обработки\n    return Object.keys(totalsByDate).map(date => ({\n        date: date,\n        total_count: totalsByDate[date].total_count,\n        total_earnings: totalsByDate[date].total_earnings\n    }));\n}\n\n// Обрабатываем данные\nconst processedData = calculateTotalsByDate(inputData);\n\n// Возвращаем результат для следующего кубика\nreturn processedData.map(entry => ({ json: entry }));\n"
       },
-      "id": "d875e50e-ef68-465e-bea0-0ee611cd8cf6",
+      "id": "6abb139b-527c-4b33-aaf5-356c370a223e",
       "name": "считаем по дням кол-во рейсов и заработок",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -4899,7 +4910,7 @@
       "parameters": {
         "jsCode": "// Получаем входные данные из предыдущего кубика\nconst inputData = items.map(item => item.json);\n\n// Функция для обработки данных\nfunction calculateTotals(data) {\n    return data.map(entry => {\n        const { id, quarry_hours, price_for_driver, date, start_time } = entry;\n\n        // Если price_for_driver равен 0 или false, заработок равен 0\n        if (!price_for_driver) {\n            // Добавляем 10 часов к дате\n            const adjustedDate = new Date(start_time);\n            adjustedDate.setHours(adjustedDate.getHours() + 10); // Прибавляем 10 часов\n\n            return {\n                id: id,\n                quarry_hours: quarry_hours,  // Количество карьерных часов\n                total: 0,  // Заработок = 0\n                date: adjustedDate.toISOString(),  // Для вывода используем скорректированную дату\n                original_date: date  // Сохраняем оригинальную дату\n            };\n        }\n\n        // Цена водителя уже итоговая, просто передаем её в результат\n        const total = parseFloat(price_for_driver);\n\n        // Добавляем 10 часов к дате\n        const adjustedDate = new Date(start_time);\n        adjustedDate.setHours(adjustedDate.getHours() + 10); // Прибавляем 10 часов\n\n        return {\n            id: id,\n            quarry_hours: quarry_hours,  // Количество карьерных часов\n            total: total,  // Общий заработок = price_for_driver\n            date: adjustedDate.toISOString(),  // Для вывода используем скорректированную дату\n            original_date: date  // Сохраняем оригинальную дату\n        };\n    });\n}\n\n// Обрабатываем входные данные\nconst processedData = calculateTotals(inputData);\n\n// Возвращаем результат в формате JSON для следующего кубика\nreturn processedData.map(entry => ({ json: entry }));\n"
       },
-      "id": "7e938f54-b9a2-473f-817c-77488e7c9995",
+      "id": "3f591bab-2b37-483b-8d0a-becfb392dc0d",
       "name": "считаем часы и заработок",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -4910,7 +4921,7 @@
     },
     {
       "parameters": {},
-      "id": "1a4f4b76-f3da-4f12-a1bd-730a0a371ca2",
+      "id": "a2e92829-eb29-42da-9a4a-33f0a13bbfc3",
       "name": "соединяем рейсы и работы",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
@@ -4923,7 +4934,7 @@
       "parameters": {
         "jsCode": "// Получаем входные данные через items\nconst inputData = items.map(item => item.json);\n\n// Задаем текущую дату для тестирования\nconst today = new Date(); //'2024-10-11T00:00:00'\ntoday.setMinutes(today.getMinutes() + today.getTimezoneOffset() + (10 * 60));\n\n// Определяем начало текущей недели (понедельник текущей недели)\nconst startOfWeek = new Date(today);\nstartOfWeek.setDate(today.getDate() - today.getDay() + (today.getDay() === 0 ? -6 : 1)); // Учитываем воскресенье как последний день недели\n\n// Функция для обнуления времени в дате\nfunction resetTime(date) {\n    const newDate = new Date(date);\n    newDate.setHours(0, 0, 0, 0); // Убираем компоненты времени\n    return newDate;\n}\n\n// Функция для фильтрации данных по дням\nfunction getDailyReport(date) {\n    let totalCount = 0;      // Количество рейсов\n    let totalQuarryHours = 0; // Карьерные часы\n    let totalEarnings = 0;    // Общий заработок за день\n\n    const resetDate = resetTime(date);\n\n    inputData.forEach(entry => {\n        const entryDate = resetTime(new Date(entry.date));\n\n        // Сравниваем даты без учета времени\n        if (entryDate.toISOString().split('T')[0] === resetDate.toISOString().split('T')[0]) {\n            if (entry.total_count !== undefined && entry.total_earnings !== undefined) {\n                totalCount += entry.total_count;  // Суммируем количество рейсов\n                totalEarnings += entry.total_earnings; // Суммируем заработок\n            } else if (entry.quarry_hours !== undefined && entry.total !== undefined) {\n                totalQuarryHours += entry.quarry_hours; // Суммируем карьерные часы\n                totalEarnings += entry.total; // Суммируем заработок за работы в карьере\n            }\n        }\n    });\n\n    return {\n        count: totalCount,\n        quarry_hours: totalQuarryHours,\n        total: totalEarnings\n    };\n}\n\n// Функция для генерации отчета по дням недели\nfunction getCurrentWeekReport() {\n    let textMessage = '📊 <b>Отчет за текущую неделю</b>\\n\\n';\n\n    let currentDate = new Date(today);\n    while (currentDate >= startOfWeek) {\n        const dayReport = getDailyReport(currentDate);\n        const dayOfWeek = currentDate.toLocaleDateString('ru-RU', { weekday: 'long' });\n        const dateStr = currentDate.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit' });\n\n        textMessage += `📅 <b>${dayOfWeek} (${dateStr}):</b>\\n`;\n        if (dayReport.count === 0 && dayReport.quarry_hours === 0) {\n            textMessage += 'Не было перевозок\\n\\n';\n        } else {\n            textMessage += `🚚 Количество рейсов: ${dayReport.count}\\n`;\n            textMessage += `🕑 Карьерные часы: ${dayReport.quarry_hours} ч\\n`;\n            textMessage += `💵 Заработок: ${dayReport.total} руб.\\n\\n`;\n        }\n\n        // Переходим к предыдущему дню\n        currentDate.setDate(currentDate.getDate() - 1);\n    }\n\n    return textMessage;\n}\n\n// Функция для получения отчета за месяц\nfunction getMonthlyReport(startDate, endDate) {\n    let totalCount = 0;\n    let totalQuarryHours = 0;\n    let totalEarnings = 0;\n\n    const start = resetTime(startDate);\n    const end = resetTime(endDate);\n\n    inputData.forEach(entry => {\n        const entryDate = resetTime(new Date(entry.date));\n\n        if (entryDate >= start && entryDate <= end) {\n            if (entry.total_count !== undefined && entry.total_earnings !== undefined) {\n                totalCount += entry.total_count;\n                totalEarnings += entry.total_earnings;\n            } else if (entry.quarry_hours !== undefined && entry.total !== undefined) {\n                totalQuarryHours += entry.quarry_hours;\n                totalEarnings += entry.total;\n            }\n        }\n    });\n\n    return {\n        count: totalCount,\n        quarry_hours: totalQuarryHours,\n        total: totalEarnings\n    };\n}\n\n// Определяем начало и конец текущего месяца\nconst startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);\nconst endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0); // Последний день месяца\n\n// Получаем отчет за текущий месяц\nconst currentMonthReport = getMonthlyReport(startOfMonth, today);\n\n// Проверка на вывод отчета за прошлый месяц\nlet previousMonthText = '';\nconst firstOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);\nconst isInFirstTenDays = today >= firstOfMonth && today < new Date(today.getFullYear(), today.getMonth(), 11, 5, 0, 0);\n\n// Если нужно вывести отчет за прошлый месяц\nif (isInFirstTenDays) {\n    const startOfPreviousMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);\n    const endOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0); // Последний день прошлого месяца\n\n    const previousMonthReport = getMonthlyReport(startOfPreviousMonth, endOfPreviousMonth);\n\n    previousMonthText = `\n📊 <b>Отчет за прошлый месяц</b>\n\n🚚 Количество рейсов: ${previousMonthReport.count}\n🕑 Карьерные часы: ${previousMonthReport.quarry_hours} ч\n💵 Заработок: ${previousMonthReport.total} руб.\\n`;\n}\n\n// Формируем отчет за текущую неделю\nlet textMessage = getCurrentWeekReport();\n\n// Формируем отчет за текущий месяц\nlet currentMonthText = `📊 <b>Отчет за текущий месяц</b>\n\n🚚 Количество рейсов: ${currentMonthReport.count}\n🕑 Карьерные часы: ${currentMonthReport.quarry_hours} ч\n💵 Заработок: ${currentMonthReport.total} руб.\\n`;\n\n// Добавляем месячные отчеты\ntextMessage += currentMonthText;\n\n// Добавляем отчет за прошлый месяц в самом конце, если это необходимо\nif (previousMonthText) {\n    textMessage += previousMonthText;\n}\n\n// Возвращаем результат в формате JSON\nreturn [\n    {\n        json: {\n            message: textMessage\n        }\n    }\n];\n"
       },
-      "id": "8b03fe77-3362-4990-a173-9285ea43829c",
+      "id": "c097c504-81c5-473b-bd1d-f554154e9c8a",
       "name": "сортируем все данные, считаем итоги, преобразуем в сообщение",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -4971,7 +4982,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "12083af7-84f6-4ac7-9c12-8e3ed229ff1e",
+      "id": "e7ea06ad-fdb7-4815-a4a7-b9d5bf16f76f",
       "name": "вывод недельной статистики",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -5013,7 +5024,7 @@
           ]
         }
       },
-      "id": "c624b808-5450-4ccb-9c7d-38c6c5dd08ab",
+      "id": "300ba318-e892-4f3a-a4f1-d215c5702580",
       "name": "Получаем рейсы1",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -5057,7 +5068,7 @@
           ]
         }
       },
-      "id": "60542cd0-ea72-482c-8fe0-2fb8c96d0d9c",
+      "id": "7d05c1f7-8865-47ba-8477-fb88e12385ae",
       "name": "Получение работ в карьере",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -5078,7 +5089,7 @@
         "aggregate": "aggregateAllItemData",
         "options": {}
       },
-      "id": "51ba9df5-c00d-42ea-b350-88c26b6a7398",
+      "id": "79e4257f-6f10-497a-b0db-87373a013ee1",
       "name": "Объединение рейсов в один файл1",
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
@@ -5104,7 +5115,7 @@
           ]
         }
       },
-      "id": "39874358-1c87-42ca-b04a-e90604493811",
+      "id": "ca42b8f3-e464-48cd-9441-48eacfa0b6ec",
       "name": "получаем из модуля зарплата водителя",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -5144,7 +5155,7 @@
           ]
         }
       },
-      "id": "bddab4ab-c8b1-4ef1-9457-f5deda7ea228",
+      "id": "8b4b2b21-9c58-42d3-b3bb-ee3b9fad84fe",
       "name": "получаем записи о премиях/штрафах",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -5164,7 +5175,7 @@
       "parameters": {
         "jsCode": "// Получаем данные из предыдущей ноды\nconst items = $input.all();\n\n// Функция для получения месяца из даты в формате \"YYYY-MM\"\nconst getMonth = (date) => {\n  const d = new Date(date);\n  const year = d.getFullYear();\n  const month = ('0' + (d.getMonth() + 1)).slice(-2); // Добавляем ведущий ноль к месяцу, если нужно\n  return `${year}-${month}`;\n};\n\n// Обрабатываем каждую запись\nconst result = items.map(item => {\n  const data = item.json;\n\n  // Получаем месяц из date_start (дата старта)\n  const month = getMonth(data.date_start);\n\n  // Возвращаем преобразованные данные\n  return {\n    id: data.id,\n    date: month, // Месяц, соответствующий дате старта\n    required_bonus_amount: data.required_bonus_amount,\n    required_fine_amount: data.required_fine_amount,\n    required_comment: data.required_comment\n  };\n});\n\nreturn result;\n"
       },
-      "id": "2037b6f0-598f-45a9-b097-ba34f3784f35",
+      "id": "96117342-6d33-4d0b-8351-7738f8468c55",
       "name": "преобразуем премии/штрафы",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -5177,7 +5188,7 @@
       "parameters": {
         "jsCode": "// Получаем входные данные из предыдущего кубика\nconst inputData = items.map(item => item.json);\n\n// Функция для добавления 10 часов ко времени\nfunction addHoursToTime(timeStr, hours) {\n    const dateObj = new Date(timeStr.replace(\" \", \"T\")); // Преобразуем строку времени в объект Date\n    dateObj.setHours(dateObj.getHours() + hours); // Добавляем 10 часов\n    return dateObj.toISOString().replace(\"T\", \" \").split(\".\")[0]; // Преобразуем обратно в строку и убираем миллисекунды\n}\n\n// Функция для подсчета заработка и количества рейсов по датам\nfunction calculateTotalsByDate(data) {\n    const totalsByDate = {};\n\n    data.forEach(entry => {\n        entry.data.forEach(round => {\n            const { driver_rate, driver_with_trailer, time_of_start } = round;\n\n            // Добавляем 10 часов ко времени\n            const adjustedTime = addHoursToTime(time_of_start, 10);\n\n            // Извлекаем только дату из скорректированного времени\n            const date = adjustedTime.split(\" \")[0];\n\n            // Инициализируем данные для каждой новой даты\n            if (!totalsByDate[date]) {\n                totalsByDate[date] = {\n                    total_count: 0,  // Общее количество рейсов\n                    total_earnings: 0  // Общий заработок\n                };\n            }\n\n            // Увеличиваем количество рейсов\n            totalsByDate[date].total_count++;\n\n            // Увеличиваем сумму заработка\n            totalsByDate[date].total_earnings += driver_rate;\n        });\n    });\n\n    // Преобразуем объект в массив для удобства обработки\n    return Object.keys(totalsByDate).map(date => ({\n        date: date,\n        total_count: totalsByDate[date].total_count,\n        total_earnings: totalsByDate[date].total_earnings\n    }));\n}\n\n// Обрабатываем данные\nconst processedData = calculateTotalsByDate(inputData);\n\n// Возвращаем результат для следующего кубика\nreturn processedData.map(entry => ({ json: entry }));\n"
       },
-      "id": "17599320-bfeb-4934-b9e9-492ed64a250c",
+      "id": "66ff45d3-a207-42d6-b2a3-72d25eabebf4",
       "name": "обрабатываем рейсы",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -5190,7 +5201,7 @@
       "parameters": {
         "jsCode": "// Получаем входные данные из предыдущего кубика\nconst inputData = items.map(item => item.json);\n\n// Функция для обработки данных\nfunction calculateTotals(data) {\n    return data.map(entry => {\n        const { id, quarry_hours, price_for_driver, date, start_time } = entry;\n\n        // Если price_for_driver равен 0 или false, заработок равен 0\n        if (!price_for_driver) {\n            // Добавляем 10 часов к дате\n            const adjustedDate = new Date(start_time);\n            adjustedDate.setHours(adjustedDate.getHours() + 10); // Прибавляем 10 часов\n\n            return {\n                id: id,\n                quarry_hours: quarry_hours,  // Количество карьерных часов\n                total: 0,  // Заработок = 0\n                date: adjustedDate.toISOString(),  // Для вывода используем скорректированную дату\n                original_date: date  // Сохраняем оригинальную дату\n            };\n        }\n\n        // Цена водителя уже итоговая, просто передаем её в результат\n        const total = parseFloat(price_for_driver);\n\n        // Добавляем 10 часов к дате\n        const adjustedDate = new Date(start_time);\n        adjustedDate.setHours(adjustedDate.getHours() + 10); // Прибавляем 10 часов\n\n        return {\n            id: id,\n            quarry_hours: quarry_hours,  // Количество карьерных часов\n            total: total,  // Общий заработок = price_for_driver\n            date: adjustedDate.toISOString(),  // Для вывода используем скорректированную дату\n            original_date: date  // Сохраняем оригинальную дату\n        };\n    });\n}\n\n// Обрабатываем входные данные\nconst processedData = calculateTotals(inputData);\n\n// Возвращаем результат в формате JSON для следующего кубика\nreturn processedData.map(entry => ({ json: entry }));\n"
       },
-      "id": "2554b9c1-ad1b-4ce7-95c4-980dd1ea9bee",
+      "id": "88599ebe-3653-4c4e-bd96-c4afba2fe676",
       "name": "обрабатываем работы",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -5201,7 +5212,7 @@
     },
     {
       "parameters": {},
-      "id": "3b147f8b-8958-49ba-b051-5056a1a0af59",
+      "id": "f4986cfa-c774-416e-b991-8d0e62db556d",
       "name": "рейсы+работы",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
@@ -5212,7 +5223,7 @@
     },
     {
       "parameters": {},
-      "id": "4d5bafcc-c325-4350-98ce-fa0e29638f8f",
+      "id": "162838fd-5f39-4266-92c6-654384c9aeb6",
       "name": "добавляем еще премии/штрафы",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
@@ -5225,7 +5236,7 @@
       "parameters": {
         "jsCode": "// Получаем входные данные через items\nconst inputData = items.map(item => item.json);\n\n// Задаем текущую дату с учетом часового пояса Владивостока\nconst today = new Date();//'2024-10-07T00:00:00'\ntoday.setMinutes(today.getMinutes() + today.getTimezoneOffset() + (10 * 60)); // UTC +10 Владивосток\n\n// Функция для обнуления времени в дате\nfunction resetTime(date) {\n    const newDate = new Date(date);\n    newDate.setHours(0, 0, 0, 0); // Убираем компоненты времени\n    return newDate;\n}\n\n// Функция для фильтрации данных по дням\nfunction getDailyReport(date) {\n    let totalCount = 0;      // Количество рейсов\n    let totalQuarryHours = 0; // Карьерные часы\n    let totalEarnings = 0;    // Общий заработок за день\n\n    const resetDate = resetTime(date);\n\n    inputData.forEach(entry => {\n        const entryDate = resetTime(new Date(entry.date));\n\n        // Сравниваем даты без учета времени\n        if (entryDate.toISOString().split('T')[0] === resetDate.toISOString().split('T')[0]) {\n            if (entry.total_count !== undefined && entry.total_earnings !== undefined) {\n                totalCount += entry.total_count;  // Суммируем количество рейсов\n                totalEarnings += entry.total_earnings; // Суммируем заработок\n            } else if (entry.quarry_hours !== undefined && entry.total !== undefined) {\n                totalQuarryHours += entry.quarry_hours; // Суммируем карьерные часы\n                totalEarnings += entry.total; // Суммируем заработок за работы в карьере\n            }\n        }\n    });\n    return {\n        count: totalCount,\n        quarry_hours: totalQuarryHours,\n        total: totalEarnings\n    };\n}\n\n// Функция для получения отчета за неделю\nfunction getWeeklyReport(startDate, endDate) {\n    let totalCount = 0;\n    let totalQuarryHours = 0;\n    let totalEarnings = 0;\n\n    const start = resetTime(startDate);\n    const end = resetTime(endDate);\n\n    inputData.forEach(entry => {\n        const entryDate = resetTime(new Date(entry.date));\n\n        if (entryDate >= start && entryDate <= end) {\n            if (entry.total_count !== undefined && entry.total_earnings !== undefined) {\n                totalCount += entry.total_count;\n                totalEarnings += entry.total_earnings;\n            } else if (entry.quarry_hours !== undefined && entry.total !== undefined) {\n                totalQuarryHours += entry.quarry_hours;\n                totalEarnings += entry.total;\n            }\n        }\n    });\n    return {\n        count: totalCount,\n        quarry_hours: totalQuarryHours,\n        total: totalEarnings\n    };\n}\n\n// Функция для генерации срезов недели, где срезы заканчиваются воскресеньем\nfunction getWeeklySlices(startDate, endDate) {\n    let currentWeekStart = new Date(startDate);\n    let weeklyReports = [];\n    let totalWeeklyEarnings = 0;\n\n    while (currentWeekStart <= endDate) {\n        let currentWeekEnd = new Date(currentWeekStart);\n\n        // Определяем день недели (0 - воскресенье, 6 - суббота)\n        const dayOfWeek = currentWeekStart.getDay();\n\n        // Если это первый день, и он не понедельник, делаем срез только за один день\n        if (dayOfWeek === 0) {\n            currentWeekEnd = new Date(currentWeekStart); // Воскресенье, срез за 1 день\n        } else {\n            currentWeekEnd.setDate(currentWeekStart.getDate() + (7 - dayOfWeek)); // Заканчиваем срез в воскресенье\n        }\n\n        if (currentWeekEnd > endDate) {\n            currentWeekEnd = new Date(endDate); // Ограничиваем конец недели последним днем\n        }\n\n        const report = getWeeklyReport(currentWeekStart, currentWeekEnd);\n        totalWeeklyEarnings += report.total;\n\n        // Формируем текст недели с ведущими нулями для дня и месяца\n        let weekText = `📅 <b>Неделя с ${String(currentWeekStart.getDate()).padStart(2, '0')}.${String(currentWeekStart.getMonth() + 1).padStart(2, '0')} по ${String(currentWeekEnd.getDate()).padStart(2, '0')}.${String(currentWeekEnd.getMonth() + 1).padStart(2, '0')}:</b>\\n`;\n        weekText += `🚚 Количество рейсов: ${report.count}\\n`;\n        weekText += `🕑 Карьерные часы: ${report.quarry_hours} ч\\n`;\n        weekText += `💵 Заработок: ${report.total} руб.\\n\\n`;\n\n        weeklyReports.push(weekText);\n        currentWeekStart.setDate(currentWeekEnd.getDate() + 1); // Начинаем следующую неделю\n    }\n\n    return {\n        weeklyText: weeklyReports.reverse().join(''),\n        totalWeeklyEarnings: totalWeeklyEarnings\n    };\n}\n\n// Функция для получения отчета за прошлый месяц\nfunction getPreviousMonthReport() {\n    const previousMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);\n    const endOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0); // Последний день предыдущего месяца\n    return getWeeklySlices(previousMonth, endOfPreviousMonth);\n}\n\n// Функция для получения отчета за текущий месяц до текущего дня\nfunction getCurrentMonthReport() {\n    const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);\n    return getWeeklySlices(startOfMonth, today);\n}\n\n// Функция для подсчета бонусов, штрафов и комментариев\nfunction getMonthlyBonusesAndFines(month) {\n    let bonusAmount = 0;\n    let fineAmount = 0;\n    let comments = [];\n\n    inputData.forEach(entry => {\n        const entryMonth = entry.date;\n\n        if (entryMonth === month) {\n            if (entry.required_bonus_amount && entry.required_bonus_amount !== 0) {\n                bonusAmount += entry.required_bonus_amount;\n            }\n\n            if (entry.required_fine_amount && entry.required_fine_amount !== 0) {\n                fineAmount += entry.required_fine_amount;\n            }\n\n            if (entry.required_comment && entry.required_comment !== false) {\n                comments.push(entry.required_comment);\n            }\n        }\n    });\n\n    return {\n        bonus: bonusAmount,\n        fine: fineAmount,\n        comments: comments\n    };\n}\n\n// Основная логика выбора отчета\nlet textMessage = '';\nlet totalEarnings = 0;\n\nconst dayOfMonth = today.getDate();\nconst hourOfDay = today.getHours();\n\nconst currentMonth = `${today.getFullYear()}-${('0' + (today.getMonth() + 1)).slice(-2)}`;\n\n// Если день месяца с 1 по 11 и время до 5:00 по Владивостоку, показываем прошлый месяц\nif (dayOfMonth < 11 || (dayOfMonth === 11 && hourOfDay < 5)) {\n    textMessage += '📊 <b>Отчет за прошлый месяц</b>\\n\\n';\n    const report = getPreviousMonthReport();\n    textMessage += report.weeklyText;\n\n    const previousMonth = `${today.getFullYear()}-${('0' + today.getMonth()).slice(-2)}`;\n    const bonusesAndFines = getMonthlyBonusesAndFines(previousMonth);\n\n    if (bonusesAndFines.bonus > 0) {\n        textMessage += `💰 Премия: ${bonusesAndFines.bonus} руб.\\n`;\n    }\n    if (bonusesAndFines.fine > 0) {\n        textMessage += `⚠️ Штраф: ${bonusesAndFines.fine} руб.\\n`;\n    }\n    if (bonusesAndFines.comments.length > 0) {\n        textMessage += `📝 Комментарии: ${bonusesAndFines.comments.join(', ')}\\n`;\n    }\n\n    totalEarnings = report.totalWeeklyEarnings + bonusesAndFines.bonus - bonusesAndFines.fine;\n} else {\n    textMessage += '📊 <b>Отчет за текущий месяц</b>\\n\\n';\n    const report = getCurrentMonthReport();\n    textMessage += report.weeklyText;\n\n    const bonusesAndFines = getMonthlyBonusesAndFines(currentMonth);\n\n    if (bonusesAndFines.bonus > 0) {\n        textMessage += `💰 Премия: ${bonusesAndFines.bonus} руб.\\n`;\n    }\n    if (bonusesAndFines.fine > 0) {\n        textMessage += `⚠️ Штраф: ${bonusesAndFines.fine} руб.\\n`;\n    }\n    if (bonusesAndFines.comments.length > 0) {\n        textMessage += `📝 Комментарии: ${bonusesAndFines.comments.join(', ')}\\n`;\n    }\n\n    totalEarnings = report.totalWeeklyEarnings + bonusesAndFines.bonus - bonusesAndFines.fine;\n}\n\nconst finalTotal = totalEarnings;\ntextMessage += `\\n💵 <b>Сумма итого: ${finalTotal} руб.</b>`;\n\nreturn [\n    {\n        json: {\n            message: textMessage\n        }\n    }\n];"
       },
-      "id": "8ecfe6e1-6b62-497e-9191-a2d02e57fa4b",
+      "id": "430e6312-367c-46e1-a842-d4275da9f559",
       "name": "формируем месячную статистику и преобразуем в сообщение",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -5261,7 +5272,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "3ee2f220-0e13-4b8d-923c-811177864e5e",
+      "id": "21a96f3f-a815-49c6-838e-9eb45aa1656e",
       "name": "выводим месячную статистику",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -5303,7 +5314,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "0da5e061-3fc5-429d-abb7-80bc63a169be",
+      "id": "846a56b1-fda8-4d30-bbdd-9d0212a51692",
       "name": "выводим месячную статистику1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -5370,7 +5381,7 @@
         },
         "options": {}
       },
-      "id": "3a946706-e1dd-4f41-8af8-d3746423303d",
+      "id": "a8071172-9454-4777-94b2-ee373822266f",
       "name": "разделение запроса и реплай и инлайн",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
@@ -5385,7 +5396,7 @@
         "height": 517.269554762983,
         "width": 2216.548831746288
       },
-      "id": "4f4a8f02-0a38-4507-9c39-ee3ea726241c",
+      "id": "dff77de8-120e-4b39-9993-da83d035956f",
       "name": "Sticky Note5",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -5400,7 +5411,7 @@
         "height": 674.7443857922335,
         "width": 2513.100860240324
       },
-      "id": "ec80e96c-ba6f-4606-b94e-3ba763270486",
+      "id": "57ffed2a-0c17-440c-a7a9-50b33c1e1155",
       "name": "Sticky Note6",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -5463,7 +5474,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "cda42fce-67c8-4ed9-ae07-dc09fc1f1d2a",
+      "id": "508c9da9-3215-4102-b3dc-a208bdbef612",
       "name": "инлайн кнопки для статистики",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
@@ -5489,7 +5500,7 @@
         "jsonBody": "={\n  \"driver_id\": {{$json.odoo_id}}\n}  ",
         "options": {}
       },
-      "id": "29640b06-4613-4021-90ce-67c5febf7481",
+      "id": "caa4d6be-93a2-4f52-b700-cb423e91e996",
       "name": "получаем номер авто",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -5503,12 +5514,12 @@
       "parameters": {
         "workflowId": {
           "__rl": true,
-          "value": "kkVv4pMwhKmi76DD",
+          "value": "VL1HgWEWaMEZjxpt",
           "mode": "id"
         },
         "options": {}
       },
-      "id": "755b6fd6-7a1e-457a-ae0b-cf400c9a84ae",
+      "id": "5f29a067-17a8-4661-9de7-a5dd640c2792",
       "name": "Execute Workflow",
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.1,
@@ -5534,7 +5545,7 @@
         "jsonBody": "={\n  \"car_id\": {{$json.id}}\n}  ",
         "options": {}
       },
-      "id": "d68deb74-b68c-43b1-afcb-6940d6d08101",
+      "id": "d6337875-6590-4a69-b210-f183329cb643",
       "name": "получаем перевозки из очереди авто",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -5561,7 +5572,7 @@
         "jsonBody": "={\n  \"transportation_id\": {{ $json.transportations[0].transportation }}\n}  ",
         "options": {}
       },
-      "id": "73702d5b-c26f-4236-9444-804d995f8348",
+      "id": "6a46a048-e25d-4e19-815d-183db121b77f",
       "name": "получаем рейсы в перевозке",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -5576,7 +5587,7 @@
         "fieldToSplitOut": "transportation_rounds",
         "options": {}
       },
-      "id": "4d715840-fda5-42d9-bbb0-8c496bc08c98",
+      "id": "62d6fcf1-67d0-41cc-9353-5bb995074d5a",
       "name": "разделяем рейсы",
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
@@ -5619,7 +5630,7 @@
         },
         "options": {}
       },
-      "id": "1053e20e-e16f-403d-ad39-b0dd1279411c",
+      "id": "9990e697-5c54-4912-a605-a9852bd23904",
       "name": "берем выполняющийся рейс нужного авто",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
@@ -5652,7 +5663,7 @@
         },
         "options": {}
       },
-      "id": "b5875bd1-719e-4f29-86e7-1e1ee4cbfd6c",
+      "id": "9d9e3487-7cb1-449a-ae8a-bdfac8e5d8c6",
       "name": "есть ли запись с весов",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -5700,13 +5711,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "0c81a414-f748-4059-8368-c6fa59442721",
+      "id": "a6b95e37-29ea-476a-a778-c87084e95509",
       "name": "подтверждение взвешивания",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2480,
-        6044.938488846612
+        3360,
+        5780
       ],
       "credentials": {
         "telegramApi": {
@@ -5719,7 +5730,7 @@
       "parameters": {
         "jsCode": "// Получаем данные из ноды \"Execute Workflow Trigger\"\nconst triggerData = $node[\"Execute Workflow Trigger\"].json;\n\n// Проверяем и изменяем поле \"callback_query.data\"\nif (triggerData.callback_query && triggerData.callback_query.data === 'check_material_volume') {\n    triggerData.callback_query.data = 'material_volume';\n}\n\n// Возвращаем обновленные данные\nreturn triggerData;\n"
       },
-      "id": "abb68413-e490-4ac8-ac4c-42a5b9831c21",
+      "id": "7017b77a-fbb5-434f-bedb-c90bc5b336ab",
       "name": "меняем callback на ввод объема",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -5759,7 +5770,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "667834bb-0ed3-47e6-8aab-8352eebd6cd9",
+      "id": "7a546ba6-09c5-42a6-a44c-26bfad65b870",
       "name": "проверка наличия взвешивания",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
@@ -5772,14 +5783,14 @@
       "parameters": {
         "content": "## Проверка записи о взвешивании в рейсе",
         "height": 404.17703383081584,
-        "width": 2257.673384812532
+        "width": 2406.118024774483
       },
-      "id": "91c2d259-849a-4d40-86ac-4f1bc4095d00",
+      "id": "d4971b25-3a39-4778-b24b-75199a476bfd",
       "name": "Sticky Note7",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        680,
+        531.555360038049,
         6024.938488846612
       ]
     },
@@ -5807,7 +5818,7 @@
         },
         "options": {}
       },
-      "id": "a89b0e46-49e5-408c-afa2-fb5cb12a5fb6",
+      "id": "c5201469-b1a6-4132-b646-93174ca038a3",
       "name": "работа в карьере?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -5853,7 +5864,7 @@
         },
         "additionalFields": {}
       },
-      "id": "8dc63cf2-bb9e-43ce-be25-fcee1d27fa3a",
+      "id": "295532a0-5770-4c85-a0cc-24893068e8ba",
       "name": "Завершить для работы",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -5968,7 +5979,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "53b883f4-60e5-4a5d-9c6b-2eb706a21d59",
+      "id": "965bc75f-3c01-4083-aac2-ba6e9add9574",
       "name": "следующая перевозка",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.1,
@@ -6026,7 +6037,7 @@
         },
         "additionalFields": {}
       },
-      "id": "7632db38-1fb7-4195-a744-27f60274555c",
+      "id": "e81796e3-232c-4cb6-bbc4-15a40f2325e8",
       "name": "прошлое сообщение2",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -6040,9 +6051,291 @@
           "name": "Everest production"
         }
       }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tg_id": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+            "weight_measure": "={{ $json.cargo_netto }} Тонны "
+          },
+          "matchingColumns": [
+            "tg_id"
+          ],
+          "schema": [
+            {
+              "id": "tg_id",
+              "displayName": "tg_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "only_mech",
+              "displayName": "only_mech",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mech_photo",
+              "displayName": "mech_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_id",
+              "displayName": "end_request_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "materials_photo",
+              "displayName": "materials_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_hours",
+              "displayName": "end_request_hours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "car_id_while_inputing",
+              "displayName": "car_id_while_inputing",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "fuel_liters",
+              "displayName": "fuel_liters",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "weight_measure",
+              "displayName": "weight_measure",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6decdbb1-c1e8-4cc6-ae9d-4b2d487a4cb5",
+      "name": "записываем объём материала",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        2460,
+        6060
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "cMlKL7XYShZtUnqo",
+          "name": "Everest production"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.from.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "=Подтвердите значение взвешивания - <b>{{ $('есть ли запись с весов').item.json.cargo_netto }}</b> Нетто(Тонны)",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Подтвердить",
+                    "additionalFields": {
+                      "callback_data": "last"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Другое",
+                    "additionalFields": {
+                      "callback_data": "material_volume"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "f2777736-5583-4ee9-b9f2-69aea0047f67",
+      "name": "подтверждение взвешивания1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2760,
+        6060
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "s2yURwRj0JIo9urH",
+          "name": "Everest production"
+        }
+      }
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Execute Workflow Trigger": [
+      {
+        "json": {
+          "update_id": 100633628,
+          "callback_query": {
+            "id": "2008109316038872006",
+            "from": {
+              "id": 467549384,
+              "is_bot": false,
+              "first_name": "Sergio",
+              "username": "sergo_kf",
+              "language_code": "ru",
+              "is_premium": true
+            },
+            "message": {
+              "message_id": 26280,
+              "from": {
+                "id": 7063451965,
+                "is_bot": true,
+                "first_name": "Everest n8n",
+                "username": "myn8nbotbot"
+              },
+              "chat": {
+                "id": 467549384,
+                "first_name": "Sergio",
+                "username": "sergo_kf",
+                "type": "private"
+              },
+              "date": 1730773923,
+              "edit_date": 1730774091,
+              "text": "Вы уверены, что готовы завершить рейс?",
+              "reply_markup": {
+                "inline_keyboard": [
+                  [
+                    {
+                      "text": "Завершить",
+                      "callback_data": "check_material_volume"
+                    },
+                    {
+                      "text": "Назад",
+                      "callback_data": "back_pick"
+                    }
+                  ]
+                ]
+              }
+            },
+            "chat_instance": "-8293046807322593726",
+            "data": "check_material_volume"
+          },
+          "tg_id": "467549384",
+          "odoo_id": 4,
+          "status": "authorized",
+          "only_mech": false,
+          "mech_photo": false,
+          "end_request_id": null,
+          "materials_photo": false,
+          "end_request_hours": null,
+          "car_id_while_inputing": 25,
+          "fuel_liters": 100,
+          "weight_measure": "Тонны ",
+          "logist_alert_text": null,
+          "logist_recipient_name": null,
+          "transportation_for_certificate": null,
+          "count_weight_photo": 1,
+          "count_weight_photo_sent": 0,
+          "current_quarry_hours": 5,
+          "end_round_message_id": 26280,
+          "last_message_text": "Отлично, рейс активен. \n\nКарьер Ключевое - улица Карла Маркса, 43\nПесок (Карьер Ключевое)\nОстаток по текущей перевозке - 17.89 т.\n\nПо его завершению нажмите на кнопку \"Завершить рейс\"",
+          "logist_notifications": false,
+          "creating_transportation": null,
+          "cookie": "session_id=b9c645092bc728c977a98c4be377c7c2ac0a2e9e; Expires=Mon, 03 Nov 2025 14:04:36 GMT; Max-Age=604800; HttpOnly; Path=/"
+        }
+      }
+    ]
+  },
   "settings": {
     "executionOrder": "v1",
     "timezone": "Asia/Vladivostok",
@@ -6058,6 +6351,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-11-10T15:09:06.305Z",
-  "versionId": "a84f777a-bb80-47a7-8738-0824503c995b"
+  "updatedAt": "2024-11-17T15:58:08.503Z",
+  "versionId": "fc5ec7de-0554-4576-9e31-8685d4962fa4"
 }
