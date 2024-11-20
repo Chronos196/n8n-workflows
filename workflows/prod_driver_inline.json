@@ -3661,39 +3661,6 @@
         ]
       ]
     },
-    "рейсы по авто1": {
-      "main": [
-        [
-          {
-            "node": "разделяем рейсы6",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "разделяем рейсы6": {
-      "main": [
-        [
-          {
-            "node": "находим рейсы без ттн",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "находим рейсы без ттн": {
-      "main": [
-        [
-          {
-            "node": "есть ли рейсы",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "перевозки": {
       "main": [
         [
@@ -4281,6 +4248,39 @@
         [
           {
             "node": "есть ли еще рейсы по этой перевозке?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "рейсы по авто1": {
+      "main": [
+        [
+          {
+            "node": "разделяем рейсы6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "разделяем рейсы6": {
+      "main": [
+        [
+          {
+            "node": "находим рейсы без ттн",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "находим рейсы без ттн": {
+      "main": [
+        [
+          {
+            "node": "есть ли рейсы",
             "type": "main",
             "index": 0
           }
@@ -21258,102 +21258,6 @@
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "b69e28d3-fb37-4a59-b34f-797136b3fb30",
-              "leftValue": "={{ $json.status }}",
-              "rightValue": "Завершен",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            },
-            {
-              "id": "379c35f0-1b5a-4bfb-a91c-dedfe5e05d04",
-              "leftValue": "={{ $json.ttn }}",
-              "rightValue": "=",
-              "operator": {
-                "type": "boolean",
-                "operation": "false",
-                "singleValue": true
-              }
-            },
-            {
-              "id": "69d174f3-6965-4b57-8da2-44c8421230d9",
-              "leftValue": "={{ $json.car[0] }}",
-              "rightValue": "={{ $('номер авто2').item.json.id }}",
-              "operator": {
-                "type": "number",
-                "operation": "equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "6de19bff-6296-4159-adf3-30d67b59b86b",
-      "name": "находим рейсы без ттн",
-      "type": "n8n-nodes-base.filter",
-      "typeVersion": 2.2,
-      "position": [
-        440,
-        9080
-      ],
-      "alwaysOutputData": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "url": "https://everest.lamart.site/get_rounds_by_transportation",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "cookie",
-              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"transportation_id\": {{ $json.id }}\n} ",
-        "options": {}
-      },
-      "id": "04d0ca6d-d9bd-49fe-bc4d-dff4da5559da",
-      "name": "рейсы по авто1",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        -20,
-        9100
-      ],
-      "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
-        "fieldToSplitOut": "transportation_rounds",
-        "options": {}
-      },
-      "id": "0aaaad1a-3306-41f5-b43e-26049270ffc3",
-      "name": "разделяем рейсы6",
-      "type": "n8n-nodes-base.splitOut",
-      "typeVersion": 1,
-      "position": [
-        220,
-        9080
-      ]
-    },
-    {
-      "parameters": {
         "url": "https://everest.lamart.site/get_transportation_by_id",
         "sendHeaders": true,
         "headerParameters": {
@@ -23238,6 +23142,104 @@
         1740
       ],
       "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "url": "https://everest.lamart.site/get_rounds_by_transportation",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"transportation_id\": {{ $json.id }}\n} ",
+        "options": {}
+      },
+      "id": "04d0ca6d-d9bd-49fe-bc4d-dff4da5559da",
+      "name": "рейсы по авто1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -20,
+        9100
+      ],
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "transportation_rounds",
+        "options": {}
+      },
+      "id": "0aaaad1a-3306-41f5-b43e-26049270ffc3",
+      "name": "разделяем рейсы6",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        220,
+        9080
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b69e28d3-fb37-4a59-b34f-797136b3fb30",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "Завершен",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "379c35f0-1b5a-4bfb-a91c-dedfe5e05d04",
+              "leftValue": "={{ $json.ttn }}",
+              "rightValue": "=",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "69d174f3-6965-4b57-8da2-44c8421230d9",
+              "leftValue": "={{ $json.car[0] }}",
+              "rightValue": "={{ $('номер авто2').item.json.id }}",
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "6de19bff-6296-4159-adf3-30d67b59b86b",
+      "name": "находим рейсы без ттн",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        440,
+        9080
+      ],
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
     }
   ],
   "pinData": {
@@ -23341,6 +23343,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-11-18T09:24:47.204Z",
-  "versionId": "cfc7fb80-dce3-4b02-9426-a265eeffbec6"
+  "updatedAt": "2024-11-19T08:20:19.528Z",
+  "versionId": "16b6a53f-ae50-4568-aac6-7bd1be94e95e"
 }
