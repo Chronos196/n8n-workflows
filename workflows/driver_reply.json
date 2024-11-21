@@ -1745,12 +1745,7 @@
       "main": [
         [
           {
-            "node": "перевозки+имена1",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Loop Over Items3",
+            "node": "только первая перевозка",
             "type": "main",
             "index": 0
           }
@@ -1758,35 +1753,6 @@
         [
           {
             "node": "водитель/наёмник2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Loop Over Items3": {
-      "main": [
-        [
-          {
-            "node": "перевозки+имена1",
-            "type": "main",
-            "index": 1
-          }
-        ],
-        [
-          {
-            "node": "Split Out",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Replace Me3": {
-      "main": [
-        [
-          {
-            "node": "Loop Over Items3",
             "type": "main",
             "index": 0
           }
@@ -1808,9 +1774,9 @@
       "main": [
         [
           {
-            "node": "Replace Me3",
+            "node": "перевозки+имена1",
             "type": "main",
-            "index": 0
+            "index": 1
           }
         ]
       ]
@@ -2636,17 +2602,6 @@
         ]
       ]
     },
-    "Split Out": {
-      "main": [
-        [
-          {
-            "node": "получение рейсов",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "получение рейсов": {
       "main": [
         [
@@ -3260,6 +3215,44 @@
         [
           {
             "node": "удалим сообщение со старыми кнопками",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "только первая перевозка": {
+      "main": [
+        [
+          {
+            "node": "перевозки+имена1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "получение рейсов",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Выводим информацию о перевозке": {
+      "main": [
+        [
+          {
+            "node": "айди последнего сообщения1",
             "type": "main",
             "index": 0
           }
@@ -9456,7 +9449,8 @@
           "options": {
             "caseSensitive": true,
             "leftValue": "",
-            "typeValidation": "strict"
+            "typeValidation": "strict",
+            "version": 1
           },
           "conditions": [
             {
@@ -9485,19 +9479,6 @@
     },
     {
       "parameters": {
-        "options": {}
-      },
-      "id": "6c37f759-6725-4ff2-a0ca-02617595e904",
-      "name": "Loop Over Items3",
-      "type": "n8n-nodes-base.splitInBatches",
-      "typeVersion": 3,
-      "position": [
-        4220,
-        1680
-      ]
-    },
-    {
-      "parameters": {
         "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const data = item.json;\n\n  const isQuarryWork = data.quarry && data.quarry.length > 1;\n\n  let message = \"\";\n\n  if (isQuarryWork) {\n    const quarry = data.quarry[1];\n    const requiredHours = data.required_hours || 0;\n    const comment = data.comment;\n\n    message = `<b>${index}.</b> Работа в карьере - <b>${quarry}</b>`;\n    if (data.end_condition === \"По часам\") {\n      message += `\\nНеобходимое количество часов - <b>${requiredHours}</b>`;\n    }\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    message += `\\n\\n`;\n  } else {\n    const sender = data.sender && data.sender.length > 1 ? data.sender[1] : \"\";\n    const partner = data.partner && data.partner.length > 1 ? data.partner[1] : \"\";\n    const placeFrom = data.place_from && data.place_from.length > 1 ? data.place_from[1] : \"\";\n    const placeTo = data.place_to && data.place_to.length > 1 ? data.place_to[1] : \"\";\n    let material =data.material[1].replace(/\\s*\\(.*?\\)\\s*/g, \"\");\n    const comment = data.comment;\n    const endCondition = data.end_condition;\n    const requiredCubicMetre = data.required_cubic_metre|| 0;\n    const requiredTon = data.required_ton|| 0;\n\n    let route = placeFrom && placeTo ? `${placeFrom}-${placeTo}` : \"\";\n\n\n    message = `<b>${index}.</b>`;\n    \n    if (sender) message += ` Отправитель - <b>${sender}</b>`;\n    if (partner) message += `\\nПолучатель - <b>${partner}</b>`;\n    if (route) message += `\\nМаршрут - <b>${route}</b>`;\n    if (material) message += `\\nМатериал - <b>${material}</b>`;\n    \n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n\n    if (endCondition === \"По перевезенным кубометрам\" && requiredCubicMetre > 0) {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n\n    if (endCondition === \"По перевезенным тоннам\" && requiredTon > 0) {\n      message += `\\nТребуемое количество тонн по перевозке - <b>${requiredTon}</b>`;\n    }\n\n    message += (item.json.concatenated_transportation_round0_driver1 ? \"\\n\\nВодители, выполняющие перевозку с вами:\\n\" + item.json.concatenated_transportation_round0_driver1 : \"\");\n\n    message += `\\n\\n`;\n  }\n\n  if (index === 1) {\n    message = `<i>${message.trim()}</i>\\n\\n`;\n  }\n\n  combinedMessages += message;\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
       },
       "id": "f7e45ecf-e8a0-44ae-a01b-dfe1c15154c4",
@@ -9505,19 +9486,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        5060,
-        1560
-      ]
-    },
-    {
-      "parameters": {},
-      "id": "3a2025c4-3e88-4c0b-9ed3-eadd7fba0c19",
-      "name": "Replace Me3",
-      "type": "n8n-nodes-base.noOp",
-      "typeVersion": 1,
-      "position": [
-        5060,
-        1700
+        5840,
+        1500
       ]
     },
     {
@@ -9531,8 +9501,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        4820,
-        1560
+        5320,
+        1480
       ]
     },
     {
@@ -9555,8 +9525,8 @@
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        4820,
-        1700
+        5080,
+        1640
       ],
       "alwaysOutputData": false
     },
@@ -9566,7 +9536,8 @@
           "options": {
             "caseSensitive": true,
             "leftValue": "",
-            "typeValidation": "strict"
+            "typeValidation": "strict",
+            "version": 1
           },
           "conditions": [
             {
@@ -9588,8 +9559,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        5300,
-        1560
+        6080,
+        1500
       ]
     },
     {
@@ -9647,8 +9618,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5580,
-        1480
+        6360,
+        1420
       ],
       "credentials": {
         "telegramApi": {
@@ -9660,7 +9631,7 @@
     {
       "parameters": {
         "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.message.chat.id }}",
-        "text": "=<b>На сегодня Вам назначены перевозки в следующем порядке:</b>\n\n{{ $json.combinedMessages }}",
+        "text": "=<b>Ваша текущая перевозка:</b>\n\n{{ $json.combinedMessages }}",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -9668,9 +9639,21 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "Приступить к перевозке",
+                    "text": "Начать рейс",
                     "additionalFields": {
-                      "callback_data": "accept"
+                      "callback_data": "pick"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Назначенные перевозки",
+                    "additionalFields": {
+                      "callback_data": "transportation_list"
                     }
                   }
                 ]
@@ -9700,8 +9683,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5580,
-        1680
+        6360,
+        1620
       ],
       "credentials": {
         "telegramApi": {
@@ -10405,8 +10388,8 @@
       "type": "n8n-nodes-base.removeDuplicates",
       "typeVersion": 1.1,
       "position": [
-        4640,
-        1700
+        4900,
+        1640
       ],
       "onError": "continueRegularOutput"
     },
@@ -11998,8 +11981,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4920,
-        1920
+        4940,
+        1940
       ],
       "credentials": {
         "telegramApi": {
@@ -13366,8 +13349,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        5880,
-        1600
+        6660,
+        1540
       ],
       "credentials": {
         "postgres": {
@@ -13691,21 +13674,6 @@
     },
     {
       "parameters": {
-        "fieldToSplitOut": "rounds",
-        "options": {}
-      },
-      "id": "aeadd21c-5264-4c9a-b0b6-a229aad76d75",
-      "name": "Split Out",
-      "type": "n8n-nodes-base.splitOut",
-      "typeVersion": 1,
-      "position": [
-        4380,
-        1360
-      ],
-      "alwaysOutputData": true
-    },
-    {
-      "parameters": {
         "url": "https://dev.everest.lamart.site//get_round_by_id",
         "sendHeaders": true,
         "headerParameters": {
@@ -13732,8 +13700,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        4640,
-        1240
+        4500,
+        1660
       ],
       "onError": "continueErrorOutput"
     },
@@ -13776,8 +13744,8 @@
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
       "position": [
-        4920,
-        1180
+        4720,
+        1660
       ],
       "alwaysOutputData": true
     },
@@ -15572,15 +15540,40 @@
           "name": "tg dev aleksey"
         }
       }
+    },
+    {
+      "parameters": {},
+      "id": "264dcb1c-dd34-457d-b9e9-cd500d9eab76",
+      "name": "только первая перевозка",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        4120,
+        1520
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "rounds",
+        "options": {}
+      },
+      "id": "a3bf35c4-d506-4b48-87c5-37604d80845d",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        4280,
+        1660
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100635110,
+          "update_id": 100636592,
           "message": {
-            "message_id": 27803,
+            "message_id": 29021,
             "from": {
               "id": 700956969,
               "is_bot": false,
@@ -15594,32 +15587,43 @@
               "username": "Chronos196",
               "type": "private"
             },
-            "date": 1731401092,
-            "text": "12"
+            "date": 1732080365,
+            "text": "Приступить к работе"
           },
           "tg_id": "700956969",
           "odoo_id": 2,
-          "status": "inputing_material_volume",
+          "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
           "end_request_id": null,
           "materials_photo": false,
           "end_request_hours": null,
-          "car_id_while_inputing": 40,
+          "car_id_while_inputing": 18,
           "fuel_liters": 50,
-          "weight_measure": "м3",
+          "weight_measure": "10 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
           "count_weight_photo": 1,
           "count_weight_photo_sent": 0,
-          "current_quarry_hours": 50,
-          "end_round_message_id": 27798,
-          "last_message_text": "Отлично, рейс активен. \n\nКарьер Ключевое - улица Энгельса, 31А\nТест1\n\nПо его завершению нажмите на кнопку \"Завершить рейс\"",
+          "current_quarry_hours": 10,
+          "end_round_message_id": 29008,
+          "last_message_text": "Отлично, рейс активен. \n\nКарьер Ключевое - улица Энгельса, 31А\nНеназначенный\n\nПо его завершению нажмите на кнопку \"Завершить рейс\"",
           "logist_notifications": false,
           "creating_transportation": null,
-          "round_active_msg_id": null,
-          "cookie": "session_id=c3e4a62a1a8d37aac55955740fe40fb4fbfdb108; Expires=Tue, 11 Nov 2025 06:56:02 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "round_active_msg_id": 28355,
+          "no_taking_shift_logist_notify": false,
+          "logist_template": {
+            "quarry.quarry": "Карьер Ключевое",
+            "transportation.place": "Карьер Ключевое",
+            "transportation.rates": "ООО \"ЭВЕРЕСТ\"",
+            "transportation.material": "Щебень",
+            "measure": "м3",
+            "weight": "500",
+            "rate": "400"
+          },
+          "current_maintenance": null,
+          "cookie": "session_id=2ebaa13c7ff63a0f9a902bde0af38c77a72d4582; Expires=Mon, 17 Nov 2025 16:32:51 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ],
@@ -15708,6 +15712,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-11-15T19:10:06.004Z",
-  "versionId": "43d5abc6-762e-450d-8867-c20e79db9b04"
+  "updatedAt": "2024-11-20T06:19:13.249Z",
+  "versionId": "d55f6c85-182b-43f9-a5e4-18e457188df3"
 }
