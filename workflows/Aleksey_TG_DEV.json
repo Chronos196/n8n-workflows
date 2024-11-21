@@ -1300,7 +1300,7 @@
         "operation": "executeQuery",
         "query": "INSERT INTO tg_users (tg_id) VALUES ($1) ON CONFLICT (tg_id) DO NOTHING;",
         "options": {
-          "queryReplacement": "={{ \n  $('Telegram Trigger1').item.json.message?.from.id !== undefined \n  ? $('Telegram Trigger1').item.json.message.from.id \n  : $('Telegram Trigger1').item.json.callback_query.from.id \n}}"
+          "queryReplacement": "={{ \n$('Telegram Trigger1').item.json.callback_query?.message?.chat?.id !== undefined \n    ? $('Telegram Trigger1').item.json.callback_query.message.chat.id \n    : $('Telegram Trigger1').item.json.message?.chat?.id !== undefined \n        ? $('Telegram Trigger1').item.json.message.chat.id \n        : $('Telegram Trigger1').item.json.inline_query?.from?.id !== undefined \n            ? $('Telegram Trigger1').item.json.inline_query.from.id \n            : 'default_id'\n}}"
         }
       },
       "id": "ea7daceb-a4f2-4b70-b07f-e18c0fd7e105",
@@ -1324,7 +1324,8 @@
           "options": {
             "caseSensitive": true,
             "leftValue": "",
-            "typeValidation": "strict"
+            "typeValidation": "strict",
+            "version": 1
           },
           "conditions": [
             {
@@ -1369,7 +1370,7 @@
           "values": [
             {
               "column": "tg_id",
-              "value": "={{ \n  $('Telegram Trigger1').item.json.message?.from.id !== undefined \n  ? $('Telegram Trigger1').item.json.message.from.id \n  : $('Telegram Trigger1').item.json.callback_query.from.id \n}}"
+              "value": "={{ \n$('Telegram Trigger1').item.json.callback_query?.message?.chat?.id !== undefined \n    ? $('Telegram Trigger1').item.json.callback_query.message.chat.id \n    : $('Telegram Trigger1').item.json.message?.chat?.id !== undefined \n        ? $('Telegram Trigger1').item.json.message.chat.id \n        : $('Telegram Trigger1').item.json.inline_query?.from?.id !== undefined \n            ? $('Telegram Trigger1').item.json.inline_query.from.id \n            : 'default_id'\n}}"
             }
           ]
         },
@@ -1481,7 +1482,7 @@
           "values": [
             {
               "column": "tg_id",
-              "value": "={{ \n  $('Telegram Trigger1').item.json.message?.from.id !== undefined \n  ? $('Telegram Trigger1').item.json.message.from.id \n  : $('Telegram Trigger1').item.json.callback_query.from.id \n}}"
+              "value": "={{ \n$('Telegram Trigger1').item.json.callback_query?.message?.chat?.id !== undefined \n    ? $('Telegram Trigger1').item.json.callback_query.message.chat.id \n    : $('Telegram Trigger1').item.json.message?.chat?.id !== undefined \n        ? $('Telegram Trigger1').item.json.message.chat.id \n        : $('Telegram Trigger1').item.json.inline_query?.from?.id !== undefined \n            ? $('Telegram Trigger1').item.json.inline_query.from.id \n            : 'default_id'\n}}"
             }
           ]
         },
@@ -3065,7 +3066,8 @@
       "parameters": {
         "updates": [
           "message",
-          "callback_query"
+          "callback_query",
+          "inline_query"
         ],
         "additionalFields": {}
       },
@@ -5970,6 +5972,6 @@
     }
   ],
   "triggerCount": 8,
-  "updatedAt": "2024-11-18T09:17:21.358Z",
-  "versionId": "a5423783-204d-4b46-992d-8bea2b98f24b"
+  "updatedAt": "2024-11-19T15:00:54.161Z",
+  "versionId": "644dd70f-e0c4-426f-af7b-9697358bdd03"
 }
