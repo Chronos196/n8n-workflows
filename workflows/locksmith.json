@@ -82,7 +82,7 @@
         ],
         [
           {
-            "node": "нет заявок на проверке",
+            "node": "нет заявок для выполнения",
             "type": "main",
             "index": 0
           }
@@ -978,47 +978,6 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
-        "text": "На данный момент нет заявок, требующих проверки!",
-        "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Назад",
-                    "additionalFields": {
-                      "callback_data": "del_maintenances"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {
-          "appendAttribution": false,
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "8649216e-6a1e-4da4-92c6-cc2597afb561",
-      "name": "нет заявок на проверке",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        3460,
-        -300
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "rJQteGH5Ng1RKmF4",
-          "name": "tg dev aleksey"
-        }
-      }
-    },
-    {
-      "parameters": {
         "method": "POST",
         "url": "={{ $json.url }}",
         "sendBody": true,
@@ -1249,7 +1208,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Получаем все элементы из входных данных\nconst items = $input.all();\n\n// Получаем данные о колбэке из Execute Workflow Trigger\nconst callbackQuery = $('Execute Workflow Trigger').all()[0].json.callback_query;\nconst callbackData = callbackQuery ? callbackQuery.data : null;\n\n// Проверяем, был ли получен callbackData\nif (!callbackData) {\n    throw new Error(\"Callback data is undefined. Cannot proceed.\");\n}\n\n// Извлекаем message_id из callback_query\nconst messageId = callbackQuery.message.message_id;\n\n// Обработка выбора заявки\nconst selectedMatch = callbackData.match(/item_(\\d+)_page_(\\d+)/);\nif (selectedMatch) {\n    const itemId = selectedMatch[1]; // ID выбранной заявки\n    const returnPage = parseInt(selectedMatch[2], 10); // Номер страницы для возврата\n\n    // Получаем информацию о выбранной заявке\n    const selectedRequest = items.find(item => item.json.id == itemId);\n    // Извлекаем необходимые данные из JSON\n    const {\n        description_of_maintenance,\n        car_id,\n        created_by,\n        id\n    } = selectedRequest.json;\n\n    const descriptionText = description_of_maintenance === \"Нет описания\" \n        ? `${description_of_maintenance} (Смотреть фото в Odoo)` \n        : description_of_maintenance;\n\n    // Формируем текст сообщения\n    const carName = car_id[1].split(' - ')[0]; // Получаем только номер авто\n\n    // Ищем данные о водителе\n    const driverData = items.find(item => item.json.resource_id && item.json.resource_id[1] === created_by[1]);\n    \n    // Если данные о водителе найдены, извлекаем имя и телефон\n    const name = driverData ? driverData.json.name : 'Неизвестный водитель';\n    const mobile_phone = driverData ? driverData.json.mobile_phone : 'Телефон не указан';\n\n    // Формируем ссылку на заявку в Odoo\n    const odooLink = `https://dev.everest.lamart.site/web#id=${itemId}&model=technical.maintenance&view_type=form`;\n\n    // Полное сообщение\n    const messageText = `У автомобиля: <b>${carName}</b>, водитель <b>${name}</b> <a href=\"tel:${mobile_phone}\">${mobile_phone}</a> проблема:\\n\\n` +\n        `<i>${descriptionText}</i>\\n\\n` +\n        `<a href=\"${odooLink}\">Ссылка на заявку в Odoo</a>`;\n\n    // Получаем chat_id из callback_query\n    const chatId = callbackQuery.from.id;\n\n    // Токен бота\n    const token = '7063451965:AAGARL6Eluwh3zgS84WnaZozqdz6-m0RLzg';\n\n    // URL для редактирования сообщения через API Telegram\n    const url = `https://api.telegram.org/bot${token}/editMessageText`;\n\n    // Создаем объект с inline-клавиатурой в один столбик\n    const inlineKeyboard = {\n        inline_keyboard: [\n            [\n                { text: \"Взять в работу\", callback_data: `TR_${id}` } // Добавляем ID заявки\n            ],\n            [\n                { text: \"Назад\", callback_data: `page_${returnPage}` } // Устанавливаем номер страницы в колбэк\n            ]\n        ]\n    };\n\n    // Формируем сообщение для редактирования\n    const message = {\n        chat_id: chatId,\n        message_id: messageId,\n        text: messageText,\n        parse_mode: 'HTML', // Указываем, что текст содержит HTML\n        reply_markup: inlineKeyboard // Добавляем inline-клавиатуру\n    };\n\n    // Возвращаем данные для запроса\n    return [\n        {\n            json: {\n                url,\n                message\n            }\n        }\n    ];\n}\n"
+        "jsCode": "// Получаем все элементы из входных данных\nconst items = $input.all();\n\n// Получаем данные о колбэке из Execute Workflow Trigger\nconst callbackQuery = $('Execute Workflow Trigger').all()[0].json.callback_query;\nconst callbackData = callbackQuery ? callbackQuery.data : null;\n\n// Проверяем, был ли получен callbackData\nif (!callbackData) {\n    throw new Error(\"Callback data is undefined. Cannot proceed.\");\n}\n\n// Извлекаем message_id из callback_query\nconst messageId = callbackQuery.message.message_id;\n\n// Обработка выбора заявки\nconst selectedMatch = callbackData.match(/item_(\\d+)_page_(\\d+)/);\nif (selectedMatch) {\n    const itemId = selectedMatch[1]; // ID выбранной заявки\n    const returnPage = parseInt(selectedMatch[2], 10); // Номер страницы для возврата\n\n    // Получаем информацию о выбранной заявке\n    const selectedRequest = items.find(item => item.json.id == itemId);\n    // Извлекаем необходимые данные из JSON\n    const {\n        description_of_maintenance,\n        car_id,\n        created_by,\n        id\n    } = selectedRequest.json;\n\n    const descriptionText = description_of_maintenance === \"Нет описания\" \n        ? `${description_of_maintenance} (Смотреть фото в Odoo)` \n        : description_of_maintenance;\n\n    // Формируем текст сообщения\n    const carName = car_id[1].split(' - ')[0]; // Получаем только номер авто\n\n    // Ищем данные о водителе\n    const driverData = items.find(item => item.json.resource_id && item.json.resource_id[1] === created_by[1]);\n    \n    // Если данные о водителе найдены, извлекаем имя и телефон\n    const name = driverData ? driverData.json.name : 'Неизвестный водитель';\n    const mobile_phone = driverData ? driverData.json.mobile_phone : 'Телефон не указан';\n\n    // Формируем ссылку на заявку в Odoo\n    const odooLink = `https://dev.everest.lamart.site/web#id=${itemId}&model=technical.maintenance&view_type=form`;\n\n    // Полное сообщение\n    const messageText = `У автомобиля: <b>${carName}</b> проблема:\\n\\n` +\n        `<i>${descriptionText}</i>\\n\\n`;\n\n    // Получаем chat_id из callback_query\n    const chatId = callbackQuery.from.id;\n\n    // Токен бота\n    const token = '7063451965:AAGARL6Eluwh3zgS84WnaZozqdz6-m0RLzg';\n\n    // URL для редактирования сообщения через API Telegram\n    const url = `https://api.telegram.org/bot${token}/editMessageText`;\n\n    // Создаем объект с inline-клавиатурой в один столбик\n    const inlineKeyboard = {\n        inline_keyboard: [\n            [\n                { text: \"Взять в работу\", callback_data: `TR_${id}` } // Добавляем ID заявки\n            ],\n            [\n                { text: \"Назад\", callback_data: `page_${returnPage}` } // Устанавливаем номер страницы в колбэк\n            ]\n        ]\n    };\n\n    // Формируем сообщение для редактирования\n    const message = {\n        chat_id: chatId,\n        message_id: messageId,\n        text: messageText,\n        parse_mode: 'HTML', // Указываем, что текст содержит HTML\n        reply_markup: inlineKeyboard // Добавляем inline-клавиатуру\n    };\n\n    // Возвращаем данные для запроса\n    return [\n        {\n            json: {\n                url,\n                message\n            }\n        }\n    ];\n}\n"
       },
       "id": "613da958-396e-404a-b2bc-256467f922a9",
       "name": "генерация сообщения для просмотра заявки1",
@@ -2175,7 +2134,7 @@
         "operation": "editMessageText",
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
-        "text": "=Когда механик проверит заявку, вам придёт уведомление",
+        "text": "=Заявка выполнена!",
         "additionalFields": {}
       },
       "id": "09723e14-9e85-4c77-b538-5e169777fbfd",
@@ -2888,7 +2847,7 @@
     {
       "parameters": {
         "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
-        "text": "Когда механик проверит заявку, вам придёт уведомление",
+        "text": "Заявка выполнена!",
         "additionalFields": {
           "appendAttribution": false
         }
@@ -3587,7 +3546,49 @@
         2920,
         -400
       ],
+      "alwaysOutputData": true,
       "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "text": "На данный момент нет заявок для выполнения!",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Назад",
+                    "additionalFields": {
+                      "callback_data": "del_maintenances"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "8649216e-6a1e-4da4-92c6-cc2597afb561",
+      "name": "нет заявок для выполнения",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        3460,
+        -300
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
     }
   ],
   "pinData": {
@@ -3653,6 +3654,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-11-08T11:59:18.122Z",
-  "versionId": "23fcc131-39f4-4dc5-961e-991d0f89c7d3"
+  "updatedAt": "2024-11-19T15:02:01.631Z",
+  "versionId": "a63088f0-2d55-4b05-bec0-d28ffdae76e8"
 }
