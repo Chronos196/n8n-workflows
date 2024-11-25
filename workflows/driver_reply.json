@@ -5283,7 +5283,7 @@
           "value": {
             "tg_id": "={{ $json.result.chat.id }}",
             "status": "authorized",
-            "end_request_hours": "={{ $('Execute Workflow Trigger').item.json.message.text }}"
+            "end_request_hours": "={{ $('Execute Workflow Trigger').item.json.message.text.replace(\",\", \".\") }}"
           },
           "matchingColumns": [
             "tg_id"
@@ -9651,9 +9651,9 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "Назначенные перевозки",
+                    "text": "Приступить к следующей перевозке",
                     "additionalFields": {
-                      "callback_data": "transportation_list"
+                      "callback_data": "transportation_to_tail"
                     }
                   }
                 ]
@@ -10399,13 +10399,14 @@
           "options": {
             "caseSensitive": true,
             "leftValue": "",
-            "typeValidation": "strict"
+            "typeValidation": "strict",
+            "version": 1
           },
           "conditions": [
             {
               "id": "44403514-747a-47bf-9419-77944fae7bb7",
               "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
-              "rightValue": "^\\d+(?:\\d+)?$",
+              "rightValue": "^\\d+(?:[.,]\\d+)?$",
               "operator": {
                 "type": "string",
                 "operation": "regex"
@@ -15712,6 +15713,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-11-20T06:19:13.249Z",
-  "versionId": "d55f6c85-182b-43f9-a5e4-18e457188df3"
+  "updatedAt": "2024-11-25T15:17:05.083Z",
+  "versionId": "3de36986-1758-4ac3-8082-7c3386045a0c"
 }
