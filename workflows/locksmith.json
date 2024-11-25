@@ -1717,13 +1717,14 @@
           "options": {
             "caseSensitive": true,
             "leftValue": "",
-            "typeValidation": "strict"
+            "typeValidation": "strict",
+            "version": 1
           },
           "conditions": [
             {
               "id": "44403514-747a-47bf-9419-77944fae7bb7",
               "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
-              "rightValue": "^\\d+(?:\\d+)?$",
+              "rightValue": "^\\d+(?:[.,]\\d+)?$",
               "operator": {
                 "type": "string",
                 "operation": "regex"
@@ -1883,7 +1884,7 @@
           "value": {
             "tg_id": "={{ $json.result.chat.id }}",
             "status": "authorized",
-            "end_request_hours": "={{ $('Execute Workflow Trigger').item.json.message.text }}"
+            "end_request_hours": "={{ $('Execute Workflow Trigger').item.json.message.text.replace(\",\", \".\") }}"
           },
           "matchingColumns": [
             "tg_id"
@@ -3654,6 +3655,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-11-19T15:02:01.631Z",
-  "versionId": "a63088f0-2d55-4b05-bec0-d28ffdae76e8"
+  "updatedAt": "2024-11-22T13:34:32.994Z",
+  "versionId": "6fa1cf6a-a751-427b-bb07-cd71007943e3"
 }
