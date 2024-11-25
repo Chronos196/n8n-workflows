@@ -3606,17 +3606,6 @@
         ]
       ]
     },
-    "ищем автомобиль с таким же сотрудником1": {
-      "main": [
-        [
-          {
-            "node": "если сотрудник уже занял авто1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "получаем рейсы по водителю1": {
       "main": [
         [
@@ -4281,6 +4270,17 @@
         [
           {
             "node": "есть ли рейсы",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ищем автомобиль с таким же сотрудником1": {
+      "main": [
+        [
+          {
+            "node": "если сотрудник уже занял авто1",
             "type": "main",
             "index": 0
           }
@@ -21132,34 +21132,6 @@
     },
     {
       "parameters": {
-        "url": "https://dev.everest.lamart.site/get_car_by_driver",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "cookie",
-              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"driver_id\": {{ $('Execute Workflow Trigger').item.json.odoo_id }}\n} ",
-        "options": {}
-      },
-      "id": "d01d08ac-9955-4dab-83f7-46f64cadf216",
-      "name": "ищем автомобиль с таким же сотрудником1",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        -400,
-        6440
-      ],
-      "alwaysOutputData": false,
-      "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
         "url": "https://dev.everest.lamart.site/get_rounds_by_driver",
         "sendHeaders": true,
         "headerParameters": {
@@ -23241,6 +23213,34 @@
       ],
       "alwaysOutputData": true,
       "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_car_by_driver",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"driver_id\": {{ $('Execute Workflow Trigger').item.json.odoo_id }}\n} ",
+        "options": {}
+      },
+      "id": "d01d08ac-9955-4dab-83f7-46f64cadf216",
+      "name": "ищем автомобиль с таким же сотрудником1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -400,
+        6440
+      ],
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
     }
   ],
   "pinData": {
@@ -23340,6 +23340,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-11-19T08:22:35.612Z",
-  "versionId": "e834c53d-2aec-40ba-a5c0-43e32afafca1"
+  "updatedAt": "2024-11-22T09:52:10.750Z",
+  "versionId": "b3536b9c-ad2d-42da-b611-ce55cf2812a7"
 }
