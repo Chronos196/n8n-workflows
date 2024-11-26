@@ -3225,12 +3225,7 @@
       "main": [
         [
           {
-            "node": "перевозки+имена1",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Split Out",
+            "node": "это перевозка?",
             "type": "main",
             "index": 0
           }
@@ -3253,6 +3248,29 @@
         [
           {
             "node": "айди последнего сообщения1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "это перевозка?": {
+      "main": [
+        [
+          {
+            "node": "перевозки+имена1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "в единое сообщение",
             "type": "main",
             "index": 0
           }
@@ -9566,7 +9584,7 @@
     {
       "parameters": {
         "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.message.chat.id }}",
-        "text": "=<b>На сегодня Вам назначены перевозки в следующем порядке:</b>\n\n{{ $json.combinedMessages }}",
+        "text": "=<b>Ваша текущая работа на объекте:</b>\n\n{{ $json.combinedMessages }}",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -9586,9 +9604,9 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "Приступить к следующей перевозке",
+                    "text": "Назначенные перевозки",
                     "additionalFields": {
-                      "callback_data": "transportation_to_tail"
+                      "callback_data": "transportation_list"
                     }
                   }
                 ]
@@ -9651,9 +9669,9 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "Приступить к следующей перевозке",
+                    "text": "Назначенные перевозки",
                     "additionalFields": {
-                      "callback_data": "transportation_to_tail"
+                      "callback_data": "transportation_list"
                     }
                   }
                 ]
@@ -15549,7 +15567,7 @@
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        4120,
+        4000,
         1520
       ]
     },
@@ -15566,15 +15584,49 @@
         4280,
         1660
       ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "09fa87bd-cb50-4b83-9d67-3d5dd2ab02d9",
+              "leftValue": "={{ $json.quarry_works }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "notExists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "48e4e4fa-fc2e-4133-b9a2-69ab527b1f01",
+      "name": "это перевозка?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        4180,
+        1500
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100636592,
+          "update_id": 100637221,
           "message": {
-            "message_id": 29021,
+            "message_id": 29705,
             "from": {
               "id": 700956969,
               "is_bot": false,
@@ -15588,7 +15640,7 @@
               "username": "Chronos196",
               "type": "private"
             },
-            "date": 1732080365,
+            "date": 1732603867,
             "text": "Приступить к работе"
           },
           "tg_id": "700956969",
@@ -15608,11 +15660,11 @@
           "count_weight_photo": 1,
           "count_weight_photo_sent": 0,
           "current_quarry_hours": 10,
-          "end_round_message_id": 29008,
-          "last_message_text": "Отлично, рейс активен. \n\nКарьер Ключевое - улица Энгельса, 31А\nНеназначенный\n\nПо его завершению нажмите на кнопку \"Завершить рейс\"",
+          "end_round_message_id": 29696,
+          "last_message_text": "{\"message_id\":29482,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":700956969,\"first_name\":\"Алексей\",\"username\":\"Chronos196\",\"type\":\"private\"},\"date\":1732281838,\"edit_date\":1732281851,\"text\":\"Ваша текущая перевозка:\\n\\n1. Отправитель - ООО \\\"ЭВЕРЕСТ\\\"\\nПолучатель - Alexander.Simonov\\nМаршрут - улица Энгельса, 31А-Чебаркуль, Новый\\nМатериал - Неназначенный\\nКомментарий - 2\",\"entities\":[{\"offset\":0,\"length\":23,\"type\":\"bold\"},{\"offset\":25,\"length\":17,\"type\":\"italic\"},{\"offset\":25,\"length\":2,\"type\":\"bold\"},{\"offset\":42,\"length\":27,\"type\":\"italic\"},{\"offset\":42,\"length\":13,\"type\":\"bold\"},{\"offset\":69,\"length\":28,\"type\":\"italic\"},{\"offset\":69,\"length\":17,\"type\":\"bold\"},{\"offset\":97,\"length\":48,\"type\":\"italic\"},{\"offset\":97,\"length\":36,\"type\":\"bold\"},{\"offset\":145,\"length\":29,\"type\":\"italic\"},{\"offset\":145,\"length\":13,\"type\":\"bold\"}],\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Начать рейс\",\"callback_data\":\"pick\"}],[{\"text\":\"Назначенные перевозки\",\"callback_data\":\"transportation_list\"}],[{\"text\":\"Завершить смену\",\"callback_data\":\"complete_work\"}]]}}",
           "logist_notifications": false,
           "creating_transportation": null,
-          "round_active_msg_id": 28355,
+          "round_active_msg_id": 29026,
           "no_taking_shift_logist_notify": false,
           "logist_template": {
             "quarry.quarry": "Карьер Ключевое",
@@ -15624,7 +15676,7 @@
             "rate": "400"
           },
           "current_maintenance": null,
-          "cookie": "session_id=2ebaa13c7ff63a0f9a902bde0af38c77a72d4582; Expires=Mon, 17 Nov 2025 16:32:51 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=a426f09321ec181baa4f3d6788f7de79a742c471; Expires=Tue, 25 Nov 2025 07:25:32 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ],
@@ -15713,6 +15765,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-11-25T15:17:05.083Z",
-  "versionId": "3de36986-1758-4ac3-8082-7c3386045a0c"
+  "updatedAt": "2024-11-26T07:00:41.071Z",
+  "versionId": "b402d20a-3500-4e8e-8ac2-4eae521de5e7"
 }
