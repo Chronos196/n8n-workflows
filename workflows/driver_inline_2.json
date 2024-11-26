@@ -1712,31 +1712,6 @@
         ]
       ]
     },
-    "Switch1": {
-      "main": [
-        [
-          {
-            "node": "текст сообщения сохраним",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "создаём прошлое сообщение",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "данные перевозки",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "в единое сообщение1": {
       "main": [
         [
@@ -1760,6 +1735,104 @@
         [
           {
             "node": "Выводим информацию о перевозке",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "текст сообщения сохраним",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "создаём прошлое сообщение",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ищем автомобиль с таким же сотрудником1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "это перевозка?": {
+      "main": [
+        [
+          {
+            "node": "сменим очередь перевозка",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "сменим очередь работа",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ищем автомобиль с таким же сотрудником1": {
+      "main": [
+        [
+          {
+            "node": "это перевозка?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "сменим очередь работа": {
+      "main": [
+        [
+          {
+            "node": "данные перевозки1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "данные перевозки1": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "в единое сообщение1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "сменим очередь перевозка": {
+      "main": [
+        [
+          {
+            "node": "данные перевозки",
             "type": "main",
             "index": 0
           }
@@ -7375,7 +7448,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\n\nconst buttons = items.map((item, index) => ({\n    text: `${item.json.display_name.substring(11)}`,\n    callback_data: `T_${item.json.id}` // T - Transportation W - work\n}));\n\nconst inlineKeyboard = {\n    inline_keyboard: [\n        ...buttons.map(button => [button]), // динамические кнопки, каждая строка содержит одну кнопку\n        [{ text: \"Назад ↩️\", callback_data: \"hide_list\" }] // постоянная кнопка\n    ]\n};\n\nconst chatId = $('Execute Workflow Trigger').all()[0].json.callback_query.from.id;\nconst token = '7063451965:AAGARL6Eluwh3zgS84WnaZozqdz6-m0RLzg';\nconst url = `https://api.telegram.org/bot${token}/editMessageText`;\n\nconst message = {\n    chat_id: chatId,\n    message_id: $('Execute Workflow Trigger').all()[0].json.callback_query.message.message_id,\n    text: \"Выберите перевозку из списка:\",\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n"
+        "jsCode": "const items = $input.all();\n\nconst buttons = items.map((item, index) => ({\n    text: `${item.json.display_name.substring(11)}`,\n    callback_data: item.json.quarry_works ? `TO_HEAD_W_${item.json.id}` : `TO_HEAD_T_${item.json.id}` // T - Transportation W - work\n}));\n\nconst inlineKeyboard = {\n    inline_keyboard: [\n        ...buttons.map(button => [button]), // динамические кнопки, каждая строка содержит одну кнопку\n        [{ text: \"Назад ↩️\", callback_data: \"hide_list\" }] // постоянная кнопка\n    ]\n};\n\nconst chatId = $('Execute Workflow Trigger').all()[0].json.callback_query.from.id;\nconst token = '7063451965:AAGARL6Eluwh3zgS84WnaZozqdz6-m0RLzg';\nconst url = `https://api.telegram.org/bot${token}/editMessageText`;\n\nconst message = {\n    chat_id: chatId,\n    message_id: $('Execute Workflow Trigger').all()[0].json.callback_query.message.message_id,\n    text: \"Выберите перевозку из списка:\",\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n"
       },
       "id": "a34cb303-8e28-4742-a54f-e9ce8d3622b4",
       "name": "создаём динамически инлайн кнопки",
@@ -7744,7 +7817,7 @@
           "parameters": [
             {
               "name": "transportation_id",
-              "value": "={{ $json.callback_query.data.substring(2).toNumber() }}"
+              "value": "={{ $('Execute Workflow Trigger').item.json.callback_query.data.substring(10).toNumber() }}"
             }
           ]
         },
@@ -7755,8 +7828,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        900,
-        6960
+        1040,
+        7100
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -7788,9 +7861,11 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.message.chat.id }}",
-        "text": "=<b>На сегодня Вам назначены перевозки в следующем порядке:</b>\n\n{{ $json.combinedMessages }}",
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
         "replyMarkup": "inlineKeyboard",
+        "text": "=<b>Ваша текущая работа на объекте:</b>\n\n{{ $json.combinedMessages }}",
         "inlineKeyboard": {
           "rows": [
             {
@@ -7809,9 +7884,9 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "Приступить к следующей перевозке",
+                    "text": "Назначенные перевозки",
                     "additionalFields": {
-                      "callback_data": "transportation_to_tail"
+                      "callback_data": "transportation_list"
                     }
                   }
                 ]
@@ -7832,7 +7907,6 @@
           ]
         },
         "additionalFields": {
-          "appendAttribution": false,
           "parse_mode": "HTML"
         }
       },
@@ -8034,7 +8108,7 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        1100,
+        1160,
         6960
       ]
     },
@@ -8304,89 +8378,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "transportation_list",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "b1c324a4-c7a1-45b3-87b9-1a4e2fe23723",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "hide_list",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "d691355a-679a-4c52-bf1d-ff707083292c",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "T_",
-                    "operator": {
-                      "type": "string",
-                      "operation": "startsWith"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "5e67deee-191a-4955-9b7b-087265f03cc9",
-      "name": "Switch1",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3.2,
-      "position": [
-        400,
-        6800
-      ]
-    },
-    {
-      "parameters": {
         "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const data = item.json;\n\n  const isQuarryWork = data.quarry && data.quarry.length > 1;\n\n  let message = \"\";\n\n  if (isQuarryWork) {\n    const quarry = data.quarry[1];\n    const requiredHours = data.required_hours || 0;\n    const comment = data.comment;\n\n    message = `<b>${index}.</b> Работа в карьере - <b>${quarry}</b>`;\n    if (data.end_condition === \"По часам\") {\n      message += `\\nНеобходимое количество часов - <b>${requiredHours}</b>`;\n    }\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    message += `\\n\\n`;\n  } else {\n    const sender = data.sender && data.sender.length > 1 ? data.sender[1] : \"\";\n    const partner = data.partner && data.partner.length > 1 ? data.partner[1] : \"\";\n    const placeFrom = data.place_from && data.place_from.length > 1 ? data.place_from[1] : \"\";\n    const placeTo = data.place_to && data.place_to.length > 1 ? data.place_to[1] : \"\";\n    let material =data.material[1].replace(/\\s*\\(.*?\\)\\s*/g, \"\");\n    const comment = data.comment;\n    const endCondition = data.end_condition;\n    const requiredCubicMetre = data.required_cubic_metre|| 0;\n    const requiredTon = data.required_ton|| 0;\n\n    let route = placeFrom && placeTo ? `${placeFrom}-${placeTo}` : \"\";\n\n\n    message = `<b>${index}.</b>`;\n    \n    if (sender) message += ` Отправитель - <b>${sender}</b>`;\n    if (partner) message += `\\nПолучатель - <b>${partner}</b>`;\n    if (route) message += `\\nМаршрут - <b>${route}</b>`;\n    if (material) message += `\\nМатериал - <b>${material}</b>`;\n    \n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n\n    if (endCondition === \"По перевезенным кубометрам\" && requiredCubicMetre > 0) {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n\n    if (endCondition === \"По перевезенным тоннам\" && requiredTon > 0) {\n      message += `\\nТребуемое количество тонн по перевозке - <b>${requiredTon}</b>`;\n    }\n\n    message += (item.json.concatenated_transportation_round0_driver1 ? \"\\n\\nВодители, выполняющие перевозку с вами:\\n\" + item.json.concatenated_transportation_round0_driver1 : \"\");\n\n    message += `\\n\\n`;\n  }\n\n  if (index === 1) {\n    message = `<i>${message.trim()}</i>\\n\\n`;\n  }\n\n  combinedMessages += message;\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
       },
       "id": "1ac3091d-ad6a-4582-a1bb-01dddd8f3485",
@@ -8450,7 +8441,7 @@
     {
       "parameters": {
         "content": "## Вывод данных выбранной перевозки",
-        "height": 384.31634483139203,
+        "height": 565.3306842775285,
         "width": 2130.1950821821715,
         "color": 6
       },
@@ -8462,15 +8453,292 @@
         847.4753940014233,
         6889.698593811176
       ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "transportation_list",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b1c324a4-c7a1-45b3-87b9-1a4e2fe23723",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "hide_list",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d691355a-679a-4c52-bf1d-ff707083292c",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "TO_HEAD",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5e67deee-191a-4955-9b7b-087265f03cc9",
+      "name": "Switch1",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        400,
+        6800
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1aaa2393-84b7-4447-87bb-3749b79fba98",
+              "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data[8] }}",
+              "rightValue": "T",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "068bcf5b-2515-4173-9ceb-7725203f4c73",
+      "name": "это перевозка?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        640,
+        7120
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_car_by_driver",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "driver_id",
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "41a9e0fa-c4dc-4511-943a-40eba9018448",
+      "name": "ищем автомобиль с таким же сотрудником1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        460,
+        7080
+      ],
+      "alwaysOutputData": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://dev.everest.lamart.site/transfer_queue_transportation_to_head",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "car_id",
+              "value": "={{ $('ищем автомобиль с таким же сотрудником1').item.json.id }}"
+            },
+            {
+              "name": "full_quarry_work_id",
+              "value": "={{ $('Execute Workflow Trigger').item.json.callback_query.data.substring(10).toNumber() }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6b479ba3-bf10-473e-82fb-dfabe6b8a8f8",
+      "name": "сменим очередь работа",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        940,
+        7300
+      ],
+      "alwaysOutputData": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_full_quarry_work",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "full_quarry_work_id",
+              "value": "={{ $('Execute Workflow Trigger').item.json.callback_query.data.substring(10).toNumber() }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4584b0aa-bf24-4508-85d0-cd93cd3d2da3",
+      "name": "данные перевозки1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1260,
+        7300
+      ],
+      "alwaysOutputData": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "full_quarry_work",
+        "options": {}
+      },
+      "id": "fb9a2fc4-5e36-4ee8-9f9c-bbca7bae9778",
+      "name": "Split Out1",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2040,
+        7280
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://dev.everest.lamart.site/transfer_queue_transportation_to_head",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "car_id",
+              "value": "={{ $('ищем автомобиль с таким же сотрудником1').item.json.id }}"
+            },
+            {
+              "name": "transportation_id",
+              "value": "={{ $('Execute Workflow Trigger').item.json.callback_query.data.substring(10).toNumber() }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "89d5917f-1c57-4aff-91b8-f7b2bbe9166d",
+      "name": "сменим очередь перевозка",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        860,
+        6980
+      ],
+      "alwaysOutputData": true,
+      "onError": "continueErrorOutput"
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100635538,
+          "update_id": 100637251,
           "callback_query": {
-            "id": "3010587258339103617",
+            "id": "3010587259374721087",
             "from": {
               "id": 700956969,
               "is_bot": false,
@@ -8479,7 +8747,7 @@
               "language_code": "ru"
             },
             "message": {
-              "message_id": 28133,
+              "message_id": 29744,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -8492,22 +8760,40 @@
                 "username": "Chronos196",
                 "type": "private"
               },
-              "date": 1731573507,
-              "edit_date": 1731573571,
-              "text": "График на текущую неделю (11.11 - 17.11)\n\n11.11 пн: А 459 ТЕ - SCANIA - Рабочий день\n12.11 вт: А 459 ТЕ - SCANIA - Рабочий день\n15.11 пт: А 459 ТЕ - SCANIA - Рабочий день\n16.11 сб: А 459 ТЕ - SCANIA - Рабочий день с продленкой\n17.11 вс: Выходной день",
+              "date": 1732604730,
+              "edit_date": 1732606363,
+              "text": "Выберите перевозку из списка:",
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "График за месяц",
-                      "callback_data": "month_schedule"
+                      "text": "Карьер Ключевое",
+                      "callback_data": "TO_HEAD_W_298"
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Торг. порт-Чебаркуль, Новый",
+                      "callback_data": "TO_HEAD_T_1289"
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Карьер Ключевое-Карьер Ключевое",
+                      "callback_data": "TO_HEAD_T_1288"
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Назад ↩️",
+                      "callback_data": "hide_list"
                     }
                   ]
                 ]
               }
             },
             "chat_instance": "1908726007480408494",
-            "data": "month_schedule"
+            "data": "TO_HEAD_T_1289"
           },
           "tg_id": "700956969",
           "odoo_id": 2,
@@ -8519,19 +8805,30 @@
           "end_request_hours": null,
           "car_id_while_inputing": 18,
           "fuel_liters": 50,
-          "weight_measure": "15 м3 ",
+          "weight_measure": "10 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
           "count_weight_photo": 1,
           "count_weight_photo_sent": 0,
           "current_quarry_hours": 10,
-          "end_round_message_id": 28118,
-          "last_message_text": "Отлично, рейс активен. \n\nКарьер Ключевое - Карьер Ключевое\nЩебень\n\nПо его завершению нажмите на кнопку \"Завершить рейс\"",
+          "end_round_message_id": 29744,
+          "last_message_text": "{\"message_id\":29744,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":700956969,\"first_name\":\"Алексей\",\"username\":\"Chronos196\",\"type\":\"private\"},\"date\":1732604730,\"edit_date\":1732606050,\"text\":\"Ваша текущая работа на объекте:\\n\\n1. Работа в карьере - Карьер Ключевое\\nКомментарий - 3\",\"entities\":[{\"offset\":0,\"length\":31,\"type\":\"bold\"},{\"offset\":33,\"length\":22,\"type\":\"italic\"},{\"offset\":33,\"length\":2,\"type\":\"bold\"},{\"offset\":55,\"length\":31,\"type\":\"italic\"},{\"offset\":55,\"length\":15,\"type\":\"bold\"}],\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Приступить к работе в карьере\",\"callback_data\":\"accept_quarry\"}],[{\"text\":\"Назначенные перевозки\",\"callback_data\":\"transportation_list\"}],[{\"text\":\"Завершить смену\",\"callback_data\":\"complete_work\"}]]}}",
           "logist_notifications": false,
           "creating_transportation": null,
-          "round_active_msg_id": 28100,
-          "cookie": "session_id=c3e4a62a1a8d37aac55955740fe40fb4fbfdb108; Expires=Tue, 11 Nov 2025 06:56:02 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "round_active_msg_id": 29026,
+          "no_taking_shift_logist_notify": false,
+          "logist_template": {
+            "quarry.quarry": "Карьер Ключевое",
+            "transportation.place": "Карьер Ключевое",
+            "transportation.rates": "ООО \"ЭВЕРЕСТ\"",
+            "transportation.material": "Щебень",
+            "measure": "м3",
+            "weight": "500",
+            "rate": "400"
+          },
+          "current_maintenance": null,
+          "cookie": "session_id=a426f09321ec181baa4f3d6788f7de79a742c471; Expires=Tue, 25 Nov 2025 07:25:32 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -8552,6 +8849,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-11-20T07:38:09.656Z",
-  "versionId": "de25d3fe-3d2a-4b3f-b80c-857cabc60665"
+  "updatedAt": "2024-11-26T07:34:34.222Z",
+  "versionId": "2bd3677e-39e0-4001-b094-87aa2973574c"
 }
