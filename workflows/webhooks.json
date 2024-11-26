@@ -634,17 +634,6 @@
         ]
       ]
     },
-    "Webhook1 dev1": {
-      "main": [
-        [
-          {
-            "node": "получим карточки очереди1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Split Out1": {
       "main": [
         [
@@ -968,6 +957,17 @@
         [
           {
             "node": "авто1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook1 dev1": {
+      "main": [
+        [
+          {
+            "node": "получим карточки очереди1",
             "type": "main",
             "index": 0
           }
@@ -3087,29 +3087,6 @@
     },
     {
       "parameters": {
-        "httpMethod": "POST",
-        "path": "dev/queue",
-        "authentication": "basicAuth",
-        "options": {}
-      },
-      "id": "543ff667-5ca4-479f-b264-e06cc7c3d954",
-      "name": "Webhook1 dev1",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        -3580,
-        600
-      ],
-      "webhookId": "e6a5dcca-6f85-49f3-96b8-8dbeb67aa115",
-      "credentials": {
-        "httpBasicAuth": {
-          "id": "uHcFMSp9IXmPMRB4",
-          "name": "queue webhook"
-        }
-      }
-    },
-    {
-      "parameters": {
         "fieldToSplitOut": "quarry_works",
         "options": {}
       },
@@ -3189,6 +3166,7 @@
         560,
         340
       ],
+      "alwaysOutputData": true,
       "onError": "continueRegularOutput"
     },
     {
@@ -3976,7 +3954,7 @@
       "typeVersion": 2.5,
       "position": [
         -2720,
-        2360
+        2340
       ],
       "credentials": {
         "postgres": {
@@ -3988,7 +3966,7 @@
     {
       "parameters": {
         "chatId": "={{ $json.tg_id }}",
-        "text": "=Вам назначена новая перевозка!\n\n<b>Отправитель</b> - {{ $('перевозки на сегодня').item.json.body.sender }}\n<b>Получатель</b> - {{ $('перевозки на сегодня').item.json.body.partner }}\n<b>Маршрут</b> - {{ $('перевозки на сегодня').item.json.body.place_from }} - {{ $('перевозки на сегодня').item.json.body.place_to }}\n<b>Материал</b> - \n{{ $('перевозки на сегодня').item.json.body.comment ? \"<b>Комментарий</b> - \" + $('перевозки на сегодня').item.json.body.comment : \"\"}}\n\nПеревозка уже в вашей очереди! Нажмите на кнопку «Приступить к работе» или проверьте “Назначенные перевозки” , чтобы начать выполнение.”",
+        "text": "=Вам назначена новая перевозка!\n\n<b>Отправитель</b> - {{ $('перевозки на сегодня').item.json.body.sender }}\n<b>Получатель</b> - {{ $('перевозки на сегодня').item.json.body.partner }}\n<b>Маршрут</b> - {{ $('перевозки на сегодня').item.json.body.place_from }} - {{ $('перевозки на сегодня').item.json.body.place_to }}\n{{ $('перевозки на сегодня').item.json.body.comment ? \"<b>Комментарий</b> - \" + $('перевозки на сегодня').item.json.body.comment : \"\"}}\n\nПеревозка уже в вашей очереди! Нажмите на кнопку «Приступить к работе» или проверьте “Назначенные перевозки” , чтобы начать выполнение.”",
         "additionalFields": {
           "appendAttribution": false,
           "parse_mode": "HTML"
@@ -4000,37 +3978,15 @@
       "typeVersion": 1.2,
       "position": [
         -2520,
-        2380
+        2340
       ],
       "credentials": {
         "telegramApi": {
           "id": "rJQteGH5Ng1RKmF4",
           "name": "tg dev aleksey"
         }
-      }
-    },
-    {
-      "parameters": {
-        "httpMethod": "POST",
-        "path": "dev/new_transportation_today",
-        "authentication": "basicAuth",
-        "options": {}
       },
-      "id": "18a06e70-5084-4436-baae-7609f25935a3",
-      "name": "перевозки на сегодня",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        -3140,
-        2360
-      ],
-      "webhookId": "22a480d0-2974-4f3b-a4f9-a142ac0153d1",
-      "credentials": {
-        "httpBasicAuth": {
-          "id": "uHcFMSp9IXmPMRB4",
-          "name": "queue webhook"
-        }
-      }
+      "notes": "<b>Материал</b> - \nматериал не приходит в вебхуке, поэтому убрал"
     },
     {
       "parameters": {
@@ -4079,10 +4035,56 @@
         }
       },
       "disabled": true
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "dev/new_transportation_today",
+        "authentication": "basicAuth",
+        "options": {}
+      },
+      "id": "18a06e70-5084-4436-baae-7609f25935a3",
+      "name": "перевозки на сегодня",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -3140,
+        2360
+      ],
+      "webhookId": "22a480d0-2974-4f3b-a4f9-a142ac0153d1",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "uHcFMSp9IXmPMRB4",
+          "name": "queue webhook"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "dev/queue",
+        "authentication": "basicAuth",
+        "options": {}
+      },
+      "id": "543ff667-5ca4-479f-b264-e06cc7c3d954",
+      "name": "Webhook1 dev1",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -3580,
+        600
+      ],
+      "webhookId": "e6a5dcca-6f85-49f3-96b8-8dbeb67aa115",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "uHcFMSp9IXmPMRB4",
+          "name": "queue webhook"
+        }
+      }
     }
   ],
   "pinData": {
-    "перевозки на сегодня": [
+    "Webhook1 dev1": [
       {
         "json": {
           "headers": {
@@ -4091,7 +4093,7 @@
             "x-forwarded-for": "193.107.238.124",
             "x-forwarded-proto": "https",
             "connection": "close",
-            "content-length": "733",
+            "content-length": "116",
             "user-agent": "python-requests/2.25.1",
             "accept-encoding": "gzip, deflate",
             "accept": "*/*",
@@ -4101,19 +4103,20 @@
           "params": {},
           "query": {},
           "body": {
-            "transportation_id": 1278,
-            "date": "2024-11-25",
-            "end_condition": "По перевезенным кубометрам",
-            "sender": "Новая компания",
-            "place_from": "Карьер Ключевое",
-            "type": "Запланированная",
-            "partner": "Alexander.Simonov",
-            "carrier": "ООО \"Компания\"",
-            "place_to": "Торг. порт",
-            "comment": "123123",
-            "car_id": 18
+            "resequenced_data": [
+              {
+                "id": 1197,
+                "car_id": 18,
+                "new_sequence": 0
+              },
+              {
+                "id": 1196,
+                "car_id": 18,
+                "new_sequence": 1
+              }
+            ]
           },
-          "webhookUrl": "https://n8n.everest.lamart.site/webhook/dev/new_transportation_today",
+          "webhookUrl": "https://n8n.everest.lamart.site/webhook/dev/queue",
           "executionMode": "production"
         }
       }
@@ -4139,6 +4142,6 @@
     }
   ],
   "triggerCount": 7,
-  "updatedAt": "2024-11-25T15:41:29.800Z",
-  "versionId": "2e8d9162-1a63-4ea3-a85c-5dc38918f9ae"
+  "updatedAt": "2024-11-26T07:05:54.466Z",
+  "versionId": "2ecabf07-9be6-46ca-bd0b-d8646c949f6c"
 }
