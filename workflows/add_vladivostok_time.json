@@ -1,0 +1,194 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "все воркфлоу",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "все воркфлоу": {
+      "main": [
+        [
+          {
+            "node": "прод?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "добавим владивосток": {
+      "main": [
+        [
+          {
+            "node": "обновим",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "прод?": {
+      "main": [
+        [
+          {
+            "node": "добавим владивосток",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2024-11-25T15:44:58.017Z",
+  "id": "TxtPz3NQy2dXEfnQ",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "add_vladivostok_time",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "4a37b8cb-d84e-467b-b0c8-e0af0a7eca5f",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        400,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "filters": {
+          "tags": "production"
+        },
+        "requestOptions": {}
+      },
+      "id": "e1d0e959-c1c7-4678-a2bb-96883ec09e4f",
+      "name": "все воркфлоу",
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "position": [
+        660,
+        260
+      ],
+      "credentials": {
+        "n8nApi": {
+          "id": "Vmg6hJDctwZTPAGM",
+          "name": "n8n account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "f3c4a4f2-828d-40b6-b909-ea994f6c12d8",
+              "leftValue": "={{ $json.tags[0].name }}",
+              "rightValue": "production",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "29689947-43e5-4985-8cff-69f4896af674",
+      "name": "прод?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        840,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "content": "1. ~~В начале надо запустить этот воркфлоу~~\n2. Затем запустить скрипт на питоне. \n3. После этого вручную загрузить воркфлоу из скрипта питона\n4. Переименовать новые воркфлоу\n5. Проставить ссылки на другие воркфлоу\n6. Проставить везде часовой пояс\n7. Обновить куки\n8. Удалить и заново поставить ноду телеграм триггера",
+        "height": 300.1279069767443,
+        "width": 524.1430199604819
+      },
+      "id": "c9edf05f-367a-4c4f-afc2-dab26a4dfdaa",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        -300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "workflowId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "workflowObject": "={{ $json.toJsonString() }}",
+        "requestOptions": {}
+      },
+      "id": "3b0d3319-0b5d-40a0-b496-d04cd383d76b",
+      "name": "обновим",
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        260
+      ],
+      "credentials": {
+        "n8nApi": {
+          "id": "Vmg6hJDctwZTPAGM",
+          "name": "n8n account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nvar res = []\nfor (const item of $input.all()) {\n  var workflow = item.json;\n  workflow.settings.timezone = \"Asia/Vladivostok\";\n  //delete workflow.settings['callerPolicy'];\n  res.push(workflow);\n}\n\nreturn res;"
+      },
+      "id": "8622868e-a232-445f-a0a6-e22faf5b072a",
+      "name": "добавим владивосток",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        240
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2024-10-28T14:18:03.961Z",
+      "updatedAt": "2024-10-28T14:18:03.961Z",
+      "id": "0nSgOgEpTVUDQoll",
+      "name": "tools"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2024-11-25T16:12:53.489Z",
+  "versionId": "9b72b87d-9855-4240-9ef4-2a6d7c015349"
+}
