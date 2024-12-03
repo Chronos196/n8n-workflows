@@ -1537,7 +1537,7 @@
       "main": [
         [
           {
-            "node": "Ввод заявки без шаблона4",
+            "node": "убираем кнопки",
             "type": "main",
             "index": 0
           }
@@ -2024,6 +2024,61 @@
         ]
       ]
     },
+    "добавляем авто в массив": {
+      "main": [
+        [
+          {
+            "node": "обновляем",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "авто удалён": {
+      "main": [
+        [
+          {
+            "node": "добавляем авто в массив1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "добавляем авто в массив1": {
+      "main": [
+        [
+          {
+            "node": "обновляем1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "убираем кнопки": {
+      "main": [
+        [
+          {
+            "node": "вы создали",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "вы создали": {
+      "main": [
+        [
+          {
+            "node": "статус дефолтный",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "колбеки": {
       "main": [
         [
@@ -2141,39 +2196,6 @@
         [
           {
             "node": "авто удалён",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "добавляем авто в массив": {
-      "main": [
-        [
-          {
-            "node": "обновляем",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "авто удалён": {
-      "main": [
-        [
-          {
-            "node": "добавляем авто в массив1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "добавляем авто в массив1": {
-      "main": [
-        [
-          {
-            "node": "обновляем1",
             "type": "main",
             "index": 0
           }
@@ -10910,7 +10932,7 @@
           "value": {
             "tg_id": "={{ $json.result.chat.id }}",
             "status": "1_input_from",
-            "logist_template": "={{\n{\n\"quarry.quarry\": \"\",\n\"transportation.place\": \"\",\n\"transportation.rates\": \"\",\n\"transportation.material\": \"\",\n\"measure\": \"\",\n\"weight\": \"\",\n\"rate\": \"\",\n\"comment\": \"\",\n\"cars\": []\n}\n}}"
+            "logist_template": "={{\n{\n\"quarry.quarry\": \"\",\n\"transportation.place\": \"\",\n\"transportation.rates\": \"\",\n\"transportation.material\": \"\",\n\"measure\": \"\",\n\"weight\": \"\",\n\"cost_per_cubic_metre\": 0,\n\"cost_per_tonne\": 0,\n\"round_rate\": 0,\n\"comment\": \"\",\n\"cars\": []\n}\n}}"
           },
           "matchingColumns": [
             "tg_id"
@@ -15777,13 +15799,13 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://dev.everest.lamart.site/create_transportation",
+        "url": "https://dev.everest.lamart.site/create_transportation_no_sample",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
             {
               "name": "cookie",
-              "value": "=session_id=2ebaa13c7ff63a0f9a902bde0af38c77a72d4582; Expires=Mon, 17 Nov 2025 16:32:51 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
             }
           ]
         },
@@ -15791,8 +15813,40 @@
         "bodyParameters": {
           "parameters": [
             {
-              "name": "text",
-              "value": "="
+              "name": "cars",
+              "value": "={{ $json.logist_template.cars }}"
+            },
+            {
+              "name": "from",
+              "value": "={{ $json.logist_template['quarry.quarry'] }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $json.logist_template['transportation.place'] }}"
+            },
+            {
+              "name": "partner",
+              "value": "={{ $json.logist_template['transportation.rates'] }}"
+            },
+            {
+              "name": "material",
+              "value": "={{ $json.logist_template['transportation.material'] }}"
+            },
+            {
+              "name": "required",
+              "value": "={{ $json.logist_template.weight.toNumber() }}"
+            },
+            {
+              "name": "measure",
+              "value": "={{ $json.logist_template.measure == \"т.\" ? \"т\" : \"м3\" }}"
+            },
+            {
+              "name": "driver_rate",
+              "value": "={{ $json.logist_template.rate.toNumber() }}"
+            },
+            {
+              "name": "comment",
+              "value": "={{ $json.logist_template.comment }}"
             }
           ]
         },
@@ -15848,31 +15902,6 @@
         3460,
         6540
       ]
-    },
-    {
-      "parameters": {
-        "operation": "editMessageText",
-        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
-        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
-        "text": "=Перевозка <b>{{ $json.display_name }}</b> ожидает назначения в Odoo.",
-        "additionalFields": {
-          "parse_mode": "HTML"
-        }
-      },
-      "id": "ad6abe7e-595e-45f4-a797-942f14a25929",
-      "name": "Ввод заявки без шаблона4",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        3880,
-        8800
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "rJQteGH5Ng1RKmF4",
-          "name": "tg dev aleksey"
-        }
-      }
     },
     {
       "parameters": {
@@ -16892,6 +16921,23 @@
       "parameters": {
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
         "text": "Введите комментарий:",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Пропустить комментарий",
+                    "additionalFields": {
+                      "callback_data": "skip_comment"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
         "additionalFields": {
           "appendAttribution": false
         }
@@ -18504,412 +18550,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "continue_to_2",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "29955116-05c4-4615-8395-d1ff584d5f26",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "=back_to_1",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "266e7517-df29-40d9-b538-6cbcd3de49a3",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "continue_to_3",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "9182bb36-5d51-498f-b138-3f19d3854f43",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "back_to_2",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "8af68d06-bedb-48e0-b925-a8873bcdbbd4",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "continue_to_4",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "5f2dd65f-6904-402f-b6fb-9400e58314b7",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "back_to_3",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "5489ffa7-ab44-4efd-a26f-47f05702197d",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "continue_to_5",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "fb5e298d-fb33-426d-95d9-d5a84db45aea",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "back_to_4",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "8f706f37-3542-41e0-a9b1-010076b516f3",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "template_t",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "3e1e3916-3ed0-4e9c-b6f1-7c89dc310aaa",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "template_m3",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "c3e2ab43-3741-4db4-9ece-4b7a7fab754d",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "inpute_rate",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "74723b41-1d67-40cc-960b-46264cd45ced",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "continue_to_check",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "1740a3d6-849d-4503-b60c-48d9387b7359",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "cancel_template",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "41fec7b5-951c-4230-9f2e-5d565e15c26a",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "make_transportation",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "3017fd53-a040-42f8-9862-8e657df2cecf",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "continue_to_comment",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "00d25ffa-51e7-48a2-9a0f-0c03993a2718",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "continue_to_input_cars",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "22279e14-6dba-4f95-b998-e608aec08d58",
-                    "leftValue": "={{ $json.callback_query.data }}",
-                    "rightValue": "cancel_car",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "d3a033ce-d0aa-4db1-a52c-f7cad2d73346",
-      "name": "колбеки",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3.2,
-      "position": [
-        2940,
-        8960
-      ]
-    },
-    {
-      "parameters": {
         "chatId": "={{ $json.message.chat.id }}",
         "text": "=Вы выбрали автомобиль <b>{{ $json.message.text }}</b>",
         "replyMarkup": "inlineKeyboard",
@@ -19334,15 +18974,473 @@
           "name": "pg dev"
         }
       }
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
+        "text": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.text }}",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "ad6abe7e-595e-45f4-a797-942f14a25929",
+      "name": "убираем кнопки",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3880,
+        8800
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+        "text": "=Вы создали новую перевозку.\n<a href=\"https://dev.everest.lamart.site/web#id={{ $('создать перевозку').item.json.id }}&model=transportation.transportation&view_type=form\">Ссылка на перевозку в Odoo</a>",
+        "additionalFields": {
+          "appendAttribution": false,
+          "disable_web_page_preview": true,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "29317300-3aa6-4871-bc4e-15657b56ea61",
+      "name": "вы создали",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        4080,
+        8800
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "continue_to_2",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "29955116-05c4-4615-8395-d1ff584d5f26",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "=back_to_1",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "266e7517-df29-40d9-b538-6cbcd3de49a3",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "continue_to_3",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "9182bb36-5d51-498f-b138-3f19d3854f43",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "back_to_2",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8af68d06-bedb-48e0-b925-a8873bcdbbd4",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "continue_to_4",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5f2dd65f-6904-402f-b6fb-9400e58314b7",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "back_to_3",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5489ffa7-ab44-4efd-a26f-47f05702197d",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "continue_to_5",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "fb5e298d-fb33-426d-95d9-d5a84db45aea",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "back_to_4",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8f706f37-3542-41e0-a9b1-010076b516f3",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "template_t",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "3e1e3916-3ed0-4e9c-b6f1-7c89dc310aaa",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "template_m3",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "c3e2ab43-3741-4db4-9ece-4b7a7fab754d",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "inpute_rate",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "74723b41-1d67-40cc-960b-46264cd45ced",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "continue_to_check",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "1740a3d6-849d-4503-b60c-48d9387b7359",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "cancel_template",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "41fec7b5-951c-4230-9f2e-5d565e15c26a",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "make_transportation",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "3017fd53-a040-42f8-9862-8e657df2cecf",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "continue_to_comment",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "00d25ffa-51e7-48a2-9a0f-0c03993a2718",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "continue_to_input_cars",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "22279e14-6dba-4f95-b998-e608aec08d58",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "cancel_car",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "d3a033ce-d0aa-4db1-a52c-f7cad2d73346",
+      "name": "колбеки",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        2940,
+        8960
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100637973,
+          "update_id": 100638683,
           "callback_query": {
-            "id": "2782501072473302867",
+            "id": "2782501070689157528",
             "from": {
               "id": 7090302459,
               "is_bot": false,
@@ -19351,7 +19449,7 @@
               "language_code": "ru"
             },
             "message": {
-              "message_id": 30192,
+              "message_id": 30834,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -19364,38 +19462,63 @@
                 "last_name": "Go",
                 "type": "private"
               },
-              "date": 1732792569,
-              "text": "Вы выбрали автомобиль А 888 АА",
+              "date": 1733123752,
+              "edit_date": 1733123754,
+              "text": "Вы собираетесь создать перевозку:\n\nОт - Карьер Ключевое\nДо - Карьер Ключевое\nПолучатель - ООО \"ЭВЕРЕСТ\"\nМатериал - Щебень\nКоличество - 500 т.\nСтавка за рейс - 600 руб.\nКомментарий - 123124\nАвтомобили - А 459 ТЕ, Ш 999 ШШ, О 999 ЛЛ",
               "entities": [
                 {
-                  "offset": 22,
+                  "offset": 40,
+                  "length": 15,
+                  "type": "bold"
+                },
+                {
+                  "offset": 61,
+                  "length": 15,
+                  "type": "bold"
+                },
+                {
+                  "offset": 90,
+                  "length": 13,
+                  "type": "bold"
+                },
+                {
+                  "offset": 115,
+                  "length": 6,
+                  "type": "bold"
+                },
+                {
+                  "offset": 135,
+                  "length": 6,
+                  "type": "bold"
+                },
+                {
+                  "offset": 159,
                   "length": 8,
                   "type": "bold"
+                },
+                {
+                  "offset": 182,
+                  "length": 6,
+                  "type": "italic"
                 }
               ],
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "Добавить ещё авто",
-                      "switch_inline_query_current_chat": "Авто "
+                      "text": "Создать",
+                      "callback_data": "make_transportation"
                     },
                     {
-                      "text": "Назад",
-                      "callback_data": "cancel_car"
-                    }
-                  ],
-                  [
-                    {
-                      "text": "Создать перевозку",
-                      "callback_data": "continue_to_check"
+                      "text": "Отменить",
+                      "callback_data": "cancel_template"
                     }
                   ]
                 ]
               }
             },
             "chat_instance": "4841481297779052467",
-            "data": "cancel_car"
+            "data": "make_transportation"
           },
           "tg_id": "7090302459",
           "odoo_id": 19,
@@ -19426,16 +19549,17 @@
             "transportation.rates": "ООО \"ЭВЕРЕСТ\"",
             "transportation.material": "Щебень",
             "measure": "т.",
-            "weight": "100",
-            "rate": "500",
-            "comment": "12345",
+            "weight": "500",
+            "rate": "600",
+            "comment": "123124",
             "cars": [
               "А 459 ТЕ",
-              "А 888 АА",
-              "П 555 ПП"
+              "Ш 999 ШШ",
+              "О 999 ЛЛ"
             ]
           },
           "current_maintenance": null,
+          "expected_time_maintenance": null,
           "cookie": "session_id=a426f09321ec181baa4f3d6788f7de79a742c471; Expires=Tue, 25 Nov 2025 07:25:32 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
@@ -19454,6 +19578,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-11-28T13:07:45.639Z",
-  "versionId": "8c0889f5-6f2e-4fe9-a2b1-2a45747dad73"
+  "updatedAt": "2024-12-03T06:10:25.420Z",
+  "versionId": "2e96a58a-32c1-453c-9375-dca8a93ccbb3"
 }
