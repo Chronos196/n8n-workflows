@@ -718,31 +718,6 @@
         ]
       ]
     },
-    "Проверка кнопок": {
-      "main": [
-        [
-          {
-            "node": "выбор периода документов",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "неисправности",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Ремонт или ТО",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "генерация сообщения для просмотра заявки1": {
       "main": [
         [
@@ -1909,6 +1884,31 @@
         [
           {
             "node": "возвращаем дефолтный статус1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Проверка кнопок": {
+      "main": [
+        [
+          {
+            "node": "выбор периода документов",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "неисправности",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ремонт или ТО",
             "type": "main",
             "index": 0
           }
@@ -3421,6 +3421,16 @@
                   }
                 ]
               }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Создать заявку",
+                    "additionalFields": {}
+                  }
+                ]
+              }
             }
           ]
         },
@@ -4842,92 +4852,6 @@
       "position": [
         920,
         5840
-      ]
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 1
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.message.text }}",
-                    "rightValue": "Документы",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 1
-                },
-                "conditions": [
-                  {
-                    "id": "883202d0-9665-45c9-b4a4-894176a88fa7",
-                    "leftValue": "={{ $json.message.text }}",
-                    "rightValue": "Заявки на проверке",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 1
-                },
-                "conditions": [
-                  {
-                    "id": "78b17236-46b7-4c0e-adbf-0f90ce06934d",
-                    "leftValue": "={{ $json.message.text }}",
-                    "rightValue": "Все заявки",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {
-          "fallbackOutput": "extra"
-        }
-      },
-      "id": "71baadf0-f00c-4cd1-ba46-e90cf7b5b5f2",
-      "name": "Проверка кнопок",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        1000,
-        1200
       ]
     },
     {
@@ -10298,6 +10222,115 @@
         680,
         20
       ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "Документы",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "883202d0-9665-45c9-b4a4-894176a88fa7",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "Заявки на проверке",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "78b17236-46b7-4c0e-adbf-0f90ce06934d",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "Все заявки",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "7d9ad190-3268-4cee-9b22-cbf286ac5780",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "Создать заявку",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "71baadf0-f00c-4cd1-ba46-e90cf7b5b5f2",
+      "name": "Проверка кнопок",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        1000,
+        1200
+      ]
     }
   ],
   "pinData": {
@@ -10399,6 +10432,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-11-29T11:26:54.524Z",
-  "versionId": "aebbeba7-5102-44c2-b00a-bb2ae5315e47"
+  "updatedAt": "2024-12-04T07:12:15.322Z",
+  "versionId": "052d5265-2aa2-40d6-b2a9-68752d548f8a"
 }
