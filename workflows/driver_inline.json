@@ -1129,7 +1129,7 @@
       "main": [
         [
           {
-            "node": "ищем перевозку",
+            "node": "находим какая сейчас перевозка",
             "type": "main",
             "index": 0
           }
@@ -1296,7 +1296,7 @@
       "main": [
         [
           {
-            "node": "перевозка из очереди",
+            "node": "сами перевозки",
             "type": "main",
             "index": 0
           }
@@ -2917,17 +2917,6 @@
         ]
       ]
     },
-    "находим какая сейчас перевозка": {
-      "main": [
-        [
-          {
-            "node": "выполняется сейчас срочная?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "кнопки принятия и завершения заказа": {
       "main": [
         [
@@ -3019,28 +3008,6 @@
         [
           {
             "node": "очередь перевозок",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "перевозка из очереди": {
-      "main": [
-        [
-          {
-            "node": "сами перевозки",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "сами перевозки": {
-      "main": [
-        [
-          {
-            "node": "убираем завершённые перевозки",
             "type": "main",
             "index": 0
           }
@@ -3964,17 +3931,6 @@
         ]
       ]
     },
-    "ищем перевозку": {
-      "main": [
-        [
-          {
-            "node": "находим какая сейчас перевозка",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "рейсы по авто1": {
       "main": [
         [
@@ -4057,31 +4013,6 @@
         [
           {
             "node": "айди последнего сообщения",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "метры или тонны?3": {
-      "main": [
-        [
-          {
-            "node": "Рейс завершен м",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Рейс завершен тонны1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Рейс завершен без условий1",
             "type": "main",
             "index": 0
           }
@@ -4325,6 +4256,53 @@
         [
           {
             "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "сами перевозки": {
+      "main": [
+        [
+          {
+            "node": "убираем завершённые перевозки",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "находим какая сейчас перевозка": {
+      "main": [
+        [
+          {
+            "node": "выполняется сейчас срочная?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "метры или тонны?3": {
+      "main": [
+        [
+          {
+            "node": "Рейс завершен м",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Рейс завершен тонны1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Рейс завершен без условий1",
             "type": "main",
             "index": 0
           }
@@ -5526,7 +5504,7 @@
     {
       "parameters": {
         "chatId": "={{ $('поиск тг айди механиков1').item.json.tg_id }}",
-        "text": "={{ $('данные авто').item.json[\"number_car\"] }} - {{ $('Execute Workflow Trigger').item.json[\"end_request_hours\"] }} ч. - {{ $('данные водителя').item.json[\"display_name\"] }} - {{ $json.description_of_maintenance }}\n\n<b>Требуется проверить корректность выставленных часов</b>\n<a href=\"https://dev.everest.lamart.site/web#id={{ $('Execute Workflow Trigger').item.json[\"end_request_id\"] }}&model=technical.maintenance&view_type=form\">Ссылка на заявку в Odoo</a>",
+        "text": "={{ $('данные авто').item.json[\"number_car\"] }} - {{ $('Execute Workflow Trigger').item.json[\"end_request_hours\"] }} ч. - {{ $('данные водителя').item.json[\"display_name\"] }} - {{ $json.description_of_maintenance }}\n\n<b>Требуется проверить корректность выставленных часов</b>",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -10469,7 +10447,8 @@
       "position": [
         1620,
         1060
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -19461,7 +19440,8 @@
       "position": [
         2000,
         900
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -19533,21 +19513,6 @@
       ],
       "alwaysOutputData": false,
       "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
-        "fieldToSplitOut": "transportation",
-        "options": {}
-      },
-      "id": "7677e4b2-7af1-47b9-b45c-b51b5fabc09e",
-      "name": "находим какая сейчас перевозка",
-      "type": "n8n-nodes-base.splitOut",
-      "typeVersion": 1,
-      "position": [
-        680,
-        1560
-      ],
-      "alwaysOutputData": true
     },
     {
       "parameters": {
@@ -19807,46 +19772,6 @@
       ],
       "alwaysOutputData": false,
       "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
-        "fieldToSplitOut": "transportation",
-        "options": {}
-      },
-      "id": "c6aa4d1f-5614-4168-8bc4-a37b8d17fa3b",
-      "name": "сами перевозки",
-      "type": "n8n-nodes-base.splitOut",
-      "typeVersion": 1,
-      "position": [
-        2180,
-        2040
-      ]
-    },
-    {
-      "parameters": {
-        "url": "https://dev.everest.lamart.site//get_transportation_by_id",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "cookie",
-              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"transportation_id\": {{ $json.transportations[0].transportation }}\n} ",
-        "options": {}
-      },
-      "id": "ff405c60-e54b-4f9c-b5d3-9e2ce96c0d55",
-      "name": "перевозка из очереди",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        1960,
-        2040
-      ]
     },
     {
       "parameters": {
@@ -20828,7 +20753,8 @@
       "position": [
         1280,
         9100
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -20913,7 +20839,8 @@
       "position": [
         2140,
         9080
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -20927,7 +20854,8 @@
       "position": [
         -20,
         9500
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -21431,7 +21359,8 @@
       "position": [
         60,
         9780
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -21472,7 +21401,8 @@
       "position": [
         60,
         10020
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -21980,7 +21910,8 @@
       "position": [
         -100,
         10380
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -22217,7 +22148,8 @@
       "position": [
         -2080,
         10240
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -22322,7 +22254,8 @@
       "position": [
         -2080,
         10440
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -22530,7 +22463,8 @@
       "position": [
         -40,
         10820
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -22592,34 +22526,6 @@
     },
     {
       "parameters": {
-        "url": "https://dev.everest.lamart.site//get_transportation_by_id",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "cookie",
-              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"transportation_id\": {{ $json.current_transportation[0] }}\n} ",
-        "options": {}
-      },
-      "id": "47e1cf0e-13d3-4dd6-9e59-a5b3b08f7fa9",
-      "name": "ищем перевозку",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        460,
-        1560
-      ],
-      "alwaysOutputData": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
         "url": "https://dev.everest.lamart.site/get_rounds_by_transportation",
         "sendHeaders": true,
         "headerParameters": {
@@ -22659,7 +22565,8 @@
         220,
         9080
       ],
-      "alwaysOutputData": true
+      "alwaysOutputData": true,
+      "disabled": true
     },
     {
       "parameters": {
@@ -23189,69 +23096,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 1
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('находим какая сейчас перевозка').item.json.end_condition }}",
-                    "rightValue": "По перевезенным кубометрам",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 1
-                },
-                "conditions": [
-                  {
-                    "id": "966f91de-5633-4f42-947f-f1ea75b1d289",
-                    "leftValue": "={{ $('находим какая сейчас перевозка').item.json.end_condition }}",
-                    "rightValue": "По перевезенным тоннам",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {
-          "fallbackOutput": "extra"
-        }
-      },
-      "id": "5a83f0fb-27fe-4474-bf6d-ff370b0a87e3",
-      "name": "метры или тонны?3",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        2960,
-        1440
-      ]
-    },
-    {
-      "parameters": {
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
         "text": "Вы выполнили все рейсы по данной перевозке!",
         "replyMarkup": "inlineKeyboard",
@@ -23304,7 +23148,8 @@
         1620,
         1740
       ],
-      "alwaysOutputData": true
+      "alwaysOutputData": true,
+      "disabled": true
     },
     {
       "parameters": {
@@ -23345,7 +23190,7 @@
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
         "replyMarkup": "inlineKeyboard",
-        "text": "=Рейс завершен!\n<b>{{ $('находим какая сейчас перевозка3').item.json.place_from[1] }} - {{ $('находим какая сейчас перевозка3').item.json.place_to[1] }}\n{{ $('находим какая сейчас перевозка3').item.json.material[1].replace(/\\s*\\(.*?\\)\\s*/g, \"\") }}</b>",
+        "text": "=Рейс завершен!\n<b>{{ $('завершенная перевозка').item.json.place_from[1] }} - {{ $('завершенная перевозка').item.json.place_to[1] }}\n{{ $('завершенная перевозка').item.json.material[1].replace(/\\s*\\(.*?\\)\\s*/g, \"\") }}</b>",
         "additionalFields": {
           "parse_mode": "HTML"
         }
@@ -23597,7 +23442,8 @@
         800,
         1260
       ],
-      "alwaysOutputData": true
+      "alwaysOutputData": true,
+      "disabled": true
     },
     {
       "parameters": {
@@ -23673,7 +23519,8 @@
         1900,
         1300
       ],
-      "alwaysOutputData": true
+      "alwaysOutputData": true,
+      "disabled": true
     },
     {
       "parameters": {
@@ -23857,6 +23704,153 @@
         -2580,
         12660
       ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "transportation",
+        "options": {}
+      },
+      "id": "c6aa4d1f-5614-4168-8bc4-a37b8d17fa3b",
+      "name": "сами перевозки1",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2380,
+        1860
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site//get_transportation_by_id",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"transportation_id\": {{ $json.transportations[0].transportation }}\n} ",
+        "options": {}
+      },
+      "id": "ff405c60-e54b-4f9c-b5d3-9e2ce96c0d55",
+      "name": "сами перевозки",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1960,
+        2040
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "transportation",
+        "options": {}
+      },
+      "id": "7677e4b2-7af1-47b9-b45c-b51b5fabc09e",
+      "name": "находим какая сейчас перевозка5",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1180,
+        1880
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site//get_transportation_by_id",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"transportation_id\": {{ $json.current_transportation[0] }}\n} ",
+        "options": {}
+      },
+      "id": "47e1cf0e-13d3-4dd6-9e59-a5b3b08f7fa9",
+      "name": "находим какая сейчас перевозка",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        460,
+        1560
+      ],
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('находим какая сейчас перевозка').item.json.end_condition }}",
+                    "rightValue": "По перевезенным кубометрам",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "966f91de-5633-4f42-947f-f1ea75b1d289",
+                    "leftValue": "={{ $('находим какая сейчас перевозка').item.json.end_condition }}",
+                    "rightValue": "По перевезенным тоннам",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "5a83f0fb-27fe-4474-bf6d-ff370b0a87e3",
+      "name": "метры или тонны?3",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        2960,
+        1440
+      ]
     }
   ],
   "pinData": {
@@ -23958,6 +23952,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-12-04T05:15:52.683Z",
-  "versionId": "677401c7-3f67-4e66-9453-a568c1b3f507"
+  "updatedAt": "2024-12-05T16:36:20.151Z",
+  "versionId": "3ebd3c68-9e33-4e92-8c34-71a566d6cf1a"
 }
