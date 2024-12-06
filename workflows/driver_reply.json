@@ -6794,7 +6794,7 @@
     {
       "parameters": {
         "chatId": "={{ $json.tg_id }}",
-        "text": "=У автомобиля: <b>{{ $('номер авто').item.json[\"number_car\"] }}</b>, водитель: <b>{{ $('данные сотрудника').item.json[\"display_name\"] }}</b> <a href=\"tel:{{ $('данные сотрудника').item.json.mobile_phone }}\">{{ $('данные сотрудника').item.json.mobile_phone }}</a> проблема: \n\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i>\n\n<a href=\"https://dev.everest.lamart.site/web#id={{ $('создание заявки1').item.json.id }}&model=technical.maintenance&view_type=form\">Ссылка на заявку в Odoo</a>\n\n",
+        "text": "=У автомобиля: <b>{{ $('номер авто').item.json[\"number_car\"] }}</b>, водитель: <b>{{ $('данные сотрудника').item.json[\"display_name\"] }}</b> <a href=\"tel:{{ $('данные сотрудника').item.json.mobile_phone }}\">{{ $('данные сотрудника').item.json.mobile_phone }}</a> проблема: \n\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i>",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -6814,21 +6814,9 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "Провести ТО",
-                    "additionalFields": {
-                      "callback_data": "do_to"
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
                     "text": "Взять в ремонт",
                     "additionalFields": {
-                      "callback_data": "take_to_fix"
+                      "callback_data": "=take_to_fix_{{ $('создание заявки1').item.json.id }}"
                     }
                   }
                 ]
@@ -10692,7 +10680,7 @@
     {
       "parameters": {
         "chatId": "={{ $json.tg_id }}",
-        "text": "=У автомобиля <b>{{ $('получаем данные автомобиля').item.json[\"number_car\"] }}</b> водитель: <b>{{ $('Получение инф. о водителе').item.json[\"display_name\"] }}</b> {{ $('Получение инф. о водителе').item.json[\"mobile_phone\"] }},  проблема: \n\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i> \n\n<a href=\"https://dev.everest.lamart.site/web#id={{ $('создание заявки').item.json.id }}&model=technical.maintenance&view_type=form\">Ссылка на заявку в Odoo</a>",
+        "text": "=У автомобиля <b>{{ $('получаем данные автомобиля').item.json[\"number_car\"] }}</b> водитель: <b>{{ $('Получение инф. о водителе').item.json[\"display_name\"] }}</b> {{ $('Получение инф. о водителе').item.json[\"mobile_phone\"] }},  проблема: \n\n<i>{{ $('Execute Workflow Trigger').item.json.message.text }}</i> ",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -10700,21 +10688,9 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "Провести ТО",
-                    "additionalFields": {
-                      "callback_data": "do_to"
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
                     "text": "Взять в ремонт",
                     "additionalFields": {
-                      "callback_data": "take_to_fix"
+                      "callback_data": "=take_to_fix_{{ $('создание заявки').item.json.id }}"
                     }
                   }
                 ]
@@ -15009,7 +14985,8 @@
       "position": [
         700,
         7500
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -15629,59 +15606,53 @@
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100637221,
+          "update_id": 100640197,
           "message": {
-            "message_id": 29705,
+            "message_id": 32177,
             "from": {
-              "id": 700956969,
+              "id": 467549384,
               "is_bot": false,
-              "first_name": "Алексей",
-              "username": "Chronos196",
-              "language_code": "ru"
+              "first_name": "Sergio",
+              "username": "sergo_kf",
+              "language_code": "ru",
+              "is_premium": true
             },
             "chat": {
-              "id": 700956969,
-              "first_name": "Алексей",
-              "username": "Chronos196",
+              "id": 467549384,
+              "first_name": "Sergio",
+              "username": "sergo_kf",
               "type": "private"
             },
-            "date": 1732603867,
-            "text": "Приступить к работе"
+            "date": 1733417755,
+            "text": "срочно2"
           },
-          "tg_id": "700956969",
-          "odoo_id": 2,
-          "status": "authorized",
+          "tg_id": "467549384",
+          "odoo_id": 4,
+          "status": "inputing_warn_message",
           "only_mech": false,
           "mech_photo": false,
           "end_request_id": null,
           "materials_photo": false,
           "end_request_hours": null,
-          "car_id_while_inputing": 18,
-          "fuel_liters": 50,
-          "weight_measure": "10 м3 ",
+          "car_id_while_inputing": 25,
+          "fuel_liters": 15,
+          "weight_measure": "2 Тонны ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
-          "count_weight_photo": 1,
+          "count_weight_photo": null,
           "count_weight_photo_sent": 0,
-          "current_quarry_hours": 10,
-          "end_round_message_id": 29696,
-          "last_message_text": "{\"message_id\":29482,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":700956969,\"first_name\":\"Алексей\",\"username\":\"Chronos196\",\"type\":\"private\"},\"date\":1732281838,\"edit_date\":1732281851,\"text\":\"Ваша текущая перевозка:\\n\\n1. Отправитель - ООО \\\"ЭВЕРЕСТ\\\"\\nПолучатель - Alexander.Simonov\\nМаршрут - улица Энгельса, 31А-Чебаркуль, Новый\\nМатериал - Неназначенный\\nКомментарий - 2\",\"entities\":[{\"offset\":0,\"length\":23,\"type\":\"bold\"},{\"offset\":25,\"length\":17,\"type\":\"italic\"},{\"offset\":25,\"length\":2,\"type\":\"bold\"},{\"offset\":42,\"length\":27,\"type\":\"italic\"},{\"offset\":42,\"length\":13,\"type\":\"bold\"},{\"offset\":69,\"length\":28,\"type\":\"italic\"},{\"offset\":69,\"length\":17,\"type\":\"bold\"},{\"offset\":97,\"length\":48,\"type\":\"italic\"},{\"offset\":97,\"length\":36,\"type\":\"bold\"},{\"offset\":145,\"length\":29,\"type\":\"italic\"},{\"offset\":145,\"length\":13,\"type\":\"bold\"}],\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Начать рейс\",\"callback_data\":\"pick\"}],[{\"text\":\"Назначенные перевозки\",\"callback_data\":\"transportation_list\"}],[{\"text\":\"Завершить смену\",\"callback_data\":\"complete_work\"}]]}}",
+          "current_quarry_hours": 2,
+          "end_round_message_id": 32150,
+          "last_message_text": "{\"message_id\":32146,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":467549384,\"first_name\":\"Sergio\",\"username\":\"sergo_kf\",\"type\":\"private\"},\"date\":1733399607,\"edit_date\":1733399666,\"text\":\"Ваша текущая перевозка:\\n\\n1. Отправитель - ООО \\\"ЭВЕРЕСТ\\\"\\nПолучатель - Prod Admin\\nМаршрут - Карьер Ключевое-улица Карла Маркса, 43\\nМатериал - Тест\\nТребуемое количество тонн по перевозке - 44\",\"entities\":[{\"offset\":0,\"length\":23,\"type\":\"bold\"},{\"offset\":25,\"length\":17,\"type\":\"italic\"},{\"offset\":25,\"length\":2,\"type\":\"bold\"},{\"offset\":42,\"length\":27,\"type\":\"italic\"},{\"offset\":42,\"length\":13,\"type\":\"bold\"},{\"offset\":69,\"length\":21,\"type\":\"italic\"},{\"offset\":69,\"length\":10,\"type\":\"bold\"},{\"offset\":90,\"length\":50,\"type\":\"italic\"},{\"offset\":90,\"length\":38,\"type\":\"bold\"},{\"offset\":140,\"length\":46,\"type\":\"italic\"},{\"offset\":140,\"length\":4,\"type\":\"bold\"},{\"offset\":186,\"length\":2,\"type\":\"bold\"},{\"offset\":186,\"length\":2,\"type\":\"italic\"}],\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Начать рейс\",\"callback_data\":\"pick\"}],[{\"text\":\"Назначенные перевозки\",\"callback_data\":\"transportation_list\"}],[{\"text\":\"Завершить смену\",\"callback_data\":\"complete_work\"}]]}}",
           "logist_notifications": false,
-          "creating_transportation": null,
-          "round_active_msg_id": 29026,
+          "creating_transportation": "657;\nКарьер Ключевое;",
+          "round_active_msg_id": 32134,
           "no_taking_shift_logist_notify": false,
-          "logist_template": {
-            "quarry.quarry": "Карьер Ключевое",
-            "transportation.place": "Карьер Ключевое",
-            "transportation.rates": "ООО \"ЭВЕРЕСТ\"",
-            "transportation.material": "Щебень",
-            "measure": "м3",
-            "weight": "500",
-            "rate": "400"
-          },
+          "logist_template": null,
           "current_maintenance": null,
-          "cookie": "session_id=a426f09321ec181baa4f3d6788f7de79a742c471; Expires=Tue, 25 Nov 2025 07:25:32 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "expected_time_maintenance": null,
+          "cookie": "session_id=f523ba68fce3dac88662724471c59fa7e34a1cb3; Expires=Tue, 02 Dec 2025 15:20:50 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ],
@@ -15770,6 +15741,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-12-03T13:18:01.292Z",
-  "versionId": "ab76fd15-b510-4f9c-9623-bd0d590b0688"
+  "updatedAt": "2024-12-05T16:58:11.583Z",
+  "versionId": "cc33a762-7ebf-48b3-93cd-11e754b9b272"
 }
