@@ -217,17 +217,6 @@
         ]
       ]
     },
-    "статус?": {
-      "main": [
-        [
-          {
-            "node": "Поиск",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "авто компании": {
       "main": [
         [
@@ -331,24 +320,6 @@
         [
           {
             "node": "Aggregate",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "какой шаг?": {
-      "main": [
-        [
-          {
-            "node": "obj: объект выбран",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "obj: авто выбран",
             "type": "main",
             "index": 0
           }
@@ -459,17 +430,6 @@
         [
           {
             "node": "убираем кнопку назад5",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "проверка статуса": {
-      "main": [
-        [
-          {
-            "node": "obj: вы ввели комментарий",
             "type": "main",
             "index": 0
           }
@@ -614,6 +574,46 @@
         [
           {
             "node": "ошибка",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка статуса": {
+      "main": [
+        [
+          {
+            "node": "obj: вы ввели комментарий",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "статус?": {
+      "main": [
+        [
+          {
+            "node": "Поиск",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "какой шаг?": {
+      "main": [
+        [
+          {
+            "node": "obj: объект выбран",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "obj: авто выбран",
             "type": "main",
             "index": 0
           }
@@ -1673,8 +1673,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        3720,
-        2100
+        3640,
+        2300
       ],
       "credentials": {
         "postgres": {
@@ -1720,8 +1720,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3340,
-        2100
+        3260,
+        2300
       ],
       "credentials": {
         "telegramApi": {
@@ -1739,8 +1739,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3520,
-        2100
+        3440,
+        2300
       ]
     },
     {
@@ -2096,44 +2096,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "obj",
-                    "operator": {
-                      "type": "string",
-                      "operation": "startsWith"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "939fed5a-08be-472f-87a7-29e991930508",
-      "name": "статус?",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3.2,
-      "position": [
-        3940,
-        1880
-      ]
-    },
-    {
-      "parameters": {
         "resource": "custom",
         "customResource": "=cars.cars",
         "operation": "getAll",
@@ -2373,67 +2335,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "obj_input_object",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "9b465b48-80f8-4c80-8f88-913095dd701f",
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "obj_input_cars",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "a99d41a1-3377-499e-ae51-869991f9d63a",
-      "name": "какой шаг?",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3.2,
-      "position": [
-        3160,
-        2300
-      ]
-    },
-    {
-      "parameters": {
         "jsCode": "var res = $('Execute Workflow Trigger').all()[0].json.logist_template;\nres['cars'].push($('Execute Workflow Trigger').all()[0].json.message.text);\nreturn {\"data\": res};"
       },
       "id": "b4c9b975-b307-44f5-9bc6-37261fae9176",
@@ -2441,8 +2342,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3540,
-        2320
+        3460,
+        2520
       ]
     },
     {
@@ -2506,8 +2407,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3340,
-        2320
+        3260,
+        2520
       ],
       "credentials": {
         "telegramApi": {
@@ -3558,46 +3459,6 @@
     },
     {
       "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 1
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.status }}",
-                    "rightValue": "obj_input_comment",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {
-          "fallbackOutput": "extra"
-        }
-      },
-      "id": "426173ef-ce45-4763-b622-e48b2958d889",
-      "name": "проверка статуса",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [
-        3520,
-        1280
-      ]
-    },
-    {
-      "parameters": {
         "jsCode": "var res = $('Execute Workflow Trigger').all()[0].json.logist_template;\nres['comment'] = $('Execute Workflow Trigger').all()[0].json.message.text;\nreturn {\"data\": res};"
       },
       "id": "be6cda08-68e9-4f26-8b92-bdf6d15967b6",
@@ -4645,6 +4506,147 @@
       ],
       "alwaysOutputData": false,
       "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "obj_input_comment",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "426173ef-ce45-4763-b622-e48b2958d889",
+      "name": "проверка статуса",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        3520,
+        1280
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "obj",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "939fed5a-08be-472f-87a7-29e991930508",
+      "name": "статус?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        3940,
+        1880
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "obj_input_object",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "9b465b48-80f8-4c80-8f88-913095dd701f",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "obj_input_cars",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a99d41a1-3377-499e-ae51-869991f9d63a",
+      "name": "какой шаг?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        3080,
+        2500
+      ]
     }
   ],
   "pinData": {},
@@ -4656,6 +4658,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-12-04T13:19:20.545Z",
-  "versionId": "f8c72d7d-5d56-4f84-894f-d0a223c9b373"
+  "updatedAt": "2024-12-09T08:41:43.966Z",
+  "versionId": "a8ef13f0-aedc-4e98-984e-0226f067233c"
 }
