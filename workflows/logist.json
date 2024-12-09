@@ -11402,7 +11402,7 @@
           "value": {
             "tg_id": "={{ $json.result.chat.id }}",
             "status": "1_input_from",
-            "logist_template": "={{\n{\n\"quarry.quarry\": \"\",\n\"transportation.place\": \"\",\n\"transportation.rates\": \"\",\n\"transportation.material\": \"\",\n\"measure\": \"\",\n\"weight\": \"\",\n\"cost_per_cubic_metre\": 0,\n\"cost_per_tonne\": 0,\n\"delivery_cost_per_cubic_metre\": 0,\n\"delivery_cost_per_tonne\": 0,\n\"round_rate\": 0,\n\"comment\": \"\",\n\"cars\": [],\n\"date\": \"\"\n}\n}}"
+            "logist_template": "={{\n{\n\"quarry.quarry\": \"\",\n\"transportation.place\": \"\",\n\"transportation.rates\": \"\",\n\"transportation.material\": \"\",\n\"measure\": \"\",\n\"weight\": \"\",\n\"cost_per_cubic_metre\": \"0\",\n\"cost_per_tonne\": \"0\",\n\"delivery_cost_per_cubic_metre\": \"0\",\n\"delivery_cost_per_tonne\": \"0\",\n\"round_rate\": \"0\",\n\"comment\": \"\",\n\"cars\": [],\n\"date\": \"\"\n}\n}}"
           },
           "matchingColumns": [
             "tg_id"
@@ -16038,12 +16038,32 @@
               "value": "={{ $json.logist_template.measure == \"т.\" ? \"т\" : \"м3\" }}"
             },
             {
-              "name": "driver_rate",
-              "value": "={{ $json.logist_template.rate.toNumber() }}"
+              "name": "round_rate",
+              "value": "={{ $json.logist_template.round_rate.toNumber() }}"
             },
             {
               "name": "comment",
               "value": "={{ $json.logist_template.comment }}"
+            },
+            {
+              "name": "date",
+              "value": "={{ $json.logist_template.date }}"
+            },
+            {
+              "name": "cost_per_cubic_metre",
+              "value": "={{ $json.logist_template.cost_per_cubic_metre.toNumber() }}"
+            },
+            {
+              "name": "delivery_cost_per_cubic_metre",
+              "value": "={{ $json.logist_template.delivery_cost_per_cubic_metre.toNumber() }}"
+            },
+            {
+              "name": "=cost_per_tonne",
+              "value": "={{ $json.logist_template.cost_per_tonne.toNumber() }}"
+            },
+            {
+              "name": "delivery_cost_per_tonne",
+              "value": "={{ $json.logist_template.delivery_cost_per_tonne.toNumber() }}"
             }
           ]
         },
@@ -23359,9 +23379,9 @@
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100639806,
+          "update_id": 100640098,
           "callback_query": {
-            "id": "2782501070899687929",
+            "id": "2782501072069650594",
             "from": {
               "id": 7090302459,
               "is_bot": false,
@@ -23370,7 +23390,7 @@
               "language_code": "ru"
             },
             "message": {
-              "message_id": 31864,
+              "message_id": 32111,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -23383,36 +23403,87 @@
                 "last_name": "Go",
                 "type": "private"
               },
-              "date": 1733306872,
-              "edit_date": 1733308424,
-              "text": "Выберите дату",
+              "date": 1733397776,
+              "edit_date": 1733397786,
+              "text": "Вы собираетесь создать перевозку:\n\nОт - Карьер Ключевое\nДо - Карьер Ключевое\nПолучатель - ООО \"ЭВЕРЕСТ\"\nМатериал - Тест1\nКоличество - 500 т.\n\nСтоимость за кубометр - 0 руб.\nСтоимость за тонну - 0 руб.\nСтоимость доставки за кубометр - 0 руб.\nСтоимость доставки за тонну - 0 руб.\nСтавка за рейс - 500 руб.\n\nКомментарий - \nАвтомобили - \nДата - 05.12.2024",
+              "entities": [
+                {
+                  "offset": 40,
+                  "length": 15,
+                  "type": "bold"
+                },
+                {
+                  "offset": 61,
+                  "length": 15,
+                  "type": "bold"
+                },
+                {
+                  "offset": 90,
+                  "length": 13,
+                  "type": "bold"
+                },
+                {
+                  "offset": 115,
+                  "length": 5,
+                  "type": "bold"
+                },
+                {
+                  "offset": 134,
+                  "length": 6,
+                  "type": "bold"
+                },
+                {
+                  "offset": 166,
+                  "length": 6,
+                  "type": "bold"
+                },
+                {
+                  "offset": 194,
+                  "length": 6,
+                  "type": "bold"
+                },
+                {
+                  "offset": 234,
+                  "length": 6,
+                  "type": "bold"
+                },
+                {
+                  "offset": 271,
+                  "length": 6,
+                  "type": "bold"
+                },
+                {
+                  "offset": 295,
+                  "length": 8,
+                  "type": "bold"
+                },
+                {
+                  "offset": 341,
+                  "length": 10,
+                  "type": "bold"
+                }
+              ],
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "Сегодня",
-                      "callback_data": "set_today"
+                      "text": "Создать",
+                      "callback_data": "make_transportation"
                     },
                     {
-                      "text": "Завтра",
-                      "callback_data": "set_tomorrow"
-                    }
-                  ],
-                  [
-                    {
-                      "text": "Другая дата",
-                      "callback_data": "input_date"
+                      "text": "Отменить",
+                      "callback_data": "cancel_template"
                     }
                   ]
                 ]
               }
             },
             "chat_instance": "4841481297779052467",
-            "data": "set_tomorrow"
+            "data": "make_transportation"
           },
           "tg_id": "7090302459",
           "odoo_id": 19,
-          "status": "input_date",
+          "status": "input_cars",
           "only_mech": false,
           "mech_photo": false,
           "end_request_id": 634,
@@ -23428,7 +23499,7 @@
           "count_weight_photo_sent": null,
           "current_quarry_hours": 10,
           "end_round_message_id": 29716,
-          "last_message_text": "{\"ok\":true,\"result\":{\"message_id\":31863,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":7090302459,\"first_name\":\"Al\",\"last_name\":\"Go\",\"type\":\"private\"},\"date\":1733306869,\"text\":\"Введите комментарий:\",\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Пропустить комментарий\",\"callback_data\":\"skip_comment\"}]]}}}",
+          "last_message_text": "{\"ok\":true,\"result\":{\"message_id\":32110,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":7090302459,\"first_name\":\"Al\",\"last_name\":\"Go\",\"type\":\"private\"},\"date\":1733397773,\"text\":\"Введите комментарий:\",\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Пропустить комментарий\",\"callback_data\":\"skip_comment\"}]]}}}",
           "logist_notifications": false,
           "creating_transportation": "459;\nПесок, 100м3;\nКарьер Ключевое - Карьер Ключевое, компания_тест;",
           "round_active_msg_id": null,
@@ -23437,19 +23508,17 @@
             "quarry.quarry": "Карьер Ключевое",
             "transportation.place": "Карьер Ключевое",
             "transportation.rates": "ООО \"ЭВЕРЕСТ\"",
-            "transportation.material": "Щебень",
+            "transportation.material": "Тест1",
             "measure": "т.",
-            "weight": "100",
-            "cost_per_cubic_metre": "500",
+            "weight": "500",
+            "cost_per_cubic_metre": 0,
             "cost_per_tonne": 0,
-            "delivery_cost_per_cubic_metre": "900",
+            "delivery_cost_per_cubic_metre": 0,
             "delivery_cost_per_tonne": 0,
-            "round_rate": "50",
+            "round_rate": "500",
             "comment": "",
-            "cars": [
-              "О 999 ЛЛ"
-            ],
-            "date": "04.12.2024"
+            "cars": [],
+            "date": "05.12.2024"
           },
           "current_maintenance": null,
           "expected_time_maintenance": null,
@@ -23473,6 +23542,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-12-04T11:49:36.629Z",
-  "versionId": "e3b9d8dd-2002-42fa-b947-32243be51b36"
+  "updatedAt": "2024-12-06T03:54:33.653Z",
+  "versionId": "0e72eddc-6cbe-4bad-8082-4ab3c8cca0d4"
 }
