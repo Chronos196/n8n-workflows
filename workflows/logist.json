@@ -289,17 +289,6 @@
         ]
       ]
     },
-    "места": {
-      "main": [
-        [
-          {
-            "node": "Aggregate3",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Aggregate3": {
       "main": [
         [
@@ -322,33 +311,11 @@
         ]
       ]
     },
-    "карьеры": {
-      "main": [
-        [
-          {
-            "node": "Aggregate1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "карьеры1": {
       "main": [
         [
           {
             "node": "Aggregate",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "получатели": {
-      "main": [
-        [
-          {
-            "node": "Remove Duplicates",
             "type": "main",
             "index": 0
           }
@@ -371,17 +338,6 @@
         [
           {
             "node": "Aggregate4",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "материал": {
-      "main": [
-        [
-          {
-            "node": "Aggregate5",
             "type": "main",
             "index": 0
           }
@@ -1097,17 +1053,6 @@
         ]
       ]
     },
-    "obj: объекты": {
-      "main": [
-        [
-          {
-            "node": "Aggregate2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "объекты": {
       "main": [
         [
@@ -1436,6 +1381,61 @@
         [
           {
             "node": "Aggregate7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "obj: объекты": {
+      "main": [
+        [
+          {
+            "node": "Aggregate2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "карьеры": {
+      "main": [
+        [
+          {
+            "node": "Aggregate1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "места": {
+      "main": [
+        [
+          {
+            "node": "Aggregate3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получатели": {
+      "main": [
+        [
+          {
+            "node": "Remove Duplicates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "материал": {
+      "main": [
+        [
+          {
+            "node": "Aggregate5",
             "type": "main",
             "index": 0
           }
@@ -3969,29 +3969,6 @@
     },
     {
       "parameters": {
-        "resource": "custom",
-        "customResource": "=transportation.place",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {}
-      },
-      "id": "0ba36151-9a7c-46b7-ac1b-8bfa6d7d42f5",
-      "name": "места",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        2740,
-        2000
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "ITgOrhO4Hf2QcDtf",
-          "name": "odoo dev"
-        }
-      }
-    },
-    {
-      "parameters": {
         "fieldsToAggregate": {
           "fieldToAggregate": [
             {
@@ -4026,29 +4003,6 @@
     },
     {
       "parameters": {
-        "resource": "custom",
-        "customResource": "=quarry.quarry",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {}
-      },
-      "id": "7eed5ff2-53c0-424c-bd0e-e729eebfd3a5",
-      "name": "карьеры",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        2740,
-        1820
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "ITgOrhO4Hf2QcDtf",
-          "name": "odoo dev"
-        }
-      }
-    },
-    {
-      "parameters": {
         "jsCode": "const careers = $('Aggregate1').all()[0].json.name;\n\n// Получаем текст запроса от пользователя\nconst query = $('Execute Workflow Trigger').all()[0].json.inline_query.query.substring(\"карьер\".length).trim() || \"\"; // Измените \"получатель\" на нужную команду, если требуется\n\n// Фильтруем карьеры на основе введенного текста\nconst filteredCareers = careers.filter(career => career.toLowerCase().includes(query.toLowerCase()));\n\n// Возвращаем отфильтрованные результаты\nreturn filteredCareers.map((career, index) => ({\n  type: 'article',\n  id: index.toString(),\n  title: career,\n  input_message_content: {\n    message_text: `${career}`\n  }\n}));"
       },
       "id": "3ca81a9b-ff60-4a87-9263-0bf526a694eb",
@@ -4060,29 +4014,6 @@
         1820
       ],
       "alwaysOutputData": true
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "=transportation.rates",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {}
-      },
-      "id": "b1dec146-014b-49dc-ae97-0d582adc3ae6",
-      "name": "получатели",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        2740,
-        2180
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "ITgOrhO4Hf2QcDtf",
-          "name": "odoo dev"
-        }
-      }
     },
     {
       "parameters": {
@@ -4123,37 +4054,6 @@
         2960,
         2180
       ]
-    },
-    {
-      "parameters": {
-        "resource": "custom",
-        "customResource": "=transportation.material",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {},
-        "filterRequest": {
-          "filter": [
-            {
-              "fieldName": "quarry",
-              "value": "={{ $json.logist_template['quarry.quarry'] }}"
-            }
-          ]
-        }
-      },
-      "id": "0c2f4c17-273b-4d4a-96d6-5fee1a17a072",
-      "name": "материал",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        2740,
-        2360
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "ITgOrhO4Hf2QcDtf",
-          "name": "odoo dev"
-        }
-      }
     },
     {
       "parameters": {
@@ -7980,29 +7880,6 @@
     },
     {
       "parameters": {
-        "resource": "custom",
-        "customResource": "=quarry.quarry",
-        "operation": "getAll",
-        "returnAll": true,
-        "options": {}
-      },
-      "id": "0e983e3a-101f-426e-9d93-d60181c7d67a",
-      "name": "obj: объекты",
-      "type": "n8n-nodes-base.odoo",
-      "typeVersion": 1,
-      "position": [
-        400,
-        240
-      ],
-      "credentials": {
-        "odooApi": {
-          "id": "ITgOrhO4Hf2QcDtf",
-          "name": "odoo dev"
-        }
-      }
-    },
-    {
-      "parameters": {
         "jsCode": "const careers = $('Aggregate2').all()[0].json.name;\n\nvar word = $('Execute Workflow Trigger').all()[0].json.inline_query.query;\n\n// Получаем текст запроса от пользователя\nconst query = $('Execute Workflow Trigger').all()[0].json.inline_query.query.substring(word.length).trim() || \"\"; // Измените \"получатель\" на нужную команду, если требуется\n\n// Фильтруем карьеры на основе введенного текста\nconst filteredCareers = careers.filter(career => career.toLowerCase().includes(query.toLowerCase()));\n\n// Возвращаем отфильтрованные результаты\nreturn filteredCareers.map((career, index) => ({\n  type: 'article',\n  id: index.toString(),\n  title: career,\n  input_message_content: {\n    message_text: `${career}`\n  }\n}));"
       },
       "id": "2d5ab903-356b-4f70-83b9-50302f22a066",
@@ -9182,15 +9059,139 @@
         2820,
         2700
       ]
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_all_quarries",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $json.cookie }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "35ed6a24-3c0d-40eb-8937-28298bca018c",
+      "name": "obj: объекты",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        300,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_all_quarries",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $json.cookie }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "68672413-889e-4bb7-92ad-fecaf24da394",
+      "name": "карьеры",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2740,
+        1820
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_all_places",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $json.cookie }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a473520c-40d2-4556-ae72-296b3f4f6e19",
+      "name": "места",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2740,
+        2000
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_all_rates",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $json.cookie }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "94610f9f-f091-4a15-b904-b42569152dff",
+      "name": "получатели",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2740,
+        2180
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_materials_of_quarry",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "quarry",
+              "value": "={{ $json.logist_template['quarry.quarry'] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "351d502a-28bd-4e4f-b3ec-b7241472a781",
+      "name": "материал",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2760,
+        2360
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100640898,
+          "update_id": 100641042,
           "inline_query": {
-            "id": "2782501070347729483",
+            "id": "2782501070002818765",
             "from": {
               "id": 7090302459,
               "is_bot": false,
@@ -9199,34 +9200,34 @@
               "language_code": "ru"
             },
             "chat_type": "sender",
-            "query": "Авто компании 1",
+            "query": "Объект 123",
             "offset": ""
           },
           "tg_id": "7090302459",
           "odoo_id": 19,
-          "status": "obj_input_cars",
+          "status": "obj_input_object",
           "only_mech": false,
           "mech_photo": false,
-          "end_request_id": 634,
+          "end_request_id": null,
           "materials_photo": false,
           "end_request_hours": null,
           "car_id_while_inputing": 40,
           "fuel_liters": null,
           "weight_measure": "2 м3 ",
           "logist_alert_text": "123",
-          "logist_recipient_name": "1",
+          "logist_recipient_name": "CT_1",
           "transportation_for_certificate": null,
           "count_weight_photo": null,
           "count_weight_photo_sent": null,
           "current_quarry_hours": 10,
           "end_round_message_id": 29716,
-          "last_message_text": "{\"ok\":true,\"result\":{\"message_id\":32542,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":7090302459,\"first_name\":\"Al\",\"last_name\":\"Go\",\"type\":\"private\"},\"date\":1733735220,\"text\":\"Введите комментарий:\",\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Пропустить комментарий\",\"callback_data\":\"skip_comment\"}]]}}}",
+          "last_message_text": "{\"ok\":true,\"result\":{\"message_id\":32777,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":7090302459,\"first_name\":\"Al\",\"last_name\":\"Go\",\"type\":\"private\"},\"date\":1733821667,\"text\":\"Введите комментарий:\",\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Пропустить комментарий\",\"callback_data\":\"skip_comment\"}]]}}}",
           "logist_notifications": false,
           "creating_transportation": "459;\nПесок, 100м3;\nКарьер Ключевое - Карьер Ключевое, компания_тест;",
           "round_active_msg_id": null,
           "no_taking_shift_logist_notify": true,
           "logist_template": {
-            "quarry.quarry": "Карьер Ключевое",
+            "quarry.quarry": "",
             "comment": "",
             "cars": []
           },
@@ -9234,7 +9235,7 @@
           "expected_time_maintenance": null,
           "assigned_locksmiths": null,
           "mechanic_template": null,
-          "cookie": "session_id=c796331e350e13d96dba76a8f0c8d688e27f098f; Expires=Wed, 10 Dec 2025 02:05:11 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=237c64c959a62310ab6f7caa1deb402f64ce073e; Expires=Wed, 10 Dec 2025 11:24:11 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -9254,6 +9255,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-12-10T09:07:10.528Z",
-  "versionId": "c9051bc9-fda5-43b6-9ac0-ccf77ebafc2a"
+  "updatedAt": "2024-12-11T07:05:09.089Z",
+  "versionId": "d37418b7-1534-4ded-9f0c-d8203a74d546"
 }
