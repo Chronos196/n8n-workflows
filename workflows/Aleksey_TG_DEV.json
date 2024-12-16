@@ -59,6 +59,11 @@
             "node": "проверка статуса авторизации1",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Calculate duration",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -204,6 +209,11 @@
             "node": "ветки для ролей",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Calculate duration2",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -230,7 +240,7 @@
       "main": [
         [
           {
-            "node": "авторизация",
+            "node": "Set start time",
             "type": "main",
             "index": 0
           }
@@ -290,6 +300,18 @@
             "node": "склеиваем данные",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Calculate duration1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "нет пользователя?",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -341,6 +363,39 @@
         [
           {
             "node": "Нет роли",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "нет пользователя?": {
+      "main": [
+        [
+          {
+            "node": "удалим неактуальную запись",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "удалим неактуальную запись": {
+      "main": [
+        [
+          {
+            "node": "добавляет пользователя, если не существует",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set start time": {
+      "main": [
+        [
+          {
+            "node": "авторизация",
             "type": "main",
             "index": 0
           }
@@ -929,7 +984,7 @@
       "parameters": {
         "content": "## Проверка ролей\n",
         "height": 309.07650486512966,
-        "width": 727.3089586054689,
+        "width": 511.4050550076952,
         "color": 6
       },
       "id": "198f96cc-0400-47f3-b723-bfdff3f6c37e",
@@ -1229,8 +1284,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        0,
-        2140
+        40,
+        2060
       ],
       "credentials": {
         "telegramApi": {
@@ -1348,8 +1403,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1,
       "position": [
-        1040,
-        2380
+        1120,
+        2040
       ]
     },
     {
@@ -1441,13 +1496,13 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        100,
-        1720
+        360,
+        1700
       ]
     },
     {
       "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nvar res = {};\n\nfor (const item of $input.all()) {\n  Object.assign(res, $('Telegram Trigger1').item.json);\n  Object.assign(res, $('актуальный статус').item.json);\n  Object.assign(res, { cookie: 'session_id=237c64c959a62310ab6f7caa1deb402f64ce073e; Expires=Wed, 10 Dec 2025 11:24:11 GMT; Max-Age=604800; HttpOnly; Path=/' });\n}\n\nreturn res;"
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nvar res = {};\n\nfor (const item of $input.all()) {\n  Object.assign(res, $('Telegram Trigger1').item.json);\n  Object.assign(res, $('актуальный статус').item.json);\n  Object.assign(res, { cookie: 'session_id=3915a2a5be9e7b836db17e9af66980500eaa9c7c; Expires=Tue, 16 Dec 2025 12:24:04 GMT; Max-Age=604800; HttpOnly; Path=/' });\n}\n\nreturn res;"
       },
       "id": "3d67466c-6eca-4c33-9cbd-702dca59406d",
       "name": "склеиваем данные",
@@ -1574,7 +1629,7 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1,
       "position": [
-        140,
+        220,
         1860
       ]
     },
@@ -1795,7 +1850,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "session_id=237c64c959a62310ab6f7caa1deb402f64ce073e; Expires=Wed, 10 Dec 2025 11:24:11 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "session_id=3915a2a5be9e7b836db17e9af66980500eaa9c7c; Expires=Tue, 16 Dec 2025 12:24:04 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -1824,7 +1879,7 @@
       "parameters": {
         "content": "## Куки менять в нодах:\n- получаем роль и склеиваем данные в \"получаем роль\"\n- проверка состояния карточки\n",
         "height": 434.3417957083881,
-        "width": 676.2295720009513,
+        "width": 570.8479047687044,
         "color": 3
       },
       "id": "c640729e-b9d3-4b80-8b14-8a0366e0864c",
@@ -1832,8 +1887,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -880,
-        1940
+        -900,
+        1460
       ]
     },
     {
@@ -1846,8 +1901,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1,
       "position": [
-        360,
-        2220
+        300,
+        1980
       ]
     },
     {
@@ -2004,9 +2059,200 @@
         -160,
         1640
       ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1f1d9f42-602a-4445-b76b-165e0564e1c7",
+              "leftValue": "={{ $json.error.message }}",
+              "rightValue": "404 - \"{\\\"error\\\": \\\"Driver not found\\\"}\"",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "cbf2f78f-a047-4ebd-82cc-6a28d4ed0355",
+      "name": "нет пользователя?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -680,
+        1920
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "deleteTable",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "deleteCommand": "delete",
+        "where": {
+          "values": [
+            {
+              "column": "tg_id",
+              "value": "={{ $json.tg_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b19e41c6-4e0d-44f2-9a55-b0d22d88297b",
+      "name": "удалим неактуальную запись",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -460,
+        1920
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "xrihBpyZE5y4OBiy",
+          "name": "pg dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "start",
+              "value": "={{ $now.toISO() }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "77978668-60bd-418c-8046-47f5a40f9ed5",
+      "name": "Set start time",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -2880,
+        1480
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "seconds",
+              "value": "={{ $now.diff(DateTime.fromISO($('Set start time').item.json.start)).as('seconds') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "467e3ccc-d5c1-457f-9cb5-fcb705193b0f",
+      "name": "Calculate duration",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -1380,
+        1240
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "seconds",
+              "value": "={{ $now.diff(DateTime.fromISO($('Set start time').item.json.start)).as('seconds') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "91db7f77-2d03-4cb6-9b4a-7e7e7f0747d0",
+      "name": "Calculate duration1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -700,
+        1340
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "seconds",
+              "value": "={{ $now.diff(DateTime.fromISO($('Set start time').item.json.start)).as('seconds') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f4c2d00a-5be5-4c3a-bf9b-e4fa86390a71",
+      "name": "Calculate duration2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        1340
+      ]
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Telegram Trigger1": [
+      {
+        "json": {
+          "update_id": 100641098,
+          "message": {
+            "message_id": 33011,
+            "from": {
+              "id": 7090302459,
+              "is_bot": false,
+              "first_name": "Al",
+              "last_name": "Go",
+              "language_code": "ru"
+            },
+            "chat": {
+              "id": 7090302459,
+              "first_name": "Al",
+              "last_name": "Go",
+              "type": "private"
+            },
+            "date": 1733907132,
+            "text": "/start",
+            "entities": [
+              {
+                "offset": 0,
+                "length": 6,
+                "type": "bot_command"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
   "settings": {
     "executionOrder": "v1",
     "saveManualExecutions": false,
@@ -2030,6 +2276,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2024-12-10T11:24:40.368Z",
-  "versionId": "fb189405-b834-4508-b9bd-696224f615ba"
+  "updatedAt": "2024-12-16T12:24:41.860Z",
+  "versionId": "1b6d33dc-cd87-4863-9be1-41c6b4c2336a"
 }
