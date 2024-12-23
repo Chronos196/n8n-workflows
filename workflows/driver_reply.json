@@ -1865,11 +1865,6 @@
       "main": [
         [
           {
-            "node": "Stop and Error",
-            "type": "main",
-            "index": 0
-          },
-          {
             "node": "Проверка старта",
             "type": "main",
             "index": 0
@@ -2099,7 +2094,7 @@
         ],
         [
           {
-            "node": "Execute Workflow",
+            "node": "статусы",
             "type": "main",
             "index": 0
           }
@@ -2352,6 +2347,13 @@
         [
           {
             "node": "есть авто?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "сегодняшняя дата",
             "type": "main",
             "index": 0
           }
@@ -2843,7 +2845,7 @@
       "main": [
         [
           {
-            "node": "Execute Workflow1",
+            "node": "фильтр от лишних уведомлений в чате",
             "type": "main",
             "index": 0
           }
@@ -3323,6 +3325,201 @@
         [
           {
             "node": "Удаление кнопки в вводе часов1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "сегодняшняя дата": {
+      "main": [
+        [
+          {
+            "node": "какой сегодня день недели?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "какой сегодня день недели?": {
+      "main": [
+        [
+          {
+            "node": "конец недели",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "начало недели",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "конец недели": {
+      "main": [
+        [
+          {
+            "node": "Merge5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "начало недели": {
+      "main": [
+        [
+          {
+            "node": "Merge5",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "объединяем": {
+      "main": [
+        [
+          {
+            "node": "Telegram2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "по возрастанию": {
+      "main": [
+        [
+          {
+            "node": "создаём строку",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "есть данные?": {
+      "main": [
+        [
+          {
+            "node": "по возрастанию",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "создаём строку": {
+      "main": [
+        [
+          {
+            "node": "объединяем",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "графики": {
+      "main": [
+        [
+          {
+            "node": "есть данные?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge5": {
+      "main": [
+        [
+          {
+            "node": "графики",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields8": {
+      "main": [
+        [
+          {
+            "node": "Telegram2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "фильтр от лишних уведомлений в чате": {
+      "main": [
+        [
+          {
+            "node": "Неизвестная команда",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "отмена рейса": {
+      "main": [
+        [
+          {
+            "node": "вы отменили рейс",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Stop and Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "статусы": {
+      "main": [
+        [
+          {
+            "node": "получим авто по водителю1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получим авто по водителю1": {
+      "main": [
+        [
+          {
+            "node": "отмена рейса",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "вы отменили рейс": {
+      "main": [
+        [
+          {
+            "node": "возвращаем статус",
             "type": "main",
             "index": 0
           }
@@ -8031,20 +8228,6 @@
     },
     {
       "parameters": {
-        "errorMessage": "driver reply"
-      },
-      "id": "f1a1d580-ff70-4423-9520-5743661bbe6a",
-      "name": "Stop and Error",
-      "type": "n8n-nodes-base.stopAndError",
-      "typeVersion": 1,
-      "position": [
-        -625,
-        2360
-      ],
-      "disabled": true
-    },
-    {
-      "parameters": {
         "chatId": "-4161741739",
         "text": "=У водителя <a href=\"tg://user?id={{ $('Execute Workflow Trigger').item.json.message.chat.id }}\">{{ $('данные сотрудника').all()[0].json.name }}</a>(авто {{ $('номер авто').all()[0].json.number_car }}) проблема на маршруте <b>{{ $('актуальный рейс').all()[0].json.transportation[1].substring(11) }}</b>: <i>{{ $('Execute Workflow Trigger').all()[0].json[\"message\"][\"text\"] }}</i>\n\n{{ $('в один текст').item.json.concatenated_logists != `@<a href=\"tg://user?id=\">Логист</a>` ? $('в один текст').item.json.concatenated_logists : \"\"}}\n{{ $('в один текст1').item.json.concatenated_dispatchers != `@<a href=\"tg://user?id=\">Диспетчер</a>` ?  $('в один текст1').item.json.concatenated_dispatchers : \"\"}}",
         "additionalFields": {
@@ -11249,8 +11432,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        -300,
-        7720
+        -580,
+        7780
       ]
     },
     {
@@ -12040,42 +12223,6 @@
     },
     {
       "parameters": {
-        "workflowId": {
-          "__rl": true,
-          "value": "zHCcbGCdc6J9bnCh",
-          "mode": "id"
-        },
-        "options": {}
-      },
-      "id": "e8c10c74-f24c-4ee7-a6e9-bdc02add44ee",
-      "name": "Execute Workflow",
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1.1,
-      "position": [
-        -760,
-        8120
-      ]
-    },
-    {
-      "parameters": {
-        "workflowId": {
-          "__rl": true,
-          "value": "zHCcbGCdc6J9bnCh",
-          "mode": "id"
-        },
-        "options": {}
-      },
-      "id": "15df71c6-4aaa-4492-8f08-1a8c2c962cb5",
-      "name": "Execute Workflow1",
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1.1,
-      "position": [
-        200,
-        4760
-      ]
-    },
-    {
-      "parameters": {
         "jsCode": "// Получаем входные данные из предыдущего кубика\nconst inputData = items.map(item => item.json);\n\n// Функция для добавления 10 часов ко времени\nfunction addHoursToTime(timeStr, hours) {\n    const dateObj = new Date(timeStr.replace(\" \", \"T\")); // Преобразуем строку времени в объект Date\n    dateObj.setHours(dateObj.getHours() + hours); // Добавляем 10 часов\n    return dateObj.toISOString().replace(\"T\", \" \").split(\".\")[0]; // Преобразуем обратно в строку и убираем миллисекунды\n}\n\n// Функция для подсчета заработка и количества рейсов по датам\nfunction calculateTotalsByDate(data) {\n    const totalsByDate = {};\n\n    data.forEach(entry => {\n        entry.data.forEach(round => {\n            const { driver_rate, driver_with_trailer, time_of_start } = round;\n\n            // Добавляем 10 часов ко времени\n            const adjustedTime = addHoursToTime(time_of_start, 10);\n\n            // Извлекаем только дату из скорректированного времени\n            const date = adjustedTime.split(\" \")[0];\n\n            // Инициализируем данные для каждой новой даты\n            if (!totalsByDate[date]) {\n                totalsByDate[date] = {\n                    total_count: 0,  // Общее количество рейсов\n                    total_earnings: 0  // Общий заработок\n                };\n            }\n\n            // Увеличиваем количество рейсов\n            totalsByDate[date].total_count++;\n\n            // Увеличиваем сумму заработка\n            totalsByDate[date].total_earnings += driver_rate;\n        });\n    });\n\n    // Преобразуем объект в массив для удобства обработки\n    return Object.keys(totalsByDate).map(date => ({\n        date: date,\n        total_count: totalsByDate[date].total_count,\n        total_earnings: totalsByDate[date].total_earnings\n    }));\n}\n\n// Обрабатываем данные\nconst processedData = calculateTotalsByDate(inputData);\n\n// Возвращаем результат для следующего кубика\nreturn processedData.map(entry => ({ json: entry }));\n"
       },
       "id": "afe2d504-6888-4304-aced-d42109eb25d6",
@@ -12369,6 +12516,29 @@
                     "id": "0d0a1a6d-fc12-4cdd-9ac1-c419d96eae91",
                     "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
                     "rightValue": "Связь с диспетчером",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "160413ad-6d76-4bc2-aa21-b0d717b2a85d",
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.message.text }}",
+                    "rightValue": "Мой график",
                     "operator": {
                       "type": "string",
                       "operation": "equals",
@@ -16363,63 +16533,702 @@
           "name": "pg dev"
         }
       }
+    },
+    {
+      "parameters": {
+        "includeTime": false,
+        "options": {}
+      },
+      "id": "c2f280c5-8e43-4ae4-903a-d9d653440089",
+      "name": "сегодняшняя дата",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        -2160,
+        3060
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $json.currentDate }}",
+        "format": "custom",
+        "customFormat": "c",
+        "options": {}
+      },
+      "id": "3115bbbd-efb3-45a5-bea5-38d6c541b7c1",
+      "name": "какой сегодня день недели?",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        -1940,
+        3060
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "addToDate",
+        "magnitude": "={{ $('сегодняшняя дата').item.json.currentDate }}",
+        "duration": "={{ 7 - $json.formattedDate}}",
+        "outputFieldName": "endOfWeek",
+        "options": {}
+      },
+      "id": "0d16adb0-adfa-4a10-8dcf-765e3205d2ec",
+      "name": "конец недели",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        -1700,
+        2940
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "subtractFromDate",
+        "magnitude": "={{ $('сегодняшняя дата').item.json.currentDate }}",
+        "duration": "={{ $json.formattedDate.toNumber() - 1 }}",
+        "outputFieldName": "beginOfWeek",
+        "options": {}
+      },
+      "id": "4303d06a-8119-4298-975f-220b0fba3449",
+      "name": "начало недели",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        -1700,
+        3160
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "concatenate",
+              "field": "data",
+              "separateBy": "\n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "95600869-8f0c-41ba-b382-24c6c6e7014a",
+      "name": "объединяем",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        -460,
+        2920
+      ]
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "date"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4308a86e-f237-43c2-a344-69b9e967699b",
+      "name": "по возрастанию",
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        -880,
+        2920
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4940aeb3-5f27-40c5-8a52-202f6205ef49",
+              "leftValue": "={{ $json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "5aa7d24a-91e1-4183-83f0-88cc7cd6111a",
+      "name": "есть данные?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1080,
+        3060
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e9355f27-7149-4cc4-8672-570d0fcf1912",
+              "name": "data",
+              "value": "={{ $json.date.toDateTime().setLocale('ru').format('dd.MM ccc') }}: {{ $json.day_type[1] == \"Выходной день\" ? \"\" : $json.car[1] + \" - \" }}{{ $json.day_type[1] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9393e4e9-3f12-4d7d-98d1-234879216631",
+      "name": "создаём строку",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -680,
+        2920
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_schedules_by_driver",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "driver_id",
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
+            },
+            {
+              "name": "start_date",
+              "value": "={{ $json.beginOfWeek.toDateTime().format('yyyy-MM-dd') }}"
+            },
+            {
+              "name": "end_date",
+              "value": "={{ $json.endOfWeek.toDateTime().format('yyyy-MM-dd') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c5bb3740-2fcc-4b3f-8fe4-a5307405145b",
+      "name": "графики",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1300,
+        3060
+      ],
+      "alwaysOutputData": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "3a026c7c-091f-4c1d-bc2b-9f0478af98d4",
+      "name": "Merge5",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        -1500,
+        3060
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "text": "=График на текущую неделю ({{ $('начало недели').item.json.beginOfWeek.toDateTime().format('dd.MM') }} - {{ $('конец недели').item.json.endOfWeek.toDateTime().format('dd.MM') }})\n\n{{ $json.concatenated_data }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "График за месяц",
+                    "additionalFields": {
+                      "callback_data": "month_schedule"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "9edde79c-7356-4ab4-9369-90688b104889",
+      "name": "Telegram2",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -280,
+        3140
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3f6926f9-2585-4381-b682-1c2958d4eb91",
+              "name": "concatenated_data",
+              "value": "Нет данных",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f2e10d61-cfe9-484a-bb95-2976ca76416e",
+      "name": "Edit Fields8",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -880,
+        3140
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Графики",
+        "height": 440,
+        "width": 2160,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -2200,
+        2880
+      ],
+      "id": "d71dcd41-be70-440d-904c-59f4645d1a50",
+      "name": "Sticky Note19"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "text": "Неизвестная команда",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "aacec6e3-c99e-4ad0-bdc9-678d61d7eaa5",
+      "name": "Неизвестная команда",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        620,
+        3920
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2ed3940a-2427-40e7-8024-081403f02a2f",
+              "leftValue": "={{ $json.message.chat.id }}",
+              "rightValue": -4161741739,
+              "operator": {
+                "type": "number",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "f50421e6-c038-409e-997b-1d02e818525e",
+      "name": "фильтр от лишних уведомлений в чате",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        340,
+        3940
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://dev.everest.lamart.site/cancellation_round",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number_car",
+              "value": "={{ $json.number_car }}"
+            },
+            {
+              "name": "comment",
+              "value": "={{ $('Execute Workflow Trigger').item.json.message.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6715c916-0a2c-4b2d-8504-6e4faca8deca",
+      "name": "отмена рейса",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        60,
+        8700
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "errorMessage": "cancel round problem"
+      },
+      "id": "58b403be-2e9e-4316-875d-0070e4a7f93d",
+      "name": "Stop and Error",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        280,
+        8880
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "inputing_cancel_round_coment",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "99953d9a-98f9-494c-8ef9-8898fa8c7070",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "authorized",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "67fc59ef-a3e4-4b72-a93a-171fd02ff21d",
+      "name": "статусы",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -420,
+        8900
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_car_by_driver",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $('Execute Workflow Trigger').item.json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "driver_id",
+              "value": "={{ $('Execute Workflow Trigger').item.json.odoo_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a75436c8-e050-495c-95b9-a3619e225b75",
+      "name": "получим авто по водителю1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -160,
+        8720
+      ],
+      "alwaysOutputData": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
+        "text": "=Вы отменили рейс в перевозке: <b>{{ $json.current_route }}</b>",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Назначенные перевозки",
+                    "additionalFields": {
+                      "callback_data": "transportation_list"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Завершить смену",
+                    "additionalFields": {
+                      "callback_data": "complete_work"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "6775860c-c90f-490a-ad31-770179cdb677",
+      "name": "вы отменили рейс",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        280,
+        8700
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Отмена рейса",
+        "height": 381.28274062358184,
+        "width": 741.0356895064125,
+        "color": 6
+      },
+      "id": "3869e8c2-32e4-4090-bd9a-f2b994eb6fe3",
+      "name": "Sticky Note20",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -180,
+        8660
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tg_id": "={{ $json.result.chat.id }}",
+            "status": "authorized"
+          },
+          "matchingColumns": [
+            "tg_id"
+          ],
+          "schema": [
+            {
+              "id": "tg_id",
+              "displayName": "tg_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "only_mech",
+              "displayName": "only_mech",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mech_photo",
+              "displayName": "mech_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_id",
+              "displayName": "end_request_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "materials_photo",
+              "displayName": "materials_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_hours",
+              "displayName": "end_request_hours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "adc3cd4e-2b92-40e3-8d82-e0ef51e0d431",
+      "name": "возвращаем статус",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        460,
+        8700
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "xrihBpyZE5y4OBiy",
+          "name": "pg dev"
+        }
+      }
     }
   ],
   "pinData": {
-    "Execute Workflow Trigger": [
-      {
-        "json": {
-          "update_id": 100641597,
-          "message": {
-            "message_id": 33345,
-            "from": {
-              "id": 799934256,
-              "is_bot": false,
-              "first_name": "Александр",
-              "username": "saniochek_22",
-              "language_code": "ru"
-            },
-            "chat": {
-              "id": 799934256,
-              "first_name": "Александр",
-              "username": "saniochek_22",
-              "type": "private"
-            },
-            "date": 1734088426,
-            "text": "7"
-          },
-          "tg_id": "799934256",
-          "odoo_id": 14,
-          "status": "input_quarry_hours",
-          "only_mech": false,
-          "mech_photo": false,
-          "end_request_id": null,
-          "materials_photo": false,
-          "end_request_hours": null,
-          "car_id_while_inputing": 20,
-          "fuel_liters": 46,
-          "weight_measure": "45 м3 ",
-          "logist_alert_text": null,
-          "logist_recipient_name": null,
-          "transportation_for_certificate": null,
-          "count_weight_photo": 1,
-          "count_weight_photo_sent": 0,
-          "current_quarry_hours": 9,
-          "end_round_message_id": 33343,
-          "last_message_text": "{\"message_id\":30535,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":799934256,\"first_name\":\"Александр\",\"username\":\"saniochek_22\",\"type\":\"private\"},\"date\":1732878038,\"text\":\"Отлично, вы завершили рейс, хотите начать следующий?\",\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Начать рейс\",\"callback_data\":\"start_queue_round\"}],[{\"text\":\"Назначенные перевозки\",\"callback_data\":\"transportation_list\"}],[{\"text\":\"Завершить смену\",\"callback_data\":\"complete_work\"}]]}}",
-          "logist_notifications": true,
-          "creating_transportation": "тест",
-          "round_active_msg_id": 30392,
-          "no_taking_shift_logist_notify": false,
-          "logist_template": null,
-          "current_maintenance": null,
-          "expected_time_maintenance": null,
-          "assigned_locksmiths": null,
-          "mechanic_template": null,
-          "cookie": "session_id=237c64c959a62310ab6f7caa1deb402f64ce073e; Expires=Wed, 10 Dec 2025 11:24:11 GMT; Max-Age=604800; HttpOnly; Path=/"
-        }
-      }
-    ],
     "Выводим информацию о перевозке4": [
       {
         "json": {
@@ -16505,6 +17314,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-12-13T12:11:04.024Z",
-  "versionId": "a758ea5a-b863-40f1-9b7a-3fa72386b5eb"
+  "updatedAt": "2024-12-23T14:36:36.092Z",
+  "versionId": "9e11f92c-7e95-46fa-8d0a-d06c1887395b"
 }
