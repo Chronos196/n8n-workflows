@@ -131,13 +131,7 @@
     },
     "Odoo2": {
       "main": [
-        [
-          {
-            "node": "Odoo",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Switch": {
@@ -521,7 +515,13 @@
     },
     "Execute Workflow Trigger123123": {
       "main": [
-        []
+        [
+          {
+            "node": "Odoo1",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "Execute Workflow Trigger": {
@@ -950,6 +950,17 @@
         [
           {
             "node": "заявка создана",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Odoo1": {
+      "main": [
+        [
+          {
+            "node": "Обновление уровня топлива1",
             "type": "main",
             "index": 0
           }
@@ -1446,7 +1457,7 @@
           "fields": [
             {
               "fieldName": "mechanizator_id",
-              "fieldValue": "={{ $json.id }}"
+              "fieldValue": "={{ $json.id }}{{ $json.mechanizator_id[0] }}"
             },
             {
               "fieldName": "object_id",
@@ -1464,8 +1475,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -1080,
-        -2880
+        -2360,
+        -3360
       ],
       "credentials": {
         "odooApi": {
@@ -1478,17 +1489,28 @@
       "parameters": {
         "resource": "custom",
         "customResource": "=mechanizator.task",
-        "operation": "get",
-        "customResourceId": "66",
-        "options": {}
+        "operation": "getAll",
+        "options": {
+          "fieldsList": [
+            "mechanizator_id"
+          ]
+        },
+        "filterRequest": {
+          "filter": [
+            {
+              "fieldName": "id",
+              "value": "139"
+            }
+          ]
+        }
       },
       "id": "bfe7a1a8-f110-4717-94c4-793aa2d39fcb",
       "name": "Odoo1",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -1080,
-        -2700
+        -2820,
+        -3020
       ],
       "credentials": {
         "odooApi": {
@@ -1569,9 +1591,9 @@
     {
       "parameters": {
         "resource": "custom",
-        "customResource": "=hr.employee",
+        "customResource": "=mechanizator.equipment",
         "operation": "get",
-        "customResourceId": "4",
+        "customResourceId": "13",
         "options": {}
       },
       "id": "c2d2c3a5-03b3-4504-960f-7df9ef410238",
@@ -1579,8 +1601,8 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -1340,
-        -2980
+        -2620,
+        -3380
       ],
       "credentials": {
         "odooApi": {
@@ -8882,6 +8904,44 @@
         -2700,
         860
       ]
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "=mechanizator.equipment",
+        "operation": "update",
+        "customResourceId": "=13",
+        "fieldsToCreateOrUpdate": {
+          "fields": [
+            {
+              "fieldName": "mechanizator_id",
+              "fieldValue": "=4"
+            },
+            {
+              "fieldName": "object_id",
+              "fieldValue": "=1"
+            },
+            {
+              "fieldName": "status",
+              "fieldValue": "in_work"
+            }
+          ]
+        }
+      },
+      "id": "43b670f6-3009-4744-be9e-fe6b0a10bcbd",
+      "name": "Обновление уровня топлива1",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        -2620,
+        -3020
+      ],
+      "credentials": {
+        "odooApi": {
+          "id": "ITgOrhO4Hf2QcDtf",
+          "name": "odoo dev"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -8901,6 +8961,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2024-12-14T07:38:41.188Z",
-  "versionId": "6e7bf27c-f4ed-47b2-a733-fc20aa9361c5"
+  "updatedAt": "2024-12-20T20:16:52.977Z",
+  "versionId": "b4436c08-9e61-43f4-b23a-728dd00aa412"
 }
