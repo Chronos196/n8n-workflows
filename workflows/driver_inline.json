@@ -1886,7 +1886,7 @@
       "main": [
         [
           {
-            "node": "Выполнена работа в карьере без условия",
+            "node": "завершение карьерных работ2",
             "type": "main",
             "index": 0
           }
@@ -1902,13 +1902,7 @@
     },
     "Выполнена работа в карьере без условия": {
       "main": [
-        [
-          {
-            "node": "завершение карьерных работ2",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "есть ли рейсы": {
@@ -4321,6 +4315,35 @@
         [
           {
             "node": "Смена статуса1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "завершение карьерных работ2": {
+      "main": [
+        [
+          {
+            "node": "Выполнена работа в карьере без условия",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ошибка завершения работы",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ошибка завершения работы": {
+      "main": [
+        [
+          {
+            "node": "Stop and Error1",
             "type": "main",
             "index": 0
           }
@@ -15231,7 +15254,8 @@
           "options": {
             "caseSensitive": true,
             "leftValue": "",
-            "typeValidation": "strict"
+            "typeValidation": "strict",
+            "version": 1
           },
           "conditions": [
             {
@@ -15281,15 +15305,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        60,
-        12580
+        -340,
+        12520
       ],
       "onError": "continueErrorOutput"
     },
     {
       "parameters": {
         "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.from.id }}",
-        "text": "Вы завершили работу в карьере!",
+        "text": "Вы завершили работу на объекте!",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -15297,9 +15321,9 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "Посмотреть следующую перевозку",
+                    "text": "Назначенные перевозки",
                     "additionalFields": {
-                      "callback_data": "перевозки"
+                      "callback_data": "transportation_list"
                     }
                   }
                 ]
@@ -15328,8 +15352,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -180,
-        12580
+        -100,
+        12440
       ],
       "credentials": {
         "telegramApi": {
@@ -24143,24 +24167,60 @@
           "name": "pg dev"
         }
       }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.from.id }}",
+        "text": "=Не удалось завершить работу на объекте. Введите данные заново или обратитесь к диспетчеру.\n\n{{ $json.error.message }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "6398f63f-0bea-4f0e-8ec1-28605a5b0fc5",
+      "name": "ошибка завершения работы",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -120,
+        12640
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "errorMessage": "object work ended error"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        100,
+        12640
+      ],
+      "id": "b39080a6-6919-4c5e-b48c-802032971533",
+      "name": "Stop and Error1"
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100641598,
+          "update_id": 100642092,
           "callback_query": {
-            "id": "3435691471200600602",
+            "id": "3010587257762177740",
             "from": {
-              "id": 799934256,
+              "id": 700956969,
               "is_bot": false,
-              "first_name": "Александр",
-              "username": "saniochek_22",
+              "first_name": "Алексей",
+              "username": "Chronos196",
               "language_code": "ru"
             },
             "message": {
-              "message_id": 33347,
+              "message_id": 33777,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -24168,16 +24228,16 @@
                 "username": "myn8nbotbot"
               },
               "chat": {
-                "id": 799934256,
-                "first_name": "Александр",
-                "username": "saniochek_22",
+                "id": 700956969,
+                "first_name": "Алексей",
+                "username": "Chronos196",
                 "type": "private"
               },
-              "date": 1734088506,
-              "text": "Вы ввели карьер-часы - 7",
+              "date": 1734503225,
+              "text": "Вы ввели количество рейсов - 0",
               "entities": [
                 {
-                  "offset": 23,
+                  "offset": 29,
                   "length": 1,
                   "type": "bold"
                 }
@@ -24191,44 +24251,53 @@
                     },
                     {
                       "text": "Ввести заново",
-                      "callback_data": "quarry_hours"
+                      "callback_data": "input_quarry_rounds"
                     }
                   ]
                 ]
               }
             },
-            "chat_instance": "-5027017175737254521",
+            "chat_instance": "1908726007480408494",
             "data": "check_quarry_hours"
           },
-          "tg_id": "799934256",
-          "odoo_id": 14,
+          "tg_id": "700956969",
+          "odoo_id": 2,
           "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
           "end_request_id": null,
           "materials_photo": false,
           "end_request_hours": null,
-          "car_id_while_inputing": 20,
-          "fuel_liters": 46,
-          "weight_measure": "45 м3 ",
+          "car_id_while_inputing": 18,
+          "fuel_liters": 50,
+          "weight_measure": "22 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
           "count_weight_photo": 1,
           "count_weight_photo_sent": 0,
-          "current_quarry_hours": 7,
-          "end_round_message_id": 33343,
-          "last_message_text": "{\"message_id\":30535,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":799934256,\"first_name\":\"Александр\",\"username\":\"saniochek_22\",\"type\":\"private\"},\"date\":1732878038,\"text\":\"Отлично, вы завершили рейс, хотите начать следующий?\",\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Начать рейс\",\"callback_data\":\"start_queue_round\"}],[{\"text\":\"Назначенные перевозки\",\"callback_data\":\"transportation_list\"}],[{\"text\":\"Завершить смену\",\"callback_data\":\"complete_work\"}]]}}",
-          "logist_notifications": true,
-          "creating_transportation": "тест",
-          "round_active_msg_id": 30392,
+          "current_quarry_hours": 0,
+          "end_round_message_id": 33772,
+          "last_message_text": null,
+          "logist_notifications": false,
+          "creating_transportation": null,
+          "round_active_msg_id": 33118,
           "no_taking_shift_logist_notify": false,
-          "logist_template": null,
+          "logist_template": {
+            "quarry.quarry": "Карьер Ключевое",
+            "transportation.place": "Карьер Ключевое",
+            "transportation.rates": "ООО \"ЭВЕРЕСТ\"",
+            "transportation.material": "Щебень",
+            "measure": "м3",
+            "weight": "500",
+            "rate": "400"
+          },
           "current_maintenance": null,
           "expected_time_maintenance": null,
           "assigned_locksmiths": null,
           "mechanic_template": null,
-          "cookie": "session_id=237c64c959a62310ab6f7caa1deb402f64ce073e; Expires=Wed, 10 Dec 2025 11:24:11 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "current_quarry_rounds": 0,
+          "cookie": "session_id=3915a2a5be9e7b836db17e9af66980500eaa9c7c; Expires=Tue, 16 Dec 2025 12:24:04 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -24249,6 +24318,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-12-16T09:34:01.237Z",
-  "versionId": "03be8eaf-2797-448c-ad61-8927687b3517"
+  "updatedAt": "2024-12-18T06:49:59.736Z",
+  "versionId": "b395fb78-7419-440e-8813-bcd751dd2496"
 }
