@@ -2443,9 +2443,11 @@
       ]
     }
   },
-  "createdAt": "2024-12-16T15:37:36.447Z",
-  "id": "UVw0t4nUOj7lX6Y5",
-  "meta": null,
+  "createdAt": "2024-12-23T17:40:01.355Z",
+  "id": "4FJuKslioheKOghF",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "prod_driver_media",
   "nodes": [
     {
@@ -2453,26 +2455,26 @@
         "operation": "binaryToPropery",
         "options": {}
       },
-      "id": "3d7e41ec-0585-4952-b039-e5cd6f0692ae",
+      "id": "4d91ef8a-89c8-4bef-98e3-9b59317b7f3e",
       "name": "Extract from File",
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        -640,
-        4380
+        -180,
+        4840
       ]
     },
     {
       "parameters": {
         "keep": "lastItems"
       },
-      "id": "9e257201-1356-4472-8b5c-113937a2e3ec",
+      "id": "344660ba-edc3-4957-9d22-443dbd60b4e4",
       "name": "Limit",
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        -160,
-        4380
+        300,
+        4840
       ]
     },
     {
@@ -2494,13 +2496,13 @@
           ]
         }
       },
-      "id": "d71a701a-7673-41b3-a541-77188adf147c",
+      "id": "3cac0410-1238-4b76-b3c7-4776decb4eec",
       "name": "получение id карточки на тех.обслуживание",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -380,
-        4380
+        80,
+        4840
       ],
       "credentials": {
         "odooApi": {
@@ -2514,13 +2516,13 @@
         "resource": "file",
         "fileId": "={{ $('Execute Workflow Trigger').item.json.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}"
       },
-      "id": "50b6f3be-a02b-4906-aeba-b12218551969",
+      "id": "a16b903f-d95a-4480-8b68-aec5aad144cd",
       "name": "получение фото из тг",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        -880,
-        4380
+        -420,
+        4840
       ],
       "credentials": {
         "telegramApi": {
@@ -2553,13 +2555,13 @@
         },
         "options": {}
       },
-      "id": "b7052e69-8368-4ae7-8b07-d57acaf81147",
+      "id": "468d192f-cc4f-49e1-a06d-58b2500e539b",
       "name": "проверка фото механику/логисту",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -1280,
-        4140
+        -820,
+        4600
       ]
     },
     {
@@ -2640,13 +2642,13 @@
         },
         "options": {}
       },
-      "id": "7a5d51fe-e027-4e02-8c66-9bf1efd4bae4",
+      "id": "6fb31dc7-9c4e-4003-ae20-e9579b883dc6",
       "name": "возвращение статуса фото для ТО",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        260,
-        4380
+        720,
+        4840
       ],
       "credentials": {
         "postgres": {
@@ -2661,13 +2663,13 @@
         "height": 227.62478042711086,
         "width": 1608.6685143378268
       },
-      "id": "935d571f-02cd-421e-81a2-41e29785e182",
+      "id": "56e289c7-3f2c-4224-8f1d-561cc8001edf",
       "name": "Sticky Note19",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -960,
-        4320
+        -500,
+        4780
       ]
     },
     {
@@ -2676,13 +2678,13 @@
         "height": 230.9235502040431,
         "width": 1117.3696268263427
       },
-      "id": "7f057b0a-2089-4055-b346-e11a9ebce305",
+      "id": "28a22d86-ec41-41ac-9196-b644e34fb139",
       "name": "Sticky Note23",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -960,
-        4620
+        -500,
+        5080
       ]
     },
     {
@@ -2710,13 +2712,13 @@
         },
         "options": {}
       },
-      "id": "5cefb989-512e-4741-9c30-f9a495e91167",
+      "id": "37c04da4-be9d-4606-8f50-932096c6ea57",
       "name": "поиск тг айди логистов1",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        -700,
-        4680
+        -240,
+        5140
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -2731,13 +2733,13 @@
         "aggregate": "aggregateAllItemData",
         "options": {}
       },
-      "id": "d9d39f7d-4ef1-43c4-b1d3-8b546398fd0e",
+      "id": "f00ecda4-002e-495a-bf5e-7082bbf890b6",
       "name": "преобразуем в 1 переменную2",
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        -240,
-        4680
+        220,
+        5140
       ]
     },
     {
@@ -2765,13 +2767,13 @@
           "appendAttribution": false
         }
       },
-      "id": "e452a140-d36a-4377-8906-31ab501444c1",
+      "id": "c9fa594e-826d-44e6-87e8-7994cf494684",
       "name": "Фото доставлено1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        460,
-        4380
+        920,
+        4840
       ],
       "credentials": {
         "telegramApi": {
@@ -2805,13 +2807,13 @@
           "appendAttribution": false
         }
       },
-      "id": "8844173e-bd6c-42e6-82c6-2e54a5742b07",
+      "id": "c69ce706-5c05-4904-b5f9-d60ea3cf2508",
       "name": "Фото доставлено",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        -20,
-        4680
+        440,
+        5140
       ],
       "credentials": {
         "telegramApi": {
@@ -2826,13 +2828,13 @@
         "chatId": "={{ $('Execute Workflow Trigger').item.json.message.chat.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.message.message_id-1 }}"
       },
-      "id": "e5291584-1673-4844-953e-d5aefc1d3d71",
+      "id": "7634beec-a229-4df7-a708-4477ae52170c",
       "name": "удаление \"отправляйте фото\"",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        320,
-        4680
+        780,
+        5140
       ],
       "credentials": {
         "telegramApi": {
@@ -2848,13 +2850,13 @@
         "file": "={{ $('Execute Workflow Trigger').item.json.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}",
         "additionalFields": {}
       },
-      "id": "e2ad7ad6-b6b9-4146-9ef3-ce661102de46",
+      "id": "198e8a1c-9d4f-43a6-bb31-998a26e6bc66",
       "name": "Отправка фото логисту",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        -460,
-        4680
+        0,
+        5140
       ],
       "credentials": {
         "telegramApi": {
@@ -2889,13 +2891,13 @@
           "appendAttribution": false
         }
       },
-      "id": "b37a25cd-0f60-4cc7-8f9b-72233937833a",
+      "id": "5eaa9d8c-98e1-4972-8fe9-75f427d8547d",
       "name": "если не отправилось",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        -160,
-        4820
+        300,
+        5280
       ],
       "credentials": {
         "telegramApi": {
@@ -2909,13 +2911,13 @@
         "operation": "binaryToPropery",
         "options": {}
       },
-      "id": "76f7c1c0-5b63-4e7e-9ecb-b1dece96f8c8",
+      "id": "6a1e8ff2-49e5-43ea-b75d-95bc43473bb2",
       "name": "Extract from File1",
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        580,
-        80
+        1035,
+        540
       ]
     },
     {
@@ -2923,13 +2925,13 @@
         "resource": "file",
         "fileId": "={{ $('Execute Workflow Trigger').item.json.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}"
       },
-      "id": "b886e492-fbf2-44c9-a585-35c324b9d988",
+      "id": "85ca55a6-cfd0-4c70-8629-92a83bd8b4c6",
       "name": "получение фото из тг1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        340,
-        80
+        795,
+        540
       ],
       "credentials": {
         "telegramApi": {
@@ -2946,13 +2948,13 @@
           "appendAttribution": false
         }
       },
-      "id": "353a73b7-b9ca-41e5-8b05-f50420ddab5e",
+      "id": "3d5c3317-0aaf-48a5-891c-3135da9f66be",
       "name": "Фото доставлено2",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        1060,
-        80
+        1520,
+        540
       ],
       "credentials": {
         "telegramApi": {
@@ -3071,13 +3073,13 @@
         },
         "options": {}
       },
-      "id": "0ef75a0b-9e7c-46f2-af3c-b12ce9ada240",
+      "id": "c7694ea7-830d-46cb-98d0-6a3ed8c623a8",
       "name": "меняем статус на обычный",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        1280,
-        80
+        1735,
+        540
       ],
       "credentials": {
         "postgres": {
@@ -3093,13 +3095,13 @@
         "width": 1480.2413619003405,
         "color": 6
       },
-      "id": "9dbe33c8-9d79-41a9-bce6-1b19817e7eed",
+      "id": "fbea58b5-6d3d-4537-85e2-d12af0277a88",
       "name": "Sticky Note15",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        0,
-        0
+        460,
+        460
       ]
     },
     {
@@ -3127,13 +3129,13 @@
         },
         "options": {}
       },
-      "id": "5908a290-4bbe-4016-8891-27a0d1553aaf",
+      "id": "7bd5cf32-3fd7-4995-85a6-1efd47dfea9d",
       "name": "Проверка: является ли фото грузом",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -1300,
-        4620
+        -840,
+        5080
       ]
     },
     {
@@ -3161,13 +3163,13 @@
         },
         "options": {}
       },
-      "id": "4c628d65-bf8b-4065-8908-2f4c3afd8cb9",
+      "id": "331c7fc3-9056-4be3-b5fb-2a30c9508b22",
       "name": "поиск тг айди логистов2",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        -460,
-        5100
+        0,
+        5560
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -3202,13 +3204,13 @@
           "appendAttribution": false
         }
       },
-      "id": "a89b1bbe-ea4f-4ee0-a4ed-d8e0dc43592f",
+      "id": "54dc8c8c-1d21-4a42-9521-3a76bece6fe8",
       "name": "Уведомление водителя о том, что фото доставлено",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        920,
-        5100
+        1380,
+        5560
       ],
       "credentials": {
         "telegramApi": {
@@ -3223,13 +3225,13 @@
         "chatId": "={{ $json.result.chat.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.message.message_id -1}}"
       },
-      "id": "d347ad94-31a8-41f6-bd9a-bad2d85baee4",
+      "id": "ed50496b-1981-44c8-a5f1-e7902186ae01",
       "name": "Удаление прошлого сообщения",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        1140,
-        5100
+        1600,
+        5560
       ],
       "credentials": {
         "telegramApi": {
@@ -3240,13 +3242,13 @@
     },
     {
       "parameters": {},
-      "id": "1ed32e06-cf1a-47cc-aece-2909560023e9",
+      "id": "ed3813c2-f7bc-4758-bde3-4986878832a7",
       "name": "Limit2",
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        -580,
-        5260
+        -120,
+        5720
       ]
     },
     {
@@ -3256,13 +3258,13 @@
         "width": 2388.3105904636163,
         "color": 4
       },
-      "id": "96d24207-16e5-4929-affa-e36631f3606a",
+      "id": "027f95f9-a81e-4b7c-8e36-ec854bae05b0",
       "name": "Sticky Note36",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -940,
-        5020
+        -480,
+        5480
       ]
     },
     {
@@ -3271,13 +3273,13 @@
         "combinationMode": "multiplex",
         "options": {}
       },
-      "id": "df1a8a05-2f11-4a67-9125-dfc496061ad1",
+      "id": "8694d26b-cca2-4ef3-86a5-00b953d2458a",
       "name": "Merge1",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        180,
-        5100
+        640,
+        5560
       ]
     },
     {
@@ -3305,13 +3307,13 @@
         },
         "options": {}
       },
-      "id": "1e86d040-5c43-43b6-9ee4-5757f8bf8592",
+      "id": "d571e0be-1106-4f4d-be95-f400b8fb295e",
       "name": "поиск тг айди механиков3",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        1780,
-        120
+        2235,
+        561
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -3345,13 +3347,13 @@
         },
         "options": {}
       },
-      "id": "5ee1c6ec-8c64-4ca1-a652-a5bdfdd72852",
+      "id": "6a78da2a-3d11-415e-b58d-0444f8a0f382",
       "name": "проверка наличия механиков3",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        2000,
-        100
+        2460,
+        560
       ]
     },
     {
@@ -3393,13 +3395,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "568bd2c0-5029-4f0f-8822-60f81665c6f3",
+      "id": "4832ee8b-b338-4bd4-879d-94dbc2e0a664",
       "name": "Отправка проблемы механикам3",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        2700,
-        80
+        3160,
+        540
       ],
       "credentials": {
         "telegramApi": {
@@ -3415,13 +3417,13 @@
         "width": 1391.125440357962,
         "color": 6
       },
-      "id": "0687b1be-d559-4544-9f8d-066f1382e061",
+      "id": "6010ed46-c65c-42fb-bac8-b1f6de64c1eb",
       "name": "Sticky Note42",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1520,
-        20
+        1980,
+        480
       ],
       "disabled": true
     },
@@ -3434,13 +3436,13 @@
         "text": "=Прикрепите фото исправления:",
         "additionalFields": {}
       },
-      "id": "1dc9e1e7-ea32-4c74-9f6c-44659477e0c5",
+      "id": "b2346062-a6d9-4a3e-8556-aa29243cf89d",
       "name": "убираем кнопку \"назад\" у прикрепления фото",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        80,
-        80
+        540,
+        540
       ],
       "credentials": {
         "telegramApi": {
@@ -3454,13 +3456,13 @@
         "resource": "file",
         "fileId": "={{ $('Execute Workflow Trigger').item.json.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}"
       },
-      "id": "759e9366-4b3e-4d34-8ccb-dddcd1a03baf",
+      "id": "41f55329-ff5b-4006-9304-369ba030f6f5",
       "name": "получение фото из тг2",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        360,
-        920
+        820,
+        1380
       ],
       "credentials": {
         "telegramApi": {
@@ -3474,13 +3476,13 @@
         "operation": "binaryToPropery",
         "options": {}
       },
-      "id": "8f2c5cd5-91d2-4d88-9ef6-5412812e53f1",
+      "id": "c1991f3c-fb8f-4d09-bfc6-cfd11dac0df4",
       "name": "Extract from File2",
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        560,
-        920
+        1020,
+        1380
       ]
     },
     {
@@ -3501,13 +3503,13 @@
         "jsonBody": "={\n  \"number_car\":  {{'\"'+ $json.number_car +'\"'}},\n  \"transportation_id\":  {{ $json.current_transportation[0] }},\n  \"files\": {{'\"'+ $('Extract from File2').item.json.data +'\"'}}\n}",
         "options": {}
       },
-      "id": "064ab3e4-c56c-4fce-ade0-572d9dd0cd7f",
+      "id": "fc78efe4-f32b-4a0f-8c4b-d99195d294aa",
       "name": "загрузка весовой в рейс",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        900,
-        920
+        1360,
+        1380
       ]
     },
     {
@@ -3587,13 +3589,13 @@
         },
         "options": {}
       },
-      "id": "b7ef1bba-6253-419d-99d9-9765639f1df9",
+      "id": "26c88bf3-73ff-496c-99b3-b93adcd45150",
       "name": "меняем статус на дефолтный3",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        1160,
-        920
+        1620,
+        1380
       ],
       "credentials": {
         "postgres": {
@@ -3610,13 +3612,13 @@
         "width": 1581.9914497029301,
         "color": 4
       },
-      "id": "aedb1658-05f2-4245-ad68-36ab10b8d5f6",
+      "id": "0d21bb16-b886-4e47-8f4e-8f346e7530b5",
       "name": "Sticky Note63",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        0,
-        840
+        460,
+        1300
       ]
     },
     {
@@ -3644,13 +3646,13 @@
           "appendAttribution": false
         }
       },
-      "id": "e291cd07-5222-48b3-81db-22acda7dcde9",
+      "id": "a6155945-9253-49e7-86f0-8ef6cb4ada8a",
       "name": "возврат к завершению заказа",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        1380,
-        920
+        1840,
+        1380
       ],
       "credentials": {
         "telegramApi": {
@@ -3664,13 +3666,13 @@
       "parameters": {
         "errorMessage": "444"
       },
-      "id": "affaece0-1ea8-420e-a511-c04f9551bdec",
+      "id": "730c0315-809c-4baf-a684-7951db1e0b4e",
       "name": "Stop and Error",
       "type": "n8n-nodes-base.stopAndError",
       "typeVersion": 1,
       "position": [
-        -1460,
-        3400
+        -1000,
+        3860
       ],
       "disabled": true
     },
@@ -3679,13 +3681,13 @@
         "aggregate": "aggregateAllItemData",
         "options": {}
       },
-      "id": "76041808-549a-4935-841a-09cdc0fd40f2",
+      "id": "461a03b5-47d1-4c3f-9b55-041dda74f619",
       "name": "преобразуем в 1 переменную",
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        720,
-        5100
+        1180,
+        5560
       ]
     },
     {
@@ -3713,13 +3715,13 @@
         },
         "additionalFields": {}
       },
-      "id": "19d7eccc-eb56-4a8e-9dda-39490d4f4c2b",
+      "id": "b2e95604-4713-4066-9fba-23f99d658803",
       "name": "убираем кнопку \"назад\" у прикрепления фото1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        100,
-        920
+        560,
+        1380
       ],
       "credentials": {
         "telegramApi": {
@@ -3737,13 +3739,13 @@
         "text": "Отправьте фотографию чека с заправки:",
         "additionalFields": {}
       },
-      "id": "8af2877c-58ae-496e-aeb3-47389d2ced8b",
+      "id": "16da1378-8554-4a97-9d82-69488a4083b0",
       "name": "убираем кнопку назад",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        1640,
-        540
+        2100,
+        993
       ],
       "credentials": {
         "telegramApi": {
@@ -3759,13 +3761,13 @@
         "width": 1568.0405153439622,
         "color": 4
       },
-      "id": "4ff08b69-133f-4ea0-a06b-d73d3743119d",
+      "id": "736dd902-5b30-4c93-8ea3-46fd9521237c",
       "name": "Sticky Note18",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        0,
-        1240
+        460,
+        1700
       ]
     },
     {
@@ -3773,13 +3775,13 @@
         "operation": "binaryToPropery",
         "options": {}
       },
-      "id": "f83ac555-c961-4b2c-a5f9-1965f392dc97",
+      "id": "1a3183fc-37ea-44ab-8bac-f150023e3d84",
       "name": "Extract from File3",
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        400,
-        1280
+        860,
+        1740
       ]
     },
     {
@@ -3859,13 +3861,13 @@
         },
         "options": {}
       },
-      "id": "2d9ffa28-6f78-4262-bdc9-301ee6207667",
+      "id": "a69e71bd-eb60-4599-ac75-6cc318cf4bf3",
       "name": "меняем статус на дефолтный5",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        1100,
-        1280
+        1560,
+        1740
       ],
       "credentials": {
         "postgres": {
@@ -3892,13 +3894,13 @@
         "jsonBody": "={\n  \"number_car\":  {{'\"'+ $json.number_car +'\"'}},\n  \"transportation_id\":  {{ $('Execute Workflow Trigger').item.json.transportation_for_certificate }},\n  \"files\":{{'\"'+ $('Extract from File3').item.json.data +'\"'}}\n} ",
         "options": {}
       },
-      "id": "a1db5dc6-e7d2-4d0c-8334-35445c33e541",
+      "id": "dbd8bf27-593a-431c-98c2-3bba44fc72b3",
       "name": "загрузка ттн",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        880,
-        1280
+        1340,
+        1740
       ]
     },
     {
@@ -3926,13 +3928,13 @@
           "appendAttribution": false
         }
       },
-      "id": "9ae5b512-8ce8-4556-b6f5-d5208ce93471",
+      "id": "9a5e7ac7-cf01-42f7-bf57-b3c240a29d81",
       "name": "возврат к меню загрузки документов",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        1300,
-        1280
+        1760,
+        1740
       ],
       "credentials": {
         "telegramApi": {
@@ -3946,13 +3948,13 @@
         "resource": "file",
         "fileId": "={{ $('Execute Workflow Trigger').item.json.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}"
       },
-      "id": "79887397-4fdf-4d05-a88e-e934b9bc99b2",
+      "id": "2c4896d1-ebf6-409b-aba2-6b7f4a9608a0",
       "name": "получение фото из тг4",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        520,
-        1620
+        980,
+        2080
       ],
       "credentials": {
         "telegramApi": {
@@ -3966,13 +3968,13 @@
         "operation": "binaryToPropery",
         "options": {}
       },
-      "id": "1a90dc3a-e40f-4f7a-8b03-1dd012a0d692",
+      "id": "944ab789-25ac-4225-bd9a-3896fdbf13f7",
       "name": "Extract from File4",
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        780,
-        1620
+        1240,
+        2080
       ]
     },
     {
@@ -3985,13 +3987,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "392aed97-e008-4bc0-9cfc-168515126b70",
+      "id": "cc392abc-1761-48f7-b78e-254ce821a211",
       "name": "отправлено больше весовых, чем надо",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        1240,
-        1620
+        1700,
+        2080
       ],
       "credentials": {
         "telegramApi": {
@@ -4018,13 +4020,13 @@
         "jsonBody": "={\n  \"number_car\":  {{'\"'+ $('номер авто5').item.json.number_car +'\"'}},\n  \"transportation_id\":  {{ $('Execute Workflow Trigger').item.json.transportation_for_certificate }},\n  \"files\":{{'\"'+ $('Extract from File4').item.json.data +'\"'}}\n}",
         "options": {}
       },
-      "id": "b47a2ad2-500b-45af-a9ad-2e1abc004da8",
+      "id": "f33bdb1a-79db-4c41-8356-2aa0faa23b77",
       "name": "загрузка весовой в рейс1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        980,
-        1620
+        1440,
+        2080
       ],
       "onError": "continueErrorOutput"
     },
@@ -4034,13 +4036,13 @@
         "height": 268.17049395605403,
         "width": 1448.2684080005397
       },
-      "id": "11fae955-9bd1-438a-a399-47e0e65a3843",
+      "id": "ad8db27e-1d71-4c9c-a248-59081d4a07b8",
       "name": "Sticky Note65",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        0,
-        1540
+        460,
+        2000
       ]
     },
     {
@@ -4070,13 +4072,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "f7e010d2-d7b3-4529-aeb9-f76e415ec678",
+      "id": "7483b6c1-bf9d-40f0-a3c7-9c9dced122eb",
       "name": "добавляем кнопку Готово, если загружены весовые",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        280,
-        1620
+        740,
+        2080
       ],
       "credentials": {
         "telegramApi": {
@@ -4111,13 +4113,13 @@
         },
         "options": {}
       },
-      "id": "00f8a32e-a658-4018-9a4b-7a8562302b2c",
+      "id": "7bb95de0-a133-42f5-a3c0-1c6cccdf0d2a",
       "name": "айди для отправки сообщения1",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        2960,
-        900
+        3420,
+        1360
       ],
       "credentials": {
         "postgres": {
@@ -4131,13 +4133,13 @@
         "aggregate": "aggregateAllItemData",
         "options": {}
       },
-      "id": "c2dbabb9-7909-49f6-9bb0-3ac5fbca5d59",
+      "id": "89d32492-0fd1-4508-9067-e297ff419a97",
       "name": "преобразуем в 1 переменную6",
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        3400,
-        900
+        3845,
+        1358
       ]
     },
     {
@@ -4147,13 +4149,13 @@
         "width": 1443.874683483151,
         "color": 6
       },
-      "id": "815f7807-8ded-488c-b3a3-5e50f676434f",
+      "id": "d87315d1-c25a-4ec2-bbd7-bdf808f6c7c7",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2340,
-        640
+        2800,
+        1100
       ]
     },
     {
@@ -4263,13 +4265,13 @@
         },
         "options": {}
       },
-      "id": "e6736886-d061-4deb-b999-5eeb2af44b05",
+      "id": "03248fa9-c578-4b67-a5f6-aa8d257ca68a",
       "name": "возвращаем статус1",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        200,
-        2880
+        660,
+        3340
       ],
       "credentials": {
         "postgres": {
@@ -4303,13 +4305,13 @@
         },
         "options": {}
       },
-      "id": "8ae870d1-a0d6-46f0-9f6d-29449f9c36d4",
+      "id": "5bf819ec-33e9-4841-a01b-a3755d8d808c",
       "name": "айди для отправки сообщения2",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        3060,
-        1400
+        3520,
+        1860
       ],
       "credentials": {
         "postgres": {
@@ -4326,13 +4328,13 @@
           "appendAttribution": false
         }
       },
-      "id": "dc29aab2-38f4-496d-b20e-5ca91c98a36b",
+      "id": "06cd7b0a-0ebf-4e96-937d-89c6e994dca9",
       "name": "сообщение отправлено",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3840,
-        1380
+        4300,
+        1840
       ],
       "credentials": {
         "telegramApi": {
@@ -4348,13 +4350,13 @@
         "width": 1698.5927636310548,
         "color": 6
       },
-      "id": "79e63f33-72fa-45b5-8c1c-ae47caf294e0",
+      "id": "00ff0669-3ed0-4182-a341-f47263c21daa",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2320,
-        1240
+        2766.435165071145,
+        1682.638280039371
       ]
     },
     {
@@ -4391,13 +4393,13 @@
         },
         "options": {}
       },
-      "id": "4202a1d5-f5f3-40da-b3d2-ad7d3868bd3a",
+      "id": "7b0dcd75-9fc2-495a-9c43-7e06451b6e5f",
       "name": "можно создать заявку?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        2220,
-        2240
+        2680,
+        2700
       ]
     },
     {
@@ -4425,13 +4427,13 @@
         },
         "options": {}
       },
-      "id": "fa7d293a-e8a4-447a-bf95-cc0f9c75e6f3",
+      "id": "37e9a705-9a8a-4d15-acaa-763618adb1c1",
       "name": "поиск тг айди механиков1",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        2960,
-        1940
+        3420,
+        2391
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -4446,13 +4448,13 @@
         "aggregate": "aggregateAllItemData",
         "options": {}
       },
-      "id": "24ae1d36-f6cb-448a-9cdc-5397e6b47ba8",
+      "id": "19ddafbe-40d7-4666-b878-b503d162ee89",
       "name": "преобразуем в 1 переменную5",
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        3360,
-        1940
+        3820,
+        2391
       ]
     },
     {
@@ -4469,13 +4471,13 @@
         },
         "options": {}
       },
-      "id": "c6789fd5-5043-4669-8a8b-63940a613cad",
+      "id": "7c1b03a2-474a-4479-b6b1-907e92b91ab8",
       "name": "Edit Fields5",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        3540,
-        1940
+        4000,
+        2391
       ]
     },
     {
@@ -4487,13 +4489,13 @@
         },
         "options": {}
       },
-      "id": "2ff93763-c87b-4714-bdb0-8149733f3646",
+      "id": "48e16254-3100-4ec1-aef1-1d2bef414f64",
       "name": "Aggregate1",
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        3520,
-        2140
+        3980,
+        2600
       ]
     },
     {
@@ -4510,13 +4512,13 @@
         },
         "options": {}
       },
-      "id": "a46d98ca-2340-4583-875f-3c36b181ff1c",
+      "id": "5681d71b-51de-4556-b6a2-d9229dd22084",
       "name": "Edit Fields6",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        3800,
-        2220
+        4260,
+        2680
       ]
     },
     {
@@ -4532,13 +4534,13 @@
         },
         "options": {}
       },
-      "id": "a9b9f7ac-88b8-4909-89bc-976ca4224343",
+      "id": "0117480f-9c91-4411-a808-aeebff96f736",
       "name": "Summarize",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        3960,
-        2060
+        4420,
+        2511
       ]
     },
     {
@@ -4549,13 +4551,13 @@
           "appendAttribution": false
         }
       },
-      "id": "2375bc49-d443-46f9-86ae-e398846f5f08",
+      "id": "b45dda45-f164-428b-9ca0-d521a714e069",
       "name": "Сообщение отправлено",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4140,
-        2060
+        4600,
+        2511
       ],
       "credentials": {
         "telegramApi": {
@@ -4566,13 +4568,13 @@
     },
     {
       "parameters": {},
-      "id": "bacf8240-f274-45ec-a91d-1099cb2bee8d",
+      "id": "a3a6f1f3-edb1-44c8-b589-154fef4a60a5",
       "name": "Merge",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        3780,
-        2060
+        4240,
+        2511
       ]
     },
     {
@@ -4582,13 +4584,13 @@
         "file": "={{ $('Execute Workflow Trigger').all()[0].json.message.video_note.file_id }}",
         "additionalFields": {}
       },
-      "id": "0669c0ae-034e-4b17-aec6-451b1fd125e7",
+      "id": "4084d9fc-3919-4a60-b504-b1430bc288f9",
       "name": "отправка кружка",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3260,
-        1400
+        3720,
+        1849
       ],
       "credentials": {
         "telegramApi": {
@@ -4624,13 +4626,13 @@
           "reply_to_message_id": "={{ $json.result.message_id }}"
         }
       },
-      "id": "31c259c8-efe3-4236-9308-7d9589e2eb62",
+      "id": "606824d0-2b06-443b-93f5-e24663ae690f",
       "name": "отправка сообщения4",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3460,
-        1400
+        3920,
+        1849
       ],
       "credentials": {
         "telegramApi": {
@@ -4664,13 +4666,13 @@
         },
         "options": {}
       },
-      "id": "b600ad6e-3009-40cc-91b9-715c6076f428",
+      "id": "c48d42b4-32c8-4318-b0bd-0c338ea47edc",
       "name": "айди для отправки сообщения3",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        3260,
-        2700
+        3716,
+        3151
       ],
       "credentials": {
         "postgres": {
@@ -4686,13 +4688,13 @@
         "width": 1829.7939477568877,
         "color": 6
       },
-      "id": "4f80294d-b149-4cc6-b2ec-825504d5f63e",
+      "id": "2dcf5a93-437a-431d-ac48-0c8c0041a88e",
       "name": "Sticky Note2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2500,
-        1840
+        2960,
+        2300
       ]
     },
     {
@@ -4722,13 +4724,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "6de2ce50-7213-42dc-90b0-fa8d4dfe31d7",
+      "id": "bd5d3513-d43c-4934-b8cc-deae01700fc9",
       "name": "отправка видео2",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3420,
-        2700
+        3876,
+        3151
       ],
       "credentials": {
         "telegramApi": {
@@ -4742,13 +4744,13 @@
         "aggregate": "aggregateAllItemData",
         "options": {}
       },
-      "id": "0623cd26-8a14-43d5-974b-8f3193753b12",
+      "id": "ae0405d7-d8f9-495b-84d2-5328b53c2d69",
       "name": "преобразуем в 1 переменную8",
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        3600,
-        2700
+        4056,
+        3151
       ]
     },
     {
@@ -4759,13 +4761,13 @@
           "appendAttribution": false
         }
       },
-      "id": "af560aa2-c18e-46d1-9b94-fde9a4a9383b",
+      "id": "e037f994-5fff-4589-ac3f-837972844d93",
       "name": "сообщение отправлено3",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3800,
-        2700
+        4256,
+        3151
       ],
       "credentials": {
         "telegramApi": {
@@ -4781,13 +4783,13 @@
         "width": 1348.9865128023507,
         "color": 6
       },
-      "id": "7d34b5dc-ff69-4553-9fcd-c677e8f807ca",
+      "id": "925e6310-d14f-4fdd-8681-fdc24d018cff",
       "name": "Sticky Note3",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2580,
-        2460
+        3040,
+        2920
       ]
     },
     {
@@ -4815,13 +4817,13 @@
         },
         "options": {}
       },
-      "id": "5a082e63-c009-4118-af3f-3261bf70d8a9",
+      "id": "3146df89-3994-496d-ad1d-687a438aa9f8",
       "name": "айди для отправки сообщения4",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        3120,
-        3860
+        3574,
+        4304
       ],
       "credentials": {
         "postgres": {
@@ -4835,13 +4837,13 @@
         "aggregate": "aggregateAllItemData",
         "options": {}
       },
-      "id": "0d04ae2b-3fcd-469c-88d3-a28a9ecd875a",
+      "id": "33fe325a-4ed2-4233-9559-d0c5e5a4613a",
       "name": "преобразуем в 1 переменную9",
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        3440,
-        3860
+        3894,
+        4304
       ]
     },
     {
@@ -4852,13 +4854,13 @@
           "appendAttribution": false
         }
       },
-      "id": "c8ee2451-fdd2-4c1e-9be0-595c33602973",
+      "id": "00887044-66e7-4d43-a672-374c84fea63f",
       "name": "сообщение отправлено4",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3620,
-        3860
+        4074,
+        4304
       ],
       "credentials": {
         "telegramApi": {
@@ -4874,13 +4876,13 @@
         "width": 1149.2188924213212,
         "color": 6
       },
-      "id": "1c19a0d6-ab29-4bc8-b929-ad30e28d1086",
+      "id": "6cab71ac-96dc-429a-824c-1fca89562e01",
       "name": "Sticky Note4",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2600,
-        3640
+        3060,
+        4100
       ]
     },
     {
@@ -4908,13 +4910,13 @@
         },
         "options": {}
       },
-      "id": "1deef53f-e7a0-46e5-9343-92721ec57b2f",
+      "id": "f578645d-8562-4392-9752-5b37a5ed5479",
       "name": "поиск тг айди механиков",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        3700,
-        3120
+        4160,
+        3580
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -4929,13 +4931,13 @@
         "aggregate": "aggregateAllItemData",
         "options": {}
       },
-      "id": "36e80274-9683-4e47-b8d1-9c51682df831",
+      "id": "192b171d-56b0-424e-a14c-5d108e0f7ca5",
       "name": "преобразуем в 1 переменную10",
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        4100,
-        3120
+        4560,
+        3580
       ]
     },
     {
@@ -4952,13 +4954,13 @@
         },
         "options": {}
       },
-      "id": "2e2e4312-d0bf-4793-afbf-25836b3d94ef",
+      "id": "fd1a0bca-8267-49ad-b4fb-ab92dcfde889",
       "name": "Edit Fields",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        4280,
-        3120
+        4740,
+        3580
       ]
     },
     {
@@ -4970,13 +4972,13 @@
         },
         "options": {}
       },
-      "id": "425f4441-51c0-4181-b466-79c26cca48b9",
+      "id": "03e84a83-cf05-4e27-a0ee-70f26bc1b242",
       "name": "Aggregate",
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        4100,
-        3340
+        4560,
+        3800
       ]
     },
     {
@@ -4993,13 +4995,13 @@
         },
         "options": {}
       },
-      "id": "c68a2105-727f-4cf6-9a87-9fd7be5e5174",
+      "id": "22fbc869-b599-4420-8dbd-f24b6cc655a7",
       "name": "Edit Fields7",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        4280,
-        3340
+        4740,
+        3800
       ]
     },
     {
@@ -5015,13 +5017,13 @@
         },
         "options": {}
       },
-      "id": "e1959a45-ce69-4309-b4c8-c13c86bc9406",
+      "id": "7a2296bf-7d4d-48ad-80a0-f729e7740996",
       "name": "Summarize1",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        4700,
-        3240
+        5160,
+        3700
       ]
     },
     {
@@ -5032,13 +5034,13 @@
           "appendAttribution": false
         }
       },
-      "id": "2a5cf8da-2e4c-4d87-9f72-c579d3bc0440",
+      "id": "99d1b056-b520-4686-8694-1b73ae008dc5",
       "name": "Сообщение отправлено1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4880,
-        3240
+        5340,
+        3700
       ],
       "credentials": {
         "telegramApi": {
@@ -5049,13 +5051,13 @@
     },
     {
       "parameters": {},
-      "id": "694206ad-775c-4cd9-8d36-2940f3bca6c5",
+      "id": "12a139a0-d007-4947-9464-70160b1f63a2",
       "name": "Merge2",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        4520,
-        3240
+        4980,
+        3700
       ]
     },
     {
@@ -5065,13 +5067,13 @@
         "width": 2431.2405363506864,
         "color": 6
       },
-      "id": "f49d88ba-c6b2-40a8-96db-3887afdfd747",
+      "id": "dfd5b2da-4418-4d54-8b18-ca4e543d8a33",
       "name": "Sticky Note5",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2580,
-        3080
+        3040,
+        3540
       ]
     },
     {
@@ -5079,13 +5081,13 @@
         "operation": "binaryToPropery",
         "options": {}
       },
-      "id": "6cdcdcd7-7a7a-479e-a8d9-145ae76ddd9a",
+      "id": "5bbf60ab-b41b-42f1-9bbf-4d41400ad41a",
       "name": "Extract from File5",
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        3040,
-        3260
+        3500,
+        3720
       ]
     },
     {
@@ -5093,13 +5095,13 @@
         "resource": "file",
         "fileId": "={{ $('Execute Workflow Trigger').all()[0].json.message.photo.last().file_id }}"
       },
-      "id": "aedfc07f-1494-4a6c-9ae6-0ca7adb13344",
+      "id": "0a54cb1f-452c-41b3-8fee-8c5f4c849152",
       "name": "получение фото из тг5",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        2820,
-        3260
+        3280,
+        3720
       ],
       "credentials": {
         "telegramApi": {
@@ -5112,13 +5114,13 @@
       "parameters": {
         "keep": "lastItems"
       },
-      "id": "6cc18ea6-0a1d-4e25-95b6-8feb3c38b7b0",
+      "id": "0a9ed169-b823-4153-b74c-7f4cfbe8fbd9",
       "name": "актуальный рейс",
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        2000,
-        4900
+        2460,
+        5360
       ]
     },
     {
@@ -5135,13 +5137,13 @@
         },
         "options": {}
       },
-      "id": "e4442eae-2118-43c6-9b9b-f742c7f100e2",
+      "id": "52b581f9-bf24-4ee1-aa2b-5bbe525965dd",
       "name": "айди логистов",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        3540,
-        4560
+        3989,
+        5005
       ]
     },
     {
@@ -5157,13 +5159,13 @@
         },
         "options": {}
       },
-      "id": "fd6a59ac-397b-4da5-8b46-01e3f2a8320d",
+      "id": "6b766ca3-9bd8-4156-b8a9-826eee9fb653",
       "name": "в один текст",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        3760,
-        4540
+        4220,
+        5000
       ]
     },
     {
@@ -5176,13 +5178,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "9cf6649b-226d-44fb-9b49-38e5b7714550",
+      "id": "bd0664f7-1322-4971-958d-1161901e2e25",
       "name": "отправка в чат",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5220,
-        4320
+        5680,
+        4780
       ],
       "credentials": {
         "telegramApi": {
@@ -5199,13 +5201,13 @@
         "text": "Проблема с маршрутом\nОтправьте сообщение, фото, видео, запись диктофона или кружок:",
         "additionalFields": {}
       },
-      "id": "e5baf7fc-40c4-4c40-9d5c-b2345d301be5",
+      "id": "76bda4c2-940b-4bf0-97df-1db2415bb5c8",
       "name": "убираем кнопку назад1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5480,
-        4580
+        5940,
+        5040
       ],
       "credentials": {
         "telegramApi": {
@@ -5223,13 +5225,13 @@
           "appendAttribution": false
         }
       },
-      "id": "bd89667e-c323-4217-b65f-48f59e0c7812",
+      "id": "c6748561-afcc-4916-a224-296df4b4d4c1",
       "name": "Сообщение отправлено2",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5660,
-        4580
+        6120,
+        5040
       ],
       "credentials": {
         "telegramApi": {
@@ -5245,13 +5247,13 @@
         "file": "={{ $('Execute Workflow Trigger').item.json.message.video_note.file_id }}",
         "additionalFields": {}
       },
-      "id": "8c44d6c7-7600-49c4-bc60-1b04089dc19e",
+      "id": "6b985a85-fa6a-4ff9-bdd9-18aa41e3ab13",
       "name": "отправка кружка1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5060,
-        4480
+        5520,
+        4940
       ],
       "credentials": {
         "telegramApi": {
@@ -5270,13 +5272,13 @@
           "reply_to_message_id": "={{ $json.result.message_id }}"
         }
       },
-      "id": "207a9f17-b21d-4267-b418-1c41e6adec81",
+      "id": "0cbf309d-3710-4295-97c3-d93e6f2c37b6",
       "name": "отправка сообщения",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5220,
-        4480
+        5680,
+        4940
       ],
       "credentials": {
         "telegramApi": {
@@ -5295,13 +5297,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "3c786740-26eb-4de7-8370-82c819021758",
+      "id": "0ad4e4f7-2766-4925-9131-9d0b8f4f11a8",
       "name": "отправка видео3",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5220,
-        4640
+        5680,
+        5100
       ],
       "credentials": {
         "telegramApi": {
@@ -5320,13 +5322,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "9766025a-d7f7-4df3-a21f-895f40255da2",
+      "id": "248bf0d0-78e4-4b88-99cc-58d7303315b5",
       "name": "отправка фото2",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5220,
-        4800
+        5680,
+        5260
       ],
       "credentials": {
         "telegramApi": {
@@ -5342,13 +5344,13 @@
         "width": 2275.2909968159115,
         "color": 6
       },
-      "id": "365b4cae-3076-4ed3-b355-e3db6839495f",
+      "id": "a89f2b87-a2f1-4a98-a2bc-33e2e253aac6",
       "name": "Sticky Note6",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        3500,
-        4320
+        3960,
+        4780
       ]
     },
     {
@@ -5360,13 +5362,13 @@
         },
         "options": {}
       },
-      "id": "6b93b588-d26f-483b-8d0e-2eedcee9afeb",
+      "id": "451371cd-4f43-4b81-8b70-39464cbd8f68",
       "name": "Aggregate2",
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        4440,
-        5240
+        4900,
+        5700
       ]
     },
     {
@@ -5376,13 +5378,13 @@
         "file": "={{ $('Execute Workflow Trigger').item.json.message.video_note.file_id }}",
         "additionalFields": {}
       },
-      "id": "f286cb63-8561-4615-aae0-64ec4c4a29da",
+      "id": "c7917360-8caf-4e80-a6d0-9b8bc72994d7",
       "name": "отправка кружка2",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3900,
-        5240
+        4360,
+        5700
       ],
       "credentials": {
         "telegramApi": {
@@ -5400,13 +5402,13 @@
         "text": "Проблема с документами\nОтправьте сообщение, фото, видео, запись диктофона или кружок:",
         "additionalFields": {}
       },
-      "id": "4e1b574d-ceae-4285-b2f2-ad02c601a1f4",
+      "id": "ee10ae41-9741-43cc-9fd5-a635ff04d2b0",
       "name": "убираем кнопку назад2",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4640,
-        5240
+        5100,
+        5700
       ],
       "credentials": {
         "telegramApi": {
@@ -5424,13 +5426,13 @@
           "appendAttribution": false
         }
       },
-      "id": "eb8805f9-620d-4207-aedf-9622b494c514",
+      "id": "56698eee-678a-46ae-b48c-67bbd466a505",
       "name": "Сообщение отправлено3",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4820,
-        5240
+        5280,
+        5700
       ],
       "credentials": {
         "telegramApi": {
@@ -5457,13 +5459,13 @@
         "jsonBody": "={\n    \"maintenance_id\": {{ $('Execute Workflow Trigger').item.json.end_request_id }},\n    \"image\":  {{'\"'+ $('Extract from File1').item.json.data + '\"'}}\n}",
         "options": {}
       },
-      "id": "7fd97cd0-5589-4ae1-97da-ea3b6e52b059",
+      "id": "802a74e9-c1bf-43c2-9fff-b0fdfeb27c50",
       "name": "загрузка фото исправления",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        820,
-        80
+        1280,
+        540
       ]
     },
     {
@@ -5484,13 +5486,13 @@
         "jsonBody": "={\n    \"maintenance_id\": {{ $json.id }},\n    \"image\":  {{'\"'+ $('Extract from File').item.json.data + '\"'}}\n}",
         "options": {}
       },
-      "id": "00b4c74e-b9a7-45a5-9c0c-63a07a07fc7f",
+      "id": "0f992798-7824-4141-9f31-aabf61dfc739",
       "name": "загрузка фото неисправности",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        60,
-        4380
+        520,
+        4840
       ]
     },
     {
@@ -5518,13 +5520,13 @@
         },
         "options": {}
       },
-      "id": "f220a6a4-1884-43a4-9bd6-255a1b5aa611",
+      "id": "0a9d026d-07ab-42b2-9268-746df84bf779",
       "name": "поиск тг айди логистов+диспетчер",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        3180,
-        2140
+        3640,
+        2600
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -5561,13 +5563,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "16e9457e-dc6e-4594-88f9-296557e9eaa4",
+      "id": "b64f07b6-5c1c-444b-9a28-06af1ff8110f",
       "name": "отправка аудио",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3180,
-        900
+        3640,
+        1360
       ],
       "credentials": {
         "telegramApi": {
@@ -5584,13 +5586,13 @@
           "appendAttribution": false
         }
       },
-      "id": "1c4715e8-9dd1-4b96-9789-efc86e714a72",
+      "id": "c6cf0110-09e6-4f0f-af1c-26ada90aa730",
       "name": "сообщение отправлено2",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3580,
-        900
+        4025,
+        1358
       ],
       "credentials": {
         "telegramApi": {
@@ -5604,13 +5606,13 @@
         "aggregate": "aggregateAllItemData",
         "options": {}
       },
-      "id": "bd98b293-d2c8-468e-8962-e5c15f566e2a",
+      "id": "91199cd9-2fd8-41d4-8472-bf141b7ed9cd",
       "name": "преобразуем в 1 переменную7",
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        3660,
-        1380
+        4120,
+        1840
       ],
       "executeOnce": false
     },
@@ -5641,13 +5643,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "1615f65d-32fb-45c7-b966-7ab23329183e",
+      "id": "b876d062-514f-48c2-942a-7e5ad3a0180f",
       "name": "отправка фото",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3280,
-        3860
+        3734,
+        4304
       ],
       "credentials": {
         "telegramApi": {
@@ -5682,13 +5684,13 @@
         },
         "options": {}
       },
-      "id": "09ef3e84-e42b-405b-b73f-d9a0a9db4a00",
+      "id": "259f69d2-c81e-46f8-b505-e6b9f21b36a1",
       "name": "поиск тг айди логистов4",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        3700,
-        3360
+        4143,
+        3809
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -5723,13 +5725,13 @@
         },
         "options": {}
       },
-      "id": "4bd5a276-dd8e-4b99-86de-5c5cd470d8b9",
+      "id": "9c1ece8a-e60f-4f79-abca-2bfff83c9bf6",
       "name": "поиск тг айди логистов",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        2900,
-        4900
+        3360,
+        5360
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -5753,13 +5755,13 @@
         },
         "options": {}
       },
-      "id": "b8154b9d-3652-45df-93ec-e957d77bcdde",
+      "id": "32532bc6-7131-44bf-81a0-9cd4104430a3",
       "name": "айди диспетчера",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        4380,
-        4540
+        4840,
+        5000
       ]
     },
     {
@@ -5775,13 +5777,13 @@
         },
         "options": {}
       },
-      "id": "5136ce88-9638-4e69-b512-02e302f5a9b3",
+      "id": "f8681cb9-b05a-43cc-b3d5-6baa2edda5ec",
       "name": "в один текст1",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
       "position": [
-        4600,
-        4540
+        5060,
+        5000
       ]
     },
     {
@@ -5809,13 +5811,13 @@
         },
         "options": {}
       },
-      "id": "98c9ec83-0663-4053-83ba-81cfb2767626",
+      "id": "33fac76f-0bcd-4ef5-a458-6950c8b9d3b2",
       "name": "айди для отправки сообщения8",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        4180,
-        4540
+        4640,
+        5000
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -5832,13 +5834,13 @@
         "width": 2781.8110403917585,
         "color": 6
       },
-      "id": "8c599490-4799-47cd-b137-f17e8261d277",
+      "id": "90baeb03-c1ff-456f-939f-39f610f2979b",
       "name": "Sticky Note11",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        3440,
-        5040
+        3900,
+        5500
       ]
     },
     {
@@ -5866,13 +5868,13 @@
         },
         "options": {}
       },
-      "id": "7b33e0bd-65ae-4ede-b28e-009ca5b15ffc",
+      "id": "c89bc620-c71e-4b1b-9585-fc2f1a5b2ea2",
       "name": "айди для отправки сообщения9",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        5320,
-        5240
+        5780,
+        5700
       ],
       "credentials": {
         "postgres": {
@@ -5911,13 +5913,13 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "433bacd0-5f07-40bc-8eb4-2f430f298346",
+      "id": "10a83e3e-5363-4e3e-a641-89e7a5e59919",
       "name": "с чем проблема",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        420,
-        2880
+        880,
+        3340
       ]
     },
     {
@@ -5995,13 +5997,13 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "17dceedf-b01e-4c25-81b1-758c88cb8f30",
+      "id": "9ae5ce0f-c8b7-4707-a297-62ff3c88972d",
       "name": "тип медиа",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        1100,
-        2820
+        1560,
+        3280
       ]
     },
     {
@@ -6012,13 +6014,13 @@
         "text": "Проблема с автомобилем\nОтправьте сообщение, фото, видео, запись диктофона или кружок:",
         "additionalFields": {}
       },
-      "id": "1ef282f9-b7e8-4aac-b32d-7f721ad41f89",
+      "id": "9820247b-a677-41f2-837a-4513e94eb327",
       "name": "убираем кнопку назад3",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        760,
-        2860
+        1220,
+        3320
       ],
       "credentials": {
         "telegramApi": {
@@ -6103,13 +6105,13 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "c8b00609-3977-487d-b8b2-ea1646781c91",
+      "id": "e3208b4b-e068-4053-9b6d-ed0a712b2504",
       "name": "тип медиа1",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        4820,
-        4540
+        5271,
+        4995
       ]
     },
     {
@@ -6187,13 +6189,13 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "73acc524-615b-41b7-96fa-326ad963ed7d",
+      "id": "d45671fa-0e62-4267-8d5a-a249efbb0831",
       "name": "тип медиа3",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        5520,
-        5260
+        5980,
+        5720
       ]
     },
     {
@@ -6223,13 +6225,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "822916de-5e51-430a-b548-e086b48dd49c",
+      "id": "9be6e040-19f7-4a3e-baa5-d9d076e997cf",
       "name": "отправка фото4",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4100,
-        5560
+        4560,
+        6020
       ],
       "credentials": {
         "telegramApi": {
@@ -6266,13 +6268,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "93e8ed55-7f39-4ff2-b9ec-883a0d5272a2",
+      "id": "f26da790-0f57-4644-828d-4a02cb11e67a",
       "name": "отправка видео4",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4100,
-        5400
+        4560,
+        5860
       ],
       "credentials": {
         "telegramApi": {
@@ -6309,13 +6311,13 @@
           "reply_to_message_id": "={{ $json.result.message_id }}"
         }
       },
-      "id": "e2546543-8367-4638-95ca-c62a03871aa9",
+      "id": "c9cfb7a9-db2a-4815-b812-71be38757328",
       "name": "отправка сообщения1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4100,
-        5240
+        4560,
+        5700
       ],
       "credentials": {
         "telegramApi": {
@@ -6352,13 +6354,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "d65cc65e-6fbd-4bf7-b0e1-a755441b5741",
+      "id": "c6288f40-b25e-4e8e-a817-afd47887ec98",
       "name": "отправка в чат1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        4100,
-        5060
+        4560,
+        5520
       ],
       "credentials": {
         "telegramApi": {
@@ -6529,13 +6531,13 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "1c3d01c1-1fe5-477d-8b09-dfcd5244f805",
+      "id": "fbc9f699-4f04-40f8-91bd-946e3537a65c",
       "name": "проверка статуса",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        -960,
-        2800
+        -500,
+        3260
       ]
     },
     {
@@ -6563,13 +6565,13 @@
         },
         "options": {}
       },
-      "id": "7aa329b0-7140-442c-aa94-670958e2d20e",
+      "id": "2c380877-0f14-4a55-a686-aba636bd4afd",
       "name": "айди для отправки сообщения10",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        -200,
-        3520
+        260,
+        3980
       ],
       "alwaysOutputData": false,
       "credentials": {
@@ -6584,13 +6586,13 @@
         "resource": "file",
         "fileId": "={{ $('Execute Workflow Trigger').item.json.message.video_note.file_id }}"
       },
-      "id": "1c70cdc8-6be8-4778-bc1f-77f280562d98",
+      "id": "0b2870a9-f869-4969-9999-e3de40302163",
       "name": "скачать файл9",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        260,
-        3460
+        720,
+        3920
       ],
       "credentials": {
         "telegramApi": {
@@ -6606,13 +6608,13 @@
         "binaryData": true,
         "additionalFields": {}
       },
-      "id": "46fa9e03-37eb-4168-9443-9ff5a3a532a1",
+      "id": "1f41a0a9-fb14-44b8-a3b3-9365d6e5e65f",
       "name": "отправка кружка5",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        440,
-        3460
+        900,
+        3920
       ],
       "credentials": {
         "telegramApi": {
@@ -6648,13 +6650,13 @@
           "reply_to_message_id": "={{ $json.result.message_id }}"
         }
       },
-      "id": "507f1d4a-c09b-4e2e-8b2a-148afc983ee5",
+      "id": "56500efa-87c0-454d-a2c9-7d1272952183",
       "name": "текст9",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        580,
-        3460
+        1040,
+        3920
       ],
       "credentials": {
         "telegramApi": {
@@ -6668,13 +6670,13 @@
         "resource": "file",
         "fileId": "={{ $('Execute Workflow Trigger').item.json.message.video.file_id }}"
       },
-      "id": "7b48b52d-2bb5-4e07-9406-2e9b5ae36fbf",
+      "id": "8034a97d-e75a-456e-8675-ced147af8d84",
       "name": "скачать файл10",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        260,
-        3600
+        720,
+        4060
       ],
       "credentials": {
         "telegramApi": {
@@ -6690,13 +6692,13 @@
         "binaryData": true,
         "additionalFields": {}
       },
-      "id": "26a3c074-f063-4c99-9d7d-c01775c1b5ed",
+      "id": "d5452468-2599-4e71-ab9f-cdee0f14eb85",
       "name": "отправка видео7",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        420,
-        3600
+        880,
+        4060
       ],
       "credentials": {
         "telegramApi": {
@@ -6732,13 +6734,13 @@
           "reply_to_message_id": "={{ $json.result.message_id }}"
         }
       },
-      "id": "bb4f6ad8-1dc8-43ac-9758-1394e9fb5481",
+      "id": "befd8b96-9e3b-464b-8d39-ded0b69bd353",
       "name": "текст10",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        580,
-        3600
+        1040,
+        4060
       ],
       "credentials": {
         "telegramApi": {
@@ -6822,13 +6824,13 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "32ea8c0a-72a1-4fec-9f49-ed660551c835",
+      "id": "6d80727f-02f8-4ec1-80f2-547d1644ad2e",
       "name": "тип медиа4",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        0,
-        3540
+        460,
+        4000
       ]
     },
     {
@@ -6836,13 +6838,13 @@
         "resource": "file",
         "fileId": "={{ $('Execute Workflow Trigger').item.json.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}"
       },
-      "id": "e7cc7c40-084d-4467-8a68-b24d3023be3c",
+      "id": "b4f26354-5d15-4f29-b521-7635de36839a",
       "name": "скачать файл11",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        260,
-        3760
+        720,
+        4220
       ],
       "credentials": {
         "telegramApi": {
@@ -6858,13 +6860,13 @@
         "binaryData": true,
         "additionalFields": {}
       },
-      "id": "c0dbcede-c971-4871-b016-b879e71551ef",
+      "id": "b5829318-1d9e-454e-a064-86d1b45278bf",
       "name": "отправка фото7",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        440,
-        3760
+        900,
+        4220
       ],
       "credentials": {
         "telegramApi": {
@@ -6900,13 +6902,13 @@
           "reply_to_message_id": "={{ $json.result.message_id }}"
         }
       },
-      "id": "40eccefb-099f-4f7c-8d11-84defe1f6bbb",
+      "id": "b9024711-3b92-421c-8b23-699e7cedadef",
       "name": "текст11",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        580,
-        3760
+        1040,
+        4220
       ],
       "credentials": {
         "telegramApi": {
@@ -6920,13 +6922,13 @@
         "aggregate": "aggregateAllItemData",
         "options": {}
       },
-      "id": "46aa4f3c-5cbb-4adc-9ecb-675cbfd7c6ca",
+      "id": "7d0a9146-0902-44c5-a89a-8bd0e26cbed1",
       "name": "преобразуем в 1 переменную11",
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        820,
-        3520
+        1280,
+        3980
       ]
     },
     {
@@ -6937,13 +6939,13 @@
           "appendAttribution": false
         }
       },
-      "id": "f8fb607d-885c-4281-a8d1-e45b38a4ef69",
+      "id": "9bfcb74a-1b1a-4824-bcbc-c31de688aa07",
       "name": "сообщение отправлено5",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        1000,
-        3520
+        1460,
+        3980
       ],
       "credentials": {
         "telegramApi": {
@@ -6959,13 +6961,13 @@
         "width": 2392.3192468395423,
         "color": 6
       },
-      "id": "75c68954-e626-42a8-9c4c-13ddae4354ba",
+      "id": "30a57316-13e9-490c-86c3-8d093533765e",
       "name": "Sticky Note12",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -820,
-        3300
+        -364.6867592880076,
+        3756.786501471649
       ]
     },
     {
@@ -6976,13 +6978,13 @@
         "text": "Введите ваше сообщение диспетчеру",
         "additionalFields": {}
       },
-      "id": "6ef65e80-c340-486b-b4e0-e1d9fe0f82ea",
+      "id": "37ab4484-0d24-4ff4-8d1f-45680a8fbec5",
       "name": "убираем кнопку назад4",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        1180,
-        3520
+        1640,
+        3980
       ],
       "credentials": {
         "telegramApi": {
@@ -7099,13 +7101,13 @@
         },
         "options": {}
       },
-      "id": "3d27ce4c-0391-4631-9a5b-b375a36cfcad",
+      "id": "d7e51c8c-df96-434b-b4bb-0a0f37801c31",
       "name": "возвращаем статус",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        1380,
-        3520
+        1840,
+        3980
       ],
       "credentials": {
         "postgres": {
@@ -7122,13 +7124,13 @@
         "customFormat": "dd.MM.yyyy HH:mm:ss",
         "options": {}
       },
-      "id": "1fdaeb58-b4fe-4a3f-9030-d63df3f491a3",
+      "id": "8419ab2b-189a-44e3-8add-33d30cda7517",
       "name": "форматированная дата",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        480,
-        540
+        940,
+        993
       ]
     },
     {
@@ -7149,13 +7151,13 @@
         "jsonBody": "={\n  \"date\": \"{{ $('форматированная дата').item.json.formattedDate }}\",\n  \"car_number\": \"{{ $('авто').item.json.number_car }}\",\n  \"number_of_liters\": {{ $('Execute Workflow Trigger').item.json.fuel_liters }},\n  \"driver_id\": {{ $('Execute Workflow Trigger').item.json.odoo_id }},\n\"check_scan\": \"{{ $json.data }}\"\n} ",
         "options": {}
       },
-      "id": "30e1401a-5a31-478b-8441-bfe761c24484",
+      "id": "b23f8c85-a942-4659-84eb-70ab39402fa1",
       "name": "отправялем запрос",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1060,
-        540
+        1520,
+        993
       ]
     },
     {
@@ -7164,13 +7166,13 @@
           "timezone": "Asia/Yekaterinburg"
         }
       },
-      "id": "0dc9c756-9a58-49ca-86f3-7be91d7c2a54",
+      "id": "a144890c-f88a-4b86-a82f-791953aac0d4",
       "name": "время екатеринбург",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        260,
-        540
+        720,
+        993
       ]
     },
     {
@@ -7281,13 +7283,13 @@
         },
         "options": {}
       },
-      "id": "0f0ae652-d2ed-4320-ba6a-36483339e637",
+      "id": "ae5555f1-df00-4567-82f3-6605fb189b6a",
       "name": "меняем статус на обычный2",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        1440,
-        540
+        1900,
+        993
       ],
       "credentials": {
         "postgres": {
@@ -7322,13 +7324,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "7671b025-cb7b-4d95-a15e-731791ecd50c",
+      "id": "00c96a87-36e9-4cbf-b403-3cd1c6bd2802",
       "name": "данные занесенны",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        1240,
-        540
+        1700,
+        993
       ],
       "credentials": {
         "telegramApi": {
@@ -7344,13 +7346,13 @@
         "width": 1746.421657047815,
         "color": 6
       },
-      "id": "270ef36d-617a-4608-bbd6-0998432534f4",
+      "id": "f118a09d-995d-4ae0-b40a-1f3fb5f850d1",
       "name": "Sticky Note13",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        20,
-        460
+        480,
+        920
       ]
     },
     {
@@ -7358,13 +7360,13 @@
         "resource": "file",
         "fileId": "={{ $('Execute Workflow Trigger').item.json.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}"
       },
-      "id": "6c5d61a2-fa63-4a63-9bf2-23d3d1f430eb",
+      "id": "5c42fea1-84dc-48b0-89df-16ba04cfc8fb",
       "name": "получение фото из тг6",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        660,
-        540
+        1120,
+        993
       ],
       "credentials": {
         "telegramApi": {
@@ -7378,13 +7380,13 @@
         "operation": "binaryToPropery",
         "options": {}
       },
-      "id": "5c7a03f5-366b-48fa-a0e7-d8ef213995bd",
+      "id": "6fa48e02-db0e-4b49-b59d-e39421ea0377",
       "name": "Extract from File6",
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        840,
-        540
+        1300,
+        993
       ]
     },
     {
@@ -7462,13 +7464,13 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "048c2cb9-7c59-467d-bfdb-703ed59923e3",
+      "id": "46c62c90-a7a8-4461-90bc-557f6f38ee65",
       "name": "тип медиа2",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        3540,
-        5240
+        4000,
+        5700
       ]
     },
     {
@@ -7498,13 +7500,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "8a594c77-3b8d-467d-891f-82fb3043c8f6",
+      "id": "daa0d558-15c2-400b-bba8-d8d39126c122",
       "name": "отправка фото6",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5980,
-        5560
+        6440,
+        6020
       ],
       "credentials": {
         "telegramApi": {
@@ -7541,13 +7543,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "45175122-a08a-4000-b1e1-2f124221229a",
+      "id": "28c62093-cd2f-4dc1-aff7-114a5202ebc0",
       "name": "отправка видео6",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5980,
-        5400
+        6440,
+        5860
       ],
       "credentials": {
         "telegramApi": {
@@ -7584,13 +7586,13 @@
           "reply_to_message_id": "={{ $json.result.message_id }}"
         }
       },
-      "id": "d76bf7f8-f9eb-4511-ae3c-79ad211cc5b0",
+      "id": "a75fe28e-6881-4da2-843f-3d040026359f",
       "name": "отправка сообщения2",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5980,
-        5240
+        6440,
+        5700
       ],
       "credentials": {
         "telegramApi": {
@@ -7627,13 +7629,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "f446efe4-7913-4ba0-9bfc-95b249a195c0",
+      "id": "59acabe2-30b4-44a2-93c1-72eb66a0bd8c",
       "name": "отправка в чат2",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5980,
-        5060
+        6440,
+        5520
       ],
       "credentials": {
         "telegramApi": {
@@ -7650,13 +7652,13 @@
         "file": "={{ $('Execute Workflow Trigger').item.json.message.video_note.file_id }}",
         "additionalFields": {}
       },
-      "id": "3218ed07-9267-4184-bbca-ba2b51e55735",
+      "id": "b3345a1a-28f1-465e-8547-6b9d88e2d214",
       "name": "отправка кружка4",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        5780,
-        5240
+        6240,
+        5700
       ],
       "credentials": {
         "telegramApi": {
@@ -7671,13 +7673,13 @@
         "resource": "file",
         "fileId": "={{ $('Execute Workflow Trigger').item.json.message.voice.file_id }}"
       },
-      "id": "b7409376-f997-4bdc-8430-a6a9a3d92d8b",
+      "id": "1fe0279a-c947-49fb-9cd6-3d09a13522da",
       "name": "скачать файл8",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        260,
-        3300
+        720,
+        3760
       ],
       "credentials": {
         "telegramApi": {
@@ -7693,13 +7695,13 @@
         "binaryData": true,
         "additionalFields": {}
       },
-      "id": "c9872383-558c-4a84-a3e5-6577e2eaa9ee",
+      "id": "c2fbe184-b349-4df4-a764-d5802f4a3a71",
       "name": "отправка аудио6",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        420,
-        3300
+        880,
+        3760
       ],
       "credentials": {
         "telegramApi": {
@@ -7735,13 +7737,13 @@
           "reply_to_message_id": "={{ $json.result.message_id }}"
         }
       },
-      "id": "0c923ec8-e6b4-4ed9-8298-800e7201e8e5",
+      "id": "b42360fb-4dd1-4451-9e79-b5bb0fb52673",
       "name": "текст8",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        580,
-        3300
+        1040,
+        3760
       ],
       "credentials": {
         "telegramApi": {
@@ -7768,13 +7770,13 @@
         "jsonBody": "={\n    \"maintenance_id\": {{ $('создание заявки1').item.json.id }},\n    \"image\":  {{'\"'+ $json.data + '\"'}}\n}",
         "options": {}
       },
-      "id": "a4df367b-8e1e-4375-bf19-20c3c5213645",
+      "id": "bc0cd942-0ba2-4818-bfb4-8bcfb3e7e46f",
       "name": "загрузка фото неисправности1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        3260,
-        3160
+        3720,
+        3620
       ]
     },
     {
@@ -7804,13 +7806,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "40bbc651-726a-4d8c-b8f8-394c05475057",
+      "id": "762af328-af61-4602-9480-393e2fc48025",
       "name": "отправка фото3",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3920,
-        3360
+        4363,
+        3809
       ],
       "credentials": {
         "telegramApi": {
@@ -7847,13 +7849,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "63c88aa4-ca75-449b-b9b2-f4216c517a6c",
+      "id": "bf756d46-d5ae-466a-85ee-2fe50df90e4b",
       "name": "отправка видео1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3360,
-        2140
+        3820,
+        2600
       ],
       "credentials": {
         "telegramApi": {
@@ -7890,13 +7892,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "f1e21ea8-4f0e-40ee-bda5-415e5ac662f6",
+      "id": "bc4aa70a-18c2-44fd-81f4-9dd6cfc304ac",
       "name": "отправка фото1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3900,
-        3120
+        4360,
+        3580
       ],
       "credentials": {
         "telegramApi": {
@@ -7934,13 +7936,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "fddec3b4-d817-4c9b-a5a9-851c2f9f2459",
+      "id": "8e62bd58-1a35-4988-85e1-78456b3e328d",
       "name": "отправка видео",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3160,
-        1940
+        3620,
+        2391
       ],
       "credentials": {
         "telegramApi": {
@@ -7952,13 +7954,13 @@
     },
     {
       "parameters": {},
-      "id": "a53af501-c0b0-464c-be94-49a00f853da4",
+      "id": "791bedbc-f126-490b-8fb7-c6716c8e9c9b",
       "name": "Execute Workflow Trigger",
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1,
       "position": [
-        -1660,
-        3000
+        -1200,
+        3460
       ]
     },
     {
@@ -7985,13 +7987,13 @@
         },
         "options": {}
       },
-      "id": "32c419bb-ed34-4280-931a-7ac212f86534",
+      "id": "5dee672d-47d0-4f43-96f9-99f2e0f3e0ec",
       "name": "можно создать заявку?1",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        2280,
-        3420
+        2740,
+        3880
       ]
     },
     {
@@ -8003,13 +8005,13 @@
         "text": "❗Вы не загружали ТТН по данной перевозке.\nОтправьте фото для загрузки",
         "additionalFields": {}
       },
-      "id": "1e8c4d20-129e-45b7-b9c0-0525abe5931d",
+      "id": "ffe408f9-6886-49d8-9236-218534a13dc5",
       "name": "убираем кнопку \"назад\" у прикрепления фото2",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        40,
-        1280
+        500,
+        1740
       ],
       "credentials": {
         "telegramApi": {
@@ -8024,13 +8026,13 @@
         "resource": "file",
         "fileId": "={{ $('Execute Workflow Trigger').item.json.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}"
       },
-      "id": "3183268c-234a-4848-9d32-ce46c4e57683",
+      "id": "bb49db97-2177-4635-98bd-daf2df840917",
       "name": "получение фото из тг3",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        220,
-        1280
+        680,
+        1740
       ],
       "credentials": {
         "telegramApi": {
@@ -8062,13 +8064,13 @@
         },
         "options": {}
       },
-      "id": "ef7fd636-cba6-4005-8e57-373f6ff7d932",
+      "id": "dbc9f9f7-bb6b-4a69-9f95-2c26d478c4ad",
       "name": "данные сотрудника1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        -220,
-        2880
+        240,
+        3340
       ],
       "onError": "continueErrorOutput"
     },
@@ -8095,13 +8097,13 @@
         },
         "options": {}
       },
-      "id": "b3d6cef4-887a-483e-be18-b2337de417ef",
+      "id": "59ee2fa2-e867-47a7-ae95-45fd20e2c956",
       "name": "номер авто1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        20,
-        2880
+        480,
+        3340
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -8126,13 +8128,13 @@
         },
         "options": {}
       },
-      "id": "5405ef7b-5af7-41b9-8c3c-efae18bb5cc4",
+      "id": "c5507705-b02b-4a3c-bfc0-755ec96d72e3",
       "name": "поиск диспетчера",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        2520,
-        1080
+        2980,
+        1540
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -8157,13 +8159,13 @@
         },
         "options": {}
       },
-      "id": "e3d255a7-14bb-4213-96cd-36eb863c65ae",
+      "id": "fb9bc560-6878-4629-a54a-22ecec7735a8",
       "name": "поиск механиков2",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        2520,
-        720
+        2980,
+        1180
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -8188,50 +8190,50 @@
         },
         "options": {}
       },
-      "id": "eb132345-6855-4c99-9cd5-300069ecc712",
+      "id": "3ddd7b23-e0ab-4d05-9b3f-27b6379b13e8",
       "name": "поиск логистов3",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        2520,
-        900
+        2980,
+        1360
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
     },
     {
       "parameters": {},
-      "id": "720974e8-87f1-40c5-badd-84226d5f9a07",
+      "id": "5cd26729-7faa-4906-a401-7159d049a2d0",
       "name": "No Operation, do nothing",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        2320,
-        900
+        2780,
+        1360
       ]
     },
     {
       "parameters": {
         "numberInputs": 3
       },
-      "id": "b967b45d-146b-4b13-8d7f-9fc44eaf00c0",
+      "id": "949c79cf-9bfc-48ed-834d-c5d7ab42b65f",
       "name": "Merge3",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        2760,
-        900
+        3220,
+        1360
       ]
     },
     {
       "parameters": {},
-      "id": "d8f9cee5-322e-4a32-a40e-78ec561f447f",
+      "id": "d8272594-cc55-48e6-b042-01838d5e55e9",
       "name": "No Operation, do nothing1",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        2280,
-        1440
+        2740,
+        1900
       ]
     },
     {
@@ -8254,13 +8256,13 @@
         },
         "options": {}
       },
-      "id": "eadbfb97-b289-4535-a043-313b355c107a",
+      "id": "fc21f69b-605f-42dc-bc4f-6dbf769ac065",
       "name": "поиск механиков4",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        2520,
-        1260
+        2980,
+        1720
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -8285,13 +8287,13 @@
         },
         "options": {}
       },
-      "id": "c489acc2-2f49-44be-9dc9-1906295d8290",
+      "id": "4619163d-93ca-44b8-92e0-e2d449bdc399",
       "name": "поиск логистов6",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        2520,
-        1440
+        2980,
+        1900
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -8316,13 +8318,13 @@
         },
         "options": {}
       },
-      "id": "80084598-b16b-4986-a0a1-8e7c5e4fed81",
+      "id": "ebb6f4f1-d1bc-4372-97bb-01ece619ec83",
       "name": "поиск диспетчера1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        2520,
-        1620
+        2980,
+        2080
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -8331,24 +8333,24 @@
       "parameters": {
         "numberInputs": 3
       },
-      "id": "92c49615-2293-4763-97a7-4125b50eabc2",
+      "id": "aa6f7d69-ce4c-4ccf-bf44-f9bf7c77418c",
       "name": "Merge4",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        2760,
-        1440
+        3220,
+        1900
       ]
     },
     {
       "parameters": {},
-      "id": "28e280d4-a0ce-4f3d-aadd-d4c520a2ff61",
+      "id": "e5369c53-77f8-436a-8366-9530790fd44d",
       "name": "No Operation, do nothing2",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        2620,
-        2700
+        3076,
+        3151
       ]
     },
     {
@@ -8371,13 +8373,13 @@
         },
         "options": {}
       },
-      "id": "11b3abad-5e00-483a-a886-ce831cc9665d",
+      "id": "10ec7837-4342-4bea-9e39-242cf6c6328d",
       "name": "поиск механиков5",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        2860,
-        2520
+        3316,
+        2971
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -8402,13 +8404,13 @@
         },
         "options": {}
       },
-      "id": "57285fdb-ea7c-4b2a-ba33-3b024920cd6b",
+      "id": "e699a5ac-2122-49a1-9478-9eb7afc70560",
       "name": "поиск логистов7",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        2860,
-        2700
+        3316,
+        3151
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -8433,13 +8435,13 @@
         },
         "options": {}
       },
-      "id": "6637b240-bf50-46b8-9d68-35727041d02b",
+      "id": "413dbea9-8b86-4c7f-a1b9-fcffe9171388",
       "name": "поиск диспетчера2",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        2860,
-        2880
+        3316,
+        3331
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -8448,13 +8450,13 @@
       "parameters": {
         "numberInputs": 3
       },
-      "id": "4dfa317b-8450-4b9a-98a3-4d9e93c82db2",
+      "id": "c1c688e3-3a04-4142-a4db-9fbb911aac4d",
       "name": "Merge5",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        3100,
-        2700
+        3556,
+        3151
       ]
     },
     {
@@ -8493,13 +8495,13 @@
         },
         "options": {}
       },
-      "id": "23922b89-4938-4cce-a4b7-fb48ed1b4855",
+      "id": "e23332e3-c4b6-4ed7-b198-477c82b55198",
       "name": "создание заявки",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        2540,
-        2040
+        3000,
+        2500
       ]
     },
     {
@@ -8522,13 +8524,13 @@
         },
         "options": {}
       },
-      "id": "56492bd3-0ef1-4fac-9f18-1eaacca2c728",
+      "id": "db3af451-1360-42f2-9ea0-3d46efb071d7",
       "name": "поиск механиков1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        2760,
-        1940
+        3220,
+        2400
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -8553,13 +8555,13 @@
         },
         "options": {}
       },
-      "id": "359886e6-801f-46ee-b10b-2f42bc459f62",
+      "id": "77d45489-ab2c-49c3-a648-d554e84b52b1",
       "name": "поиск логистов8",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        2760,
-        2120
+        3220,
+        2580
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -8584,37 +8586,37 @@
         },
         "options": {}
       },
-      "id": "49e44a91-70d5-4f1b-8cb9-ac0190cb654f",
+      "id": "1467097a-8dd6-4fa9-b840-3b5e12abfc12",
       "name": "поиск диспетчера3",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        2760,
-        2280
+        3220,
+        2740
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
     },
     {
       "parameters": {},
-      "id": "c78d5aa8-9310-45e6-b8f9-32dc85e5ee19",
+      "id": "209494a4-1948-4925-8ed3-d40c0260c125",
       "name": "Merge6",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        3000,
-        2140
+        3460,
+        2600
       ]
     },
     {
       "parameters": {},
-      "id": "1857bbcc-651f-4755-89e3-46c1db02ba88",
+      "id": "7e9b0cfb-3479-441c-933a-8c5ce3eda172",
       "name": "No Operation, do nothing3",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        2440,
-        3860
+        2894,
+        4304
       ]
     },
     {
@@ -8637,13 +8639,13 @@
         },
         "options": {}
       },
-      "id": "1953646a-7412-4819-9233-b8e6b8bf25b9",
+      "id": "bf45ff69-f3fd-4fda-9f09-b821278a4e41",
       "name": "поиск механиков6",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        2680,
-        3720
+        3134,
+        4164
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -8668,13 +8670,13 @@
         },
         "options": {}
       },
-      "id": "5e531b99-1ebb-4d57-9f99-c32f2770122b",
+      "id": "0a5aa2df-286c-4abf-b6cb-1e2408b3f676",
       "name": "поиск логистов",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        2680,
-        3860
+        3134,
+        4304
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -8699,13 +8701,13 @@
         },
         "options": {}
       },
-      "id": "6bfa357c-6086-464e-a66f-bdbb7b56ba7d",
+      "id": "11489448-522c-4e28-a457-8a60a724a277",
       "name": "поиск диспетчера4",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        2680,
-        4020
+        3134,
+        4464
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -8714,13 +8716,13 @@
       "parameters": {
         "numberInputs": 3
       },
-      "id": "7dcc31c5-b60f-4c59-bbc5-e81333a8a059",
+      "id": "c41bcdee-6847-499f-b767-17e7ea58e1a4",
       "name": "Merge7",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        2940,
-        3860
+        3394,
+        4304
       ]
     },
     {
@@ -8759,13 +8761,13 @@
         },
         "options": {}
       },
-      "id": "9f8a50e8-851e-434d-806a-2ce71aaa5f9e",
+      "id": "8055225c-1397-4231-8113-d65ffdfea279",
       "name": "создание заявки1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        2640,
-        3260
+        3100,
+        3720
       ]
     },
     {
@@ -8788,13 +8790,13 @@
         },
         "options": {}
       },
-      "id": "372230ed-ce18-4f01-b9d7-d1ad7cd36d3c",
+      "id": "8e4705aa-c020-4bf2-9b1f-afd81f5b661c",
       "name": "поиск механиков7",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        3480,
-        3120
+        3940,
+        3580
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -8819,13 +8821,13 @@
         },
         "options": {}
       },
-      "id": "3d3478f8-f317-4573-98c0-39cb04da390d",
+      "id": "31b85a45-af11-4dcf-adc7-ee659694e190",
       "name": "поиск диспетчера5",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        3380,
-        3500
+        3840,
+        3960
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -8850,26 +8852,26 @@
         },
         "options": {}
       },
-      "id": "3897509b-b94f-40ff-be8f-86a5ac008d21",
+      "id": "1f186262-9b28-4ab6-9079-3e3bf066cee9",
       "name": "поиск логистов9",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        3420,
-        3320
+        3880,
+        3780
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
     },
     {
       "parameters": {},
-      "id": "9241d057-6cc5-4ad9-803a-d144619d87f9",
+      "id": "8eb6fa43-2227-4b1e-ac77-d31fe79b77d5",
       "name": "Merge8",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        3560,
-        3440
+        4020,
+        3900
       ]
     },
     {
@@ -8924,13 +8926,13 @@
         },
         "options": {}
       },
-      "id": "3305369b-258a-4049-aff3-1ebbce19587b",
+      "id": "c8de4916-54aa-4811-a72e-ceada2d6afe4",
       "name": "маршрут?",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        3140,
-        4920
+        3600,
+        5380
       ]
     },
     {
@@ -8938,13 +8940,13 @@
         "fieldToSplitOut": "transportation_rounds",
         "options": {}
       },
-      "id": "c76ec3a5-8da7-4a6e-b1e4-e1d08b5a1db4",
+      "id": "7e33cbd1-63aa-4f17-84a9-851a4faa4732",
       "name": "Split Out",
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        1980,
-        4660
+        2440,
+        5120
       ],
       "disabled": true
     },
@@ -8973,13 +8975,13 @@
         },
         "options": {}
       },
-      "id": "67f9583f-eea4-42db-88c5-9ff78b011f67",
+      "id": "dfba1a24-5dab-45f6-bd63-8276d531d9c1",
       "name": "Filter",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
       "position": [
-        2200,
-        4660
+        2660,
+        5120
       ]
     },
     {
@@ -9005,13 +9007,13 @@
         },
         "options": {}
       },
-      "id": "73b17a7d-21c0-4d95-8531-281b4eadc86e",
+      "id": "71394a9a-9169-4869-9449-dbeb404bf8d5",
       "name": "рейсы авто",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        1760,
-        4660
+        2220,
+        5120
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -9036,13 +9038,13 @@
         },
         "options": {}
       },
-      "id": "d5080231-0e5f-4185-b06b-1c34f036c867",
+      "id": "cc17addf-f8b2-4282-ac67-6b9954c7c6a2",
       "name": "поиск логистов5",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        2700,
-        4900
+        3160,
+        5360
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -9067,13 +9069,13 @@
         },
         "options": {}
       },
-      "id": "a0b6141a-7890-4acd-ada7-2f9f89a87fa5",
+      "id": "b30e0ef1-9b19-493e-b84a-ed0b6baa25dc",
       "name": "диспетчер5",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        5080,
-        5240
+        5540,
+        5700
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -9101,13 +9103,13 @@
         },
         "options": {}
       },
-      "id": "377735dd-aae5-4f31-9aa0-42ca2b637f84",
+      "id": "9fa790ea-d590-4268-bd72-2366f32b49ff",
       "name": "перевозки по айди1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        2220,
-        4900
+        2680,
+        5360
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -9117,13 +9119,13 @@
         "fieldToSplitOut": "transportation",
         "options": {}
       },
-      "id": "36d2010e-ddd4-482c-9e85-6304164d9d20",
+      "id": "677359f2-38f2-46c4-b931-f6b894ba740d",
       "name": "перевозки по айди123",
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        2500,
-        4900
+        2960,
+        5360
       ],
       "disabled": true
     },
@@ -9147,13 +9149,13 @@
         },
         "options": {}
       },
-      "id": "247bdfca-1d9e-47f9-a59f-fb01c2a677ad",
+      "id": "0e9855fd-7b94-4372-b211-76cebb9651a3",
       "name": "диспетчер",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        3980,
-        4540
+        4440,
+        5000
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -9181,13 +9183,13 @@
         },
         "options": {}
       },
-      "id": "344cf2d9-08ec-47eb-9632-34c73e878c27",
+      "id": "021d7d3c-07d1-4783-bf29-27d248898345",
       "name": "данные сотрудника",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        -800,
-        3460
+        -340,
+        3920
       ],
       "onError": "continueErrorOutput"
     },
@@ -9214,13 +9216,13 @@
         },
         "options": {}
       },
-      "id": "018a1d93-5c1b-4830-9f1a-9aa81979ff5f",
+      "id": "b967cf79-413f-4f19-a136-605f3ccc5e0b",
       "name": "номер авто",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        -600,
-        3440
+        -140,
+        3900
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -9245,13 +9247,13 @@
         },
         "options": {}
       },
-      "id": "91fbec97-ab64-44c4-a58f-4b0b185b9883",
+      "id": "976cd77a-bc6a-4ac7-bedf-8fe0972f7b2c",
       "name": "поиск диспетчера6",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        -380,
-        3440
+        80,
+        3900
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -9276,13 +9278,13 @@
         },
         "options": {}
       },
-      "id": "ff81b095-ac1d-4e5f-8598-8e439c5c7559",
+      "id": "381d9c0a-50fc-4626-8463-cc35ca37ef4a",
       "name": "поиск механиков",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        1560,
-        100
+        2020,
+        560
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -9310,13 +9312,13 @@
         },
         "options": {}
       },
-      "id": "4f408418-6bc0-4c20-a14b-a7a1fabaa071",
+      "id": "36d571a5-d642-48cc-811b-9155a524d755",
       "name": "данные водителя2",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        2200,
-        100
+        2660,
+        560
       ],
       "onError": "continueErrorOutput"
     },
@@ -9343,13 +9345,13 @@
         },
         "options": {}
       },
-      "id": "7062e9e5-3f1a-49e5-930e-622c0d469311",
+      "id": "01806cb7-a8f3-410a-b006-8154f4c1b621",
       "name": "данные авто1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        2440,
-        100
+        2900,
+        560
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -9377,13 +9379,13 @@
         },
         "options": {}
       },
-      "id": "b77a573a-4348-444a-9c1c-ae1a38ad6299",
+      "id": "ba84f4f5-15aa-43a8-94d3-40b7ba68578d",
       "name": "авто",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        40,
-        520
+        500,
+        980
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -9411,13 +9413,13 @@
         },
         "options": {}
       },
-      "id": "64c4c004-2587-4bfe-934f-8da0a47cb50f",
+      "id": "d3367b1f-8ebe-4605-a5d6-c3351423fec7",
       "name": "находим машину по odoo id1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        720,
-        920
+        1180,
+        1380
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -9445,13 +9447,13 @@
         },
         "options": {}
       },
-      "id": "db11909a-689a-4f1c-91f5-a2e5cf0eff9b",
+      "id": "f6b78b8b-8499-45be-9621-dcc4e581b464",
       "name": "получаем номер машины для эндпоинта",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        640,
-        1280
+        1100,
+        1740
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -9479,13 +9481,13 @@
         },
         "options": {}
       },
-      "id": "2d25d697-bb1a-45dc-b737-27bc8ed08076",
+      "id": "dc0f21ac-10ae-4222-a52f-c3712d86bcbd",
       "name": "номер авто5",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        40,
-        1640
+        500,
+        2100
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -9510,13 +9512,13 @@
         },
         "options": {}
       },
-      "id": "33b4f741-4473-49ed-8979-c5bf6c91dcce",
+      "id": "ac0a1cfe-6088-4818-8711-3be7f6aaf812",
       "name": "поиск логистов1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        -920,
-        4680
+        -460,
+        5140
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -9541,13 +9543,13 @@
         },
         "options": {}
       },
-      "id": "552645d3-d302-43de-a977-2d0a6d35952d",
+      "id": "a6801cf9-0f74-4c30-a4ca-658b1b7d4fdf",
       "name": "поиск логистов2",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        -700,
-        5100
+        -240,
+        5560
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -9575,13 +9577,13 @@
         },
         "options": {}
       },
-      "id": "63afa143-3000-4abb-a6b3-e7002e2db6e4",
+      "id": "44aa2897-b445-4323-bef0-487f68445966",
       "name": "Получение информации о водителе",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        -900,
-        5100
+        -440,
+        5560
       ],
       "onError": "continueErrorOutput"
     },
@@ -9608,13 +9610,13 @@
         },
         "options": {}
       },
-      "id": "7719a8c5-e11b-4cb9-acb1-c796979b38b4",
+      "id": "803d45c9-39bc-48c5-b498-236b88c97883",
       "name": "находим машину по odoo id6",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        -920,
-        5300
+        -460,
+        5760
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -9624,13 +9626,13 @@
         "fieldToSplitOut": "transportation_rounds",
         "options": {}
       },
-      "id": "a17cc1d7-bc5b-4245-a02f-9bbeebedff43",
+      "id": "80be6a67-ef14-4822-8db1-ef376b80ac97",
       "name": "Split Out1",
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        -480,
-        5460
+        -20,
+        5920
       ],
       "disabled": true
     },
@@ -9659,13 +9661,13 @@
         },
         "options": {}
       },
-      "id": "daf6bb68-0074-4da4-a3a2-750ee5ff2b3d",
+      "id": "006a47f7-3541-46f1-8d7e-2a0e2592eb5e",
       "name": "Filter1",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
       "position": [
-        -260,
-        5460
+        200,
+        5920
       ]
     },
     {
@@ -9691,13 +9693,13 @@
         },
         "options": {}
       },
-      "id": "595da5bd-a265-473d-80e5-ef6279bef21e",
+      "id": "55330053-a8c3-45b5-9151-08c3afc97fe2",
       "name": "рейсы авто1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        -700,
-        5460
+        -240,
+        5920
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -9725,13 +9727,13 @@
         },
         "options": {}
       },
-      "id": "bb4cf791-d75e-4dfa-9009-7e7780debd46",
+      "id": "9f874afd-7b55-47c3-887b-85ce47ed76a6",
       "name": "находим перевозки по рейсам1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        -320,
-        5260
+        140,
+        5720
       ],
       "alwaysOutputData": true,
       "onError": "continueErrorOutput"
@@ -9745,13 +9747,13 @@
           "appendAttribution": false
         }
       },
-      "id": "a57cc8e7-e7ec-4229-8c6b-7bb2628febdd",
+      "id": "b58f79e4-d81a-4720-a6e5-c3cb10c8a192",
       "name": "Фото доставлено3",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        -1100,
-        4620
+        -640,
+        5080
       ],
       "credentials": {
         "telegramApi": {
@@ -9769,13 +9771,13 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "8c75e623-bd55-42be-bc48-8e41014770cb",
+      "id": "e6b1c9d0-87ec-4018-bd4a-669cff7e2b17",
       "name": "Уведомление логиста",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        360,
-        5100
+        820,
+        5560
       ],
       "credentials": {
         "telegramApi": {
@@ -9792,13 +9794,13 @@
         "file": "={{ $('Execute Workflow Trigger').item.json.message.photo.last().file_id; }}",
         "additionalFields": {}
       },
-      "id": "34b3b653-c0ab-4629-a93e-f42984f682ba",
+      "id": "34e381ff-b9a6-4dac-b86a-c878dad2a6b8",
       "name": "Отправка фото1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        540,
-        5100
+        1000,
+        5560
       ],
       "credentials": {
         "telegramApi": {
@@ -9905,13 +9907,13 @@
         },
         "options": {}
       },
-      "id": "4b470f70-0776-4ed7-a543-45f4c54ba59d",
+      "id": "692e5a09-52e8-4d3f-a9d0-a0b4adc48948",
       "name": "Обновление статуса отправки фото логисту2",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
       "position": [
-        1340,
-        5100
+        1800,
+        5560
       ],
       "credentials": {
         "postgres": {
@@ -10008,8 +10010,7 @@
     ]
   },
   "settings": {
-    "executionOrder": "v1",
-    "timezone": "Asia/Vladivostok"
+    "executionOrder": "v1"
   },
   "staticData": null,
   "tags": [
@@ -10021,6 +10022,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-12-16T15:46:55.054Z",
-  "versionId": "7300830c-2cd0-47bd-8bd7-53c29e0f77fd"
+  "updatedAt": "2024-12-23T17:40:01.355Z",
+  "versionId": "ae1fb4bc-2db1-41ce-8332-54d3eebf1ffd"
 }
