@@ -1097,8 +1097,8 @@
       ]
     }
   },
-  "createdAt": "2024-12-16T15:46:31.012Z",
-  "id": "Paz08MoaBLl9Hgf7",
+  "createdAt": "2024-12-23T17:43:22.695Z",
+  "id": "DTN3ajwUzdjyrmMz",
   "meta": {
     "templateCredsSetupCompleted": true
   },
@@ -1112,7 +1112,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "=session_id=e2aca43d42ba69b93cc70ca6bb7a8c0c2d3ab96f; Expires=Tue, 16 Dec 2025 15:27:08 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "=session_id=dbaa6da6c60771f497678f812a7a208d72a4d0ce; Expires=Tue, 23 Dec 2025 17:31:44 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -1127,7 +1127,7 @@
         },
         "options": {}
       },
-      "id": "1477cd97-a6e3-4898-a5f5-ce67eed405a1",
+      "id": "c24abb4c-f79c-4376-8757-5a6975b82dbb",
       "name": "получение перевозок4",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -1141,7 +1141,7 @@
       "parameters": {
         "jsCode": "const items = $input.all();\n\nlet allItems = [];\n\nfor (let i = 0; i < items.length; i++) {\n    const { transportations, full_quarry_work } = items[i].json;\n\n    if (transportations && Array.isArray(transportations)) {\n        allItems = allItems.concat(transportations);\n    }\n    if (full_quarry_work && Array.isArray(full_quarry_work)) {\n        allItems = allItems.concat(full_quarry_work);\n    }\n}\n\nallItems = allItems.filter(item => item.hasOwnProperty('sequence'));\nallItems.sort((a, b) => a.sequence - b.sequence);\n\nreturn allItems.map(item => ({ json: item }));\n"
       },
-      "id": "dd485905-f463-49f9-aec7-fc49db89c38d",
+      "id": "4e17348f-98ac-4573-a89b-99538a5357dc",
       "name": "Сортировка перевозок и работ в карьере",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1176,7 +1176,7 @@
         },
         "options": {}
       },
-      "id": "e7eed5a2-84e6-40f7-8a08-beff6a6e8fa5",
+      "id": "572692e5-96ec-489c-8225-76d096371ba2",
       "name": "есть ли перевозка1",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -1187,7 +1187,7 @@
     },
     {
       "parameters": {},
-      "id": "433843cd-aec5-462a-b894-ac920d27bff1",
+      "id": "2e7cae36-7815-480a-8957-839198d10b87",
       "name": "Limit",
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
@@ -1198,7 +1198,7 @@
     },
     {
       "parameters": {},
-      "id": "d28f9aa5-1aab-4810-b54b-4dd477bffa61",
+      "id": "84897ce6-85d7-4932-99a2-cd9035f4f844",
       "name": "объединяем в один список",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
@@ -1231,7 +1231,7 @@
         },
         "options": {}
       },
-      "id": "30632177-7856-45d0-9466-9ccc1c8bbf9a",
+      "id": "5f92e790-03d7-4116-81ae-d879a7d3f1c1",
       "name": "айди водителя1",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
@@ -1251,7 +1251,7 @@
         "fieldToSplitOut": "body.resequenced_data",
         "options": {}
       },
-      "id": "b96b5479-9061-4cef-a1fa-2797eaf91cd7",
+      "id": "535f5eeb-0b37-4c92-9ab2-ed8c507be8f3",
       "name": "получим карточки очереди1",
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
@@ -1285,7 +1285,7 @@
         },
         "options": {}
       },
-      "id": "c020b0ac-508a-49a7-b97e-ff51f4467846",
+      "id": "5f0b3358-57b8-41fc-bc92-d1766cfa4115",
       "name": "сегодняшняя дата2",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2,
@@ -1318,7 +1318,7 @@
         },
         "options": {}
       },
-      "id": "2ddfb23f-5f44-4535-8908-c0bbd98ac270",
+      "id": "6ca896ad-786b-4ba8-8160-2a933639c388",
       "name": "если не пустой2",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -1333,7 +1333,7 @@
         "height": 394.06284454438725,
         "width": 1522.0410589173039
       },
-      "id": "40875bb7-73e9-47dc-a159-0f1e497024bf",
+      "id": "68a3c8d6-e70a-49ec-856e-0df7327b7130",
       "name": "Sticky Note3",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1349,7 +1349,7 @@
         "width": 1389.3708193435414,
         "color": 5
       },
-      "id": "64ef10a5-35a4-4f6a-86f7-e8313fea700d",
+      "id": "6f7b91b8-9ced-425a-9b24-6c4d4f7c3787",
       "name": "Sticky Note4",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1365,7 +1365,7 @@
         "width": 3314.408122191204,
         "color": 6
       },
-      "id": "0592a592-5f5c-48d4-ba2e-edf0c1128f02",
+      "id": "48c08523-4e44-4931-9ff7-a227ef17d3b5",
       "name": "Sticky Note5",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1398,7 +1398,7 @@
         },
         "options": {}
       },
-      "id": "13818c21-be66-418f-a1cf-a86b189365d0",
+      "id": "a1dec9d2-62cb-4223-8933-eb45e95e5d85",
       "name": "сегодняшняя дата1",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2,
@@ -1432,7 +1432,7 @@
         },
         "options": {}
       },
-      "id": "d035cfe7-2071-40b3-9964-40d0c9552cb5",
+      "id": "e3893c91-3c0e-4a6e-8503-96d7102b6500",
       "name": "если не пустой1",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -1648,7 +1648,7 @@
         },
         "options": {}
       },
-      "id": "7b93331c-d005-48aa-8410-74a8515fba2a",
+      "id": "117b67da-34f4-4553-980a-5b9f22a54101",
       "name": "айди последнего сообщения",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
@@ -1671,7 +1671,7 @@
         "text": "={{ $('пересылаем, чтобы получить текст прошлого сообщения').item.json.result.reply_to_message.text }}",
         "additionalFields": {}
       },
-      "id": "141c56fe-bfee-4bbc-bfe9-9734700a6dce",
+      "id": "c2645268-2eb4-48bc-a991-bde2995e82fb",
       "name": "Убираем кнопки",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -1698,7 +1698,7 @@
           "reply_to_message_id": "={{ $json.end_round_message_id }}"
         }
       },
-      "id": "a7f97e66-10f9-4918-b7b4-aaec877e68ea",
+      "id": "d002496a-9781-4b19-a2c8-c23a36b446ee",
       "name": "пересылаем, чтобы получить текст прошлого сообщения",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -1718,7 +1718,7 @@
       "parameters": {
         "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const data = item.json;\n\n  const isQuarryWork = data.quarry && data.quarry.length > 1;\n\n  let message = \"\";\n\n  if (isQuarryWork) {\n    const quarry = data.quarry[1];\n    const requiredHours = data.required_hours || 0;\n    const comment = data.comment;\n\n    message = `<b>${index}.</b> Работа в карьере - <b>${quarry}</b>`;\n    if (data.end_condition === \"По часам\") {\n      message += `\\nНеобходимое количество часов - <b>${requiredHours}</b>`;\n    }\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    message += `\\n\\n`;\n  } else {\n    const sender = data.sender && data.sender.length > 1 ? data.sender[1] : \"\";\n    const partner = data.partner && data.partner.length > 1 ? data.partner[1] : \"\";\n    const placeFrom = data.place_from && data.place_from.length > 1 ? data.place_from[1] : \"\";\n    const placeTo = data.place_to && data.place_to.length > 1 ? data.place_to[1] : \"\";\n    const material =data.material[1].replace(/\\s*\\(.*?\\)\\s*/g, \"\");\n    const comment = data.comment;\n    const endCondition = data.end_condition;\n    const requiredCubicMetre = data.required_cubic_metre || 0;\n    const requiredTon = data.required_ton || 0;\n\n    let route = placeFrom && placeTo ? `${placeFrom}-${placeTo}` : \"\";\n\n    message = `<b>${index}.</b>`;\n    \n    if (sender) message += ` Отправитель - <b>${sender}</b>`;\n    if (partner) message += `\\nПолучатель - <b>${partner}</b>`;\n    if (route) message += `\\nМаршрут - <b>${route}</b>`;\n    if (material) message += `\\nМатериал - <b>${material}</b>`;\n    \n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n\n    if (endCondition === \"По перевезенным кубометрам\" && requiredCubicMetre > 0) {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n\n    if (endCondition === \"По перевезенным тоннам\" && requiredTon > 0) {\n      message += `\\nТребуемое количество тонн по перевозке - <b>${requiredTon}</b>`;\n    }\n\n    if (endCondition === \"Количество рейсов для каждого автомобиля\" && data.round_quantity_for_car > 0) {\n      message += `\\nКоличество рейсов для каждого автомобиля - <b>${data.round_quantity_for_car}</b>`;\n    }\n\n    message += (item.json.concatenated_driver1 ? \"\\n\\nВодители, выполняющие перевозку с вами:\\n\" + item.json.concatenated_driver1 : \"\");\n\n    message += `\\n\\n`;\n  }\n\n\n  combinedMessages += message;\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
       },
-      "id": "af987a81-9fca-4890-a09b-90c4517f0aee",
+      "id": "f58af25f-0430-4d0c-851f-814f65153580",
       "name": "в единое сообщение",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1752,7 +1752,7 @@
         },
         "options": {}
       },
-      "id": "6759858e-e98b-455b-92b0-1df8a95d87a7",
+      "id": "8973fd3c-49f0-48e4-8667-4079cc1511f1",
       "name": "работа первая?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.1,
@@ -1811,7 +1811,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "a3e4f9bd-cb81-4842-8bbd-584e364cd600",
+      "id": "59199b0c-595f-451b-982f-bc9e958795b1",
       "name": "первое=работа в карьере",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -1864,7 +1864,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "73f2b946-db47-4f06-bdee-cdda4a2b1b85",
+      "id": "d050bdbe-e790-4058-b1fc-8c8ec887578f",
       "name": "уже начатая перевозка",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -1917,7 +1917,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "971cee24-3498-44c5-b3b8-af1a172bd14b",
+      "id": "6f870af7-23e0-481a-9219-91327335ccca",
       "name": "не начатая перевозка",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -1939,7 +1939,7 @@
         "width": 1775.1807115607076,
         "color": 6
       },
-      "id": "67389e92-0d37-4a59-b519-33f9a2ed817b",
+      "id": "8cf201d0-9912-4161-8e63-7dee8b0d151b",
       "name": "Sticky Note2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1952,7 +1952,7 @@
       "parameters": {
         "errorMessage": "123"
       },
-      "id": "f111e2a5-7d2d-4179-9d0f-8facf973e367",
+      "id": "a6fcb083-cf15-40c0-9cfe-628d14a49804",
       "name": "Stop and Error",
       "type": "n8n-nodes-base.stopAndError",
       "typeVersion": 1,
@@ -1968,7 +1968,7 @@
         "chatId": "={{ $json.result.chat.id }}",
         "messageId": "={{ $json.result.message_id }}"
       },
-      "id": "5f3a46fe-a82c-4e73-a60d-2143ccc589a5",
+      "id": "23af414b-d136-487e-b9cf-62a5b38931e2",
       "name": "удаляем прошлое",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -2008,7 +2008,7 @@
         },
         "options": {}
       },
-      "id": "ee37b23e-b561-45cb-ab4a-8d449bddf436",
+      "id": "946c27dd-1920-4e84-9b5f-f6943106ebe9",
       "name": "айди водителя",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
@@ -2027,7 +2027,7 @@
       "parameters": {
         "jsCode": "// Пример функции для краткого форматирования даты в формате число.месяц.год\nfunction formatDate(date) {\n  if (!date) return date;  // Если дата отсутствует, возвращаем пустую строку\n  return new Date(date).toLocaleDateString('ru-RU');  // Форматируем дату в формате дд.мм.гггг\n}\n\nconst oldValues = $('изменение данных в перевозке').all()[0].json.body.old_values;\nconst newValues = $('изменение данных в перевозке').all()[0].json.body.updated;\n\nlet output = 'Произошли изменения в перевозке <b>' + oldValues.place_from + ' - ' + oldValues.place_to + '</b>:\\n\\n';\n\nfunction createLine(oldValue, newValue, label, isDate = false) {\n  // Если нужно форматировать дату\n  if (isDate) {\n    oldValue = formatDate(oldValue);\n    newValue = formatDate(newValue);\n  }\n  \n  // Проверяем, если значение изменилось и новое значение не undefined\n  if (newValue !== undefined && oldValue !== newValue) {\n    return `${label}: <s>${oldValue}</s> - ${newValue}\\n`;\n  }\n  return '';\n}\n\n// Проверяем только изменённые поля, исключая undefined значения\noutput += createLine(oldValues.date, newValues.date, 'Дата', true);  // true указывает на форматирование даты\noutput += createLine(oldValues.place_from, newValues.place_from, 'От');\noutput += createLine(oldValues.place_to, newValues.place_to, 'До');\noutput += createLine(oldValues.sender, newValues.sender, 'Отправитель');\noutput += createLine(oldValues.partner, newValues.partner, 'Получатель');\noutput += createLine(oldValues.carrier, newValues.carrier, 'Перевозчик');\noutput += createLine(oldValues.type, newValues.type, 'Тип');\noutput += createLine(oldValues.end_condition, newValues.end_condition, 'Условие завершения');\n\n// Возвращаем итоговую строку\nreturn {\n  output\n};\n"
       },
-      "id": "97565edc-38f8-4434-b4ef-c185a13009f7",
+      "id": "0a9070aa-d6ff-44da-b9f3-3b44f0f54db0",
       "name": "текст",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -2045,7 +2045,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "757ea040-572f-4e46-8e70-2a8f475c2c9e",
+      "id": "c902d286-baec-4cfa-b308-bfc72dac74b7",
       "name": "отправка уведомления",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -2067,7 +2067,7 @@
         "width": 1018.060178588168,
         "color": 6
       },
-      "id": "3df36814-5929-4993-9411-fe71054991ec",
+      "id": "85f4c593-a424-4468-9fa0-52716634968f",
       "name": "Sticky Note6",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -2084,7 +2084,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "=session_id=e2aca43d42ba69b93cc70ca6bb7a8c0c2d3ab96f; Expires=Tue, 16 Dec 2025 15:27:08 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "=session_id=dbaa6da6c60771f497678f812a7a208d72a4d0ce; Expires=Tue, 23 Dec 2025 17:31:44 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -2099,7 +2099,7 @@
         },
         "options": {}
       },
-      "id": "87ce6746-0b79-4561-a5ec-76782edd1a37",
+      "id": "60b972a2-000d-4de4-a197-25bf7564461f",
       "name": "данные перевозок2",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -2117,7 +2117,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "=session_id=e2aca43d42ba69b93cc70ca6bb7a8c0c2d3ab96f; Expires=Tue, 16 Dec 2025 15:27:08 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "=session_id=dbaa6da6c60771f497678f812a7a208d72a4d0ce; Expires=Tue, 23 Dec 2025 17:31:44 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -2132,7 +2132,7 @@
         },
         "options": {}
       },
-      "id": "d5949875-81e5-46da-9a9c-caacbcac620b",
+      "id": "3cf28c1a-6919-49bc-a9ad-4ced19cfaf20",
       "name": "данные перевозки",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -2147,7 +2147,7 @@
         "fieldToSplitOut": "transportation_rounds",
         "options": {}
       },
-      "id": "c41e95b3-ec43-44c7-b0b7-bbf9e0141635",
+      "id": "82fadcad-54ef-4df2-9d54-69810521fdb0",
       "name": "разделяем рейсы",
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
@@ -2181,7 +2181,7 @@
         },
         "options": {}
       },
-      "id": "35ede704-88f9-4023-92ee-9ea490af388f",
+      "id": "9413b954-82f6-4473-a531-918603f34560",
       "name": "рейсы определённого авто",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
@@ -2199,7 +2199,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "bc24a5ba-6d54-49e0-8b7f-91ded49474f4",
+      "id": "0f29c810-2cbd-4c1e-9c92-6134583f1053",
       "name": "без кнопок",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -2239,7 +2239,7 @@
         },
         "options": {}
       },
-      "id": "3a762308-987f-4380-a79f-42e28391904f",
+      "id": "f37cf909-04a6-4fb2-9375-d3cce42d6445",
       "name": "первый рейс выполняется?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -2259,7 +2259,7 @@
         },
         "options": {}
       },
-      "id": "42d7d2ff-738c-4d6f-8324-e9c7aa56eafe",
+      "id": "cecb84ba-43a8-49c7-99c9-2a438bc81d97",
       "name": "всего рейсов",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
@@ -2292,7 +2292,7 @@
         },
         "options": {}
       },
-      "id": "49edc830-aadd-48a3-98b5-efbbd90d555b",
+      "id": "2cecab01-aa49-406a-822d-f67aaed35679",
       "name": "один рейс?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -2309,7 +2309,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "=session_id=e2aca43d42ba69b93cc70ca6bb7a8c0c2d3ab96f; Expires=Tue, 16 Dec 2025 15:27:08 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "=session_id=dbaa6da6c60771f497678f812a7a208d72a4d0ce; Expires=Tue, 23 Dec 2025 17:31:44 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -2324,7 +2324,7 @@
         },
         "options": {}
       },
-      "id": "db89eb5f-3ec4-41b4-ae21-6a3c7f953ad7",
+      "id": "f8b94164-7854-4f4e-8b3a-fc44d94a22d7",
       "name": "данные работ",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -2358,7 +2358,7 @@
         },
         "options": {}
       },
-      "id": "ad72cc0f-0a81-4251-ad77-b7822d44a687",
+      "id": "c82dcc10-4b62-4044-bd0f-aa364915dc2f",
       "name": "есть выполняющиеся?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -2376,7 +2376,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "fb1ea12d-9bba-4d2a-9152-271d3536016b",
+      "id": "f73de2b9-040b-454e-9f39-f170eee1af2d",
       "name": "карьер без кнопок",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -2402,7 +2402,7 @@
         },
         "options": {}
       },
-      "id": "ebe4bec3-b12f-479c-9b62-ebf0120fdc6c",
+      "id": "aa0fda5c-1b81-419e-acb4-c910a57f0ac5",
       "name": "всего рейсов1",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
@@ -2447,7 +2447,7 @@
         },
         "options": {}
       },
-      "id": "0859c98b-4f88-47ca-8264-6c0e8e40d433",
+      "id": "c332303a-0bc9-4783-9876-8cd849889771",
       "name": "если не равно нулю",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -2460,7 +2460,7 @@
       "parameters": {
         "jsCode": "const groupedFlights = {};\n\n$('Loop Over Items').all().forEach(it => {\n  var entry = it.json;\n  const carName = entry.car[1]; // Извлекаем название автомобиля\n  const flightInfo = entry.transportation !== undefined ? entry.transportation[1].substring(11) : entry.shift[1].substring(11); // Извлекаем информацию о рейсе\n\n  if (!groupedFlights[carName]) {\n    groupedFlights[carName] = [];\n  }\n\n  groupedFlights[carName].push(flightInfo);\n});\n\n// Формирование итоговой строки\nlet result = '';\n\nfor (const [car, flights] of Object.entries(groupedFlights)) {\n  result += `${car}:\\n`;\n  result += flights.join('\\n') + '\\n\\n';\n}\n\n// Вывод результата\nreturn {res: result};"
       },
-      "id": "e73702f4-f4c8-491f-aa83-c4f2930cbf44",
+      "id": "5cb9b8cc-fbf7-4eae-b6cb-3a9960d4e336",
       "name": "группируем",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -2473,7 +2473,7 @@
       "parameters": {
         "jsCode": "function getTransportationWord(count) {\n  const lastDigit = count % 10;\n  const lastTwoDigits = count % 100;\n\n  let transportationWord;\n  if (lastDigit === 1 && lastTwoDigits !== 11) {\n    transportationWord = \"перевозка\";\n  } else if ((lastDigit >= 2 && lastDigit <= 4) && (lastTwoDigits < 12 || lastTwoDigits > 14)) {\n    transportationWord = \"перевозки\";\n  } else {\n    transportationWord = \"перевозок\";\n  }\n\n  return `${count} ${transportationWord}`;\n}\n\n// Функция для склонения слова \"запланировано\"\nfunction getPlannedWord(count) {\n  const lastDigit = count % 10;\n  const lastTwoDigits = count % 100;\n\n  if (lastDigit === 1 && lastTwoDigits !== 11) {\n    return \"запланирована\";\n  } else if ((lastDigit >= 2 && lastDigit <= 4) && (lastTwoDigits < 12 || lastTwoDigits > 14)) {\n    return \"запланированы\";\n  } else {\n    return \"запланированы\";\n  }\n}\nvar count = $('итоговое кол-во').all()[0].json.count_id;\nvar ans = getPlannedWord(count) + ' ' + getTransportationWord(count);\nreturn {'trans': ans}"
       },
-      "id": "72d54726-2de3-4e51-87db-da15d9951863",
+      "id": "f9f97094-1cc6-4d57-8244-237497aa2200",
       "name": "склоняем",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -2489,7 +2489,7 @@
         "width": 2960.4673426000354,
         "color": 6
       },
-      "id": "3168a030-3995-43ff-a00e-70450eeae934",
+      "id": "46dc433b-f040-4545-ae81-de83236fcd5a",
       "name": "Sticky Note19",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -2509,7 +2509,7 @@
         },
         "options": {}
       },
-      "id": "ee34f776-81d3-4dba-b534-584b86431a88",
+      "id": "b3436dcd-23b6-477a-b51e-09e7619804ed",
       "name": "итоговое кол-во",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
@@ -2746,7 +2746,7 @@
         },
         "options": {}
       },
-      "id": "0786759d-e3bb-4409-8d61-1b5d5de39fa9",
+      "id": "a3b9c950-2feb-48f9-a725-9ca4aca82701",
       "name": "сохраним текст",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
@@ -2770,7 +2770,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "8fdc21b8-3abc-4c49-85fa-2d84c1f8329c",
+      "id": "7a821de1-d8f1-4773-a745-792b7e8f7ee9",
       "name": "отправим сообщение",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -2810,7 +2810,7 @@
         },
         "options": {}
       },
-      "id": "e373cff7-921e-4ac7-afe0-5cdf131fa7eb",
+      "id": "78f71e89-bb99-4653-b8a9-a72516639b7e",
       "name": "данные водителя",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
@@ -2849,7 +2849,7 @@
         },
         "options": {}
       },
-      "id": "348a9d64-0a46-4682-a702-248db6335e24",
+      "id": "7d954dbd-fd13-4c56-ab56-8adc8afc8df3",
       "name": "очередь поменялась?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -2866,7 +2866,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "=session_id=e2aca43d42ba69b93cc70ca6bb7a8c0c2d3ab96f; Expires=Tue, 16 Dec 2025 15:27:08 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "=session_id=dbaa6da6c60771f497678f812a7a208d72a4d0ce; Expires=Tue, 23 Dec 2025 17:31:44 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -2889,7 +2889,7 @@
         },
         "options": {}
       },
-      "id": "8c823197-9720-4870-86d3-7e527a56755b",
+      "id": "887e0efb-010f-4efb-bfe5-a304e5b212ab",
       "name": "график на завтра",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -2907,7 +2907,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "=session_id=e2aca43d42ba69b93cc70ca6bb7a8c0c2d3ab96f; Expires=Tue, 16 Dec 2025 15:27:08 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "=session_id=dbaa6da6c60771f497678f812a7a208d72a4d0ce; Expires=Tue, 23 Dec 2025 17:31:44 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -2922,7 +2922,7 @@
         },
         "options": {}
       },
-      "id": "7926b765-7c85-48aa-9a53-c46f01ee57a3",
+      "id": "397ef608-4384-49fc-ad6e-996be4a20e55",
       "name": "рейсы",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -2937,7 +2937,7 @@
         "fieldToSplitOut": "transportation_rounds",
         "options": {}
       },
-      "id": "1a59e1a3-e8ea-43dd-a2e9-4227594bd86e",
+      "id": "991039f7-f25f-4d2d-a110-9151cdbcedf3",
       "name": "Split Out",
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
@@ -2971,7 +2971,7 @@
         },
         "options": {}
       },
-      "id": "70257b33-0244-4fd0-8916-e3900459a60d",
+      "id": "3c8a0cda-58aa-4455-919f-6023a94b44d7",
       "name": "на завтра1",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
@@ -3006,7 +3006,7 @@
         },
         "options": {}
       },
-      "id": "a8273b73-8c1e-45e4-b630-6a5fc32f29e6",
+      "id": "bf79b732-fdb1-4204-8a05-2910363beb25",
       "name": "работы на завтра1",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
@@ -3023,7 +3023,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "=session_id=e2aca43d42ba69b93cc70ca6bb7a8c0c2d3ab96f; Expires=Tue, 16 Dec 2025 15:27:08 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "=session_id=dbaa6da6c60771f497678f812a7a208d72a4d0ce; Expires=Tue, 23 Dec 2025 17:31:44 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -3038,7 +3038,7 @@
         },
         "options": {}
       },
-      "id": "c9afbc65-4763-48c8-8e09-1c3126d19fd1",
+      "id": "1869eb8f-b1c1-4db7-b4a4-8ea91ac2f51b",
       "name": "работы",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -3053,7 +3053,7 @@
         "fieldToSplitOut": "quarry_works",
         "options": {}
       },
-      "id": "9fc555e8-8dc7-4731-bb8f-6c12d6e743d3",
+      "id": "31fbcfd8-decf-4552-a6ec-f304f3501fef",
       "name": "Split Out2",
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
@@ -3065,7 +3065,7 @@
     },
     {
       "parameters": {},
-      "id": "78167ebc-6211-4d66-8e08-34e147c9aa28",
+      "id": "1c645c0b-b18d-47a8-8f19-cb7cc9e1db4d",
       "name": "Merge1",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
@@ -3078,7 +3078,7 @@
       "parameters": {
         "options": {}
       },
-      "id": "14bd7033-b3a8-4938-b8db-4cdff23cc51b",
+      "id": "95254a36-0b48-4ed5-b33a-2127d3a2a17a",
       "name": "Loop Over Items",
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
@@ -3089,7 +3089,7 @@
     },
     {
       "parameters": {},
-      "id": "447b923f-b57b-49db-864c-e9c36698231f",
+      "id": "0cad5c43-1c58-4e0e-a457-1029b9287adb",
       "name": "No Operation, do nothing2",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
@@ -3100,7 +3100,7 @@
     },
     {
       "parameters": {},
-      "id": "f20aa37c-677a-4479-85a4-8704344882e5",
+      "id": "f3236161-084e-488f-94e5-0785fda508df",
       "name": "No Operation, do nothing",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
@@ -3120,7 +3120,7 @@
           ]
         }
       },
-      "id": "f51a262e-04aa-4c4d-bbc6-c74c9870bdd7",
+      "id": "7a5d896c-bfb7-486a-841d-8b913fe00b75",
       "name": "Schedule Trigger1",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
@@ -3137,7 +3137,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "=session_id=e2aca43d42ba69b93cc70ca6bb7a8c0c2d3ab96f; Expires=Tue, 16 Dec 2025 15:27:08 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "=session_id=dbaa6da6c60771f497678f812a7a208d72a4d0ce; Expires=Tue, 23 Dec 2025 17:31:44 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -3152,7 +3152,7 @@
         },
         "options": {}
       },
-      "id": "e72e4cfa-8133-448e-99db-ee85b457e3c1",
+      "id": "58039d38-b210-4b9b-9e2e-f5833296a040",
       "name": "данные карточек1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -3168,7 +3168,7 @@
         "jsonOutput": "\n  {\n    \"headers\": {\n      \"set-cookie\": [\n        \"session_id=c3e4a62a1a8d37aac55955740fe40fb4fbfdb108; Expires=Tue, 11 Nov 2025 06:56:02 GMT; Max-Age=604800; HttpOnly; Path=/\"\n      ]\n    }\n  }\n",
         "options": {}
       },
-      "id": "7be50baf-3f42-4695-b2cb-7b9880c6af43",
+      "id": "fc01d9e0-515a-4922-acf1-53fc304a97aa",
       "name": "авторизация1",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -3185,7 +3185,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "session_id=e2aca43d42ba69b93cc70ca6bb7a8c0c2d3ab96f; Expires=Tue, 16 Dec 2025 15:27:08 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "session_id=dbaa6da6c60771f497678f812a7a208d72a4d0ce; Expires=Tue, 23 Dec 2025 17:31:44 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -3200,7 +3200,7 @@
         },
         "options": {}
       },
-      "id": "ac242e8c-71c9-4b14-97e7-3190b7f40434",
+      "id": "2f464b25-5b5a-4386-8aad-e5f7613675db",
       "name": "поиск текущего авто1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -3215,7 +3215,7 @@
         "fieldToSplitOut": "quarry_works",
         "options": {}
       },
-      "id": "8d4bf52c-e952-4890-ab88-71bafe9024dc",
+      "id": "42f0cfa2-307d-44cc-b269-1988a7a7131b",
       "name": "Split Out1",
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
@@ -3250,7 +3250,7 @@
         },
         "options": {}
       },
-      "id": "4ae46922-3891-4ccd-92e8-235e66659269",
+      "id": "7b7679f9-7add-4560-af30-44dbb5be961b",
       "name": "только выполняющиеся",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
@@ -3284,7 +3284,7 @@
         },
         "options": {}
       },
-      "id": "cb7dd6f5-86bd-46cb-b951-a53b82a4ea2e",
+      "id": "93870020-d18c-42c2-ad60-aebcb2e5d0a0",
       "name": "работа в карьере",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
@@ -3302,7 +3302,7 @@
         "authentication": "basicAuth",
         "options": {}
       },
-      "id": "7a4613bc-216f-42ed-8dad-834d5bb3ded8",
+      "id": "2dc9a902-52a0-4db7-916b-5a28bd23cf75",
       "name": "изменение данных в перевозке",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
@@ -3326,7 +3326,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "=session_id=e2aca43d42ba69b93cc70ca6bb7a8c0c2d3ab96f; Expires=Tue, 16 Dec 2025 15:27:08 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "=session_id=dbaa6da6c60771f497678f812a7a208d72a4d0ce; Expires=Tue, 23 Dec 2025 17:31:44 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -3341,7 +3341,7 @@
         },
         "options": {}
       },
-      "id": "37d4896d-44e1-48af-9646-59dc0f64fc78",
+      "id": "1f5ddfa3-5c50-4bb4-bc3c-a04396a09135",
       "name": "работы в карьере",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -3359,7 +3359,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "session_id=e2aca43d42ba69b93cc70ca6bb7a8c0c2d3ab96f; Expires=Tue, 16 Dec 2025 15:27:08 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "session_id=dbaa6da6c60771f497678f812a7a208d72a4d0ce; Expires=Tue, 23 Dec 2025 17:31:44 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -3374,7 +3374,7 @@
         },
         "options": {}
       },
-      "id": "60bd9f7d-be10-400e-b442-c37f6c2bad74",
+      "id": "d0ba8aa2-f1c1-4fa7-935f-6cf329bb1d05",
       "name": "авто",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -3400,7 +3400,7 @@
           ]
         }
       },
-      "id": "93ef8146-ddb8-4421-a278-3f8f7bb5e2e3",
+      "id": "a857b6f3-75a5-44c5-86ba-effc0c91ccc3",
       "name": "история взятия",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -3432,7 +3432,7 @@
           ]
         }
       },
-      "id": "3d496acb-512a-4219-876d-7f4dfbd2a821",
+      "id": "927af934-7c21-41e0-835e-afb6e8dc4911",
       "name": "авто с завершённой сменой",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -3454,7 +3454,7 @@
         "width": 1733.1578836605704,
         "color": 6
       },
-      "id": "ca6d2766-2d8e-405f-adfa-f86fdccc627b",
+      "id": "cc4d165c-15e0-4913-a23a-bc51248328e9",
       "name": "Sticky Note21",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -3474,7 +3474,7 @@
           ]
         }
       },
-      "id": "cf98c617-9cb4-4edf-b1bb-2991bd7a18a6",
+      "id": "15d86f5a-62db-4f7c-b055-e32bdd2ae428",
       "name": "Schedule Trigger3",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.1,
@@ -3490,7 +3490,7 @@
         "duration": 7,
         "options": {}
       },
-      "id": "ffd07177-3b64-4f2f-af20-5ff313cdf61a",
+      "id": "ab0a4f82-fe60-40b1-ac83-5df1d1411a77",
       "name": "дата через неделю1",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -3504,7 +3504,7 @@
         "language": "python",
         "pythonCode": "# Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor item in _input.all():\n    days = abs(item.json.timeDifference)\n    if days % 100 // 10 == 1:\n        item.json.sklonenie = \"дней\"\n    elif days % 10 == 1:\n        item.json.sklonenie = \"день\"\n    elif days % 10 in [2, 3, 4]:\n        item.json.sklonenie = \"дня\"\n    else:\n        item.json.sklonenie = \"дней\"\nreturn _input.all()"
       },
-      "id": "e8657ed9-0539-416d-b468-87f2a931922c",
+      "id": "020ae203-bfa0-4266-b1bb-86a1daec772f",
       "name": "склоняем1",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -3527,7 +3527,7 @@
         },
         "options": {}
       },
-      "id": "73c8eda4-49b0-4346-bbe6-04e1579961b4",
+      "id": "22a0cece-5525-403c-8dfa-7e1ccf66cff2",
       "name": "округляем1",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
@@ -3543,7 +3543,7 @@
         "endDate": "={{ $json.expiration_date }}",
         "options": {}
       },
-      "id": "ec23c73c-5bf5-479b-bfdc-955821634b0f",
+      "id": "94106627-6346-4f9f-bf6b-ded0dcf06ddd",
       "name": "разница в днях1",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
@@ -3558,7 +3558,7 @@
         "combinationMode": "mergeByPosition",
         "options": {}
       },
-      "id": "8a8dfc27-8c4a-40ab-bbf8-602fecd28812",
+      "id": "a2f1ab42-368d-4ed4-8ea0-dad5f4d60bcc",
       "name": "объединяем доки+дата с разницей во времени1",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
@@ -3581,7 +3581,7 @@
         },
         "options": {}
       },
-      "id": "305928c6-d27b-4315-9004-247724a3b085",
+      "id": "8181c75d-9a04-43d4-bedd-8bde0ef25ca4",
       "name": "склеиваем1",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
@@ -3603,7 +3603,7 @@
         },
         "options": {}
       },
-      "id": "f7369793-2a7a-477b-a5c2-1dfd46dbc316",
+      "id": "367181af-74a7-4537-83e4-c4657015ce3e",
       "name": "объединяем1",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
@@ -3619,7 +3619,7 @@
         "width": 2525.6327042306157,
         "color": 6
       },
-      "id": "427a18ec-8213-4809-8c8e-14833c6c8f3b",
+      "id": "ef65d6aa-da85-4be2-84b8-4e8a62cf1487",
       "name": "Sticky Note8",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -3638,7 +3638,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "c1ec4fe4-de85-41e6-aa67-398c808c0afa",
+      "id": "44ceeaa7-d2bc-4df3-bbf7-71bd66c6299b",
       "name": "отправка сообщения1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -3679,7 +3679,7 @@
         },
         "options": {}
       },
-      "id": "15765ab5-df72-4f06-ad9f-3ea65098042f",
+      "id": "f62d6a94-3bdc-4e40-8d6f-2ba1848f80b8",
       "name": "айди диспетчеров+механиков",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -3703,7 +3703,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "4deefb19-9224-4917-bfb3-5fe0c86d12f0",
+      "id": "3fba7572-6161-463a-96e5-6a54b823dd20",
       "name": "Вывод статуса карточки1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -3743,7 +3743,7 @@
         },
         "options": {}
       },
-      "id": "02f85698-1e95-4f59-8d31-72aa5d6615df",
+      "id": "6a71171c-2938-4874-bea3-97c2dc16ec2f",
       "name": "Получаем тг1",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -3783,7 +3783,7 @@
         },
         "options": {}
       },
-      "id": "14a79d5e-9c14-4baf-8a81-13f6fb9bc136",
+      "id": "f9727b0c-8e6d-44a8-8a54-8b5902ecd4eb",
       "name": "только готовые уведомляем",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.1,
@@ -3825,7 +3825,7 @@
         },
         "options": {}
       },
-      "id": "13a4491e-5999-44b1-aa3e-5e9045fcf67f",
+      "id": "5624bf27-3927-48d7-8ccc-57296a1dcf8a",
       "name": "документы с истекающим сроком1",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
@@ -3837,7 +3837,7 @@
     },
     {
       "parameters": {},
-      "id": "495a2783-ab72-4232-8f8b-01ae528be4cc",
+      "id": "042d4a43-e8c3-40d5-8c82-54de6580f3ee",
       "name": "Merge",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
@@ -3854,7 +3854,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "session_id=e2aca43d42ba69b93cc70ca6bb7a8c0c2d3ab96f; Expires=Tue, 16 Dec 2025 15:27:08 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "session_id=dbaa6da6c60771f497678f812a7a208d72a4d0ce; Expires=Tue, 23 Dec 2025 17:31:44 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -3866,7 +3866,7 @@
         },
         "options": {}
       },
-      "id": "1de48d07-0961-4eb4-b104-c7d48e298fd5",
+      "id": "28893735-cefb-4eb9-b123-fe55bd300d8e",
       "name": "документы",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -3884,7 +3884,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "session_id=e2aca43d42ba69b93cc70ca6bb7a8c0c2d3ab96f; Expires=Tue, 16 Dec 2025 15:27:08 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "session_id=dbaa6da6c60771f497678f812a7a208d72a4d0ce; Expires=Tue, 23 Dec 2025 17:31:44 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -3896,7 +3896,7 @@
         },
         "options": {}
       },
-      "id": "96c08fe4-63ae-4e9c-92e7-50e8f4c5842d",
+      "id": "b681065c-4e25-4204-9ffb-6ecb957533e0",
       "name": "поиск механиков4",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -3915,7 +3915,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "session_id=e2aca43d42ba69b93cc70ca6bb7a8c0c2d3ab96f; Expires=Tue, 16 Dec 2025 15:27:08 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "session_id=dbaa6da6c60771f497678f812a7a208d72a4d0ce; Expires=Tue, 23 Dec 2025 17:31:44 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -3927,7 +3927,7 @@
         },
         "options": {}
       },
-      "id": "8b122b03-c3a5-4873-af33-2a39b7d451d4",
+      "id": "ea41701c-602c-48dd-9d7e-867817398aed",
       "name": "поиск диспетчера1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -3946,7 +3946,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "session_id=e2aca43d42ba69b93cc70ca6bb7a8c0c2d3ab96f; Expires=Tue, 16 Dec 2025 15:27:08 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "session_id=dbaa6da6c60771f497678f812a7a208d72a4d0ce; Expires=Tue, 23 Dec 2025 17:31:44 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -3961,7 +3961,7 @@
         },
         "options": {}
       },
-      "id": "b4c29fb7-4697-474a-9ef9-9d3e47f2d022",
+      "id": "b9ccc14e-9b84-4aed-a6a6-fa0766118742",
       "name": "авто1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -3995,7 +3995,7 @@
         },
         "options": {}
       },
-      "id": "dc9fee3d-c78b-4003-a658-e6f1e52fd2d3",
+      "id": "095ab4b1-10be-40a4-a7d7-b22ff0df5147",
       "name": "айди водителя2",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
@@ -4019,7 +4019,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "93a181a2-1f2a-480b-b22c-d522a8182164",
+      "id": "19a78d98-d27c-4b76-8b36-3e56d88f3bb8",
       "name": "отправляем сообщение",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -4042,7 +4042,7 @@
         "authentication": "basicAuth",
         "options": {}
       },
-      "id": "75712bcf-4d31-4caf-9a88-6962fd71ce85",
+      "id": "6214493a-e556-419d-b87e-5529ac93fbc8",
       "name": "виалон авто взят",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
@@ -4065,7 +4065,7 @@
         "authentication": "basicAuth",
         "options": {}
       },
-      "id": "d0c83eb0-846d-4378-a758-ddad2afcfce2",
+      "id": "5e14b284-9a1c-43c7-983e-da9db098c751",
       "name": "виалон смена закончена",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
@@ -4088,7 +4088,7 @@
         "authentication": "basicAuth",
         "options": {}
       },
-      "id": "3f325c69-7ffd-44f2-b846-db034a56f468",
+      "id": "d912a19a-02fd-4db5-91d1-1aeafbd8931e",
       "name": "перевозки на сегодня",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
@@ -4111,7 +4111,7 @@
         "authentication": "basicAuth",
         "options": {}
       },
-      "id": "0d107074-eddc-4946-9c39-0a11916a5343",
+      "id": "5f6cc0e7-9925-49f3-bfb4-edcc3140b512",
       "name": "Webhook1 dev1",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
@@ -4135,13 +4135,13 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "=session_id=e2aca43d42ba69b93cc70ca6bb7a8c0c2d3ab96f; Expires=Tue, 16 Dec 2025 15:27:08 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "=session_id=dbaa6da6c60771f497678f812a7a208d72a4d0ce; Expires=Tue, 23 Dec 2025 17:31:44 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
         "options": {}
       },
-      "id": "57d53b17-f061-4b4c-ae30-4fd20548ddf1",
+      "id": "aa06197b-e160-4ba7-956d-3634acaf79c5",
       "name": "поиск логистов",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -4181,7 +4181,7 @@
         },
         "options": {}
       },
-      "id": "cc716417-20e4-4bb7-b0a2-2b34611133ac",
+      "id": "878cad42-c25f-46ea-801d-2b79b2323fde",
       "name": "поиск тг айди логистов",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -4202,7 +4202,7 @@
         "fieldToSplitOut": "body.resequenced_data",
         "options": {}
       },
-      "id": "3aab703b-6ecd-4d32-af06-9422aedf8880",
+      "id": "b4fa0070-76fd-41cd-ab51-fbb752cb2a42",
       "name": "Split Out3",
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
@@ -4224,7 +4224,7 @@
         },
         "options": {}
       },
-      "id": "a6c8e285-3875-43c8-988f-a4e907b0b9c4",
+      "id": "beaf9590-f977-4975-9110-165f32f7fa41",
       "name": "Summarize",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
@@ -4242,7 +4242,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "e217a462-d32d-4bdc-a6d9-76d0faadf97b",
+      "id": "535acb3c-1713-4b8b-9d05-8981fba5b48f",
       "name": "отправка сообщения об опоздании",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -4264,7 +4264,7 @@
         "authentication": "basicAuth",
         "options": {}
       },
-      "id": "b5cf5ca0-ab24-4c5e-be2b-eec4f35c20ff",
+      "id": "d2267e5f-61ef-46d4-93fe-cd237d11d25e",
       "name": "опоздания водителей",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
@@ -4288,7 +4288,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "session_id=e2aca43d42ba69b93cc70ca6bb7a8c0c2d3ab96f; Expires=Tue, 16 Dec 2025 15:27:08 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "session_id=dbaa6da6c60771f497678f812a7a208d72a4d0ce; Expires=Tue, 23 Dec 2025 17:31:44 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -4303,7 +4303,7 @@
         },
         "options": {}
       },
-      "id": "07247f45-9d58-43b7-a3eb-ab15117fc416",
+      "id": "9670759e-13ad-4780-826a-cb62275e4140",
       "name": "выполнивший заявку",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -4320,7 +4320,7 @@
         "authentication": "basicAuth",
         "options": {}
       },
-      "id": "1ed6afea-41ff-419b-88d6-063b06281cde",
+      "id": "745d235b-9126-4160-b696-04149542de19",
       "name": "смена статуса заявки",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
@@ -4361,7 +4361,7 @@
         },
         "options": {}
       },
-      "id": "0988aece-8119-41af-9654-12fbc3ace556",
+      "id": "b46c4e49-f8f6-4471-b900-f7f09682a9f7",
       "name": "слесарь",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -4428,7 +4428,7 @@
         },
         "options": {}
       },
-      "id": "558257e9-1cd2-48a3-8546-bc64d558c256",
+      "id": "3ac6eabb-b7c2-4aae-a39a-f1e61de7a4c5",
       "name": "роль",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
@@ -4445,7 +4445,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "session_id=e2aca43d42ba69b93cc70ca6bb7a8c0c2d3ab96f; Expires=Tue, 16 Dec 2025 15:27:08 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "session_id=dbaa6da6c60771f497678f812a7a208d72a4d0ce; Expires=Tue, 23 Dec 2025 17:31:44 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -4460,7 +4460,7 @@
         },
         "options": {}
       },
-      "id": "0c4a6e6d-2bd2-4811-afec-f926d3b57ba8",
+      "id": "4d1ada9c-16c7-4ee7-a4f5-2b01ec6bf61b",
       "name": "авто2",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -4479,7 +4479,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "4ceb617a-ed63-4743-b272-2aa701729f24",
+      "id": "89758886-58d8-4d86-99fa-f203833dd675",
       "name": "сообщение слесарю",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -4519,7 +4519,7 @@
         },
         "options": {}
       },
-      "id": "65d49caa-0759-408c-9575-2de33881fdd2",
+      "id": "d7653d8a-00b6-4174-b6e4-23ce4e126a53",
       "name": "водитель",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -4543,7 +4543,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "73f10b63-d0b8-406b-949f-d04a454becdb",
+      "id": "7fa494fa-a087-498b-8ed6-01f2250af4dc",
       "name": "Вывод статуса карточки",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -4566,7 +4566,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "session_id=e2aca43d42ba69b93cc70ca6bb7a8c0c2d3ab96f; Expires=Tue, 16 Dec 2025 15:27:08 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "session_id=dbaa6da6c60771f497678f812a7a208d72a4d0ce; Expires=Tue, 23 Dec 2025 17:31:44 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -4581,7 +4581,7 @@
         },
         "options": {}
       },
-      "id": "8a690cea-2058-4b9e-b015-c2fe4b017229",
+      "id": "f377d024-1f7e-4c4c-b88c-f394ca059a6a",
       "name": "имя водителя",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -4677,8 +4677,8 @@
             "x-real-ip": "193.107.238.124",
             "x-forwarded-for": "193.107.238.124",
             "x-forwarded-proto": "https",
-            "connection": "close",
-            "content-length": "550",
+            "connection": "Upgrade",
+            "content-length": "634",
             "user-agent": "python-requests/2.25.1",
             "accept-encoding": "gzip, deflate",
             "accept": "*/*",
@@ -4688,24 +4688,24 @@
           "params": {},
           "query": {},
           "body": {
-            "id": 682,
-            "date": "2024-12-10",
-            "date_of_start_work": "2024-12-10",
-            "date_of_end_work": "2024-12-10",
+            "id": 655,
+            "date": "2024-11-11",
+            "date_of_start_work": "2024-12-18",
+            "date_of_end_work": false,
             "tech_maintenance": false,
-            "hours_for_maintenance": 6,
+            "hours_for_maintenance": 1,
             "cost": 1,
-            "description_of_maintenance": "123",
-            "car_id": 18,
+            "description_of_maintenance": "тест978",
+            "car_id": 48,
             "sent": false,
-            "status": "Готово",
+            "status": "Требуется проверка",
             "image_of_breakage": false,
             "image_of_repaired": false,
             "performer": null,
-            "created_by": 2,
-            "completed_by": 19,
-            "schedule_date_start": "2024-12-10",
-            "schedule_date_end": "2024-12-10",
+            "created_by": 26,
+            "completed_by": 4,
+            "schedule_date_start": "2024-12-18",
+            "schedule_date_end": "2024-12-18",
             "rate_for_hour": 0,
             "completed_by_is_driver": false,
             "driver_salary": 0
@@ -4717,8 +4717,7 @@
     ]
   },
   "settings": {
-    "executionOrder": "v1",
-    "timezone": "Asia/Vladivostok"
+    "executionOrder": "v1"
   },
   "staticData": {
     "node:Schedule Trigger1": {
@@ -4737,6 +4736,6 @@
     }
   ],
   "triggerCount": 9,
-  "updatedAt": "2024-12-16T15:49:33.662Z",
-  "versionId": "8b8aa8d5-6579-45f2-b0ed-7b4b114b35c8"
+  "updatedAt": "2024-12-23T17:46:32.794Z",
+  "versionId": "a7114d5e-8398-45c6-865e-592af91927e2"
 }
