@@ -226,17 +226,6 @@
         ]
       ]
     },
-    "Telegram Trigger1": {
-      "main": [
-        [
-          {
-            "node": "авторизация",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "проверка роли после авторизации": {
       "main": [
         [
@@ -375,6 +364,17 @@
           }
         ]
       ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "авторизация",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-08-30T12:51:51.781Z",
@@ -389,7 +389,7 @@
         "operation": "executeQuery",
         "query": "INSERT INTO tg_users (tg_id) VALUES ($1) ON CONFLICT (tg_id) DO NOTHING;",
         "options": {
-          "queryReplacement": "={{ \n$('Telegram Trigger1').item.json.callback_query?.message?.chat?.id !== undefined \n    ? $('Telegram Trigger1').item.json.callback_query.message.chat.id \n    : $('Telegram Trigger1').item.json.message?.chat?.id !== undefined \n        ? $('Telegram Trigger1').item.json.message.chat.id \n        : $('Telegram Trigger1').item.json.inline_query?.from?.id !== undefined \n            ? $('Telegram Trigger1').item.json.inline_query.from.id \n            : 'default_id'\n}}"
+          "queryReplacement": "={{ \n$('Telegram Trigger').item.json.callback_query?.message?.chat?.id !== undefined \n    ? $('Telegram Trigger').item.json.callback_query.message.chat.id \n    : $('Telegram Trigger').item.json.message?.chat?.id !== undefined \n        ? $('Telegram Trigger').item.json.message.chat.id \n        : $('Telegram Trigger').item.json.inline_query?.from?.id !== undefined \n            ? $('Telegram Trigger').item.json.inline_query.from.id \n            : 'default_id'\n}}"
         }
       },
       "id": "ea7daceb-a4f2-4b70-b07f-e18c0fd7e105",
@@ -459,7 +459,7 @@
           "values": [
             {
               "column": "tg_id",
-              "value": "={{ \n$('Telegram Trigger1').item.json.callback_query?.message?.chat?.id !== undefined \n    ? $('Telegram Trigger1').item.json.callback_query.message.chat.id \n    : $('Telegram Trigger1').item.json.message?.chat?.id !== undefined \n        ? $('Telegram Trigger1').item.json.message.chat.id \n        : $('Telegram Trigger1').item.json.inline_query?.from?.id !== undefined \n            ? $('Telegram Trigger1').item.json.inline_query.from.id \n            : 'default_id'\n}}"
+              "value": "={{ \n$('Telegram Trigger').item.json.callback_query?.message?.chat?.id !== undefined \n    ? $('Telegram Trigger').item.json.callback_query.message.chat.id \n    : $('Telegram Trigger').item.json.message?.chat?.id !== undefined \n        ? $('Telegram Trigger').item.json.message.chat.id \n        : $('Telegram Trigger').item.json.inline_query?.from?.id !== undefined \n            ? $('Telegram Trigger').item.json.inline_query.from.id \n            : 'default_id'\n}}"
             }
           ]
         },
@@ -571,7 +571,7 @@
           "values": [
             {
               "column": "tg_id",
-              "value": "={{ \n$('Telegram Trigger1').item.json.callback_query?.message?.chat?.id !== undefined \n    ? $('Telegram Trigger1').item.json.callback_query.message.chat.id \n    : $('Telegram Trigger1').item.json.message?.chat?.id !== undefined \n        ? $('Telegram Trigger1').item.json.message.chat.id \n        : $('Telegram Trigger1').item.json.inline_query?.from?.id !== undefined \n            ? $('Telegram Trigger1').item.json.inline_query.from.id \n            : 'default_id'\n}}"
+              "value": "={{ \n$('Telegram Trigger').item.json.callback_query?.message?.chat?.id !== undefined \n    ? $('Telegram Trigger').item.json.callback_query.message.chat.id \n    : $('Telegram Trigger').item.json.message?.chat?.id !== undefined \n        ? $('Telegram Trigger').item.json.message.chat.id \n        : $('Telegram Trigger').item.json.inline_query?.from?.id !== undefined \n            ? $('Telegram Trigger').item.json.inline_query.from.id \n            : 'default_id'\n}}"
             }
           ]
         },
@@ -932,7 +932,7 @@
           "conditions": [
             {
               "id": "11c45e0d-196b-47f1-821e-bee57c9f070b",
-              "leftValue": "={{ $('Telegram Trigger1').item.json.hasField(\"message\") }}",
+              "leftValue": "={{ $('Telegram Trigger').item.json.hasField(\"message\") }}",
               "rightValue": "",
               "operator": {
                 "type": "boolean",
@@ -1476,7 +1476,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nvar res = {};\n\nfor (const item of $input.all()) {\n  Object.assign(res, $('Telegram Trigger1').item.json);\n  Object.assign(res, $('актуальный статус').item.json);\n  Object.assign(res, { cookie: 'session_id=1442bb4856228bbe67515d6904499bfb63c13de9; Expires=Wed, 24 Dec 2025 05:51:01 GMT; Max-Age=604800; HttpOnly; Path=/' });\n}\n\nreturn res;"
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nvar res = {};\n\nfor (const item of $input.all()) {\n  Object.assign(res, $('Telegram Trigger').item.json);\n  Object.assign(res, $('актуальный статус').item.json);\n  Object.assign(res, { cookie: 'session_id=1442bb4856228bbe67515d6904499bfb63c13de9; Expires=Wed, 24 Dec 2025 05:51:01 GMT; Max-Age=604800; HttpOnly; Path=/' });\n}\n\nreturn res;"
       },
       "id": "3d67466c-6eca-4c33-9cbd-702dca59406d",
       "name": "склеиваем данные",
@@ -1606,31 +1606,6 @@
         320,
         1700
       ]
-    },
-    {
-      "parameters": {
-        "updates": [
-          "message",
-          "callback_query",
-          "inline_query"
-        ],
-        "additionalFields": {}
-      },
-      "id": "c4eff37d-9ebd-4b7f-90bd-c531a67386a5",
-      "name": "Telegram Trigger1",
-      "type": "n8n-nodes-base.telegramTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        -2640,
-        1480
-      ],
-      "webhookId": "98cc3ab9-68d6-4a2f-85f1-4ae02662246d",
-      "credentials": {
-        "telegramApi": {
-          "id": "rJQteGH5Ng1RKmF4",
-          "name": "tg dev aleksey"
-        }
-      }
     },
     {
       "parameters": {
@@ -2123,42 +2098,34 @@
       ],
       "id": "9c8b58db-2c46-4464-85b7-328f9edbab32",
       "name": "Sticky Note2"
-    }
-  ],
-  "pinData": {
-    "Telegram Trigger1": [
-      {
-        "json": {
-          "update_id": 100641098,
-          "message": {
-            "message_id": 33011,
-            "from": {
-              "id": 7090302459,
-              "is_bot": false,
-              "first_name": "Al",
-              "last_name": "Go",
-              "language_code": "ru"
-            },
-            "chat": {
-              "id": 7090302459,
-              "first_name": "Al",
-              "last_name": "Go",
-              "type": "private"
-            },
-            "date": 1733907132,
-            "text": "/start",
-            "entities": [
-              {
-                "offset": 0,
-                "length": 6,
-                "type": "bot_command"
-              }
-            ]
-          }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "callback_query",
+          "inline_query",
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -2600,
+        1480
+      ],
+      "id": "a3aad851-4b2c-434e-920f-4d72d148b4e3",
+      "name": "Telegram Trigger",
+      "webhookId": "41c74b7c-fad0-439f-a1db-50cb936d1516",
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
         }
       }
-    ]
-  },
+    }
+  ],
+  "pinData": {},
   "settings": {
     "executionOrder": "v1",
     "saveManualExecutions": false,
@@ -2182,6 +2149,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2024-12-24T05:59:31.382Z",
-  "versionId": "3fc61082-4c69-4503-9362-0729d41d73df"
+  "updatedAt": "2024-12-24T09:44:04.604Z",
+  "versionId": "3f2e3f1e-295e-4038-899b-6d9b067e11ed"
 }
