@@ -7659,7 +7659,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\n\nconst buttons = items.map((item, index) => ({\n    text: `${item.json.display_name.substring(11)}`,\n    callback_data: item.json.quarry_works ? `TO_HEAD_W_${item.json.id}` : `TO_HEAD_T_${item.json.id}` // T - Transportation W - work\n}));\n\nconst inlineKeyboard = {\n    inline_keyboard: [\n        ...buttons.map(button => [button]), // динамические кнопки, каждая строка содержит одну кнопку\n        [{ text: \"Назад ↩️\", callback_data: \"hide_list\" }] // постоянная кнопка\n    ]\n};\n\nconst chatId = $('Execute Workflow Trigger').all()[0].json.callback_query.from.id;\nconst token = '7063451965:AAGARL6Eluwh3zgS84WnaZozqdz6-m0RLzg';\nconst url = `https://api.telegram.org/bot${token}/editMessageText`;\n\nconst message = {\n    chat_id: chatId,\n    message_id: $('Execute Workflow Trigger').all()[0].json.callback_query.message.message_id,\n    text: \"Выберите перевозку из списка:\",\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n"
+        "jsCode": "const items = $input.all();\n\nconst buttons = items.map((item, index) => {\n    // Убираем текст в скобках из material[1]\n    const materialText = item.json.material[1].replace(/\\s*\\(.*?\\)\\s*/, ''); // Удаляем текст в скобках\n\n    return {\n        text: `${item.json.display_name.substring(11)} - ${materialText}`,\n        callback_data: item.json.quarry_works ? `TO_HEAD_W_${item.json.id}` : `TO_HEAD_T_${item.json.id}` // T - Transportation W - work\n    };\n});\n\nconst inlineKeyboard = {\n    inline_keyboard: [\n        ...buttons.map(button => [button]), // динамические кнопки, каждая строка содержит одну кнопку\n        [{ text: \"Назад ↩️\", callback_data: \"hide_list\" }] // постоянная кнопка\n    ]\n};\n\nconst chatId = $('Execute Workflow Trigger').all()[0].json.callback_query.from.id;\nconst token = '7063451965:AAGARL6Eluwh3zgS84WnaZozqdz6-m0RLzg';\nconst url = `https://api.telegram.org/bot${token}/editMessageText`;\n\nconst message = {\n    chat_id: chatId,\n    message_id: $('Execute Workflow Trigger').all()[0].json.callback_query.message.message_id,\n    text: \"Выберите перевозку из списка:\",\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n"
       },
       "id": "a34cb303-8e28-4742-a54f-e9ce8d3622b4",
       "name": "создаём динамически инлайн кнопки",
@@ -8806,7 +8806,7 @@
     },
     {
       "parameters": {
-        "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const data = item.json;\n\n  const isQuarryWork = data.quarry && data.quarry.length > 1;\n\n  let message = \"\";\n\n  if (isQuarryWork) {\n    const quarry = data.quarry[1];\n    const requiredHours = data.required_hours || 0;\n    const comment = data.comment;\n\n    message = `<b>${index}.</b> Работа в карьере - <b>${quarry}</b>`;\n    if (data.end_condition === \"По часам\") {\n      message += `\\nНеобходимое количество часов - <b>${requiredHours}</b>`;\n    }\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    message += `\\n\\n`;\n  } else {\n    const sender = data.sender && data.sender.length > 1 ? data.sender[1] : \"\";\n    const partner = data.partner && data.partner.length > 1 ? data.partner[1] : \"\";\n    const placeFrom = data.place_from && data.place_from.length > 1 ? data.place_from[1] : \"\";\n    const placeTo = data.place_to && data.place_to.length > 1 ? data.place_to[1] : \"\";\n    let material =data.material[1].replace(/\\s*\\(.*?\\)\\s*/g, \"\");\n    const comment = data.comment;\n    const endCondition = data.end_condition;\n    const requiredCubicMetre = data.required_cubic_metre|| 0;\n    const requiredTon = data.required_ton|| 0;\n\n    let route = placeFrom && placeTo ? `${placeFrom}-${placeTo}` : \"\";\n\n\n    message = `<b>${index}.</b>`;\n    \n    if (sender) message += ` Отправитель - <b>${sender}</b>`;\n    if (partner) message += `\\nПолучатель - <b>${partner}</b>`;\n    if (route) message += `\\nМаршрут - <b>${route}</b>`;\n    if (material) message += `\\nМатериал - <b>${material}</b>`;\n    \n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n\n    if (endCondition === \"По перевезенным кубометрам\" && requiredCubicMetre > 0) {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n\n    if (endCondition === \"По перевезенным тоннам\" && requiredTon > 0) {\n      message += `\\nТребуемое количество тонн по перевозке - <b>${requiredTon}</b>`;\n    }\n\n    message += (item.json.concatenated_transportation_round0_driver1 ? \"\\n\\nВодители, выполняющие перевозку с вами:\\n\" + item.json.concatenated_transportation_round0_driver1 : \"\");\n\n    message += `\\n\\n`;\n  }\n\n  if (index === 1) {\n    message = `<i>${message.trim()}</i>\\n\\n`;\n  }\n\n  combinedMessages += message;\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
+        "jsCode": "let combinedMessages = \"\";\n\nlet index = 1;\nfor (const item of $input.all()) {\n  const data = item.json;\n\n  const isQuarryWork = data.quarry && data.quarry.length > 1;\n\n  let message = \"\";\n\n  if (isQuarryWork) {\n    const quarry = data.quarry[1];\n    const requiredHours = data.required_hours || 0;\n    const comment = data.comment;\n\n    message = `<b>${index}.</b> Работа в карьере - <b>${quarry}</b>`;\n    if (data.end_condition === \"По часам\") {\n      message += `\\nНеобходимое количество часов - <b>${requiredHours}</b>`;\n    }\n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n    message += `\\n\\n`;\n  } else {\n    const sender = data.sender && data.sender.length > 1 ? data.sender[1] : \"\";\n    const partner = data.partner && data.partner.length > 1 ? data.partner[1] : \"\";\n    const placeFrom = data.place_from && data.place_from.length > 1 ? data.place_from[1] : \"\";\n    const placeTo = data.place_to && data.place_to.length > 1 ? data.place_to[1] : \"\";\n    let material =data.material[1].replace(/\\s*\\(.*?\\)\\s*/g, \"\");\n    const comment = data.comment;\n    const endCondition = data.end_condition;\n    const requiredCubicMetre = data.diff_cubic_metre|| 0;\n    const requiredTon = data.diff_ton|| 0;\n\n    let route = placeFrom && placeTo ? `${placeFrom}-${placeTo}` : \"\";\n\n\n    message = `<b>${index}.</b>`;\n    \n    if (sender) message += ` Отправитель - <b>${sender}</b>`;\n    if (partner) message += `\\nПолучатель - <b>${partner}</b>`;\n    if (route) message += `\\nМаршрут - <b>${route}</b>`;\n    if (material) message += `\\nМатериал - <b>${material}</b>`;\n    \n    if (comment !== false) {\n      message += `\\nКомментарий - <i>${comment}</i>`;\n    }\n\n    if (endCondition === \"По перевезенным кубометрам\" && requiredCubicMetre > 0) {\n      message += `\\nТребуемое количество кубометров по перевозке - <b>${requiredCubicMetre}</b>`;\n    }\n\n    if (endCondition === \"По перевезенным тоннам\" && requiredTon > 0) {\n      message += `\\nТребуемое количество тонн по перевозке - <b>${requiredTon}</b>`;\n    }\n\n    message += (item.json.concatenated_transportation_round0_driver1 ? \"\\n\\nВодители, выполняющие перевозку с вами:\\n\" + item.json.concatenated_transportation_round0_driver1 : \"\");\n\n    message += `\\n\\n`;\n  }\n\n  if (index === 1) {\n    message = `<i>${message.trim()}</i>\\n\\n`;\n  }\n\n  combinedMessages += message;\n  index++;\n}\n\nreturn [{ json: { combinedMessages: combinedMessages.trim() } }];\n"
       },
       "id": "1ac3091d-ad6a-4582-a1bb-01dddd8f3485",
       "name": "в единое сообщение1",
@@ -12401,9 +12401,9 @@
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100642598,
+          "update_id": 100643028,
           "callback_query": {
-            "id": "3010587259212473204",
+            "id": "3010587261786508196",
             "from": {
               "id": 700956969,
               "is_bot": false,
@@ -12412,7 +12412,7 @@
               "language_code": "ru"
             },
             "message": {
-              "message_id": 34227,
+              "message_id": 34619,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -12425,38 +12425,90 @@
                 "username": "Chronos196",
                 "type": "private"
               },
-              "date": 1735037061,
-              "edit_date": 1735037299,
-              "text": "Выберите АЗС, на которой осуществлялась заправка, или введите другое название",
+              "date": 1735287555,
+              "text": "Ваша текущая перевозка:\n\n1. Отправитель - ООО \"Эверест\"\nПолучатель - 8 900 900 90 90\nМаршрут - Карьер Ключевое-улица Энгельса, 31А\nМатериал - Щебень",
+              "entities": [
+                {
+                  "offset": 0,
+                  "length": 23,
+                  "type": "bold"
+                },
+                {
+                  "offset": 25,
+                  "length": 17,
+                  "type": "italic"
+                },
+                {
+                  "offset": 25,
+                  "length": 2,
+                  "type": "bold"
+                },
+                {
+                  "offset": 42,
+                  "length": 27,
+                  "type": "italic"
+                },
+                {
+                  "offset": 42,
+                  "length": 13,
+                  "type": "bold"
+                },
+                {
+                  "offset": 69,
+                  "length": 26,
+                  "type": "italic"
+                },
+                {
+                  "offset": 69,
+                  "length": 15,
+                  "type": "bold"
+                },
+                {
+                  "offset": 95,
+                  "length": 47,
+                  "type": "italic"
+                },
+                {
+                  "offset": 95,
+                  "length": 35,
+                  "type": "bold"
+                },
+                {
+                  "offset": 142,
+                  "length": 6,
+                  "type": "bold"
+                },
+                {
+                  "offset": 142,
+                  "length": 6,
+                  "type": "italic"
+                }
+              ],
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "РосНефть",
-                      "callback_data": "rosneft"
-                    },
-                    {
-                      "text": "ННК-Альянс",
-                      "callback_data": "nnkalians"
+                      "text": "Начать рейс",
+                      "callback_data": "pick"
                     }
                   ],
                   [
                     {
-                      "text": "Другое",
-                      "callback_data": "another_azs"
+                      "text": "Назначенные перевозки",
+                      "callback_data": "transportation_list"
                     }
                   ],
                   [
                     {
-                      "text": "Назад",
-                      "callback_data": "check_fuel"
+                      "text": "Завершить смену",
+                      "callback_data": "complete_work"
                     }
                   ]
                 ]
               }
             },
             "chat_instance": "1908726007480408494",
-            "data": "another_azs"
+            "data": "transportation_list"
           },
           "tg_id": "700956969",
           "odoo_id": 2,
@@ -12475,8 +12527,8 @@
           "count_weight_photo": 1,
           "count_weight_photo_sent": 0,
           "current_quarry_hours": 1,
-          "end_round_message_id": 34209,
-          "last_message_text": "{\"message_id\":34227,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":700956969,\"first_name\":\"Алексей\",\"username\":\"Chronos196\",\"type\":\"private\"},\"date\":1735037061,\"edit_date\":1735037297,\"text\":\"Вы выбрали ННК-Альянс\\n\\nСколько литров вы заправили в автомобиль? Введите число, например: 100\",\"entities\":[{\"offset\":11,\"length\":10,\"type\":\"bold\"}],\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Назад\",\"callback_data\":\"choise_fuel_company\"}]]}}",
+          "end_round_message_id": 34619,
+          "last_message_text": "{\"message_id\":34613,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":700956969,\"first_name\":\"Алексей\",\"username\":\"Chronos196\",\"type\":\"private\"},\"date\":1735287035,\"text\":\"Ваша текущая перевозка:\\n\\n1. Отправитель - ООО \\\"Эверест\\\"\\nПолучатель - 8 900 900 90 90\\nМаршрут - Карьер Ключевое-улица Энгельса, 31А\\nМатериал - Щебень\",\"entities\":[{\"offset\":0,\"length\":23,\"type\":\"bold\"},{\"offset\":25,\"length\":17,\"type\":\"italic\"},{\"offset\":25,\"length\":2,\"type\":\"bold\"},{\"offset\":42,\"length\":27,\"type\":\"italic\"},{\"offset\":42,\"length\":13,\"type\":\"bold\"},{\"offset\":69,\"length\":26,\"type\":\"italic\"},{\"offset\":69,\"length\":15,\"type\":\"bold\"},{\"offset\":95,\"length\":47,\"type\":\"italic\"},{\"offset\":95,\"length\":35,\"type\":\"bold\"},{\"offset\":142,\"length\":6,\"type\":\"bold\"},{\"offset\":142,\"length\":6,\"type\":\"italic\"}],\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Начать рейс\",\"callback_data\":\"pick\"}],[{\"text\":\"Назначенные перевозки\",\"callback_data\":\"transportation_list\"}],[{\"text\":\"Завершить смену\",\"callback_data\":\"complete_work\"}]]}}",
           "logist_notifications": false,
           "creating_transportation": null,
           "round_active_msg_id": 33902,
@@ -12495,8 +12547,8 @@
           "assigned_locksmiths": null,
           "mechanic_template": null,
           "current_quarry_rounds": 1,
-          "fuel_company": "ННК-Альянс",
-          "cookie": "session_id=1442bb4856228bbe67515d6904499bfb63c13de9; Expires=Wed, 24 Dec 2025 05:51:01 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "fuel_company": "РосНефть",
+          "cookie": "session_id=b6a17cf4ae56be2b6c4aebcff92463a59462070c; Expires=Thu, 25 Dec 2025 06:11:46 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -12517,6 +12569,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-12-24T10:53:16.509Z",
-  "versionId": "96067f1b-0e2e-46bc-87af-79f0a7208c2f"
+  "updatedAt": "2024-12-28T08:58:22.389Z",
+  "versionId": "68098085-7e99-4dc2-8f7b-b7e03792c140"
 }
