@@ -1187,7 +1187,12 @@
         ],
         [
           {
-            "node": "выберите ставку",
+            "node": "материал",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "получатели",
             "type": "main",
             "index": 0
           }
@@ -1630,6 +1635,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -1876,6 +1888,179 @@
         [
           {
             "node": "айди водителей",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "материал": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "получатели": {
+      "main": [
+        [
+          {
+            "node": "Filter1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "есть данные?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "задаём новые значения": {
+      "main": [
+        [
+          {
+            "node": "записываем ставки",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "выберите ставку",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "есть данные?": {
+      "main": [
+        [
+          {
+            "node": "задаём новые значения",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "выберите ставку1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка статусов и генерация единого сообщения": {
+      "main": [
+        [
+          {
+            "node": "Вывод свободных машин",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "берем данные машин": {
+      "main": [
+        [
+          {
+            "node": "авто компании2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "авто компании2": {
+      "main": [
+        [
+          {
+            "node": "проверка статусов и генерация единого сообщения",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "берем данные машин",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "берем данные машин1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "проверка статусов и генерация единого сообщения1": {
+      "main": [
+        [
+          {
+            "node": "Вывод свободных машин1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "берем данные машин1": {
+      "main": [
+        [
+          {
+            "node": "авто компании",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "авто компании": {
+      "main": [
+        [
+          {
+            "node": "проверка статусов и генерация единого сообщения1",
             "type": "main",
             "index": 0
           }
@@ -11527,8 +11712,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3880,
-        7980
+        3860,
+        8080
       ],
       "credentials": {
         "telegramApi": {
@@ -11550,8 +11735,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        4100,
-        8140
+        4040,
+        8200
       ],
       "credentials": {
         "telegramApi": {
@@ -11573,8 +11758,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3880,
-        8140
+        3820,
+        8240
       ],
       "credentials": {
         "telegramApi": {
@@ -13413,70 +13598,6 @@
         4100,
         9340
       ]
-    },
-    {
-      "parameters": {
-        "operation": "editMessageText",
-        "chatId": "={{ $json.callback_query.message.chat.id }}",
-        "messageId": "={{ $json.callback_query.message.message_id }}",
-        "replyMarkup": "inlineKeyboard",
-        "text": "Выберите, какую ставку вводить:",
-        "inlineKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "=Ставка за кубометр ({{ $json.logist_template.cost_per_cubic_metre }}р.)",
-                    "additionalFields": {
-                      "callback_data": "input_cost_per_cubic_metre"
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "=Ставка за тонну ({{ $json.logist_template.cost_per_tonne }}р.) ",
-                    "additionalFields": {
-                      "callback_data": "input_cost_per_tonne"
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "=Ставка за рейс ({{ $json.logist_template.round_rate }}р.)",
-                    "additionalFields": {
-                      "callback_data": "input_round_rate"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "additionalFields": {}
-      },
-      "id": "89a26009-9cd5-4b0e-ac11-a05fe452fe67",
-      "name": "выберите ставку",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        3880,
-        7800
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "rJQteGH5Ng1RKmF4",
-          "name": "tg dev aleksey"
-        }
-      }
     },
     {
       "parameters": {
@@ -17074,7 +17195,9 @@
             }
           ]
         },
-        "options": {}
+        "options": {
+          "fallbackOutput": "extra"
+        }
       },
       "id": "602ab8c1-be9c-4ce1-aecb-b31499c01229",
       "name": "коллбеки",
@@ -18815,24 +18938,969 @@
         1440,
         1380
       ]
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_materials_of_quarry",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $json.cookie }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "quarry",
+              "value": "={{ $json.logist_template['quarry.quarry'] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7a75ca68-84ff-4d14-b058-c25a8a7ba236",
+      "name": "материал",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3880,
+        7760
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a9761e09-f1e9-4009-a01a-6ce7f4c20380",
+              "leftValue": "={{ $json.display_name.slice(0, $('Execute Workflow Trigger').item.json.logist_template['transportation.material'].length)}}",
+              "rightValue": "={{ $('Execute Workflow Trigger').item.json.logist_template['transportation.material'] }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        4100,
+        7760
+      ],
+      "id": "2447cc65-6100-464a-8f06-3bed11d61afb",
+      "name": "Filter",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_all_rates",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $json.cookie }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "3ad4c475-065b-48da-b7b7-e4beb5d233f1",
+      "name": "получатели",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3880,
+        7920
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1b890fb3-9c99-4386-b865-d982772c715b",
+              "leftValue": "={{ $json.company[1] }}",
+              "rightValue": "={{ $('Execute Workflow Trigger').item.json.logist_template['transportation.rates'] }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "fe03ffdd-9d95-44c6-a31f-b8420ec8f092",
+              "leftValue": "={{ $json.place_from[1] }}",
+              "rightValue": "={{ $('Execute Workflow Trigger').item.json.logist_template['quarry.quarry'] }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "939d0a2e-be6c-461b-a992-8fb03e7ef648",
+              "leftValue": "={{ $json.place_to[1] }}",
+              "rightValue": "={{ $('Execute Workflow Trigger').item.json.logist_template['transportation.place'] }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        4100,
+        7920
+      ],
+      "id": "262a1bd7-2cb2-46ef-8513-3ccf20b8d30c",
+      "name": "Filter1",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        4340,
+        7820
+      ],
+      "id": "77010f79-57fb-4302-b22a-3e57ca5d357e",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "Выберите, какую ставку вводить:",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "=Ставка за кубометр/доставку ({{ $json.data.cost_per_cubic_metre }}р. / {{ $json.data.delivery_cost_per_cubic_metre }}р.)",
+                    "additionalFields": {
+                      "callback_data": "input_cost_per_cubic_metre"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "=Ставка за тонну/доставку ({{ $json.data.cost_per_tonne }}р. / {{ $json.data.delivery_cost_per_tonne }}р.)",
+                    "additionalFields": {
+                      "callback_data": "input_cost_per_tonne"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "=Ставка за рейс ({{ $('Execute Workflow Trigger').item.json.logist_template.round_rate }}р.)",
+                    "additionalFields": {
+                      "callback_data": "input_round_rate"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "id": "21090248-aaa4-4e27-b1f2-6219082a0230",
+      "name": "выберите ставку",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        4940,
+        7780
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "var res = $('Execute Workflow Trigger').all()[0].json.logist_template;\n\nvar cost_per_cubic_metre_odoo = $('Merge').all()[0].json.price_per_cubic_metre.toString();\nres['cost_per_cubic_metre'] = res['cost_per_cubic_metre'] == \"0\" ? cost_per_cubic_metre_odoo : res['cost_per_cubic_metre'];\n\nvar delivery_cost_per_cubic_metre_odoo = $('Merge').all()[0].json.delivery_price_for_cubic_meter.toString();\nres['delivery_cost_per_cubic_metre'] = res['delivery_cost_per_cubic_metre'] == \"0\" ?delivery_cost_per_cubic_metre_odoo : res['delivery_cost_per_cubic_metre'];\n\nvar cost_per_tonne_odoo = $('Merge').all()[0].json.price_per_tonne.toString();\nres['cost_per_tonne'] = res['cost_per_tonne'] == \"0\" ? cost_per_tonne_odoo : res['cost_per_tonne'];\n\nvar delivery_cost_per_tonne_odoo = $('Merge').all()[0].json.delivery_price_for_ton.toString();\nres['delivery_cost_per_tonne'] = res['delivery_cost_per_tonne'] == \"0\" ? delivery_cost_per_tonne_odoo : res['delivery_cost_per_tonne'];\n\nreturn {\"data\": res};"
+      },
+      "id": "907229d2-41e5-46ba-be35-39bd94b9415e",
+      "name": "задаём новые значения",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4760,
+        7740
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "logist_template": "={{ $json.data }}",
+            "tg_id": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.message.chat.id }}"
+          },
+          "matchingColumns": [
+            "tg_id"
+          ],
+          "schema": [
+            {
+              "id": "tg_id",
+              "displayName": "tg_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "only_mech",
+              "displayName": "only_mech",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mech_photo",
+              "displayName": "mech_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_id",
+              "displayName": "end_request_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "materials_photo",
+              "displayName": "materials_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_hours",
+              "displayName": "end_request_hours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "car_id_while_inputing",
+              "displayName": "car_id_while_inputing",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "fuel_liters",
+              "displayName": "fuel_liters",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "weight_measure",
+              "displayName": "weight_measure",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "logist_alert_text",
+              "displayName": "logist_alert_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "logist_recipient_name",
+              "displayName": "logist_recipient_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "transportation_for_certificate",
+              "displayName": "transportation_for_certificate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "count_weight_photo",
+              "displayName": "count_weight_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "count_weight_photo_sent",
+              "displayName": "count_weight_photo_sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "current_quarry_hours",
+              "displayName": "current_quarry_hours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_round_message_id",
+              "displayName": "end_round_message_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "last_message_text",
+              "displayName": "last_message_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "logist_notifications",
+              "displayName": "logist_notifications",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "creating_transportation",
+              "displayName": "creating_transportation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "round_active_msg_id",
+              "displayName": "round_active_msg_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "no_taking_shift_logist_notify",
+              "displayName": "no_taking_shift_logist_notify",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "logist_template",
+              "displayName": "logist_template",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "44a26e86-9067-4222-9779-a745f7f7cfaa",
+      "name": "записываем ставки",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        4940,
+        7600
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "xrihBpyZE5y4OBiy",
+          "name": "pg dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a65f2ddc-a17f-4d7c-8cba-25110de9fea1",
+              "leftValue": "={{ $('Merge').all()[0].json.price_per_cubic_metre }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "7ed71760-d3cb-4485-bee4-d40602108d54",
+              "leftValue": "={{ $('Merge').all()[0].json.delivery_price_for_cubic_meter }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "fef2c78a-ad81-4efb-8250-d387535217b7",
+              "leftValue": "={{ $('Merge').all()[0].json.price_per_tonne }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "600d870f-086e-483e-988b-53dbad9405c1",
+              "leftValue": "={{ $('Merge').all()[0].json.delivery_price_for_ton }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        4560,
+        7820
+      ],
+      "id": "8c96f264-d14f-4805-83d9-0e12865de2f8",
+      "name": "есть данные?"
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "Выберите, какую ставку вводить:",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "=Ставка за кубометр ({{ $('Execute Workflow Trigger').item.json.logist_template.cost_per_cubic_metre }}р.)",
+                    "additionalFields": {
+                      "callback_data": "input_cost_per_cubic_metre"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "=Ставка за тонну ({{ $('Execute Workflow Trigger').item.json.logist_template.cost_per_tonne }}р.) ",
+                    "additionalFields": {
+                      "callback_data": "input_cost_per_tonne"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "=Ставка за рейс ({{ $('Execute Workflow Trigger').item.json.logist_template.round_rate }}р.)",
+                    "additionalFields": {
+                      "callback_data": "input_round_rate"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "id": "2ff6a415-cb47-4aa8-bc97-beec8090b6c7",
+      "name": "выберите ставку1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        4940,
+        8000
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "free_auto_carriers",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "eb33e6ae-c9f3-4884-a9b4-0ff0e94d6aa7",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "free_auto",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        3440,
+        12440
+      ],
+      "id": "93f28f8e-a6e4-498f-bab4-27bd39d1b5b7",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "={{ $('проверка статусов и генерация единого сообщения').item.json.combinedMessages }}",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Автопарк компании",
+                    "additionalFields": {
+                      "callback_data": "free_auto"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "058cd533-f257-4635-8701-27eb4558c3a8",
+      "name": "Вывод свободных машин",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        4480,
+        12280
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "let combinedMessagesFree = \"\";\nlet combinedMessagesNoDriver = \"\";\n\nconst freeCarsByCompany = {};\nconst noDriverCarsByCompany = {};\n\nfor (const item of $input.all()) {\n  const data = item.json;\n  const driver = data.driver_id ? data.driver_id[1] : null;\n  const number_car = data.number_car;\n  const status = data.status;\n  const company = data.company_owner ? data.company_owner[1] : \"Не указана\";\n\n  if (driver && status === \"Нет груза\") {\n    if (!freeCarsByCompany[company]) {\n      freeCarsByCompany[company] = [];\n    }\n    freeCarsByCompany[company].push(`<b>${number_car}, ${driver}</b>`);\n  } else if (!driver && status === \"Нет водителя\") {\n    if (!noDriverCarsByCompany[company]) {\n      noDriverCarsByCompany[company] = [];\n    }\n    noDriverCarsByCompany[company].push(`<b>${number_car}</b>`);\n  }\n}\n\nif (Object.keys(freeCarsByCompany).length > 0) {\n  combinedMessagesFree = \"Сейчас свободны следующие автомобили:\\n\\n\";\n  for (const [company, cars] of Object.entries(freeCarsByCompany)) {\n    combinedMessagesFree += `<b>${company}</b>: ${cars[0]}\\n`;\n    if (cars.length > 1) {\n      combinedMessagesFree += cars.slice(1).join(\"\\n\") + \"\\n\";\n    }\n    combinedMessagesFree += \"\\n\";\n  }\n}\n\nif (Object.keys(noDriverCarsByCompany).length > 0) {\n  combinedMessagesNoDriver = \"Текущие автомобили без водителя:\\n\\n\";\n  for (const [company, cars] of Object.entries(noDriverCarsByCompany)) {\n    combinedMessagesNoDriver += `<b>${company}</b>: ${cars[0]}\\n`;\n    if (cars.length > 1) {\n      combinedMessagesNoDriver += cars.slice(1).join(\"\\n\") + \"\\n\";\n    }\n    combinedMessagesNoDriver += \"\\n\";\n  }\n}\n\nlet finalMessage = (combinedMessagesFree + combinedMessagesNoDriver).trim();\n\nif (!finalMessage) {\n  finalMessage = \"На данный момент нет свободных автомобилей и автомобилей без водителей\";\n}\n\nreturn [{ json: { combinedMessages: finalMessage } }];\n"
+      },
+      "id": "a1f7ef5a-7629-4360-b4c2-f8b29d4ddc33",
+      "name": "проверка статусов и генерация единого сообщения",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4280,
+        12280
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_all_cars",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $json.cookie }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "29b53e18-6581-4339-bf12-e3591636bf7d",
+      "name": "берем данные машин",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3860,
+        12300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "92f028a3-662a-403d-868e-bb252ae44de2",
+              "leftValue": "={{ $json.company_owner[1] }}",
+              "rightValue": "ООО \"ЭВЕРЕСТ\"",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "1667d6b3-3311-48f1-81cf-372ee8fdd318",
+      "name": "авто компании2",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        4060,
+        12300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "={{ $('проверка статусов и генерация единого сообщения1').item.json.combinedMessages }}",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Автопарк перевозчиков",
+                    "additionalFields": {
+                      "callback_data": "free_auto_carriers"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "4e1dbbae-ead3-4eb9-9dce-270315844017",
+      "name": "Вывод свободных машин1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        4480,
+        12480
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "let combinedMessagesFree = \"\";\nlet combinedMessagesNoDriver = \"\";\n\nfor (const item of $input.all()) {\n  const data = item.json;\n  const driver = data.driver_id ? data.driver_id[1] : null;\n  const number_car = data.number_car;\n  const status = data.status;\n\n  if (driver && status === \"Нет груза\") {\n    if (!combinedMessagesFree) {\n      combinedMessagesFree = 'Сейчас свободны следующие автомобили:\\n\\n';\n    }\n    combinedMessagesFree += `<b>${number_car}, ${driver}</b>\\n`;\n  } else if (!driver && status === \"Нет водителя\") {\n    if (!combinedMessagesNoDriver) {\n      combinedMessagesNoDriver = \"Текущие автомобили без водителя:\\n\\n\";\n    }\n    combinedMessagesNoDriver += `<b>${number_car}</b>\\n`;\n  }\n}\n\nlet finalMessage = (combinedMessagesFree + \"\\n\" + combinedMessagesNoDriver).trim();\n\nif (!finalMessage) {\n  finalMessage = \"На данный момент нет свободных автомобилей и автомобилей без водителей\";\n}\n\nreturn [{ json: { combinedMessages: finalMessage } }];\n"
+      },
+      "id": "6214c2b6-4a02-42fb-885f-3a57eca6f606",
+      "name": "проверка статусов и генерация единого сообщения1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4280,
+        12480
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://dev.everest.lamart.site/get_all_cars",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "={{ $json.cookie }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6eb4dc78-1b36-40fa-93af-cc01a7cd1775",
+      "name": "берем данные машин1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3860,
+        12500
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "92f028a3-662a-403d-868e-bb252ae44de2",
+              "leftValue": "={{ $json.company_owner[1] }}",
+              "rightValue": "ООО \"ЭВЕРЕСТ\"",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "81819f20-3872-4fad-956d-ae75c6060477",
+      "name": "авто компании",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        4060,
+        12500
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Вывод свободных авто",
+        "height": 480,
+        "width": 900
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3760,
+        12220
+      ],
+      "id": "ccbab5ac-0e48-49fc-9057-3f9efff186ca",
+      "name": "Sticky Note4"
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100640951,
+          "update_id": 100642931,
           "callback_query": {
-            "id": "2782501073054308275",
+            "id": "2800172964784585059",
             "from": {
-              "id": 7090302459,
+              "id": 7094417017,
               "is_bot": false,
-              "first_name": "Al",
-              "last_name": "Go",
+              "first_name": "Сергей",
+              "last_name": "Косолапов",
+              "username": "sergio_kf",
               "language_code": "ru"
             },
             "message": {
-              "message_id": 32815,
+              "message_id": 34523,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -18840,91 +19908,151 @@
                 "username": "myn8nbotbot"
               },
               "chat": {
-                "id": 7090302459,
-                "first_name": "Al",
-                "last_name": "Go",
+                "id": 7094417017,
+                "first_name": "Сергей",
+                "last_name": "Косолапов",
+                "username": "sergio_kf",
                 "type": "private"
               },
-              "date": 1733828307,
-              "text": "Действительно хотите оповестить всех водителей?\n\nВаше сообщение:\n123",
+              "date": 1735209529,
+              "edit_date": 1735209560,
+              "text": "Сейчас свободны следующие автомобили:\n\nА 777 ЛО, Сергей Косолапов\n\nТекущие автомобили без водителя:\n\nО 999 ЛЛ\nА 777 АА\nО 666 ОО\nU 007 HH\nK 999 KK\nА 123 АА\nА 999 АА\nЕ 987 ЕЕ\nК 444 АУ\nУ 000 УУ\nА 451 АА",
               "entities": [
                 {
-                  "offset": 0,
-                  "length": 47,
+                  "offset": 39,
+                  "length": 26,
                   "type": "bold"
                 },
                 {
-                  "offset": 65,
-                  "length": 3,
-                  "type": "italic"
+                  "offset": 101,
+                  "length": 8,
+                  "type": "bold"
+                },
+                {
+                  "offset": 110,
+                  "length": 8,
+                  "type": "bold"
+                },
+                {
+                  "offset": 119,
+                  "length": 8,
+                  "type": "bold"
+                },
+                {
+                  "offset": 128,
+                  "length": 8,
+                  "type": "bold"
+                },
+                {
+                  "offset": 137,
+                  "length": 8,
+                  "type": "bold"
+                },
+                {
+                  "offset": 146,
+                  "length": 8,
+                  "type": "bold"
+                },
+                {
+                  "offset": 155,
+                  "length": 8,
+                  "type": "bold"
+                },
+                {
+                  "offset": 164,
+                  "length": 8,
+                  "type": "bold"
+                },
+                {
+                  "offset": 173,
+                  "length": 8,
+                  "type": "bold"
+                },
+                {
+                  "offset": 182,
+                  "length": 8,
+                  "type": "bold"
+                },
+                {
+                  "offset": 191,
+                  "length": 8,
+                  "type": "bold"
                 }
               ],
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "Оповестить",
-                      "callback_data": "alert_all"
-                    }
-                  ],
-                  [
-                    {
-                      "text": "Вернуться к выбору",
-                      "callback_data": "back_to_alert_menu"
+                      "text": "Автопарк компании",
+                      "callback_data": "free_auto"
                     }
                   ]
                 ]
               }
             },
-            "chat_instance": "4841481297779052467",
-            "data": "alert_all"
+            "chat_instance": "-3242410479096206559",
+            "data": "free_auto"
           },
-          "tg_id": "7090302459",
-          "odoo_id": 19,
-          "status": "authorized",
+          "tg_id": "7094417017",
+          "odoo_id": 22,
+          "status": "delivery_cost_per_cubic_metre",
           "only_mech": false,
           "mech_photo": false,
-          "end_request_id": 634,
+          "end_request_id": null,
           "materials_photo": false,
           "end_request_hours": null,
-          "car_id_while_inputing": 40,
+          "car_id_while_inputing": 24,
           "fuel_liters": null,
-          "weight_measure": "2 м3 ",
+          "weight_measure": "50 м3 ",
           "logist_alert_text": "123",
-          "logist_recipient_name": "CT_1",
+          "logist_recipient_name": "Alexander.Simonov",
           "transportation_for_certificate": null,
           "count_weight_photo": null,
           "count_weight_photo_sent": null,
-          "current_quarry_hours": 10,
-          "end_round_message_id": 29716,
-          "last_message_text": "{\"ok\":true,\"result\":{\"message_id\":32777,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":7090302459,\"first_name\":\"Al\",\"last_name\":\"Go\",\"type\":\"private\"},\"date\":1733821667,\"text\":\"Введите комментарий:\",\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Пропустить комментарий\",\"callback_data\":\"skip_comment\"}]]}}}",
+          "current_quarry_hours": null,
+          "end_round_message_id": 29371,
+          "last_message_text": "{\"ok\":true,\"result\":{\"message_id\":34147,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":7094417017,\"first_name\":\"Сергей\",\"last_name\":\"Косолапов\",\"username\":\"sergio_kf\",\"type\":\"private\"},\"date\":1734967924,\"edit_date\":1734968243,\"text\":\"Введите ставку за кубометр\",\"entities\":[{\"offset\":8,\"length\":18,\"type\":\"bold\"}],\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Назад\",\"callback_data\":\"inpute_rate\"}]]}}}",
           "logist_notifications": false,
-          "creating_transportation": "459;\nПесок, 100м3;\nКарьер Ключевое - Карьер Ключевое, компания_тест;",
-          "round_active_msg_id": null,
-          "no_taking_shift_logist_notify": true,
+          "creating_transportation": null,
+          "round_active_msg_id": 29371,
+          "no_taking_shift_logist_notify": false,
           "logist_template": {
             "quarry.quarry": "Карьер Ключевое",
-            "transportation.place": "Карьер Ключевое",
+            "transportation.place": "Торг. порт",
             "transportation.rates": "ООО \"Компания\"",
-            "transportation.material": "Тест1",
-            "measure": "т.",
-            "weight": "500",
-            "cost_per_cubic_metre": "0",
+            "transportation.material": "Щебень",
+            "measure": "м3",
+            "weight": "50",
+            "cost_per_cubic_metre": "5",
             "cost_per_tonne": "0",
             "delivery_cost_per_cubic_metre": "0",
             "delivery_cost_per_tonne": "0",
-            "round_rate": "600",
+            "round_rate": "0",
             "comment": "",
-            "cars": [
-              "K 999 KK"
-            ],
+            "cars": [],
             "date": ""
           },
-          "current_maintenance": null,
+          "current_maintenance": 732,
           "expected_time_maintenance": null,
-          "assigned_locksmiths": null,
-          "mechanic_template": null,
-          "cookie": "session_id=c796331e350e13d96dba76a8f0c8d688e27f098f; Expires=Wed, 10 Dec 2025 02:05:11 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "assigned_locksmiths": [
+            {
+              "id": 42
+            }
+          ],
+          "mechanic_template": {
+            "car_id": "",
+            "description": "",
+            "hours": "0",
+            "tech_maintenance": false,
+            "cost": "1",
+            "employee_id": 22,
+            "urgently": "true",
+            "photo": "",
+            "scheduled_date": ""
+          },
+          "current_quarry_rounds": null,
+          "fuel_company": null,
+          "cookie": "session_id=b6a17cf4ae56be2b6c4aebcff92463a59462070c; Expires=Thu, 25 Dec 2025 06:11:46 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -18944,6 +20072,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-12-23T14:28:52.655Z",
-  "versionId": "48c753d2-4d83-4fe5-b6be-ee8594f19ea1"
+  "updatedAt": "2024-12-27T18:04:29.033Z",
+  "versionId": "3553aa4c-6ba8-48cb-8d07-4f76e77d8ee7"
 }
