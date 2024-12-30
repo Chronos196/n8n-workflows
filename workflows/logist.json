@@ -1292,7 +1292,7 @@
       "main": [
         [
           {
-            "node": "проверка статусов и генерация единого сообщения",
+            "node": "авто компании2",
             "type": "main",
             "index": 0
           }
@@ -1441,6 +1441,17 @@
           }
         ]
       ]
+    },
+    "авто компании2": {
+      "main": [
+        [
+          {
+            "node": "проверка статусов и генерация единого сообщения",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-12-10T08:58:49.299Z",
@@ -1550,6 +1561,23 @@
       "parameters": {
         "chatId": "={{ $('Execute Workflow Trigger').all()[0].json.message.chat.id }}",
         "text": "={{ $('проверка статусов и генерация единого сообщения').item.json.combinedMessages }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Автопарк перевозчиков",
+                    "additionalFields": {
+                      "callback_data": "free_auto_carriers"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
         "additionalFields": {
           "appendAttribution": false,
           "parse_mode": "HTML"
@@ -1560,8 +1588,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        3240,
-        533
+        3300,
+        540
       ],
       "credentials": {
         "telegramApi": {
@@ -2074,15 +2102,15 @@
     },
     {
       "parameters": {
-        "jsCode": "let combinedMessagesFree = \"\";\nlet combinedMessagesNoDriver = \"\";\n\nfor (const item of $input.all()) {\n  const data = item.json;\n  const driver = data.driver_id ? data.driver_id[1] : null;\n  const number_car = data.number_car;\n  const status = data.status;\n\n  if (driver && status === \"Нет груза\") {\n    if (!combinedMessagesFree) {\n      combinedMessagesFree = \"Сейчас свободны следующие автомобили:\\n\\n\";\n    }\n    combinedMessagesFree += `<b>${number_car}, ${driver}</b>\\n`;\n  } else if (!driver && status === \"Нет водителя\") {\n    if (!combinedMessagesNoDriver) {\n      combinedMessagesNoDriver = \"Текущие автомобили без водителя:\\n\\n\";\n    }\n    combinedMessagesNoDriver += `<b>${number_car}</b>\\n`;\n  }\n}\n\nlet finalMessage = (combinedMessagesFree + \"\\n\" + combinedMessagesNoDriver).trim();\n\nif (!finalMessage) {\n  finalMessage = \"На данный момент нет свободных автомобилей и автомобилей без водителей\";\n}\n\nreturn [{ json: { combinedMessages: finalMessage } }];\n"
+        "jsCode": "let combinedMessagesFree = \"\";\nlet combinedMessagesNoDriver = \"\";\n\nfor (const item of $input.all()) {\n  const data = item.json;\n  const driver = data.driver_id ? data.driver_id[1] : null;\n  const number_car = data.number_car;\n  const status = data.status;\n\n  if (driver && status === \"Нет груза\") {\n    if (!combinedMessagesFree) {\n      combinedMessagesFree = 'Сейчас свободны следующие автомобили:\\n\\n';\n    }\n    combinedMessagesFree += `<b>${number_car}, ${driver}</b>\\n`;\n  } else if (!driver && status === \"Нет водителя\") {\n    if (!combinedMessagesNoDriver) {\n      combinedMessagesNoDriver = \"Текущие автомобили без водителя:\\n\\n\";\n    }\n    combinedMessagesNoDriver += `<b>${number_car}</b>\\n`;\n  }\n}\n\nlet finalMessage = (combinedMessagesFree + \"\\n\" + combinedMessagesNoDriver).trim();\n\nif (!finalMessage) {\n  finalMessage = \"На данный момент нет свободных автомобилей и автомобилей без водителей\";\n}\n\nreturn [{ json: { combinedMessages: finalMessage } }];\n"
       },
       "id": "80c75e1c-734f-4721-a91b-c23e3862bc10",
       "name": "проверка статусов и генерация единого сообщения",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2960,
-        533
+        3100,
+        540
       ]
     },
     {
@@ -9183,59 +9211,127 @@
         2760,
         2360
       ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "92f028a3-662a-403d-868e-bb252ae44de2",
+              "leftValue": "={{ $json.company_owner[1] }}",
+              "rightValue": "ООО \"ЭВЕРЕСТ\"",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "bc251cb4-4e32-4c7e-bbb9-385669a48c36",
+      "name": "авто компании2",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        2880,
+        560
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100641042,
-          "inline_query": {
-            "id": "2782501070002818765",
+          "update_id": 100642921,
+          "message": {
+            "message_id": 34510,
             "from": {
-              "id": 7090302459,
+              "id": 7094417017,
               "is_bot": false,
-              "first_name": "Al",
-              "last_name": "Go",
+              "first_name": "Сергей",
+              "last_name": "Косолапов",
+              "username": "sergio_kf",
               "language_code": "ru"
             },
-            "chat_type": "sender",
-            "query": "Объект 123",
-            "offset": ""
+            "chat": {
+              "id": 7094417017,
+              "first_name": "Сергей",
+              "last_name": "Косолапов",
+              "username": "sergio_kf",
+              "type": "private"
+            },
+            "date": 1735208276,
+            "text": "Просмотреть свободные машины"
           },
-          "tg_id": "7090302459",
-          "odoo_id": 19,
-          "status": "obj_input_object",
+          "tg_id": "7094417017",
+          "odoo_id": 22,
+          "status": "delivery_cost_per_cubic_metre",
           "only_mech": false,
           "mech_photo": false,
           "end_request_id": null,
           "materials_photo": false,
           "end_request_hours": null,
-          "car_id_while_inputing": 40,
+          "car_id_while_inputing": 24,
           "fuel_liters": null,
-          "weight_measure": "2 м3 ",
+          "weight_measure": "50 м3 ",
           "logist_alert_text": "123",
-          "logist_recipient_name": "CT_1",
+          "logist_recipient_name": "Alexander.Simonov",
           "transportation_for_certificate": null,
           "count_weight_photo": null,
           "count_weight_photo_sent": null,
-          "current_quarry_hours": 10,
-          "end_round_message_id": 29716,
-          "last_message_text": "{\"ok\":true,\"result\":{\"message_id\":32777,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":7090302459,\"first_name\":\"Al\",\"last_name\":\"Go\",\"type\":\"private\"},\"date\":1733821667,\"text\":\"Введите комментарий:\",\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Пропустить комментарий\",\"callback_data\":\"skip_comment\"}]]}}}",
+          "current_quarry_hours": null,
+          "end_round_message_id": 29371,
+          "last_message_text": "{\"ok\":true,\"result\":{\"message_id\":34147,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":7094417017,\"first_name\":\"Сергей\",\"last_name\":\"Косолапов\",\"username\":\"sergio_kf\",\"type\":\"private\"},\"date\":1734967924,\"edit_date\":1734968243,\"text\":\"Введите ставку за кубометр\",\"entities\":[{\"offset\":8,\"length\":18,\"type\":\"bold\"}],\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Назад\",\"callback_data\":\"inpute_rate\"}]]}}}",
           "logist_notifications": false,
-          "creating_transportation": "459;\nПесок, 100м3;\nКарьер Ключевое - Карьер Ключевое, компания_тест;",
-          "round_active_msg_id": null,
-          "no_taking_shift_logist_notify": true,
+          "creating_transportation": null,
+          "round_active_msg_id": 29371,
+          "no_taking_shift_logist_notify": false,
           "logist_template": {
-            "quarry.quarry": "",
+            "quarry.quarry": "Карьер Ключевое",
+            "transportation.place": "Торг. порт",
+            "transportation.rates": "ООО \"Компания\"",
+            "transportation.material": "Щебень",
+            "measure": "м3",
+            "weight": "50",
+            "cost_per_cubic_metre": "5",
+            "cost_per_tonne": "0",
+            "delivery_cost_per_cubic_metre": "0",
+            "delivery_cost_per_tonne": "0",
+            "round_rate": "0",
             "comment": "",
-            "cars": []
+            "cars": [],
+            "date": ""
           },
-          "current_maintenance": null,
+          "current_maintenance": 732,
           "expected_time_maintenance": null,
-          "assigned_locksmiths": null,
-          "mechanic_template": null,
-          "cookie": "session_id=237c64c959a62310ab6f7caa1deb402f64ce073e; Expires=Wed, 10 Dec 2025 11:24:11 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "assigned_locksmiths": [
+            {
+              "id": 42
+            }
+          ],
+          "mechanic_template": {
+            "car_id": "",
+            "description": "",
+            "hours": "0",
+            "tech_maintenance": false,
+            "cost": "1",
+            "employee_id": 22,
+            "urgently": "true",
+            "photo": "",
+            "scheduled_date": ""
+          },
+          "current_quarry_rounds": null,
+          "fuel_company": null,
+          "cookie": "session_id=b6a17cf4ae56be2b6c4aebcff92463a59462070c; Expires=Thu, 25 Dec 2025 06:11:46 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -9255,6 +9351,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-12-11T07:05:09.089Z",
-  "versionId": "d37418b7-1534-4ded-9f0c-d8203a74d546"
+  "updatedAt": "2024-12-26T10:29:19.650Z",
+  "versionId": "73fb8730-a6ab-44ae-b8fa-e2299662433f"
 }
