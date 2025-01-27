@@ -1128,6 +1128,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "Ошибка координат",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -2166,6 +2173,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "Switch3",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -2207,6 +2221,28 @@
         [
           {
             "node": "статус ввода литров2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Сообщение о вводе номера": {
+      "main": [
+        [
+          {
+            "node": "меняем статус",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch3": {
+      "main": [
+        [
+          {
+            "node": "Сообщение о вводе номера",
             "type": "main",
             "index": 0
           }
@@ -7659,7 +7695,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\n\nconst buttons = items.map((item, index) => {\n    // Убираем текст в скобках из material[1]\n    const materialText = item.json.material[1].replace(/\\s*\\(.*?\\)\\s*/, ''); // Удаляем текст в скобках\n\n    return {\n        text: `${item.json.display_name.substring(11)} - ${materialText}`,\n        callback_data: item.json.quarry_works ? `TO_HEAD_W_${item.json.id}` : `TO_HEAD_T_${item.json.id}` // T - Transportation W - work\n    };\n});\n\nconst inlineKeyboard = {\n    inline_keyboard: [\n        ...buttons.map(button => [button]), // динамические кнопки, каждая строка содержит одну кнопку\n        [{ text: \"Назад ↩️\", callback_data: \"hide_list\" }] // постоянная кнопка\n    ]\n};\n\nconst chatId = $('Execute Workflow Trigger').all()[0].json.callback_query.from.id;\nconst token = '7063451965:AAGARL6Eluwh3zgS84WnaZozqdz6-m0RLzg';\nconst url = `https://api.telegram.org/bot${token}/editMessageText`;\n\nconst message = {\n    chat_id: chatId,\n    message_id: $('Execute Workflow Trigger').all()[0].json.callback_query.message.message_id,\n    text: \"Выберите перевозку из списка:\",\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n"
+        "jsCode": "const items = $input.all();\n\nconst buttons = items.map((item, index) => {\n    // Убираем текст в скобках из material[1]\n    const materialText = item?.json?.material?.[1]?.replace(/\\s*\\(.*?\\)\\s*/, '') || ''; // Удаляем текст в скобках\n\n    return {\n        text: `${item.json.display_name.substring(11)}${materialText ? ' - ' + materialText : ''}`,\n        callback_data: item.json.quarry_works ? `TO_HEAD_W_${item.json.id}` : `TO_HEAD_T_${item.json.id}` // T - Transportation W - work\n    };\n});\n\nconst inlineKeyboard = {\n    inline_keyboard: [\n        ...buttons.map(button => [button]), // динамические кнопки, каждая строка содержит одну кнопку\n        [{ text: \"Назад ↩️\", callback_data: \"hide_list\" }] // постоянная кнопка\n    ]\n};\n\nconst chatId = $('Execute Workflow Trigger').all()[0].json.callback_query.from.id;\nconst token = '7063451965:AAGARL6Eluwh3zgS84WnaZozqdz6-m0RLzg';\nconst url = `https://api.telegram.org/bot${token}/editMessageText`;\n\nconst message = {\n    chat_id: chatId,\n    message_id: $('Execute Workflow Trigger').all()[0].json.callback_query.message.message_id,\n    text: \"Выберите перевозку из списка:\",\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n"
       },
       "id": "a34cb303-8e28-4742-a54f-e9ce8d3622b4",
       "name": "создаём динамически инлайн кнопки",
@@ -10814,7 +10850,9 @@
             }
           ]
         },
-        "options": {}
+        "options": {
+          "fallbackOutput": "extra"
+        }
       },
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
@@ -12395,15 +12433,184 @@
           "name": "pg dev"
         }
       }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Execute Workflow Trigger').item.json.callback_query.data }}",
+                    "rightValue": "wrong_wialon_car_number",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        300,
+        9560
+      ],
+      "id": "f4645233-b894-4ab9-8bef-25564161fa59",
+      "name": "Switch3"
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
+        "text": "Введите номер автомобиля в любом удобном формате: а777аа; Х777ХХ; О 777 ОО; о 777 оо",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "b157c12c-5a1c-49e5-98bb-a806125d96c7",
+      "name": "Сообщение о вводе номера",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        680,
+        9620
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tg_id": "={{ $('Execute Workflow Trigger').item.json.tg_id }}",
+            "status": "=inputing_car_number"
+          },
+          "matchingColumns": [
+            "tg_id"
+          ],
+          "schema": [
+            {
+              "id": "tg_id",
+              "displayName": "tg_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "only_mech",
+              "displayName": "only_mech",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "3cf55633-e75f-4e9e-91a6-1ca61a1d77b4",
+      "name": "меняем статус",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        900,
+        9840
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "xrihBpyZE5y4OBiy",
+          "name": "pg dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "callback",
+        "queryId": "={{ $('Execute Workflow Trigger').item.json.callback_query.id }}",
+        "additionalFields": {
+          "show_alert": true,
+          "text": "Не получилось вывести координаты"
+        }
+      },
+      "id": "c7ad8b4d-8bfb-4216-8e7d-98dc850d5997",
+      "name": "Ошибка координат",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        920,
+        6280
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100643028,
+          "update_id": 100644382,
           "callback_query": {
-            "id": "3010587261786508196",
+            "id": "3010587261090460371",
             "from": {
               "id": 700956969,
               "is_bot": false,
@@ -12412,7 +12619,7 @@
               "language_code": "ru"
             },
             "message": {
-              "message_id": 34619,
+              "message_id": 35828,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -12425,62 +12632,32 @@
                 "username": "Chronos196",
                 "type": "private"
               },
-              "date": 1735287555,
-              "text": "Ваша текущая перевозка:\n\n1. Отправитель - ООО \"Эверест\"\nПолучатель - 8 900 900 90 90\nМаршрут - Карьер Ключевое-улица Энгельса, 31А\nМатериал - Щебень",
+              "date": 1737520001,
+              "text": "На сегодня Вам назначены перевозки в следующем порядке:\n\n1. Работа в карьере - Карьер Ключевое",
               "entities": [
                 {
                   "offset": 0,
-                  "length": 23,
+                  "length": 55,
                   "type": "bold"
                 },
                 {
-                  "offset": 25,
-                  "length": 17,
+                  "offset": 57,
+                  "length": 22,
                   "type": "italic"
                 },
                 {
-                  "offset": 25,
+                  "offset": 57,
                   "length": 2,
                   "type": "bold"
                 },
                 {
-                  "offset": 42,
-                  "length": 27,
-                  "type": "italic"
-                },
-                {
-                  "offset": 42,
-                  "length": 13,
-                  "type": "bold"
-                },
-                {
-                  "offset": 69,
-                  "length": 26,
-                  "type": "italic"
-                },
-                {
-                  "offset": 69,
+                  "offset": 79,
                   "length": 15,
                   "type": "bold"
                 },
                 {
-                  "offset": 95,
-                  "length": 47,
-                  "type": "italic"
-                },
-                {
-                  "offset": 95,
-                  "length": 35,
-                  "type": "bold"
-                },
-                {
-                  "offset": 142,
-                  "length": 6,
-                  "type": "bold"
-                },
-                {
-                  "offset": 142,
-                  "length": 6,
+                  "offset": 79,
+                  "length": 15,
                   "type": "italic"
                 }
               ],
@@ -12488,20 +12665,14 @@
                 "inline_keyboard": [
                   [
                     {
-                      "text": "Начать рейс",
-                      "callback_data": "pick"
+                      "text": "Приступить к работе в карьере",
+                      "callback_data": "accept_quarry"
                     }
                   ],
                   [
                     {
                       "text": "Назначенные перевозки",
                       "callback_data": "transportation_list"
-                    }
-                  ],
-                  [
-                    {
-                      "text": "Завершить смену",
-                      "callback_data": "complete_work"
                     }
                   ]
                 ]
@@ -12512,43 +12683,35 @@
           },
           "tg_id": "700956969",
           "odoo_id": 2,
-          "status": "inputing_fuel_count",
+          "status": "authorized",
           "only_mech": false,
           "mech_photo": false,
           "end_request_id": null,
           "materials_photo": false,
           "end_request_hours": null,
           "car_id_while_inputing": 18,
-          "fuel_liters": 50,
-          "weight_measure": "50 м3 ",
+          "fuel_liters": 88,
+          "weight_measure": "100 м3 ",
           "logist_alert_text": null,
           "logist_recipient_name": null,
           "transportation_for_certificate": null,
-          "count_weight_photo": 1,
-          "count_weight_photo_sent": 0,
-          "current_quarry_hours": 1,
-          "end_round_message_id": 34619,
-          "last_message_text": "{\"message_id\":34613,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":700956969,\"first_name\":\"Алексей\",\"username\":\"Chronos196\",\"type\":\"private\"},\"date\":1735287035,\"text\":\"Ваша текущая перевозка:\\n\\n1. Отправитель - ООО \\\"Эверест\\\"\\nПолучатель - 8 900 900 90 90\\nМаршрут - Карьер Ключевое-улица Энгельса, 31А\\nМатериал - Щебень\",\"entities\":[{\"offset\":0,\"length\":23,\"type\":\"bold\"},{\"offset\":25,\"length\":17,\"type\":\"italic\"},{\"offset\":25,\"length\":2,\"type\":\"bold\"},{\"offset\":42,\"length\":27,\"type\":\"italic\"},{\"offset\":42,\"length\":13,\"type\":\"bold\"},{\"offset\":69,\"length\":26,\"type\":\"italic\"},{\"offset\":69,\"length\":15,\"type\":\"bold\"},{\"offset\":95,\"length\":47,\"type\":\"italic\"},{\"offset\":95,\"length\":35,\"type\":\"bold\"},{\"offset\":142,\"length\":6,\"type\":\"bold\"},{\"offset\":142,\"length\":6,\"type\":\"italic\"}],\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Начать рейс\",\"callback_data\":\"pick\"}],[{\"text\":\"Назначенные перевозки\",\"callback_data\":\"transportation_list\"}],[{\"text\":\"Завершить смену\",\"callback_data\":\"complete_work\"}]]}}",
+          "count_weight_photo": null,
+          "count_weight_photo_sent": null,
+          "current_quarry_hours": null,
+          "end_round_message_id": 35828,
+          "last_message_text": "{\"message_id\":35750,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":700956969,\"first_name\":\"Алексей\",\"username\":\"Chronos196\",\"type\":\"private\"},\"date\":1737385273,\"text\":\"Отправитель - ООО \\\"ЭВЕРЕСТ\\\"\\nПолучатель - 1\\nМаршрут - Карьер Ключевое-Карьер Ключевое\\nМатериал - Тест1\",\"entities\":[{\"offset\":14,\"length\":13,\"type\":\"bold\"},{\"offset\":41,\"length\":1,\"type\":\"bold\"},{\"offset\":53,\"length\":31,\"type\":\"bold\"},{\"offset\":96,\"length\":5,\"type\":\"bold\"}],\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Приступить к перевозке\",\"callback_data\":\"accept\"}],[{\"text\":\"Назначенные перевозки\",\"callback_data\":\"transportation_list\"}],[{\"text\":\"Завершить смену\",\"callback_data\":\"complete_work\"}]]}}",
           "logist_notifications": false,
           "creating_transportation": null,
-          "round_active_msg_id": 33902,
+          "round_active_msg_id": 35752,
           "no_taking_shift_logist_notify": false,
-          "logist_template": {
-            "quarry.quarry": "Карьер Ключевое",
-            "transportation.place": "Карьер Ключевое",
-            "transportation.rates": "ООО \"ЭВЕРЕСТ\"",
-            "transportation.material": "Щебень",
-            "measure": "м3",
-            "weight": "500",
-            "rate": "400"
-          },
+          "logist_template": null,
           "current_maintenance": null,
           "expected_time_maintenance": null,
           "assigned_locksmiths": null,
           "mechanic_template": null,
-          "current_quarry_rounds": 1,
+          "current_quarry_rounds": null,
           "fuel_company": "РосНефть",
-          "cookie": "session_id=b6a17cf4ae56be2b6c4aebcff92463a59462070c; Expires=Thu, 25 Dec 2025 06:11:46 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=df648dc6d00c6c0165909c916bb7f951def90ac8; Expires=Thu, 22 Jan 2026 04:25:59 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -12569,6 +12732,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-12-28T08:58:22.389Z",
-  "versionId": "68098085-7e99-4dc2-8f7b-b7e03792c140"
+  "updatedAt": "2025-01-22T04:38:09.186Z",
+  "versionId": "34df5a6a-922b-4432-a7ba-d60d57f3220f"
 }
