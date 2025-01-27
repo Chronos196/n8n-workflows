@@ -1687,8 +1687,8 @@
       "type": "n8n-nodes-base.stopAndError",
       "typeVersion": 1,
       "position": [
-        460,
-        2540
+        -340,
+        2680
       ],
       "disabled": true
     },
@@ -3501,8 +3501,8 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1,
       "position": [
-        100,
-        2380
+        -1020,
+        2400
       ]
     },
     {
@@ -3911,8 +3911,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        860,
-        2240
+        -620,
+        2000
       ]
     },
     {
@@ -3928,8 +3928,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3780,
-        2180
+        3900,
+        2200
       ],
       "credentials": {
         "telegramApi": {
@@ -4017,7 +4017,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all()[0].json.name;\n\nconst query = $('Execute Workflow Trigger').all()[0].json.inline_query.query.substring(\"места доставки\".length).trim() || \"\";\n\nconst filteredItems = items.filter(item => item.toLowerCase().includes(query.toLowerCase()));\n\nreturn filteredItems.map((item, index) => ({\n  type: 'article',\n  id: index.toString(),\n  title: item,\n  input_message_content: {\n    message_text: `${item}`\n  }\n}));"
+        "jsCode": "const items = $input.all()[0].json.name;\n\nconst query = $('Execute Workflow Trigger').all()[0].json.inline_query.query.substring(\"места доставки\".length).trim() || \"\";\n\nconst filteredItems = items.filter(item => item.toLowerCase().includes(query.toLowerCase()));\n\nif (filteredItems.length === 0) {\n  return [\n    {\n      type: 'article',\n      id: '0',\n      title: $('Execute Workflow Trigger').all()[0].json.inline_query.query,\n      input_message_content: {\n        message_text: query\n      },\n      \"description\": \"Создать \" + $('Execute Workflow Trigger').all()[0].json.inline_query.query\n    }\n  ];\n}\n\nreturn filteredItems.map((item, index) => ({\n  type: 'article',\n  id: index.toString(),\n  title: item,\n  input_message_content: {\n    message_text: `${item}`\n  }\n}));"
       },
       "id": "ee163a07-26d3-4f60-aa05-b0f0460cdd58",
       "name": "места1",
@@ -4031,7 +4031,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const careers = $('Aggregate1').all()[0].json.name;\n\n// Получаем текст запроса от пользователя\nconst query = $('Execute Workflow Trigger').all()[0].json.inline_query.query.substring(\"карьер\".length).trim() || \"\"; // Измените \"получатель\" на нужную команду, если требуется\n\n// Фильтруем карьеры на основе введенного текста\nconst filteredCareers = careers.filter(career => career.toLowerCase().includes(query.toLowerCase()));\n\n// Возвращаем отфильтрованные результаты\nreturn filteredCareers.map((career, index) => ({\n  type: 'article',\n  id: index.toString(),\n  title: career,\n  input_message_content: {\n    message_text: `${career}`\n  }\n}));"
+        "jsCode": "const careers = $('Aggregate1').all()[0].json.name;\n\n// Получаем текст запроса от пользователя\nconst query = $('Execute Workflow Trigger').all()[0].json.inline_query.query.substring(\"карьер\".length).trim() || \"\"; // Измените \"получатель\" на нужную команду, если требуется\n\n// Фильтруем карьеры на основе введенного текста\nconst filteredCareers = careers.filter(career => career.toLowerCase().includes(query.toLowerCase()));\n\nif (filteredCareers.length === 0) {\n  return [\n    {\n      type: 'article',\n      id: '0',\n      title: $('Execute Workflow Trigger').all()[0].json.inline_query.query,\n      input_message_content: {\n        message_text: query\n      },\n      \"description\": \"Создать \" + $('Execute Workflow Trigger').all()[0].json.inline_query.query\n    }\n  ];\n}\n\n// Возвращаем отфильтрованные результаты\nreturn filteredCareers.map((career, index) => ({\n  type: 'article',\n  id: index.toString(),\n  title: career,\n  input_message_content: {\n    message_text: `${career}`\n  }\n}));"
       },
       "id": "3ca81a9b-ff60-4a87-9263-0bf526a694eb",
       "name": "карьеры1",
@@ -4110,7 +4110,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all()[0].json.name;\n\nconst query = $('Execute Workflow Trigger').all()[0].json.inline_query.query.substring(\"получатель\".length).trim() || \"\";\n\nconst filteredItems = items.filter(item => item.toLowerCase().includes(query.toLowerCase()));\n\nreturn filteredItems.map((item, index) => ({\n  type: 'article',\n  id: index.toString(),\n  title: item,\n  input_message_content: {\n    message_text: `${item}`\n  }\n}));"
+        "jsCode": "const items = $input.all()[0].json.name;\n\nconst query = $('Execute Workflow Trigger').all()[0].json.inline_query.query.substring(\"получатель\".length).trim() || \"\";\n\nconst filteredItems = items.filter(item => item.toLowerCase().includes(query.toLowerCase()));\n\nif (filteredItems.length === 0) {\n  return [\n    {\n      type: 'article',\n      id: '0',\n      title: $('Execute Workflow Trigger').all()[0].json.inline_query.query,\n      input_message_content: {\n        message_text: query\n      },\n      \"description\": \"Создать \" + $('Execute Workflow Trigger').all()[0].json.inline_query.query\n    }\n  ];\n}\n\nreturn filteredItems.map((item, index) => ({\n  type: 'article',\n  id: index.toString(),\n  title: item,\n  input_message_content: {\n    message_text: `${item}`\n  }\n}));"
       },
       "id": "80b1e0ef-63dc-4607-bb54-c0d55670110b",
       "name": "получатели1",
@@ -4124,7 +4124,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all()[0].json.name;\n\nconst query = $('Execute Workflow Trigger').all()[0].json.inline_query.query.substring(\"материал\".length).trim() || \"\";\n\nconst filteredItems = items.filter(item => item.toLowerCase().includes(query.toLowerCase()));\n\nreturn filteredItems.map((item, index) => ({\n  type: 'article',\n  id: index.toString(),\n  title: item,\n  input_message_content: {\n    message_text: `${item}`\n  }\n}));"
+        "jsCode": "const items = $input.all()[0].json.name;\n\nconst query = $('Execute Workflow Trigger').all()[0].json.inline_query.query.substring(\"материал\".length).trim() || \"\";\n\nconst filteredItems = items.filter(item => item.toLowerCase().includes(query.toLowerCase()));\n\nif (filteredItems.length === 0) {\n  return [\n    {\n      type: 'article',\n      id: '0',\n      title: $('Execute Workflow Trigger').all()[0].json.inline_query.query,\n      input_message_content: {\n        message_text: query\n      },\n      \"description\": \"Создать \" + $('Execute Workflow Trigger').all()[0].json.inline_query.query\n    }\n  ];\n}\n\nreturn filteredItems.map((item, index) => ({\n  type: 'article',\n  id: index.toString(),\n  title: item,\n  input_message_content: {\n    message_text: `${item}`\n  }\n}));"
       },
       "id": "ff95916d-1c82-44cc-befa-943a35e5b28f",
       "name": "материал1",
@@ -4182,8 +4182,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1120,
-        2320
+        180,
+        2280
       ]
     },
     {
@@ -5323,8 +5323,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        780,
-        2580
+        440,
+        2140
       ]
     },
     {
@@ -6669,7 +6669,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all()[0].json.name;\n\nconst query = $('Execute Workflow Trigger').all()[0].json.inline_query.query.substring(\"авто компании \".length).trim() || \"\";\n\nconst filteredItems = items.filter(item => item.toLowerCase().includes(query.toLowerCase()));\n\nreturn filteredItems.map((item, index) => ({\n  type: 'article',\n  id: index.toString(),\n  title: item,\n  input_message_content: {\n    message_text: `${item}`\n  }\n}));"
+        "jsCode": "const items = $input.all()[0].json.name;\n\nconst query = $('Execute Workflow Trigger').all()[0].json.inline_query.query.substring(\"авто компании \".length).trim() || \"\";\n\nconst filteredItems = items.filter(item => item.toLowerCase().includes(query.toLowerCase()));\n\nif (filteredItems.length === 0) {\n  return [\n    {\n      type: 'article',\n      id: '0',\n      title: $('Execute Workflow Trigger').all()[0].json.inline_query.query,\n      input_message_content: {\n        message_text: query\n      },\n      \"description\": \"Создать \" + $('Execute Workflow Trigger').all()[0].json.inline_query.query\n    }\n  ];\n}\n\nreturn filteredItems.map((item, index) => ({\n  type: 'article',\n  id: index.toString(),\n  title: item,\n  input_message_content: {\n    message_text: `${item}`\n  }\n}));"
       },
       "id": "74d23389-325e-4659-87be-3361e9fe7902",
       "name": "авто1 компании",
@@ -6859,7 +6859,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all()[0].json.name;\n\nconst query = $('Execute Workflow Trigger').all()[0].json.inline_query.query.substring(\"авто перевозчиков \".length).trim() || \"\";\n\nconst filteredItems = items.filter(item => item.toLowerCase().includes(query.toLowerCase()));\n\nreturn filteredItems.map((item, index) => ({\n  type: 'article',\n  id: index.toString(),\n  title: item,\n  input_message_content: {\n    message_text: `${item}`\n  }\n}));"
+        "jsCode": "const items = $input.all()[0].json.name;\n\nconst query = $('Execute Workflow Trigger').all()[0].json.inline_query.query.substring(\"авто перевозчиков \".length).trim() || \"\";\n\nconst filteredItems = items.filter(item => item.toLowerCase().includes(query.toLowerCase()));\n\nif (filteredItems.length === 0) {\n  return [\n    {\n      type: 'article',\n      id: '0',\n      title: $('Execute Workflow Trigger').all()[0].json.inline_query.query,\n      input_message_content: {\n        message_text: query\n      },\n      \"description\": \"Создать \" + $('Execute Workflow Trigger').all()[0].json.inline_query.query\n    }\n  ];\n}\n\nreturn filteredItems.map((item, index) => ({\n  type: 'article',\n  id: index.toString(),\n  title: item,\n  input_message_content: {\n    message_text: `${item}`\n  }\n}));"
       },
       "id": "31053d1b-e0c6-4167-a0af-feb7ae78e215",
       "name": "авто1 наёмные",
@@ -7908,7 +7908,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const careers = $('Aggregate2').all()[0].json.name;\n\nvar word = $('Execute Workflow Trigger').all()[0].json.inline_query.query;\n\n// Получаем текст запроса от пользователя\nconst query = $('Execute Workflow Trigger').all()[0].json.inline_query.query.substring(word.length).trim() || \"\"; // Измените \"получатель\" на нужную команду, если требуется\n\n// Фильтруем карьеры на основе введенного текста\nconst filteredCareers = careers.filter(career => career.toLowerCase().includes(query.toLowerCase()));\n\n// Возвращаем отфильтрованные результаты\nreturn filteredCareers.map((career, index) => ({\n  type: 'article',\n  id: index.toString(),\n  title: career,\n  input_message_content: {\n    message_text: `${career}`\n  }\n}));"
+        "jsCode": "const careers = $('Aggregate2').all()[0].json.name;\n\n// Получаем текст запроса от пользователя\nconst query = $('Execute Workflow Trigger').all()[0].json.inline_query.query.substring(\"объект\".length).trim() || \"\"; // Измените \"получатель\" на нужную команду, если требуется\n\n// Фильтруем карьеры на основе введенного текста\nconst filteredCareers = careers.filter(career => career.toLowerCase().includes(query.toLowerCase()));\n\nif (filteredCareers.length === 0) {\n  return [\n    {\n      type: 'article',\n      id: '0',\n      title: $('Execute Workflow Trigger').all()[0].json.inline_query.query,\n      input_message_content: {\n        message_text: query\n      },\n      \"description\": \"Создать \" + $('Execute Workflow Trigger').all()[0].json.inline_query.query\n    }\n  ];\n}\n\n// Возвращаем отфильтрованные результаты\nreturn filteredCareers.map((career, index) => ({\n  type: 'article',\n  id: index.toString(),\n  title: career,\n  input_message_content: {\n    message_text: `${career}`\n  }\n}));"
       },
       "id": "2d5ab903-356b-4f70-83b9-50302f22a066",
       "name": "объекты",
@@ -8858,8 +8858,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.1,
       "position": [
-        1140,
-        2520
+        700,
+        1900
       ]
     },
     {
@@ -9210,7 +9210,9 @@
       "position": [
         2760,
         2360
-      ]
+      ],
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -9245,64 +9247,73 @@
         2880,
         560
       ]
+    },
+    {
+      "parameters": {
+        "content": "## Поиск и вывод айтемов в поле ввода\n",
+        "height": 909,
+        "width": 1324,
+        "color": 6
+      },
+      "id": "3c616382-1fa7-4ada-8797-068b26df1b08",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        120
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100642921,
-          "message": {
-            "message_id": 34510,
+          "update_id": 100644699,
+          "inline_query": {
+            "id": "3799445191531252250",
             "from": {
-              "id": 7094417017,
+              "id": 884627269,
               "is_bot": false,
-              "first_name": "Сергей",
-              "last_name": "Косолапов",
-              "username": "sergio_kf",
+              "first_name": "𝙄𝙡𝙮𝙖 𝙎𝙖𝙡𝙣𝙞𝙠𝙤𝙫",
+              "username": "ITilya_8",
               "language_code": "ru"
             },
-            "chat": {
-              "id": 7094417017,
-              "first_name": "Сергей",
-              "last_name": "Косолапов",
-              "username": "sergio_kf",
-              "type": "private"
-            },
-            "date": 1735208276,
-            "text": "Просмотреть свободные машины"
+            "chat_type": "sender",
+            "query": "Материал",
+            "offset": ""
           },
-          "tg_id": "7094417017",
-          "odoo_id": 22,
-          "status": "delivery_cost_per_cubic_metre",
+          "tg_id": "884627269",
+          "odoo_id": 26,
+          "status": "4_input_material",
           "only_mech": false,
           "mech_photo": false,
           "end_request_id": null,
           "materials_photo": false,
           "end_request_hours": null,
-          "car_id_while_inputing": 24,
-          "fuel_liters": null,
-          "weight_measure": "50 м3 ",
-          "logist_alert_text": "123",
-          "logist_recipient_name": "Alexander.Simonov",
+          "car_id_while_inputing": 48,
+          "fuel_liters": 9000,
+          "weight_measure": "2 Тонны ",
+          "logist_alert_text": null,
+          "logist_recipient_name": null,
           "transportation_for_certificate": null,
-          "count_weight_photo": null,
-          "count_weight_photo_sent": null,
-          "current_quarry_hours": null,
-          "end_round_message_id": 29371,
-          "last_message_text": "{\"ok\":true,\"result\":{\"message_id\":34147,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":7094417017,\"first_name\":\"Сергей\",\"last_name\":\"Косолапов\",\"username\":\"sergio_kf\",\"type\":\"private\"},\"date\":1734967924,\"edit_date\":1734968243,\"text\":\"Введите ставку за кубометр\",\"entities\":[{\"offset\":8,\"length\":18,\"type\":\"bold\"}],\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Назад\",\"callback_data\":\"inpute_rate\"}]]}}}",
+          "count_weight_photo": 2,
+          "count_weight_photo_sent": 0,
+          "current_quarry_hours": 3,
+          "end_round_message_id": 33917,
+          "last_message_text": "{\"ok\":true,\"result\":{\"message_id\":35132,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":884627269,\"first_name\":\"𝙄𝙡𝙮𝙖 𝙎𝙖𝙡𝙣𝙞𝙠𝙤𝙫\",\"username\":\"ITilya_8\",\"type\":\"private\"},\"date\":1736757542,\"text\":\"Введите комментарий:\",\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Пропустить комментарий\",\"callback_data\":\"skip_comment\"}]]}}}",
           "logist_notifications": false,
-          "creating_transportation": null,
-          "round_active_msg_id": 29371,
+          "creating_transportation": "657;\nСкальный грунт, 20м3;\nКарьер Ключевое - Владивосток, Частное лицо;\n123",
+          "round_active_msg_id": 33917,
           "no_taking_shift_logist_notify": false,
           "logist_template": {
-            "quarry.quarry": "Карьер Ключевое",
-            "transportation.place": "Торг. порт",
-            "transportation.rates": "ООО \"Компания\"",
-            "transportation.material": "Щебень",
-            "measure": "м3",
-            "weight": "50",
-            "cost_per_cubic_metre": "5",
+            "quarry.quarry": "Карьер Совсем новый",
+            "transportation.place": "Порт, Торговый",
+            "transportation.rates": "Krikunova-01",
+            "transportation.material": "",
+            "measure": "",
+            "weight": "",
+            "cost_per_cubic_metre": "0",
             "cost_per_tonne": "0",
             "delivery_cost_per_cubic_metre": "0",
             "delivery_cost_per_tonne": "0",
@@ -9311,27 +9322,23 @@
             "cars": [],
             "date": ""
           },
-          "current_maintenance": 732,
+          "current_maintenance": null,
           "expected_time_maintenance": null,
-          "assigned_locksmiths": [
-            {
-              "id": 42
-            }
-          ],
+          "assigned_locksmiths": null,
           "mechanic_template": {
-            "car_id": "",
-            "description": "",
+            "car_id": 48,
+            "description": "тест123",
             "hours": "0",
             "tech_maintenance": false,
             "cost": "1",
-            "employee_id": 22,
-            "urgently": "true",
+            "employee_id": 26,
+            "urgently": true,
             "photo": "",
-            "scheduled_date": ""
+            "scheduled_date": "13.01.2025"
           },
           "current_quarry_rounds": null,
           "fuel_company": null,
-          "cookie": "session_id=b6a17cf4ae56be2b6c4aebcff92463a59462070c; Expires=Thu, 25 Dec 2025 06:11:46 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=df648dc6d00c6c0165909c916bb7f951def90ac8; Expires=Thu, 22 Jan 2026 04:25:59 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -9351,6 +9358,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-12-26T10:29:19.650Z",
-  "versionId": "73fb8730-a6ab-44ae-b8fa-e2299662433f"
+  "updatedAt": "2025-01-27T04:59:01.551Z",
+  "versionId": "4a3d2514-4eb7-4816-b3cf-c560d2451312"
 }
