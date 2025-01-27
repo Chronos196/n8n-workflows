@@ -117,6 +117,11 @@
             "node": "пишем, что номера нет",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "создаём сотрудника",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -220,17 +225,6 @@
         [
           {
             "node": "воркфлоу ВОДИТЕЛЬ_РЕПЛАЙ",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Telegram Trigger1": {
-      "main": [
-        [
-          {
-            "node": "авторизация",
             "type": "main",
             "index": 0
           }
@@ -375,10 +369,43 @@
           }
         ]
       ]
+    },
+    "меняем статус на \"авторизован\"1": {
+      "main": [
+        [
+          {
+            "node": "водитель1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "создаём сотрудника": {
+      "main": [
+        [
+          {
+            "node": "меняем статус на \"авторизован\"1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "авторизация",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "createdAt": "2024-12-23T17:36:13.343Z",
-  "id": "J1yYOFICH7pm5mSX",
+  "createdAt": "2025-01-20T16:22:38.169Z",
+  "id": "tT7z9JNIVWv5T7qI",
   "meta": {
     "templateCredsSetupCompleted": true
   },
@@ -389,10 +416,10 @@
         "operation": "executeQuery",
         "query": "INSERT INTO tg_users (tg_id) VALUES ($1) ON CONFLICT (tg_id) DO NOTHING;",
         "options": {
-          "queryReplacement": "={{ \n$('Telegram Trigger1').item.json.callback_query?.message?.chat?.id !== undefined \n    ? $('Telegram Trigger1').item.json.callback_query.message.chat.id \n    : $('Telegram Trigger1').item.json.message?.chat?.id !== undefined \n        ? $('Telegram Trigger1').item.json.message.chat.id \n        : $('Telegram Trigger1').item.json.inline_query?.from?.id !== undefined \n            ? $('Telegram Trigger1').item.json.inline_query.from.id \n            : 'default_id'\n}}"
+          "queryReplacement": "={{ \n$('Telegram Trigger').item.json.callback_query?.message?.chat?.id !== undefined \n    ? $('Telegram Trigger').item.json.callback_query.message.chat.id \n    : $('Telegram Trigger').item.json.message?.chat?.id !== undefined \n        ? $('Telegram Trigger').item.json.message.chat.id \n        : $('Telegram Trigger').item.json.inline_query?.from?.id !== undefined \n            ? $('Telegram Trigger').item.json.inline_query.from.id \n            : 'default_id'\n}}"
         }
       },
-      "id": "432031c9-3e78-4437-8015-08f1d83283db",
+      "id": "522311b4-75cc-4173-884e-bb74f4b6592a",
       "name": "добавляет пользователя, если не существует",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -432,7 +459,7 @@
         },
         "options": {}
       },
-      "id": "2f43394a-851e-4fff-acf0-13070cc4dd90",
+      "id": "ffae0fa8-da18-4c5e-a823-ab6634803611",
       "name": "есть ли статус",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -459,13 +486,13 @@
           "values": [
             {
               "column": "tg_id",
-              "value": "={{ \n$('Telegram Trigger1').item.json.callback_query?.message?.chat?.id !== undefined \n    ? $('Telegram Trigger1').item.json.callback_query.message.chat.id \n    : $('Telegram Trigger1').item.json.message?.chat?.id !== undefined \n        ? $('Telegram Trigger1').item.json.message.chat.id \n        : $('Telegram Trigger1').item.json.inline_query?.from?.id !== undefined \n            ? $('Telegram Trigger1').item.json.inline_query.from.id \n            : 'default_id'\n}}"
+              "value": "={{ \n$('Telegram Trigger').item.json.callback_query?.message?.chat?.id !== undefined \n    ? $('Telegram Trigger').item.json.callback_query.message.chat.id \n    : $('Telegram Trigger').item.json.message?.chat?.id !== undefined \n        ? $('Telegram Trigger').item.json.message.chat.id \n        : $('Telegram Trigger').item.json.inline_query?.from?.id !== undefined \n            ? $('Telegram Trigger').item.json.inline_query.from.id \n            : 'default_id'\n}}"
             }
           ]
         },
         "options": {}
       },
-      "id": "ede05e05-035e-476c-b734-eadfe36a6a3d",
+      "id": "23772621-cb2b-4c1b-835e-e7351ec93f9d",
       "name": "получаем первый статус",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -538,7 +565,7 @@
         },
         "options": {}
       },
-      "id": "446a8de0-c1ea-437b-ab44-f7023110c278",
+      "id": "65297a0d-bdee-415c-bd12-ef80613db66b",
       "name": "меняем статус",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -571,13 +598,13 @@
           "values": [
             {
               "column": "tg_id",
-              "value": "={{ \n$('Telegram Trigger1').item.json.callback_query?.message?.chat?.id !== undefined \n    ? $('Telegram Trigger1').item.json.callback_query.message.chat.id \n    : $('Telegram Trigger1').item.json.message?.chat?.id !== undefined \n        ? $('Telegram Trigger1').item.json.message.chat.id \n        : $('Telegram Trigger1').item.json.inline_query?.from?.id !== undefined \n            ? $('Telegram Trigger1').item.json.inline_query.from.id \n            : 'default_id'\n}}"
+              "value": "={{ \n$('Telegram Trigger').item.json.callback_query?.message?.chat?.id !== undefined \n    ? $('Telegram Trigger').item.json.callback_query.message.chat.id \n    : $('Telegram Trigger').item.json.message?.chat?.id !== undefined \n        ? $('Telegram Trigger').item.json.message.chat.id \n        : $('Telegram Trigger').item.json.inline_query?.from?.id !== undefined \n            ? $('Telegram Trigger').item.json.inline_query.from.id \n            : 'default_id'\n}}"
             }
           ]
         },
         "options": {}
       },
-      "id": "ee718182-e5b5-4701-9479-e7b496441002",
+      "id": "d22016ac-5578-4fd7-b14a-f3ce9dcaf975",
       "name": "актуальный статус",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -649,7 +676,7 @@
         },
         "options": {}
       },
-      "id": "86f4a56a-5540-4e29-ad59-c130104c2546",
+      "id": "8bf60523-b85f-4119-a5b8-e7997d7b04b8",
       "name": "меняем статус1",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -666,7 +693,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
         "text": "Чтобы войти, поделитесь контактом",
         "replyMarkup": "replyKeyboard",
         "replyKeyboard": {
@@ -692,7 +719,7 @@
           "appendAttribution": false
         }
       },
-      "id": "39a638aa-c6a6-419f-a4af-fb615e1743e0",
+      "id": "8a47e7b0-2953-4024-a3fb-db55019c563f",
       "name": "отправляем кнопку контакта",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -713,12 +740,13 @@
           "options": {
             "caseSensitive": true,
             "leftValue": "",
-            "typeValidation": "strict"
+            "typeValidation": "strict",
+            "version": 1
           },
           "conditions": [
             {
               "id": "4d79f0bd-02e2-413a-b219-bfc80a34c855",
-              "leftValue": "={{ $('Telegram Trigger1').item.json.message.contact.phone_number }}",
+              "leftValue": "={{ $('Telegram Trigger').item.json.message.contact.phone_number }}",
               "rightValue": "Вы не нажали кнопку \"поделиться контактом\"",
               "operator": {
                 "type": "string",
@@ -731,12 +759,12 @@
         },
         "options": {}
       },
-      "id": "58216b55-3b50-4f0d-afc8-94a05cae5822",
+      "id": "9b3d7297-643b-4c3d-8598-d3052e19b410",
       "name": "проверка нажатия кнопки контакта",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        60,
+        40,
         520
       ]
     },
@@ -758,12 +786,12 @@
           ]
         }
       },
-      "id": "b49e882a-e4dc-4393-98c4-c2b937585fc4",
+      "id": "e48cd960-eb3a-455f-8935-24c1db8b2bd8",
       "name": "получаем id по mobile_phone",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        480,
+        460,
         520
       ],
       "alwaysOutputData": true,
@@ -780,7 +808,8 @@
           "options": {
             "caseSensitive": true,
             "leftValue": "",
-            "typeValidation": "strict"
+            "typeValidation": "strict",
+            "version": 1
           },
           "conditions": [
             {
@@ -798,29 +827,29 @@
         },
         "options": {}
       },
-      "id": "a8e9c26d-0063-4908-ac82-1acf46b7c1f0",
+      "id": "39571b59-18e2-40b1-b57c-ef21ae021a6a",
       "name": "проверяем наличие",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        660,
+        640,
         520
       ]
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
         "text": "Такого сотрудника ещё нет в Odoo.",
         "additionalFields": {
           "appendAttribution": false
         }
       },
-      "id": "72be843d-b654-469b-b364-8566ae5e91fa",
+      "id": "5bde48d5-1caf-486d-9b6b-079c7b5e40b5",
       "name": "пишем, что номера нет",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        900,
+        880,
         640
       ],
       "credentials": {
@@ -828,7 +857,8 @@
           "id": "s2yURwRj0JIo9urH",
           "name": "Everest production"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -889,7 +919,7 @@
         },
         "options": {}
       },
-      "id": "fa536505-d0df-4f8e-81b1-acb4a49fe42b",
+      "id": "3537f4ab-0dea-4bcb-bd0c-b45c4e509942",
       "name": "меняем статус на \"авторизован\"",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -911,7 +941,7 @@
         "width": 1652,
         "color": 6
       },
-      "id": "029a096b-19f7-4fa4-b550-2514326fd799",
+      "id": "67645db1-65fd-4fcf-9fa7-75cafbc47ff8",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -932,7 +962,7 @@
           "conditions": [
             {
               "id": "11c45e0d-196b-47f1-821e-bee57c9f070b",
-              "leftValue": "={{ $('Telegram Trigger1').item.json.hasField(\"message\") }}",
+              "leftValue": "={{ $('Telegram Trigger').item.json.hasField(\"message\") }}",
               "rightValue": "",
               "operator": {
                 "type": "boolean",
@@ -945,7 +975,7 @@
         },
         "options": {}
       },
-      "id": "a6c222fe-030c-4f06-a9fa-b879aa3f998a",
+      "id": "ae34c4c8-fda6-4a29-81ef-1fcd0301a24c",
       "name": "Проверка типа входных данных",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -961,7 +991,7 @@
         "width": 511.4050550076952,
         "color": 6
       },
-      "id": "cf820f80-e3fa-4e17-bf25-d17e9c7ee6d6",
+      "id": "541bce92-39ce-44b6-9da8-249d1907300c",
       "name": "Sticky Note12",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1037,7 +1067,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "e37cf5f8-2c11-49b9-8f72-4b3b8d8094f1",
+      "id": "3bb8f3fb-0247-4733-8e28-83a029e7be08",
       "name": "логист",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -1129,7 +1159,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "51a57c2c-cd64-4ac2-9540-2dadb686ed58",
+      "id": "2dfaddc5-0c7d-4c65-a905-0f16a3ae3b6b",
       "name": "водитель",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -1171,7 +1201,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "2c3f7445-459b-4adb-816b-44f8eb0f8a25",
+      "id": "579d3bcc-4805-46aa-93a2-bc7f359490f0",
       "name": "механик",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -1193,7 +1223,7 @@
         "width": 857.69326295068,
         "color": 6
       },
-      "id": "92a378a6-fe42-4b45-8438-65dd5333568a",
+      "id": "63a079e5-adff-48eb-ad53-8eb214070290",
       "name": "Sticky Note20",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1204,7 +1234,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
         "text": "Вы не нажали кнопку \"поделиться контактом\"",
         "replyMarkup": "replyKeyboard",
         "replyKeyboard": {
@@ -1230,7 +1260,7 @@
           "appendAttribution": false
         }
       },
-      "id": "9dbdc0e0-7152-43f6-bf75-dfd511e24862",
+      "id": "fa02efd1-57dc-41e6-9321-76e0148feb8a",
       "name": "не ввели контакт",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -1247,13 +1277,13 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
         "text": "=Роль не указана",
         "additionalFields": {
           "appendAttribution": false
         }
       },
-      "id": "b7066aed-7979-46ef-affa-12dd3b91c146",
+      "id": "684d0cdf-ef43-4f16-9094-1274ad4cf002",
       "name": "Нет роли",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -1275,19 +1305,19 @@
             {
               "id": "5c7a2f2e-c8b7-431a-8a0b-5dc40efd8909",
               "name": "str",
-              "value": "={{ $('Telegram Trigger1').item.json.message.contact.phone_number }}",
+              "value": "={{ $('Telegram Trigger').item.json.message.contact.phone_number }}",
               "type": "string"
             }
           ]
         },
         "options": {}
       },
-      "id": "a3db7a5c-0602-4d2c-9146-bf6671d6f235",
+      "id": "e63083cf-c75f-49a8-8a64-b7e502891e21",
       "name": "номер телефона",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        320,
+        300,
         520
       ]
     },
@@ -1299,7 +1329,7 @@
           "appendAttribution": false
         }
       },
-      "id": "65d26c9b-03a9-4170-95e1-416151a189b2",
+      "id": "a0204c40-cb20-42fe-80d6-efb8462163c1",
       "name": "нет роли",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -1329,7 +1359,7 @@
           }
         }
       },
-      "id": "2d285137-784e-4217-a848-5c11058b3dd7",
+      "id": "25c5737d-b6f2-4028-885b-4bb2c3d013f7",
       "name": "авторизация",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -1341,10 +1371,10 @@
     },
     {
       "parameters": {
-        "workflowId": "wS6BjkfTnjw5bE8v",
+        "workflowId": "ONQxsuZYz9LUHWOh",
         "options": {}
       },
-      "id": "1f3250af-ae42-4afa-a39a-6be9bd82443c",
+      "id": "0ef66708-29e2-4c60-9862-46498e3eed30",
       "name": "воркфлоу ЛОГИСТ",
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1,
@@ -1355,10 +1385,10 @@
     },
     {
       "parameters": {
-        "workflowId": "zC3cuf3ZwztSB8G2",
+        "workflowId": "6aRSKCUb3Bu8wEZa",
         "options": {}
       },
-      "id": "89cdb58c-f9fe-4fde-bf9a-18c346712b11",
+      "id": "6f224231-dc8c-401e-8234-ba5732bb8838",
       "name": "воркфлоу МЕХАНИК",
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1,
@@ -1369,10 +1399,10 @@
     },
     {
       "parameters": {
-        "workflowId": "zD5utnDZyyS5etWL",
+        "workflowId": "Nu08usBIddmab392",
         "options": {}
       },
-      "id": "cc4936e6-23c0-4b60-86fb-e7d0cc05c0b6",
+      "id": "37b45aac-d07b-423c-b4b9-ce0c5465180a",
       "name": "воркфлоу ВОДИТЕЛЬ_РЕПЛАЙ",
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1,
@@ -1435,7 +1465,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "eadc5762-3c1d-480b-8f47-3d8905224cbf",
+      "id": "c33baa8a-bf99-47cc-bfd3-d3505301014c",
       "name": "проверка статуса авторизации1",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
@@ -1446,10 +1476,10 @@
     },
     {
       "parameters": {
-        "workflowId": "HJkU5p2E143SodQ8",
+        "workflowId": "OxwjdCjww1TXtION",
         "options": {}
       },
-      "id": "debb95e3-58f0-48ba-bc49-8e47b4f477b6",
+      "id": "afc7c68a-de52-4124-9fb5-c0d5fb269b7f",
       "name": "воркфлоу ВОДИТЕЛЬ_ИНЛАЙН",
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1,
@@ -1465,7 +1495,7 @@
         "width": 891,
         "color": 6
       },
-      "id": "8102c279-6764-44a9-9850-616689b9b0b8",
+      "id": "f3c2da46-210c-4f3a-b508-8dc3d476e3c3",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1476,9 +1506,9 @@
     },
     {
       "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nvar res = {};\n\nfor (const item of $input.all()) {\n  Object.assign(res, $('Telegram Trigger1').item.json);\n  Object.assign(res, $('актуальный статус').item.json);\n  Object.assign(res, { cookie: 'session_id=4f8a5e934cd5e6540062c6f81ffa5298db070813; Expires=Tue, 30 Dec 2025 20:06:13 GMT; Max-Age=604800; HttpOnly; Path=/' });\n}\n\nreturn res;"
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nvar res = {};\n\nfor (const item of $input.all()) {\n  Object.assign(res, $('Telegram Trigger').item.json);\n  Object.assign(res, $('актуальный статус').item.json);\n  Object.assign(res, { cookie: 'session_id=b8c02f26d343a79e7bba49b380c2b5bf24f46007; Expires=Tue, 20 Jan 2026 16:33:46 GMT; Max-Age=604800; HttpOnly; Path=/' });\n}\n\nreturn res;"
       },
-      "id": "bf071823-3b6f-4529-a222-950a65b5b18c",
+      "id": "a0a87a5a-190e-4897-a0c1-31b6c6f4e47b",
       "name": "склеиваем данные",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1542,7 +1572,7 @@
         },
         "options": {}
       },
-      "id": "a1902fd9-4324-4d50-afbb-9c6e05def9ac",
+      "id": "7a405572-9977-42e3-b7ba-c777c5389ad1",
       "name": "Проверка медиа",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -1553,10 +1583,10 @@
     },
     {
       "parameters": {
-        "workflowId": "4FJuKslioheKOghF",
+        "workflowId": "AzyqtT6piZqVf8FM",
         "options": {}
       },
-      "id": "b21d2a7b-cd0e-495c-adbe-451b6f402239",
+      "id": "b06e4764-3b23-44ea-b25d-ef54e39864d6",
       "name": "воркфлоу ВОДИТЕЛЬ МЕДИА",
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1,
@@ -1578,7 +1608,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "e89d28ab-567f-4a17-8e9c-6e9d255c6d9b",
+      "id": "ac3e2e3c-b605-4804-a259-fe16d8ee558a",
       "name": "диспетчер",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -1595,10 +1625,10 @@
     },
     {
       "parameters": {
-        "workflowId": "v3gpCs0uEDnaGcTq",
+        "workflowId": "nbE3aQlL2kooe6rq",
         "options": {}
       },
-      "id": "6e108ac0-0cf9-4aea-8a68-a687d6f90732",
+      "id": "2462b227-a9f7-4a35-b23e-2c852931f7b8",
       "name": "воркфлоу ДИСПЕТЧЕР",
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1,
@@ -1606,31 +1636,6 @@
         1240,
         1420
       ]
-    },
-    {
-      "parameters": {
-        "updates": [
-          "message",
-          "callback_query",
-          "inline_query"
-        ],
-        "additionalFields": {}
-      },
-      "id": "4b05e568-6a0a-417b-b621-235469fdea1e",
-      "name": "Telegram Trigger1",
-      "type": "n8n-nodes-base.telegramTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        -1720,
-        1200
-      ],
-      "webhookId": "98cc3ab9-68d6-4a2f-85f1-4ae02662246d",
-      "credentials": {
-        "telegramApi": {
-          "id": "s2yURwRj0JIo9urH",
-          "name": "Everest production"
-        }
-      }
     },
     {
       "parameters": {
@@ -1755,7 +1760,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "8e0076d3-f013-4e9c-a332-41820d757c27",
+      "id": "6e779a8f-762d-42d1-998d-cb3fd968e222",
       "name": "проверка роли после авторизации",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
@@ -1801,7 +1806,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "e75a81ec-4fcc-4236-b09c-8bc03e66e281",
+      "id": "53602031-47c9-4dc7-b47d-538ee5778a87",
       "name": "наёмник",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -1824,7 +1829,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "session_id=4f8a5e934cd5e6540062c6f81ffa5298db070813; Expires=Tue, 30 Dec 2025 20:06:13 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "session_id=b8c02f26d343a79e7bba49b380c2b5bf24f46007; Expires=Tue, 20 Jan 2026 16:33:46 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -1839,7 +1844,7 @@
         },
         "options": {}
       },
-      "id": "7dfed168-e30d-4c5e-82c8-53f890e3cfd6",
+      "id": "e7a75cd5-b42b-49c4-850d-143849375ae6",
       "name": "получаем роль",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -1856,7 +1861,7 @@
         "width": 570.8479047687044,
         "color": 3
       },
-      "id": "bf0b602f-0ed1-44ed-911e-33a6089c60b5",
+      "id": "0c3b309c-c3e0-4952-b6d0-5db0d119a7e9",
       "name": "Sticky Note7",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1867,10 +1872,10 @@
     },
     {
       "parameters": {
-        "workflowId": "xDk5OlZhLEgKse3l",
+        "workflowId": "gLCw2BMYLYkjLcoy",
         "options": {}
       },
-      "id": "c4d73345-138a-4eae-afa3-993e1e4aa887",
+      "id": "a3a5c3a9-9554-40e6-8915-9d88368e7109",
       "name": "воркфлоу СЛЕСАРЬ",
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1,
@@ -2025,7 +2030,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "e913012f-6b1c-4939-9b06-bd19968792cc",
+      "id": "c1610cf5-863d-4aca-975a-f3b0937aa4a3",
       "name": "ветки для ролей",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
@@ -2059,7 +2064,7 @@
         },
         "options": {}
       },
-      "id": "cb36c7f0-a277-4ccc-a3d3-97512c390e3b",
+      "id": "be03ba5a-e56a-4842-ad81-29f1ec8ed427",
       "name": "нет пользователя?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -2093,7 +2098,7 @@
         },
         "options": {}
       },
-      "id": "3d497089-d04a-45a1-9f11-337c9bd651f7",
+      "id": "ca400c35-5424-4b47-9c7c-d231da7a7a66",
       "name": "удалим неактуальную запись",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
@@ -2121,46 +2126,245 @@
         1100,
         1060
       ],
-      "id": "a3aed223-7855-4562-8eb4-2c49ebfc1a0a",
+      "id": "0d491c70-8d86-4e83-abc1-cb60fa237f2a",
       "name": "Sticky Note2"
-    }
-  ],
-  "pinData": {
-    "Telegram Trigger1": [
-      {
-        "json": {
-          "update_id": 100641098,
-          "message": {
-            "message_id": 33011,
-            "from": {
-              "id": 7090302459,
-              "is_bot": false,
-              "first_name": "Al",
-              "last_name": "Go",
-              "language_code": "ru"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tg_id": "={{ $('актуальный статус').item.json.tg_id }}",
+            "odoo_id": "={{ $json.id }}",
+            "status": "authorized"
+          },
+          "matchingColumns": [
+            "tg_id"
+          ],
+          "schema": [
+            {
+              "id": "tg_id",
+              "displayName": "tg_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
             },
-            "chat": {
-              "id": 7090302459,
-              "first_name": "Al",
-              "last_name": "Go",
-              "type": "private"
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
             },
-            "date": 1733907132,
-            "text": "/start",
-            "entities": [
-              {
-                "offset": 0,
-                "length": 6,
-                "type": "bot_command"
-              }
-            ]
-          }
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0fda52e2-fc1c-4fc0-bd62-35b40b256251",
+      "name": "меняем статус на \"авторизован\"1",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        740,
+        860
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "cMlKL7XYShZtUnqo",
+          "name": "Everest production"
         }
       }
-    ]
-  },
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "hr.employee",
+        "fieldsToCreateOrUpdate": {
+          "fields": [
+            {
+              "fieldName": "name",
+              "fieldValue": "Проверяющий ПП"
+            },
+            {
+              "fieldName": "work_phone"
+            },
+            {
+              "fieldName": "job_id",
+              "fieldValue": "1"
+            },
+            {
+              "fieldName": "job_title",
+              "fieldValue": "Водитель"
+            }
+          ]
+        }
+      },
+      "id": "3c1746a2-42c1-4d42-b663-183fb38c0a5b",
+      "name": "создаём сотрудника",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        540,
+        860
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "8fI2woAI3HZ7dHDv",
+          "name": "Odoo production"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.tg_id }}",
+        "text": "=Вы авторизовались как водитель, <b>Проверяющий ПП</b>.\n\nВаш номер авто: А 657 АА",
+        "replyMarkup": "replyKeyboard",
+        "replyKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Приступить к работе",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Срочно",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Связь с диспетчером",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Моя статистика",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Заявки по авто",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Мой график",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "replyKeyboardOptions": {
+          "resize_keyboard": true
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "2ea819e9-da3a-4f8f-b8b1-4c3f234460b2",
+      "name": "водитель1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        940,
+        860
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "s2yURwRj0JIo9urH",
+          "name": "Everest production"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "callback_query",
+          "inline_query",
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1660,
+        1200
+      ],
+      "id": "06e7c925-1003-414b-8f68-ae99683f220c",
+      "name": "Telegram Trigger",
+      "webhookId": "b046d222-610d-4f76-9665-7fd94ae78c3c",
+      "credentials": {
+        "telegramApi": {
+          "id": "s2yURwRj0JIo9urH",
+          "name": "Everest production"
+        }
+      }
+    }
+  ],
+  "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "timezone": "Asia/Vladivostok"
   },
   "staticData": null,
   "tags": [
@@ -2172,6 +2376,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2024-12-30T20:07:07.618Z",
-  "versionId": "428f726e-6062-4ce2-ad83-e7b56dcbc6b0"
+  "updatedAt": "2025-01-20T16:37:31.291Z",
+  "versionId": "6b01e78a-8a0d-49c6-8dbb-a8103f8e0691"
 }
