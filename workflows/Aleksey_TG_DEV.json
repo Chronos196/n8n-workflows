@@ -117,6 +117,11 @@
             "node": "пишем, что номера нет",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "создаём сотрудника",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -370,6 +375,28 @@
         [
           {
             "node": "авторизация",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "меняем статус на \"авторизован\"1": {
+      "main": [
+        [
+          {
+            "node": "водитель1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "создаём сотрудника": {
+      "main": [
+        [
+          {
+            "node": "меняем статус на \"авторизован\"1",
             "type": "main",
             "index": 0
           }
@@ -666,7 +693,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
         "text": "Чтобы войти, поделитесь контактом",
         "replyMarkup": "replyKeyboard",
         "replyKeyboard": {
@@ -713,12 +740,13 @@
           "options": {
             "caseSensitive": true,
             "leftValue": "",
-            "typeValidation": "strict"
+            "typeValidation": "strict",
+            "version": 1
           },
           "conditions": [
             {
               "id": "4d79f0bd-02e2-413a-b219-bfc80a34c855",
-              "leftValue": "={{ $('Telegram Trigger1').item.json.message.contact.phone_number }}",
+              "leftValue": "={{ $('Telegram Trigger').item.json.message.contact.phone_number }}",
               "rightValue": "Вы не нажали кнопку \"поделиться контактом\"",
               "operator": {
                 "type": "string",
@@ -736,7 +764,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -875,
+        -880,
         800
       ]
     },
@@ -763,7 +791,7 @@
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
       "position": [
-        -455,
+        -460,
         800
       ],
       "alwaysOutputData": true,
@@ -780,7 +808,8 @@
           "options": {
             "caseSensitive": true,
             "leftValue": "",
-            "typeValidation": "strict"
+            "typeValidation": "strict",
+            "version": 1
           },
           "conditions": [
             {
@@ -803,13 +832,13 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -275,
+        -280,
         800
       ]
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
         "text": "Такого сотрудника ещё нет в Odoo.",
         "additionalFields": {
           "appendAttribution": false
@@ -820,7 +849,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        -35,
+        -40,
         920
       ],
       "credentials": {
@@ -828,7 +857,8 @@
           "id": "rJQteGH5Ng1RKmF4",
           "name": "tg dev aleksey"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -1204,7 +1234,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
         "text": "Вы не нажали кнопку \"поделиться контактом\"",
         "replyMarkup": "replyKeyboard",
         "replyKeyboard": {
@@ -1247,7 +1277,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
         "text": "=Роль не указана",
         "additionalFields": {
           "appendAttribution": false
@@ -1275,7 +1305,7 @@
             {
               "id": "5c7a2f2e-c8b7-431a-8a0b-5dc40efd8909",
               "name": "str",
-              "value": "={{ $('Telegram Trigger1').item.json.message.contact.phone_number }}",
+              "value": "={{ $('Telegram Trigger').item.json.message.contact.phone_number }}",
               "type": "string"
             }
           ]
@@ -1287,7 +1317,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        -615,
+        -620,
         800
       ]
     },
@@ -1476,7 +1506,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nvar res = {};\n\nfor (const item of $input.all()) {\n  Object.assign(res, $('Telegram Trigger').item.json);\n  Object.assign(res, $('актуальный статус').item.json);\n  Object.assign(res, { cookie: 'session_id=b6a17cf4ae56be2b6c4aebcff92463a59462070c; Expires=Thu, 25 Dec 2025 06:11:46 GMT; Max-Age=604800; HttpOnly; Path=/' });\n}\n\nreturn res;"
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nvar res = {};\n\nfor (const item of $input.all()) {\n  Object.assign(res, $('Telegram Trigger').item.json);\n  Object.assign(res, $('актуальный статус').item.json);\n  Object.assign(res, { cookie: 'session_id=df648dc6d00c6c0165909c916bb7f951def90ac8; Expires=Thu, 22 Jan 2026 04:25:59 GMT; Max-Age=604800; HttpOnly; Path=/' });\n}\n\nreturn res;"
       },
       "id": "3d67466c-6eca-4c33-9cbd-702dca59406d",
       "name": "склеиваем данные",
@@ -1799,7 +1829,7 @@
           "parameters": [
             {
               "name": "cookie",
-              "value": "session_id=b6a17cf4ae56be2b6c4aebcff92463a59462070c; Expires=Thu, 25 Dec 2025 06:11:46 GMT; Max-Age=604800; HttpOnly; Path=/"
+              "value": "session_id=df648dc6d00c6c0165909c916bb7f951def90ac8; Expires=Thu, 22 Jan 2026 04:25:59 GMT; Max-Age=604800; HttpOnly; Path=/"
             }
           ]
         },
@@ -2123,6 +2153,212 @@
           "name": "tg dev aleksey"
         }
       }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tg_id": "={{ $('актуальный статус').item.json.tg_id }}",
+            "odoo_id": "={{ $json.id }}",
+            "status": "authorized"
+          },
+          "matchingColumns": [
+            "tg_id"
+          ],
+          "schema": [
+            {
+              "id": "tg_id",
+              "displayName": "tg_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "34a173f6-cd7e-4888-b47b-9cc509b927cb",
+      "name": "меняем статус на \"авторизован\"1",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        -180,
+        1140
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "xrihBpyZE5y4OBiy",
+          "name": "pg dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "custom",
+        "customResource": "hr.employee",
+        "fieldsToCreateOrUpdate": {
+          "fields": [
+            {
+              "fieldName": "name",
+              "fieldValue": "Проверяющий ПП"
+            },
+            {
+              "fieldName": "work_phone"
+            },
+            {
+              "fieldName": "job_id",
+              "fieldValue": "1"
+            },
+            {
+              "fieldName": "job_title",
+              "fieldValue": "Водитель"
+            }
+          ]
+        }
+      },
+      "id": "fbc9cc29-548b-42e1-b6b1-32fe6f80e27a",
+      "name": "создаём сотрудника",
+      "type": "n8n-nodes-base.odoo",
+      "typeVersion": 1,
+      "position": [
+        -380,
+        1140
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "odooApi": {
+          "id": "ITgOrhO4Hf2QcDtf",
+          "name": "odoo dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.tg_id }}",
+        "text": "=Вы авторизовались как водитель, <b>Проверяющий ПП</b>.\n\nВаш номер авто: А 657 АА",
+        "replyMarkup": "replyKeyboard",
+        "replyKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Приступить к работе",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Срочно",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Связь с диспетчером",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Моя статистика",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Заявки по авто",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Мой график",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "replyKeyboardOptions": {
+          "resize_keyboard": true
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "acc328fb-2eaa-4013-9ac5-b397473b9012",
+      "name": "водитель1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        20,
+        1140
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -2149,6 +2385,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2024-12-25T06:12:24.323Z",
-  "versionId": "8bb12ec5-5199-4932-a33b-6fc2d4e7d044"
+  "updatedAt": "2025-01-23T10:31:36.408Z",
+  "versionId": "1e3fb172-879e-4939-bdb8-af4a167f870d"
 }
