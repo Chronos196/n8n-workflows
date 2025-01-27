@@ -1,22 +1,33 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
-    "Webhook1 prod": {
+    "When clicking ‘Test workflow’": {
       "main": [
         [
           {
-            "node": "Stop and Error1",
+            "node": "n8n",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Webhook1 dev": {
+    "n8n": {
       "main": [
         [
           {
-            "node": "Stop and Error",
+            "node": "добавим владивосток",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "добавим владивосток": {
+      "main": [
+        [
+          {
+            "node": "обновим",
             "type": "main",
             "index": 0
           }
@@ -24,84 +35,86 @@
       ]
     }
   },
-  "createdAt": "2024-08-07T07:27:19.340Z",
-  "id": "qNuO1ujIUwKl5Ym8",
-  "meta": {
-    "templateCredsSetupCompleted": true
-  },
+  "createdAt": "2025-01-15T06:23:34.711Z",
+  "id": "XR2hLV7m8eqzGcgd",
+  "meta": null,
   "name": "My workflow 2",
   "nodes": [
     {
-      "parameters": {
-        "errorMessage": "вебхук очереди дев"
-      },
-      "id": "b5b22ace-7a4e-4b47-a7e9-e4d7c38542d5",
-      "name": "Stop and Error",
-      "type": "n8n-nodes-base.stopAndError",
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        200,
-        -60
-      ]
-    },
-    {
-      "parameters": {
-        "errorMessage": "вебхук очереди дев"
-      },
-      "id": "49441a90-660e-4d6b-8c2e-fd2a83d37174",
-      "name": "Stop and Error1",
-      "type": "n8n-nodes-base.stopAndError",
-      "typeVersion": 1,
-      "position": [
-        200,
-        120
-      ]
-    },
-    {
-      "parameters": {
-        "httpMethod": "POST",
-        "path": "prod/queue",
-        "authentication": "basicAuth",
-        "options": {}
-      },
-      "id": "3b74bed4-0d10-419c-bab4-be03d9c747a0",
-      "name": "Webhook1 prod",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        -120,
-        120
+        -500,
+        -40
       ],
-      "webhookId": "e6a5dcca-6f85-49f3-96b8-8dbeb67aa115",
+      "id": "236342bb-1f09-4bb4-886d-5ab476d8b0c8",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "workflowId": {
+          "__rl": true,
+          "value": "UybF1k3MQlnlzbo9",
+          "mode": "list",
+          "cachedResultName": "temp (#UybF1k3MQlnlzbo9)"
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "position": [
+        -280,
+        -40
+      ],
+      "id": "1161f4e5-5f0d-41be-9ccb-7b292fb5ef2d",
+      "name": "n8n",
       "credentials": {
-        "httpBasicAuth": {
-          "id": "mqqMwahZxxmYdLtn",
-          "name": "queue webhook"
+        "n8nApi": {
+          "id": "Vmg6hJDctwZTPAGM",
+          "name": "n8n account"
         }
       }
     },
     {
       "parameters": {
-        "httpMethod": "POST",
-        "path": "dev/queue",
-        "authentication": "basicAuth",
-        "options": {}
+        "operation": "update",
+        "workflowId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "workflowObject": "={{ $json.toJsonString() }}",
+        "requestOptions": {}
       },
-      "id": "8b90bc98-60bf-4b80-8e87-d7efe5221ee7",
-      "name": "Webhook1 dev",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
+      "id": "46eb3471-0c2e-4fc7-ba03-f138a4a3f3da",
+      "name": "обновим",
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
       "position": [
-        -120,
-        -60
+        300,
+        20
       ],
-      "webhookId": "e6a5dcca-6f85-49f3-96b8-8dbeb67aa115",
       "credentials": {
-        "httpBasicAuth": {
-          "id": "mqqMwahZxxmYdLtn",
-          "name": "queue webhook"
+        "n8nApi": {
+          "id": "Vmg6hJDctwZTPAGM",
+          "name": "n8n account"
         }
       }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nvar res = []\nfor (const item of $input.all()) {\n  var workflow = item.json;\n  workflow.settings.timezone = \"UTC\";\n  delete workflow.settings['callerPolicy'];\n  res.push(workflow);\n}\n\nreturn res;"
+      },
+      "id": "3bb8365d-f85b-4fb7-a9d1-ddb24e42c0e9",
+      "name": "добавим владивосток",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ]
     }
   ],
   "pinData": {},
@@ -110,7 +123,7 @@
   },
   "staticData": null,
   "tags": [],
-  "triggerCount": 2,
-  "updatedAt": "2024-08-08T13:24:27.000Z",
-  "versionId": "b8410362-aa11-4366-8ae5-f5d70ccd76ed"
+  "triggerCount": 0,
+  "updatedAt": "2025-01-15T06:28:59.532Z",
+  "versionId": "dd450bf9-2249-4720-ae3f-fe78a01ed596"
 }
