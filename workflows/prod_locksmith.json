@@ -1068,8 +1068,8 @@
       ]
     }
   },
-  "createdAt": "2024-12-23T17:41:10.575Z",
-  "id": "xDk5OlZhLEgKse3l",
+  "createdAt": "2025-01-20T16:26:55.024Z",
+  "id": "gLCw2BMYLYkjLcoy",
   "meta": {
     "templateCredsSetupCompleted": true
   },
@@ -1077,7 +1077,7 @@
   "nodes": [
     {
       "parameters": {},
-      "id": "e20da6b5-b6cc-41f8-a5aa-fd4363fed84a",
+      "id": "612dfda4-f799-4552-98b2-dfa380382be2",
       "name": "Execute Workflow Trigger",
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1,
@@ -1111,7 +1111,7 @@
         },
         "options": {}
       },
-      "id": "83354dc4-0efe-48e0-b5e8-5aae504aae4b",
+      "id": "2e8918e3-6aba-4d0b-ac28-2c2d0e5853d3",
       "name": "Проверка типа входных данных",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -1175,7 +1175,7 @@
         },
         "options": {}
       },
-      "id": "d7fe737a-6ec3-4581-85bf-a37b85bd43a3",
+      "id": "de994698-bb05-439c-9ffd-307918d9cbd8",
       "name": "Проверка медиа",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -1188,7 +1188,7 @@
       "parameters": {
         "errorMessage": "3333"
       },
-      "id": "fa5d0f35-d47f-4d8a-98fe-7f518275e482",
+      "id": "3b86e16f-742e-4080-8794-82ac0f583af1",
       "name": "Stop and Error",
       "type": "n8n-nodes-base.stopAndError",
       "typeVersion": 1,
@@ -1224,7 +1224,7 @@
           "appendAttribution": false
         }
       },
-      "id": "8957bfec-23f1-4735-b21f-594f22acf228",
+      "id": "6f38b7d2-a68a-4a57-bd74-ca8918134cb1",
       "name": "Приветственное сообщений",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -1245,7 +1245,7 @@
         "height": 559.9850883884588,
         "width": 1669.8027726960586
       },
-      "id": "840602a9-9c71-46de-ab1d-2697798172a3",
+      "id": "4992bcef-bf71-4c6e-9061-f47a88a0c8f6",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1285,7 +1285,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "6bca11b7-ddc6-4ee1-be8b-541478c59e0b",
+      "id": "6763d1ea-b5dc-4b85-a29d-cc83355053be",
       "name": "Проверка старта",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
@@ -1325,7 +1325,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "ec605b24-8bb1-43a2-8892-0928ae811281",
+      "id": "2a7ccc87-86ca-4b7f-bb46-c2a952940c96",
       "name": "Проверка кнопок",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
@@ -1359,7 +1359,7 @@
         },
         "options": {}
       },
-      "id": "923f400a-2ff9-4499-abda-aa01fb9144dc",
+      "id": "2ed85360-478f-46f5-acc8-9f0c7e804f9c",
       "name": "Есть ли заявки на проверке",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -1372,7 +1372,7 @@
       "parameters": {
         "jsCode": "// Получаем все элементы из входных данных\nconst items = $input.all();\n\n// Определяем максимальное количество элементов на одной странице\nconst maxItemsPerPage = 6;\n\n// Задаем максимальное количество символов для описания заявки\nconst maxDescriptionLength = 16;\n\n// Получаем номер страницы из callback_data или оставляем 1 по умолчанию\nlet page = 1; // Стандартная первая страница\nlet messageId; // Для хранения message_id\n\n// Проверяем, есть ли callback_query\nconst callbackQuery = $('Execute Workflow Trigger').all()[0].json.callback_query;\nif (callbackQuery) {\n    const callbackData = callbackQuery.data;\n    const match = callbackData.match(/page_(\\d+)/);\n    if (match) {\n        page = parseInt(match[1], 10);\n    }\n    // Получаем message_id из callback_query\n    messageId = callbackQuery.message.message_id; // Получаем message_id из объекта callback_query\n} else {\n    // Если это не callback_query, возвращаемся к стандартному поведению\n    messageId = $('Execute Workflow Trigger').all()[0].json.message.message_id; // Получаем message_id из сообщения\n}\n\n// Определяем начальный и конечный индексы для отображаемых элементов на странице\nconst startIndex = (page - 1) * maxItemsPerPage;\nconst endIndex = startIndex + maxItemsPerPage;\n\n// Определяем, какие элементы будем выводить на текущей странице\nconst displayItems = items.slice(startIndex, endIndex);\n\n// Функция для обрезки описания с троеточием\nconst truncateDescription = (description) => {\n    if (description.length > maxDescriptionLength) {\n        return description.slice(0, maxDescriptionLength) + '…';\n    }\n    return description;\n};\n\n// Формируем массив кнопок с информацией по каждому элементу\nconst buttons = displayItems.map((item, index) => {\n    // Разделяем строку по дефису и оставляем только номер авто (первая часть)\n    const carInfo = item.json.car_id[1].split(' - ')[0];\n    // Обрезаем описание заявки, если оно слишком длинное\n    const truncatedDescription = truncateDescription(item.json.description_of_maintenance);\n    \n    return {\n        text: `${startIndex + index + 1}. ${carInfo} - ${truncatedDescription}`, // Используем startIndex для правильной нумерации\n        callback_data: `item_${item.json.id}_page_${page}` // Добавляем номер страницы\n    };\n});\n\n// Создаем объект с inline-клавиатурой\nconst inlineKeyboard = {\n    inline_keyboard: [\n        ...buttons.map(button => [button]), // Каждая кнопка на своей строке\n    ]\n};\n\n// Добавляем кнопки \"Следующая страница\" и \"Назад\", если нужно\nif (items.length > endIndex) {\n    inlineKeyboard.inline_keyboard.push([{ text: \"Следующая страница\", callback_data: `page_${page + 1}` }]);\n}\nif (page > 1) {\n    inlineKeyboard.inline_keyboard.push([{ text: \"Предыдущая страница\", callback_data: `page_${page - 1}` }]);\n}\n\n// Добавляем постоянную кнопку \"Назад\"\ninlineKeyboard.inline_keyboard.push([{ text: \"Назад\", callback_data: \"del_maintenances\" }]);\n\n// Логируем для отладки\nconsole.log(JSON.stringify(inlineKeyboard, null, 2));\n\n// Получаем chat_id из входного JSON\nconst chatId = $('Execute Workflow Trigger').all()[0].json.message.from.id;\n\n// Токен бота\nconst token = '7062531188:AAFkpyOiRuXLHFQO8mWKHuftPGglQSruqwo';\n\n// URL для отправки сообщения через API Telegram\nconst url = `https://api.telegram.org/bot${token}/sendMessage`;\n\n// Формируем сообщение для отправки\nconst message = {\n    chat_id: chatId,\n    text: \"Ваши заявки для выполнения:\",\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n\n// Обработка выбора заявки\nconst selectedCallbackData = callbackQuery.data;\nconst selectedMatch = selectedCallbackData.match(/item_(\\d+)_page_(\\d+)/);\nif (selectedMatch) {\n    const itemId = selectedMatch[1]; // ID выбранной заявки\n    const returnPage = parseInt(selectedMatch[2], 10); // Номер страницы для возврата\n\n    // Здесь можно добавить логику для обработки выбранной заявки\n    // Например, отправить информацию о заявке или выполнить другую логику\n\n    // После этого можно вернуться к странице с заявками\n    const returnMessage = {\n        chat_id: chatId,\n        message_id: messageId,\n        text: \"Заявки на проверке:\",\n        reply_markup: inlineKeyboard // Используем тот же inlineKeyboard с сохраненной страницей\n    };\n\n    return [\n        {\n            json: {\n                url,\n                message: returnMessage\n            }\n        }\n    ];\n}"
       },
-      "id": "9a80412d-cc4d-4251-ac20-183da2fbdf1c",
+      "id": "b8976ca1-4c0b-4d85-9e5c-d5d88b57e682",
       "name": "выбор заявки(первая страница)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1390,7 +1390,7 @@
         "jsonBody": "={{ $json.message }}",
         "options": {}
       },
-      "id": "cee17241-64f9-4f1f-a05a-dd83fddf58d6",
+      "id": "397b52a3-c085-47e6-a785-af9c0920ba4e",
       "name": "отправляем сообщение 1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -1405,7 +1405,7 @@
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}"
       },
-      "id": "546aa2f7-8cb8-4523-9d28-607c7b09737a",
+      "id": "223b98f3-a55e-4809-b2de-c99c54d4472d",
       "name": "Удаление прошлого сообщения2",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -1427,7 +1427,7 @@
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id - 1}}"
       },
-      "id": "eb65fb0c-82c7-47c2-9b1a-c697dda47140",
+      "id": "b559403c-1aae-4258-8e34-f1c0ba11b64d",
       "name": "Удаление прошлого сообщения3",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -1452,7 +1452,7 @@
         "jsonBody": "={{ $json.message }}",
         "options": {}
       },
-      "id": "208e55e0-6a3a-4b78-bd83-abfe2977b09d",
+      "id": "7961eb6a-20e0-4486-99ff-2ec814cd15a6",
       "name": "отправляем сообщение 5",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -1466,7 +1466,7 @@
       "parameters": {
         "jsCode": "// Получаем все элементы из входных данных\nconst items = $input.all();\n\n// Определяем максимальное количество элементов на одной странице\nconst maxItemsPerPage = 6;\n\n// Задаем максимальное количество символов для описания заявки\nconst maxDescriptionLength = 16;\n\n// Получаем номер страницы из callback_data или оставляем 1 по умолчанию\nlet page = 1; // Стандартная первая страница\nlet messageId; // Для хранения message_id\n\n// Проверяем, есть ли callback_query\nconst callbackQuery = $('Execute Workflow Trigger').all()[0].json.callback_query;\nif (callbackQuery) {\n    const callbackData = callbackQuery.data;\n    const match = callbackData.match(/page_(\\d+)/);\n    if (match) {\n        page = parseInt(match[1], 10);\n    }\n    // Получаем message_id из callback_query\n    messageId = callbackQuery.message.message_id; // Получаем message_id из объекта callback_query\n} else {\n    // Если это не callback_query, возвращаемся к стандартному поведению\n    messageId = $('Execute Workflow Trigger').all()[0].json.message.message_id; // Получаем message_id из сообщения\n}\n\n// Определяем начальный и конечный индексы для отображаемых элементов на странице\nconst startIndex = (page - 1) * maxItemsPerPage;\nconst endIndex = startIndex + maxItemsPerPage;\n\n// Определяем, какие элементы будем выводить на текущей странице\nconst displayItems = items.slice(startIndex, endIndex);\n\n// Функция для обрезки описания с троеточием\nconst truncateDescription = (description) => {\n    if (description.length > maxDescriptionLength) {\n        return description.slice(0, maxDescriptionLength) + '…';\n    }\n    return description;\n};\n\n// Формируем массив кнопок с информацией по каждому элементу\nconst buttons = displayItems.map((item, index) => {\n    // Разделяем строку по дефису и оставляем только номер авто (первая часть)\n    const carInfo = item.json.car_id[1].split(' - ')[0];\n    // Обрезаем описание заявки, если оно слишком длинное\n    const truncatedDescription = truncateDescription(item.json.description_of_maintenance);\n    \n    // Используем startIndex для корректного отображения номера\n    const buttonIndex = startIndex + index + 1;\n\n    return {\n        text: `${buttonIndex}. ${carInfo} - ${truncatedDescription}`,\n        callback_data: `item_${item.json.id}_page_${page}` // Добавляем номер страницы в callback_data\n    };\n});\n\n// Создаем объект с inline-клавиатурой\nconst inlineKeyboard = {\n    inline_keyboard: [\n        ...buttons.map(button => [button]), // Каждая кнопка на своей строке\n    ]\n};\n\n// Добавляем кнопки \"Следующая страница\" и \"Назад\", если нужно\nif (items.length > endIndex) {\n    inlineKeyboard.inline_keyboard.push([{ text: \"Следующая страница\", callback_data: `page_${page + 1}` }]);\n}\nif (page > 1) {\n    inlineKeyboard.inline_keyboard.push([{ text: \"Предыдущая страница\", callback_data: `page_${page - 1}` }]);\n}\n\n// Добавляем постоянную кнопку \"Назад\"\ninlineKeyboard.inline_keyboard.push([{ text: \"Назад\", callback_data: \"del_maintenances\" }]);\n\n// Логируем для отладки\nconsole.log(JSON.stringify(inlineKeyboard, null, 2));\n\n// Получаем chat_id из входного JSON\nconst chatId = $('Execute Workflow Trigger').all()[0].json.callback_query.from.id;\n\n// Токен бота\nconst token = '7062531188:AAFkpyOiRuXLHFQO8mWKHuftPGglQSruqwo';\n\n// URL для обновления сообщения через API Telegram\nconst url = `https://api.telegram.org/bot${token}/editMessageText`;\n\n// Формируем сообщение для обновления\nconst message = {\n    chat_id: chatId,\n    message_id: messageId,\n    text: \"Ваши заявки для выполнения:\",\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n\n// Обработка выбора заявки\nconst selectedCallbackData = callbackQuery.data;\nconst selectedMatch = selectedCallbackData.match(/item_(\\d+)_page_(\\d+)/);\nif (selectedMatch) {\n    const itemId = selectedMatch[1]; // ID выбранной заявки\n    const returnPage = parseInt(selectedMatch[2], 10); // Номер страницы для возврата\n\n    // Здесь можно добавить логику для обработки выбранной заявки\n    // Например, отправить информацию о заявке или выполнить другую логику\n\n    // После этого можно вернуться к странице с заявками\n    const returnMessage = {\n        chat_id: chatId,\n        message_id: messageId,\n        text: \"Заявки на проверке:\",\n        reply_markup: inlineKeyboard // Используем тот же inlineKeyboard с сохраненной страницей\n    };\n\n    return [\n        {\n            json: {\n                url,\n                message: returnMessage\n            }\n        }\n    ];\n}"
       },
-      "id": "decd5032-0d06-4b53-ad74-5daba05b90b0",
+      "id": "43f18625-7f7d-4460-a6c4-11d4025c2efa",
       "name": "обработка страниц с выбором заявки",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1482,7 +1482,7 @@
         "height": 983.8498497724706,
         "width": 1172.0141081198585
       },
-      "id": "e7d1d0bd-05ba-4016-8507-82982073a0ad",
+      "id": "9f349b9e-c7d5-4dc3-9083-9f60096fdff1",
       "name": "Sticky Note4",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1499,7 +1499,7 @@
         "width": 496.32687483613483,
         "color": 5
       },
-      "id": "d0fb208c-08ed-4c68-9d0c-46f3a2b49a7c",
+      "id": "cb291d69-74bc-495b-88ab-a49cc489f5ef",
       "name": "Sticky Note5",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1516,7 +1516,7 @@
         "width": 611.2775867471851,
         "color": 5
       },
-      "id": "2c17c520-cf3b-4123-aa75-a3d1f89c72ea",
+      "id": "1b84f7ce-b0b3-4b6f-a67e-b6135cd27b4f",
       "name": "Sticky Note6",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1533,7 +1533,7 @@
         "width": 1065.0613458914934,
         "color": 5
       },
-      "id": "34a17a92-f5d4-4f5a-8719-bd9e29462d5c",
+      "id": "0052e529-bb09-40f7-a670-9ad5d9a97978",
       "name": "Sticky Note20",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1559,7 +1559,7 @@
           ]
         }
       },
-      "id": "3edac19f-e702-4016-bd79-04574305abd2",
+      "id": "58e5c711-a0a1-4b97-af2a-10880d3ad9dc",
       "name": "получим все неисправности5",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -1598,7 +1598,7 @@
         },
         "options": {}
       },
-      "id": "3ef94505-32fe-43db-9c6a-bf99d4f8d6c2",
+      "id": "7850acb9-530b-4759-9d15-e876a3ba89a6",
       "name": "данные сотрудника",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -1611,7 +1611,7 @@
     },
     {
       "parameters": {},
-      "id": "3f092ef9-4494-4fbc-abef-8599379f1891",
+      "id": "935c64f4-11ff-41ee-bf35-8f0e40dd998a",
       "name": "объединяем заявки и сотрудника",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
@@ -1625,7 +1625,7 @@
       "parameters": {
         "jsCode": "// Получаем все элементы из входных данных\nconst items = $input.all();\n\n// Получаем данные о колбэке из Execute Workflow Trigger\nconst callbackQuery = $('Execute Workflow Trigger').all()[0].json.callback_query;\nconst callbackData = callbackQuery ? callbackQuery.data : null;\n\n// Проверяем, был ли получен callbackData\nif (!callbackData) {\n    throw new Error(\"Callback data is undefined. Cannot proceed.\");\n}\n\n// Извлекаем message_id из callback_query\nconst messageId = callbackQuery.message.message_id;\n\n// Обработка выбора заявки\nconst selectedMatch = callbackData.match(/item_(\\d+)_page_(\\d+)/);\nif (selectedMatch) {\n    const itemId = selectedMatch[1]; // ID выбранной заявки\n    const returnPage = parseInt(selectedMatch[2], 10); // Номер страницы для возврата\n\n    // Получаем информацию о выбранной заявке\n    const selectedRequest = items.find(item => item.json.id == itemId);\n    // Извлекаем необходимые данные из JSON\n    const {\n        description_of_maintenance,\n        car_id,\n        created_by,\n        id\n    } = selectedRequest.json;\n\n    const descriptionText = description_of_maintenance === \"Нет описания\" \n        ? `${description_of_maintenance} (Смотреть фото в Odoo)` \n        : description_of_maintenance;\n\n    // Формируем текст сообщения\n    const carName = car_id[1].split(' - ')[0]; // Получаем только номер авто\n\n    // Ищем данные о водителе\n    const driverData = items.find(item => item.json.resource_id && item.json.resource_id[1] === created_by[1]);\n    \n    // Если данные о водителе найдены, извлекаем имя и телефон\n    const name = driverData ? driverData.json.name : 'Неизвестный водитель';\n    const mobile_phone = driverData ? driverData.json.mobile_phone : 'Телефон не указан';\n\n    // Формируем ссылку на заявку в Odoo\n    const odooLink = `https://everest.lamart.site/web#id=${itemId}&model=technical.maintenance&view_type=form`;\n\n    // Полное сообщение\n    const messageText = `У автомобиля: <b>${carName}</b> проблема:\\n\\n` +\n        `<i>${descriptionText}</i>\\n\\n`;\n\n    // Получаем chat_id из callback_query\n    const chatId = callbackQuery.from.id;\n\n    // Токен бота\n    const token = '7062531188:AAFkpyOiRuXLHFQO8mWKHuftPGglQSruqwo';\n\n    // URL для редактирования сообщения через API Telegram\n    const url = `https://api.telegram.org/bot${token}/editMessageText`;\n\n    // Создаем объект с inline-клавиатурой в один столбик\n    const inlineKeyboard = {\n        inline_keyboard: [\n            [\n                { text: \"Взять в работу\", callback_data: `TR_${id}` } // Добавляем ID заявки\n            ],\n            [\n                { text: \"Назад\", callback_data: `page_${returnPage}` } // Устанавливаем номер страницы в колбэк\n            ]\n        ]\n    };\n\n    // Формируем сообщение для редактирования\n    const message = {\n        chat_id: chatId,\n        message_id: messageId,\n        text: messageText,\n        parse_mode: 'HTML', // Указываем, что текст содержит HTML\n        reply_markup: inlineKeyboard // Добавляем inline-клавиатуру\n    };\n\n    // Возвращаем данные для запроса\n    return [\n        {\n            json: {\n                url,\n                message\n            }\n        }\n    ];\n}\n"
       },
-      "id": "801b34e9-6aa1-457e-9cd8-6eab6947f092",
+      "id": "bdad674d-bca7-4199-9836-4ee5623ba922",
       "name": "генерация сообщения для просмотра заявки1",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1644,7 +1644,7 @@
         "jsonBody": "={{ $json.message }}",
         "options": {}
       },
-      "id": "b11b44b7-ba7d-48f3-8263-e9197ee70964",
+      "id": "e73df748-fcd9-4858-bee8-0eec0f47bdba",
       "name": "отправляем сообщение 11",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -1674,7 +1674,7 @@
           ]
         }
       },
-      "id": "89f0f824-f953-4b67-99a7-94148df7af3d",
+      "id": "ea594d61-08a2-4a7a-8603-9b86aa47e094",
       "name": "получим все неисправности2",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -1704,7 +1704,7 @@
         },
         "options": {}
       },
-      "id": "05d99255-2709-4ab4-b372-982d6b5ca450",
+      "id": "f84aa985-f577-45da-9660-eb6b4ebb3238",
       "name": "номер выбранной заявки",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
@@ -1731,7 +1731,7 @@
         "jsonBody": "={\n    \"maintenance_id\": {{ $json.TO_number }}\n}",
         "options": {}
       },
-      "id": "c073104d-6a85-4981-95c9-424ef24d0ac1",
+      "id": "5877ed83-b3e7-46d5-b991-2afa52ea7f76",
       "name": "обновим статус на \"в работе\"",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -1768,7 +1768,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "02c8d5ff-9a03-4587-9a65-37ed28e0f75b",
+      "id": "62eadb2f-bfa3-4f73-b2c2-14e1e3c7e279",
       "name": "заявка взята в работу",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -1791,7 +1791,7 @@
         "text": "=Ошибка Odoo: {{ $json.error }}",
         "additionalFields": {}
       },
-      "id": "9cb05166-3b98-4c27-ac4a-fa248c96826d",
+      "id": "e0dd2550-df6b-405f-adbb-3f48cf5fef76",
       "name": "если есть ошибки",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -1881,7 +1881,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "75a38981-a08d-4992-b1ca-350326c79e5b",
+      "id": "eb83ec2e-cd9c-45cb-acb9-0c63426b739e",
       "name": "заявки к выполнению",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
@@ -1905,7 +1905,7 @@
         },
         "options": {}
       },
-      "id": "88c3fd25-9e70-44c6-a7d3-bda784236b20",
+      "id": "1a4b5c26-b453-4362-9959-e46c583368c2",
       "name": "номер выбранной заявки1",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
@@ -1930,7 +1930,7 @@
           ]
         }
       },
-      "id": "560d26b6-c9cb-49f4-8849-0071a4eaed50",
+      "id": "02d0a15b-8c10-450f-8725-4c9e204880dd",
       "name": "получим актуальный статус заявки",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -1969,7 +1969,7 @@
         },
         "options": {}
       },
-      "id": "0cd9f926-6890-4b95-a6f0-dd03d90f02a5",
+      "id": "66883710-e216-4580-b42c-913e24540516",
       "name": "заявка в работе?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -1986,7 +1986,7 @@
         "text": "Введите число затраченных часов на работу:",
         "additionalFields": {}
       },
-      "id": "9ee8c229-bd38-42c2-8a51-bb48495a0a6b",
+      "id": "81ce1484-c210-4034-bbec-c45f070e7a50",
       "name": "нужно вписать часы",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -2010,7 +2010,7 @@
           "text": "Статус заявки должен быть \"В работе\""
         }
       },
-      "id": "eb7292ac-2d1e-435b-a3e6-59743c1822e3",
+      "id": "7c9f86fa-3a94-4df1-9761-63e23ba53872",
       "name": "заявка уже изменена",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -2114,7 +2114,7 @@
         },
         "options": {}
       },
-      "id": "3a1bd69e-9c3e-4251-a57c-da14774bdc2a",
+      "id": "6c7d06fd-b3d6-417a-a1e9-623ca60b0dc3",
       "name": "обновим статус и номер текущей заявки",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -2153,7 +2153,7 @@
         },
         "options": {}
       },
-      "id": "a3599990-0656-40cc-a13d-382bf682596f",
+      "id": "a9102b9f-59f9-4b3d-93bb-a5d46fa260f4",
       "name": "проверка на число5",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -2170,7 +2170,7 @@
           "appendAttribution": false
         }
       },
-      "id": "925ed6dd-8449-4071-b9c4-03b806eadd3f",
+      "id": "f489e70d-4d2a-4aa5-89ca-7e878c9cb92e",
       "name": "часы введены неверно2",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -2203,7 +2203,7 @@
         "jsonBody": "={\n    \"maintenance_id\": {{ $json.end_request_id }},\n    \"hours\": {{ $('Execute Workflow Trigger').item.json.message.text.replace(\",\", \".\") }},\n    \"employee_id\": {{ $json.odoo_id }}\n} ",
         "options": {}
       },
-      "id": "344f8bca-a634-4f94-be36-c7b3495757a1",
+      "id": "154af7ad-177d-4554-a850-25a7a4caa0d3",
       "name": "обновляем заявку",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -2245,7 +2245,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "7d483da4-7ebd-43b1-9427-638ddeebf1ec",
+      "id": "27f74c2e-d381-49fb-a32c-743b968b816e",
       "name": "нужно ли приложить фото?",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -2268,7 +2268,7 @@
         "text": "=Ошибка Odoo: {{ $json.error }}\n\nВведите количество часов заново",
         "additionalFields": {}
       },
-      "id": "3f7e1fd3-00e3-4f2f-9151-68bab9709fda",
+      "id": "9160e790-9c1a-4d55-b09b-e94c2e65cc82",
       "name": "если есть ошибки2",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -2390,7 +2390,7 @@
         },
         "options": {}
       },
-      "id": "925af605-6240-4326-bc31-8aca32eaf5b8",
+      "id": "cff923a8-6b39-45a6-941c-0cf990ab4e28",
       "name": "возвращаем статус2",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -2430,7 +2430,7 @@
         },
         "additionalFields": {}
       },
-      "id": "fb77e8b6-8173-4026-ba27-d5c1877ae919",
+      "id": "19157dd4-5c6c-46b5-8bb6-6fe679824745",
       "name": "завершён процесс заявки1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -2533,7 +2533,7 @@
         },
         "options": {}
       },
-      "id": "f65186c5-f6d6-499f-b933-762d340e3156",
+      "id": "569e189f-db9e-45c1-a16c-4280b2a0f0eb",
       "name": "меняем на статус отправки фотографии",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -2556,7 +2556,7 @@
         "text": "=Заявка выполнена!",
         "additionalFields": {}
       },
-      "id": "d57093b4-a7a6-4589-b671-004557e87488",
+      "id": "35f31e08-6652-4931-8d50-e64c16d4ebb3",
       "name": "завершён процесс заявки",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -2678,7 +2678,7 @@
         },
         "options": {}
       },
-      "id": "f25a4e80-442c-4f0e-b1e4-f5345f692875",
+      "id": "9c0b774e-96a8-486a-b8f8-e6cd57c7f24e",
       "name": "убираем номер заявки из пг",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -2700,7 +2700,7 @@
         "width": 1538.2139291185106,
         "color": 5
       },
-      "id": "f856ffb0-fb32-4275-bc0b-a4c7592c17ea",
+      "id": "2e5d6bda-3677-41f0-aaea-da991e588109",
       "name": "Sticky Note33",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -2727,7 +2727,7 @@
           ]
         }
       },
-      "id": "960e9e7c-db45-45ca-b36e-dd60f063e397",
+      "id": "d613b94d-0d51-4094-af04-445eefafa3f1",
       "name": "поиск механиков1",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -2768,7 +2768,7 @@
         },
         "options": {}
       },
-      "id": "2ce79543-719e-467e-ad04-48d21a067d1b",
+      "id": "d88a9f10-3ef2-4c1a-b234-caf7d071a6bd",
       "name": "поиск тг айди механиков1",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -2808,7 +2808,7 @@
         },
         "options": {}
       },
-      "id": "2bc9c566-37ed-4c8c-b2e5-d6b1a030ed2f",
+      "id": "92faa8b0-868a-46d0-ad41-07da0db13766",
       "name": "проверка наличия механиков1",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -2832,7 +2832,7 @@
           ]
         }
       },
-      "id": "de302d8f-0d0b-4dd4-a5c8-6399754d3ee0",
+      "id": "55e475a1-34a8-444a-aa0e-eae4e9789a3b",
       "name": "текст заявки",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -2885,7 +2885,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "b9ca5080-3d21-495d-a367-8e07c0613f00",
+      "id": "2bf485e4-a6a3-4df4-823d-f88cbc1e76e6",
       "name": "Отправка проблемы механикам1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -2907,7 +2907,7 @@
         "width": 579.6907768759479,
         "color": 5
       },
-      "id": "dc1f438c-9720-430c-a2d3-ec2ed2f75cc8",
+      "id": "60abfdc0-f0dc-4df8-8694-5f41f8876901",
       "name": "Sticky Note7",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -2923,7 +2923,7 @@
         "width": 487.077305180272,
         "color": 5
       },
-      "id": "ec682220-6b6c-474e-bad0-9877508df2a6",
+      "id": "d9c3f223-8171-481a-96a4-5fadd280744c",
       "name": "Sticky Note45",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -2963,7 +2963,7 @@
         },
         "additionalFields": {}
       },
-      "id": "5a6e686f-eec8-4420-a0c2-8bd23a23749a",
+      "id": "8e930d83-fcbf-4be7-9254-a43a663465fe",
       "name": "нужно ли приложить фото?1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -3085,7 +3085,7 @@
         },
         "options": {}
       },
-      "id": "c802e2a1-f75a-4a28-adea-533fbb89a771",
+      "id": "c6ef2ea9-63f9-4149-a0ba-0bf069beb70d",
       "name": "возвращаем статус3",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -3105,7 +3105,7 @@
         "operation": "binaryToPropery",
         "options": {}
       },
-      "id": "b420d473-02b9-4911-8254-43c663487bd9",
+      "id": "a9d0c014-5a7e-4f0a-98f3-b7472a704e3c",
       "name": "Extract from File1",
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
@@ -3119,7 +3119,7 @@
         "resource": "file",
         "fileId": "={{ $('Execute Workflow Trigger').item.json.message.photo.reduce((largest, current) => current.file_size > largest.file_size ? current : largest).file_id; }}"
       },
-      "id": "dd03b482-0782-444b-a2ee-35dc3b968139",
+      "id": "b3520bc9-0c12-4817-8812-18a5daf3f9b4",
       "name": "получение фото из тг1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -3142,7 +3142,7 @@
           "appendAttribution": false
         }
       },
-      "id": "2a2f9bd4-2b4c-4de2-b9dc-b7a67672c9f0",
+      "id": "65366f49-de4f-455b-8518-02d90c1ec6db",
       "name": "Фото доставлено2",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -3267,7 +3267,7 @@
         },
         "options": {}
       },
-      "id": "388850f7-d889-4dcb-b039-9d6d6c7d221d",
+      "id": "220452e9-03d7-4cbe-a7b9-e04644bcdd6b",
       "name": "меняем статус на обычный",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -3289,7 +3289,7 @@
         "width": 1480.2413619003405,
         "color": 6
       },
-      "id": "8619189e-1931-4482-9e29-e5cd8c30659e",
+      "id": "90b21b1b-2728-43d5-a86b-3f77afcdc430",
       "name": "Sticky Note15",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -3314,7 +3314,7 @@
           ]
         }
       },
-      "id": "1ac64891-50d0-4ce3-94c2-06e1035df6f9",
+      "id": "ad6246ee-8b5c-40d8-971f-6cd79ff12216",
       "name": "поиск механиков3",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -3355,7 +3355,7 @@
         },
         "options": {}
       },
-      "id": "faee41c2-a478-4cde-95fc-ae8b3a05a630",
+      "id": "ab325a22-a391-4eaa-b48c-cedbe8102a6f",
       "name": "поиск тг айди механиков3",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.3,
@@ -3395,7 +3395,7 @@
         },
         "options": {}
       },
-      "id": "4897051e-53b7-4b2e-bff6-9c45676166e7",
+      "id": "49cfa5a6-89dc-401b-8180-c7cef8b6d857",
       "name": "проверка наличия механиков3",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -3411,7 +3411,7 @@
         "width": 1545.548756095632,
         "color": 6
       },
-      "id": "bf871035-78d0-4a9e-a439-463c792f6f71",
+      "id": "e17b0171-f4ce-416a-8231-1a88dde6f851",
       "name": "Sticky Note42",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -3439,7 +3439,7 @@
         "jsonBody": "={\n    \"maintenance_id\": {{ $('Execute Workflow Trigger').item.json.end_request_id }},\n    \"image\":  {{'\"'+ $('Extract from File1').item.json.data + '\"'}}\n}",
         "options": {}
       },
-      "id": "b181cc4e-e711-4bcd-a7a3-b7c2ebc188af",
+      "id": "8f7a3e4d-5a42-4c9f-8a2c-95c58129d018",
       "name": "загрузка фото исправления",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -3479,7 +3479,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "2c45164a-15e5-427b-9985-762f13bf12ff",
+      "id": "78748bd4-ce3d-4c7b-a578-2c6915a7896a",
       "name": "статус слесаря1",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
@@ -3497,7 +3497,7 @@
         "text": "=Прикрепите фото исправления:",
         "additionalFields": {}
       },
-      "id": "2bb91187-1902-49f4-8383-f34dc1585a36",
+      "id": "45219128-e2ee-40b3-99c3-9ec31a461d71",
       "name": "убираем кнопку \"назад\" у прикрепления фото",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -3530,7 +3530,7 @@
           ]
         }
       },
-      "id": "20d5f649-c49c-44e4-a775-531c5f0e6dd0",
+      "id": "01f78f25-d3b9-40f3-b52c-f4ed8f69a250",
       "name": "получим актуальный статус заявки1",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -3561,7 +3561,7 @@
           ]
         }
       },
-      "id": "dc4be26b-91a8-40b3-ac3e-1f661519535a",
+      "id": "77b2ecbc-09e3-44f1-901e-f3889e648781",
       "name": "данные авто2",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -3615,7 +3615,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "b12e98cf-614f-4550-b33f-f90259de62cb",
+      "id": "4f25f20a-3c03-4b79-8a8b-832547842625",
       "name": "Отправка проблемы механикам3",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -3637,7 +3637,7 @@
         "width": 1110.8752211101105,
         "color": 5
       },
-      "id": "7a85093e-beed-46ae-9e7a-90b64d813f14",
+      "id": "5aa1319a-9730-476e-ba75-40e20a8f86b0",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -3653,7 +3653,7 @@
         "width": 689.7997991620289,
         "color": 5
       },
-      "id": "810be787-bbb5-41c1-b9e8-b150dbcd1a27",
+      "id": "8f83f453-3ec5-4b2e-ad91-e506a687035e",
       "name": "Sticky Note2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -3669,7 +3669,7 @@
         "width": 1202.7584994749918,
         "color": 5
       },
-      "id": "1216fae2-4f7c-44d0-84ba-63b97e0dae39",
+      "id": "2d26d8ff-97d9-49a8-8c73-3c9424d196e5",
       "name": "Sticky Note3",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -3694,7 +3694,7 @@
           ]
         }
       },
-      "id": "b854c4e3-1a51-40e0-afa0-4a653a4b5f8d",
+      "id": "32cdfc25-f3cf-48d2-9044-d21098b111b9",
       "name": "данные слесаря",
       "type": "n8n-nodes-base.odoo",
       "typeVersion": 1,
@@ -3740,7 +3740,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "6394587f-e4ff-44a0-adcf-f5eb2403875e",
+      "id": "1a01396d-5508-4f8d-b41c-a9aea3727fb9",
       "name": "статус слесаря",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
@@ -3756,7 +3756,7 @@
         "width": 969.9608169258066,
         "color": 5
       },
-      "id": "8004a1a9-c8c2-4367-ac87-4a3327adf06b",
+      "id": "5446127e-03ca-48a3-8054-e23986274d6f",
       "name": "Sticky Note8",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -3785,7 +3785,7 @@
         },
         "options": {}
       },
-      "id": "098691e2-c90a-42c1-bb5c-7a594af61428",
+      "id": "c192fe31-7575-40d6-9b51-7866a9e58a98",
       "name": "неисправности1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -3829,7 +3829,7 @@
         },
         "options": {}
       },
-      "id": "509db408-6d9c-4a69-a41e-94b65336a0d9",
+      "id": "3f70d78a-ca61-4fa5-a1cd-166fc2eebfb3",
       "name": "получим все неисправности3",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
@@ -3866,7 +3866,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "01ae22e7-f980-40b2-bf25-b90d4b55ce02",
+      "id": "0d475606-5b93-44bf-aee1-54f8a9363f62",
       "name": "нет заявок для выполнения",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -3901,7 +3901,7 @@
         },
         "options": {}
       },
-      "id": "c62102c4-fa8d-43c1-b2c7-ef15012a63b6",
+      "id": "9ab96858-27e0-4f47-9ddc-1cd6a7396c8a",
       "name": "неисправности",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -3945,7 +3945,7 @@
         },
         "options": {}
       },
-      "id": "ebfdec6d-fa2c-4261-987a-c8c60509bd5c",
+      "id": "e01d7144-db03-4b11-b808-39727983a16f",
       "name": "получим все неисправности",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
@@ -3980,7 +3980,7 @@
         },
         "options": {}
       },
-      "id": "4f3ba9e0-32fe-4abd-bf8a-598437fab21c",
+      "id": "02780ae8-5a6a-4553-90fb-f73296877e24",
       "name": "получим все неисправности4",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -4041,7 +4041,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "8837d7f6-bc16-4c4d-b3ca-bcf0a59573b5",
+      "id": "8cb87c2d-7acd-4941-9c09-d5883078e544",
       "name": "Ремонт или ТО",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -4178,7 +4178,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "f371cf07-513b-43be-9b0b-8d895487fa80",
+      "id": "7cb13268-f929-44e2-9147-1a18c6f98765",
       "name": "Switch",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
@@ -4196,7 +4196,7 @@
         "jsonBody": "={{ $json.message }}",
         "options": {}
       },
-      "id": "209f6c93-ed14-40e3-8a9b-2477363607d0",
+      "id": "81f9dafb-da31-4aab-b6a9-c3be73eeed61",
       "name": "отправляем сообщение 10",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -4211,7 +4211,7 @@
         "height": 1197.13501217242,
         "width": 1519.8252700751045
       },
-      "id": "9f7d2244-217b-438f-b8ed-176bd2ca71f4",
+      "id": "0ccb8028-82ab-4d70-8de5-afdc1dfe2e17",
       "name": "Sticky Note18",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -4227,7 +4227,7 @@
         "width": 1319.0068317384266,
         "color": 5
       },
-      "id": "6cce9318-a4e1-4a18-a19e-1a332eedd082",
+      "id": "df91053d-6edf-4f09-9517-f194bb0de8e9",
       "name": "Sticky Note19",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -4256,7 +4256,7 @@
         },
         "options": {}
       },
-      "id": "127582d6-0038-4e3c-8cde-9f0458f6ffc8",
+      "id": "e2d2c530-81a3-44ac-bc24-f14c3ee088ee",
       "name": "неисправности3",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -4281,7 +4281,7 @@
         },
         "options": {}
       },
-      "id": "71a5b874-7a61-4a5a-9983-4d49d0d5240b",
+      "id": "dc02b9f6-35ef-4d72-a495-0e7247822659",
       "name": "Sort1",
       "type": "n8n-nodes-base.sort",
       "typeVersion": 1,
@@ -4299,7 +4299,7 @@
         "jsonBody": "={{ $json.message }}",
         "options": {}
       },
-      "id": "d5fda09b-b447-4786-b861-f8f0633e4779",
+      "id": "5db7c094-6edf-4428-a0a5-e6943404a392",
       "name": "отправляем сообщение 12",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -4328,7 +4328,7 @@
         },
         "options": {}
       },
-      "id": "bfd8aa21-8a04-42e5-b5e5-3047598c0eb8",
+      "id": "6c700d0f-67e7-4c01-94c2-cb5cc5f46149",
       "name": "неисправности4",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -4353,7 +4353,7 @@
         },
         "options": {}
       },
-      "id": "51f6bfc1-eab9-4e8b-a46f-c469047c42ba",
+      "id": "773589f3-36d9-42d5-a19c-54c474bef475",
       "name": "Sort3",
       "type": "n8n-nodes-base.sort",
       "typeVersion": 1,
@@ -4387,7 +4387,7 @@
         },
         "options": {}
       },
-      "id": "3e8c035e-060f-4d62-acf7-a615d40ca326",
+      "id": "5cacf1c9-2d8e-4a17-a80a-595b09dde261",
       "name": "Есть ли заявки к выполнению1",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -4423,7 +4423,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "f24a3960-4dbc-444f-9e57-8ef6ab70394c",
+      "id": "cf344df5-6abc-4cec-84a0-a36793aeb9b5",
       "name": "нет заявок к выполнению1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -4465,7 +4465,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "a6cb3e52-21f9-4b54-b1cc-cc3d3a9d3d6f",
+      "id": "5074cb38-7475-4000-904a-be687f161e36",
       "name": "нет заявок к выполнению2",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -4505,7 +4505,7 @@
         },
         "options": {}
       },
-      "id": "13b4d225-de28-47d8-8ee0-38ed204d4c77",
+      "id": "d085f2dd-5156-40b3-bab6-eeb2c878c917",
       "name": "Есть ли заявки к выполнению2",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -4565,7 +4565,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "67c81ec3-bc04-403b-8eac-a41dae6a8fd3",
+      "id": "b9f24ba7-4bcd-4baa-b6bd-eddce26615a7",
       "name": "Ремонт или ТО1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -4589,7 +4589,7 @@
         "jsonBody": "={{ $json.message }}",
         "options": {}
       },
-      "id": "b9aaadc9-585a-494b-95c0-113f9aac911f",
+      "id": "ce147810-517c-4082-a5cf-9979c4bfe206",
       "name": "отправляем сообщение 13",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -4604,7 +4604,7 @@
         "height": 1105.0510280702404,
         "width": 1684.4742565384063
       },
-      "id": "b41b5097-99ad-4737-b40d-a06eb49db8b9",
+      "id": "65aa3994-9edb-45fa-857e-d5401fff3376",
       "name": "Sticky Note24",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -4620,7 +4620,7 @@
         "width": 1572.4834465071003,
         "color": 5
       },
-      "id": "949f93be-bac3-492d-828c-a17fe8db566b",
+      "id": "9bc01869-0c27-4f8f-ac67-565ef556ecb9",
       "name": "Sticky Note25",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -4638,7 +4638,7 @@
         "jsonBody": "={{ $json.message }}",
         "options": {}
       },
-      "id": "91da11c4-4c23-481c-89d7-821bf02aeaf0",
+      "id": "00541494-554f-4607-83ca-c03705347fc3",
       "name": "отправляем сообщение 15",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -4654,7 +4654,7 @@
         "width": 1539.2446463627095,
         "color": 5
       },
-      "id": "c1acc9c6-e962-4f6f-8e64-91d8f20f1a05",
+      "id": "16b18c21-d245-4be7-ac00-968536f1bbff",
       "name": "Sticky Note27",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -4708,7 +4708,7 @@
         },
         "options": {}
       },
-      "id": "ac6fc51f-9b64-495a-bfa0-0a4d94993898",
+      "id": "8f9c0710-6620-455b-a48f-ea5d3de8c875",
       "name": "получим все неисправности10",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
@@ -4744,7 +4744,7 @@
         },
         "options": {}
       },
-      "id": "c7112699-8e6c-4224-ae6a-af2a940b0845",
+      "id": "5085fa54-8a0e-4f37-a7f4-d93d16eac2e1",
       "name": "Есть ли заявки к выполнению3",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -4780,7 +4780,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "9077e53c-22e9-46c5-9565-d9c389addf5e",
+      "id": "27460d41-1fed-4ea9-ae83-0dae434ee476",
       "name": "нет заявок к выполнению3",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -4822,7 +4822,7 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "0e80eb06-d404-4be5-a651-7f7f6a187783",
+      "id": "448976a4-6a78-42e8-8f81-8be261a94af4",
       "name": "нет заявок к выполнению4",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
@@ -4862,7 +4862,7 @@
         },
         "options": {}
       },
-      "id": "fb1e8729-bc76-433d-a2ef-9813cca1df92",
+      "id": "d66cf543-37af-47c7-907b-8fc1a55820f5",
       "name": "Есть ли заявки к выполнению4",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -4969,7 +4969,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "48035ed8-1239-4c7d-a171-98a63002f973",
+      "id": "d875fef5-bbb8-4859-9a25-3041d455a53f",
       "name": "обработка всех заявок",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
@@ -5001,7 +5001,7 @@
         },
         "options": {}
       },
-      "id": "d991b1f3-8c88-4bfa-84bc-728d825faf50",
+      "id": "660738d2-921f-428a-b8e7-792500e846ad",
       "name": "находим авто",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -5034,7 +5034,7 @@
         },
         "options": {}
       },
-      "id": "77e3cbdc-5fb3-4aa3-a157-df97c8ee642e",
+      "id": "087bebca-b457-4d8b-b952-56c15cc1cb8a",
       "name": "находим авто1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -5075,7 +5075,7 @@
         },
         "options": {}
       },
-      "id": "0f8b1494-5d25-415e-ad57-b94cfb7d1825",
+      "id": "eff23c4a-8436-4b6c-a850-de06d09581f7",
       "name": "неисправности по авто",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -5105,7 +5105,7 @@
         },
         "options": {}
       },
-      "id": "fb298ef0-e004-4862-b293-b4b89fc9f159",
+      "id": "335f7daa-d09e-4e9f-97d0-b0cc095bc55f",
       "name": "неисправности по авто1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -5130,7 +5130,7 @@
         },
         "options": {}
       },
-      "id": "7238dc9e-8c16-43cc-8d9d-f19f432dc54b",
+      "id": "c575efbc-3e16-4b2c-bffe-cf1bae73d7df",
       "name": "сортируем по дате и срочности",
       "type": "n8n-nodes-base.sort",
       "typeVersion": 1,
@@ -5154,7 +5154,7 @@
         },
         "options": {}
       },
-      "id": "7ec630cc-f5e8-44a3-b0e3-c6f8a66b4a39",
+      "id": "095cf80a-beec-4dd7-9d2b-81c6e027d473",
       "name": "сортируем по дате и срочности1",
       "type": "n8n-nodes-base.sort",
       "typeVersion": 1,
@@ -5167,7 +5167,7 @@
       "parameters": {
         "jsCode": "// Получаем все элементы из входных данных\nconst items = $input.all();\n\n// Определяем максимальное количество элементов на одной странице\nconst maxItemsPerPage = 6;\n\n// Задаем максимальное количество символов для описания заявки\nconst maxDescriptionLength = 16;\n\n// Получаем номер страницы из callback_data или оставляем 1 по умолчанию\nlet page = 1; // Стандартная первая страница\nlet messageId; // Для хранения message_id\n\n// Проверяем, есть ли callback_query\nconst callbackQuery = $('Execute Workflow Trigger').all()[0].json.callback_query;\nif (callbackQuery) {\n    const callbackData = callbackQuery.data;\n    const match = callbackData.match(/repair_car_(.+)_page_(\\d+)/); // Изменено для нового формата\n    if (match) {\n        selectedCar = match[1]; // Извлекаем номер авто\n        page = parseInt(match[2], 10);} // Извлекаем номер страницы\n    // Получаем message_id из callback_query\n    messageId = callbackQuery.message.message_id; // Получаем message_id из объекта callback_query\n} else {\n    // Если это не callback_query, возвращаемся к стандартному поведению\n    messageId = $('Execute Workflow Trigger').all()[0].json.message.message_id; // Получаем message_id из сообщения\n}\n\n// Определяем начальный и конечный индексы для отображаемых элементов на странице\nconst startIndex = (page - 1) * maxItemsPerPage;\nconst endIndex = startIndex + maxItemsPerPage;\n\n// Определяем, какие элементы будем выводить на текущей странице\nconst displayItems = items.slice(startIndex, endIndex);\n\n// Функция для обрезки описания с троеточием\nconst truncateDescription = (description) => {\n    if (description.length > maxDescriptionLength) {\n        return description.slice(0, maxDescriptionLength) + '…';\n    }\n    return description;\n};\n\n// Формируем массив кнопок с информацией по каждому элементу\nconst buttons = displayItems.map((item, index) => {\n    // Разделяем строку по дефису и оставляем только номер авто (первая часть)\n    const carInfo = item.json.car_id[1].split(' - ')[0];\n    // Обрезаем описание заявки, если оно слишком длинное\n    const truncatedDescription = truncateDescription(item.json.description_of_maintenance);\n    \n    // Проверяем, является ли заявка срочной\n    const isUrgent = item.json.urgently === true ? '❗' : '';\n\n    return {\n        text: `${isUrgent}${startIndex + index + 1}. ${truncatedDescription}`, // Используем startIndex для правильной нумерации и добавляем ❗\n        callback_data: `all_item_${item.json.id}_page_${page}_repair_car_${carInfo}` // Добавляем номер страницы\n    };\n});\n\n\n// Создаем объект с inline-клавиатурой\nconst inlineKeyboard = {\n    inline_keyboard: [\n        ...buttons.map(button => [button]), // Каждая кнопка на своей строке\n    ]\n};\n\n// Добавляем кнопки \"Следующая страница\" и \"Назад\", если нужно\nif (items.length > endIndex) {\n    inlineKeyboard.inline_keyboard.push([{ text: \"Следующая страница\", callback_data: `repair_car_${selectedCar}_page_${page + 1}` }]);\n}\nif (page > 1) {\n    inlineKeyboard.inline_keyboard.push([{ text: \"Предыдущая страница\", callback_data: `repair_car_${selectedCar}_page_${page - 1}` }]);\n}\n\n// Добавляем постоянную кнопку \"Назад\"\ninlineKeyboard.inline_keyboard.push([{ text: \"Назад\", callback_data: \"repair_all_page_1\" }]);\n\n// Логируем для отладки\nconsole.log(JSON.stringify(inlineKeyboard, null, 2));\n\n// Получаем chat_id из входного JSON\nconst chatId = $('Execute Workflow Trigger').all()[0].json.callback_query.from.id;\n\n// Токен бота\nconst token = '7062531188:AAFkpyOiRuXLHFQO8mWKHuftPGglQSruqwo';\n\n// URL для обновления сообщения через API Telegram\nconst url = `https://api.telegram.org/bot${token}/editMessageText`;\n\n// Формируем сообщение для обновления\nconst message = {\n    chat_id: chatId,\n    message_id: messageId,\n    text: `Заявки по авто <b>${selectedCar}</b>, ожидающие выполнения:`,\n    parse_mode: 'HTML',\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n\n// Обработка выбора заявки\nconst selectedCallbackData = callbackQuery.data;\nconst selectedMatch = selectedCallbackData.match(/item_(\\d+)_page_(\\d+)/);\nif (selectedMatch) {\n    const itemId = selectedMatch[1]; // ID выбранной заявки\n    const returnPage = parseInt(selectedMatch[2], 10); // Номер страницы для возврата\n\n    // Здесь можно добавить логику для обработки выбранной заявки\n    // Например, отправить информацию о заявке или выполнить другую логику\n\n    // После этого можно вернуться к странице с заявками\n    const returnMessage = {\n        chat_id: chatId,\n        message_id: messageId,\n        text: \"Заявки, ожидающие выполнения:\",\n        reply_markup: inlineKeyboard // Используем тот же inlineKeyboard с сохраненной страницей\n    };\n\n    return [\n        {\n            json: {\n                url,\n                message: returnMessage\n            }\n        }\n    ];\n}"
       },
-      "id": "3b212dc6-0d4d-45a2-9712-7f7b606cf831",
+      "id": "67a216b1-b9b6-4217-8de7-75ba366b7f8f",
       "name": "вывод заявок по авто",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -5180,7 +5180,7 @@
       "parameters": {
         "jsCode": "// Получаем все элементы из входных данных\nconst items = $input.all();\n\n// Определяем максимальное количество элементов на одной странице\nconst maxItemsPerPage = 6;\n\n// Задаем максимальное количество символов для описания заявки\nconst maxDescriptionLength = 16;\n\n// Получаем номер страницы из callback_data или оставляем 1 по умолчанию\nlet page = 1; // Стандартная первая страница\nlet messageId; // Для хранения message_id\n\n// Проверяем, есть ли callback_query\nconst callbackQuery = $('Execute Workflow Trigger').all()[0].json.callback_query;\nif (callbackQuery) {\n    const callbackData = callbackQuery.data;\n    const match = callbackData.match(/TO_car_(.+)_page_(\\d+)/); // Изменено для нового формата\n    if (match) {\n        selectedCar = match[1]; // Извлекаем номер авто\n        page = parseInt(match[2], 10);} // Извлекаем номер страницы\n    // Получаем message_id из callback_query\n    messageId = callbackQuery.message.message_id; // Получаем message_id из объекта callback_query\n} else {\n    // Если это не callback_query, возвращаемся к стандартному поведению\n    messageId = $('Execute Workflow Trigger').all()[0].json.message.message_id; // Получаем message_id из сообщения\n}\n\n// Определяем начальный и конечный индексы для отображаемых элементов на странице\nconst startIndex = (page - 1) * maxItemsPerPage;\nconst endIndex = startIndex + maxItemsPerPage;\n\n// Определяем, какие элементы будем выводить на текущей странице\nconst displayItems = items.slice(startIndex, endIndex);\n\n// Функция для обрезки описания с троеточием\nconst truncateDescription = (description) => {\n    if (description.length > maxDescriptionLength) {\n        return description.slice(0, maxDescriptionLength) + '…';\n    }\n    return description;\n};\n\n// Формируем массив кнопок с информацией по каждому элементу\nconst buttons = displayItems.map((item, index) => {\n    // Разделяем строку по дефису и оставляем только номер авто (первая часть)\n    const carInfo = item.json.car_id[1].split(' - ')[0];\n    // Обрезаем описание заявки, если оно слишком длинное\n    const truncatedDescription = truncateDescription(item.json.description_of_maintenance);\n    \n    // Проверяем, является ли заявка срочной\n    const isUrgent = item.json.urgently === true ? '❗' : '';\n\n    return {\n        text: `${isUrgent}${startIndex + index + 1}. ${truncatedDescription}`, // Используем startIndex для правильной нумерации и добавляем ❗\n        callback_data: `all_item_${item.json.id}_page_${page}_TO_car_${carInfo}` // Добавляем номер страницы\n    };\n});\n\n\n// Создаем объект с inline-клавиатурой\nconst inlineKeyboard = {\n    inline_keyboard: [\n        ...buttons.map(button => [button]), // Каждая кнопка на своей строке\n    ]\n};\n\n// Добавляем кнопки \"Следующая страница\" и \"Назад\", если нужно\nif (items.length > endIndex) {\n    inlineKeyboard.inline_keyboard.push([{ text: \"Следующая страница\", callback_data: `TO_car_${selectedCar}_page_${page + 1}` }]);\n}\nif (page > 1) {\n    inlineKeyboard.inline_keyboard.push([{ text: \"Предыдущая страница\", callback_data: `TO_car_${selectedCar}_page_${page - 1}` }]);\n}\n\n// Добавляем постоянную кнопку \"Назад\"\ninlineKeyboard.inline_keyboard.push([{ text: \"Назад\", callback_data: \"TO_all_page_1\" }]);\n\n// Логируем для отладки\nconsole.log(JSON.stringify(inlineKeyboard, null, 2));\n\n// Получаем chat_id из входного JSON\nconst chatId = $('Execute Workflow Trigger').all()[0].json.callback_query.from.id;\n\n// Токен бота\nconst token = '7062531188:AAFkpyOiRuXLHFQO8mWKHuftPGglQSruqwo';\n\n// URL для обновления сообщения через API Telegram\nconst url = `https://api.telegram.org/bot${token}/editMessageText`;\n\n// Формируем сообщение для обновления\nconst message = {\n    chat_id: chatId,\n    message_id: messageId,\n    text: `Заявки по авто <b>${selectedCar}</b>, ожидающие выполнения:`,\n    parse_mode: 'HTML',\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n\n// Обработка выбора заявки\nconst selectedCallbackData = callbackQuery.data;\nconst selectedMatch = selectedCallbackData.match(/item_(\\d+)_page_(\\d+)/);\nif (selectedMatch) {\n    const itemId = selectedMatch[1]; // ID выбранной заявки\n    const returnPage = parseInt(selectedMatch[2], 10); // Номер страницы для возврата\n\n    // Здесь можно добавить логику для обработки выбранной заявки\n    // Например, отправить информацию о заявке или выполнить другую логику\n\n    // После этого можно вернуться к странице с заявками\n    const returnMessage = {\n        chat_id: chatId,\n        message_id: messageId,\n        text: \"Заявки, ожидающие выполнения:\",\n        reply_markup: inlineKeyboard // Используем тот же inlineKeyboard с сохраненной страницей\n    };\n\n    return [\n        {\n            json: {\n                url,\n                message: returnMessage\n            }\n        }\n    ];\n}"
       },
-      "id": "946e00ed-2616-461c-a06d-127574714a7b",
+      "id": "86a5c6ab-7733-40b3-a60b-de776e68dad2",
       "name": "вывод заявок по авто1",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -5193,7 +5193,7 @@
       "parameters": {
         "jsCode": "// Получаем все элементы из входных данных\nconst items = $input.all();\n\n// Определяем максимальное количество элементов на одной странице\nconst maxItemsPerPage = 6;\n\n// Получаем номер страницы из callback_data или оставляем 1 по умолчанию\nlet page = 1; // Стандартная первая страница\nlet messageId; // Для хранения message_id\n\n// Проверяем, есть ли callback_query\nconst callbackQuery = $('Execute Workflow Trigger').all()[0].json.callback_query;\nif (callbackQuery) {\n    const callbackData = callbackQuery.data;\n    const match = callbackData.match(/page_(\\d+)/);\n    if (match) {\n        page = parseInt(match[1], 10);\n    }\n    // Получаем message_id из callback_query\n    messageId = callbackQuery.message.message_id; // Получаем message_id из объекта callback_query\n} else {\n    // Если это не callback_query, возвращаемся к стандартному поведению\n    messageId = $('Execute Workflow Trigger').all()[0].json.message.message_id; // Получаем message_id из сообщения\n}\n\n// Функция для выбора правильного склонения слова \"заявка\"\nconst getDeclension = (count, forms) => {\n    const mod10 = count % 10;\n    const mod100 = count % 100;\n    if (mod100 >= 11 && mod100 <= 19) {\n        return forms[2]; // \"заявок\"\n    }\n    if (mod10 === 1) {\n        return forms[0]; // \"заявка\"\n    }\n    if (mod10 >= 2 && mod10 <= 4) {\n        return forms[1]; // \"заявки\"\n    }\n    return forms[2]; // \"заявок\"\n};\n\n// Группируем заявки по номеру авто\nconst groupedItems = items.reduce((acc, item) => {\n    const carNumber = item.json.car_id[1].split(' - ')[0];\n    if (!acc[carNumber]) {\n        acc[carNumber] = { count: 0, urgently: false };\n    }\n    acc[carNumber].count++;\n    if (item.json.urgently === true) {\n        acc[carNumber].urgently = true;\n    }\n    return acc;\n}, {});\n\n// Преобразуем объект в массив\nlet groupedArray = Object.entries(groupedItems).map(([carNumber, data]) => ({\n    carNumber,\n    count: data.count,\n    urgently: data.urgently\n}));\n\n// Сортируем: сначала срочные заявки (urgently === true) в порядке убывания count, затем несрочные\ngroupedArray = groupedArray.sort((a, b) => {\n    if (a.urgently === b.urgently) {\n        return b.count - a.count; // Сравнение по количеству заявок\n    }\n    return a.urgently ? -1 : 1; // Срочные заявки идут первыми\n});\n\n// Определяем начальный и конечный индексы для отображаемых элементов на странице\nconst startIndex = (page - 1) * maxItemsPerPage;\nconst endIndex = startIndex + maxItemsPerPage;\n\n// Определяем, какие элементы будем выводить на текущей странице\nconst displayItems = groupedArray.slice(startIndex, endIndex);\n\n// Склонения для слова \"заявка\"\nconst declensions = [\"заявка\", \"заявки\", \"заявок\"];\n\n// Формируем массив кнопок с информацией по каждому авто\nconst buttons = displayItems.map((item, index) => {\n    const isUrgent = item.urgently ? '❗' : '';\n    const declension = getDeclension(item.count, declensions);\n    return {\n        text: `${isUrgent}${startIndex + index + 1}. ${item.carNumber} - ${item.count} ${declension}`,\n        callback_data: `repair_car_${item.carNumber}_page_${page}` // Используем номер авто\n    };\n});\n\n// Создаем объект с inline-клавиатурой\nconst inlineKeyboard = {\n    inline_keyboard: [\n        ...buttons.map(button => [button]), // Каждая кнопка на своей строке\n    ]\n};\n\n// Добавляем кнопки \"Следующая страница\" и \"Назад\", если нужно\nif (groupedArray.length > endIndex) {\n    inlineKeyboard.inline_keyboard.push([{ text: \"Следующая страница\", callback_data: `repair_all_page_${page + 1}` }]);\n}\nif (page > 1) {\n    inlineKeyboard.inline_keyboard.push([{ text: \"Предыдущая страница\", callback_data: `repair_all_page_${page - 1}` }]);\n}\n\n// Добавляем постоянную кнопку \"Назад\"\ninlineKeyboard.inline_keyboard.push([{ text: \"Назад\", callback_data: \"repair_or_TO\" }]);\n\n// Логируем для отладки\nconsole.log(JSON.stringify(inlineKeyboard, null, 2));\n\n// Получаем chat_id из входного JSON\nconst chatId = $('Execute Workflow Trigger').all()[0].json.callback_query.from.id;\n\n// Токен бота\nconst token = '7062531188:AAFkpyOiRuXLHFQO8mWKHuftPGglQSruqwo';\n\n// URL для обновления сообщения через API Telegram\nconst url = `https://api.telegram.org/bot${token}/editMessageText`;\n\n// Формируем сообщение для обновления\nconst message = {\n    chat_id: chatId,\n    message_id: messageId,\n    text: \"Заявки на ремонт по автомобилям:\",\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n"
       },
-      "id": "25419261-a5b1-4b79-98e5-894bb439e678",
+      "id": "f879d0af-bff1-4609-ab02-300de4c610a3",
       "name": "выбор авто",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -5206,7 +5206,7 @@
       "parameters": {
         "jsCode": "// Получаем все элементы из входных данных\nconst items = $input.all();\n\n// Определяем максимальное количество элементов на одной странице\nconst maxItemsPerPage = 6;\n\n// Получаем номер страницы из callback_data или оставляем 1 по умолчанию\nlet page = 1; // Стандартная первая страница\nlet messageId; // Для хранения message_id\n\n// Проверяем, есть ли callback_query\nconst callbackQuery = $('Execute Workflow Trigger').all()[0].json.callback_query;\nif (callbackQuery) {\n    const callbackData = callbackQuery.data;\n    const match = callbackData.match(/page_(\\d+)/);\n    if (match) {\n        page = parseInt(match[1], 10);\n    }\n    // Получаем message_id из callback_query\n    messageId = callbackQuery.message.message_id; // Получаем message_id из объекта callback_query\n} else {\n    // Если это не callback_query, возвращаемся к стандартному поведению\n    messageId = $('Execute Workflow Trigger').all()[0].json.message.message_id; // Получаем message_id из сообщения\n}\n\n// Функция для выбора правильного склонения слова \"заявка\"\nconst getDeclension = (count, forms) => {\n    const mod10 = count % 10;\n    const mod100 = count % 100;\n    if (mod100 >= 11 && mod100 <= 19) {\n        return forms[2]; // \"заявок\"\n    }\n    if (mod10 === 1) {\n        return forms[0]; // \"заявка\"\n    }\n    if (mod10 >= 2 && mod10 <= 4) {\n        return forms[1]; // \"заявки\"\n    }\n    return forms[2]; // \"заявок\"\n};\n\n// Группируем заявки по номеру авто\nconst groupedItems = items.reduce((acc, item) => {\n    const carNumber = item.json.car_id[1].split(' - ')[0];\n    if (!acc[carNumber]) {\n        acc[carNumber] = { count: 0, urgently: false };\n    }\n    acc[carNumber].count++;\n    if (item.json.urgently === true) {\n        acc[carNumber].urgently = true;\n    }\n    return acc;\n}, {});\n\n// Преобразуем объект в массив\nlet groupedArray = Object.entries(groupedItems).map(([carNumber, data]) => ({\n    carNumber,\n    count: data.count,\n    urgently: data.urgently\n}));\n\n// Сортируем: сначала срочные заявки (urgently === true) в порядке убывания count, затем несрочные\ngroupedArray = groupedArray.sort((a, b) => {\n    if (a.urgently === b.urgently) {\n        return b.count - a.count; // Сравнение по количеству заявок\n    }\n    return a.urgently ? -1 : 1; // Срочные заявки идут первыми\n});\n\n// Определяем начальный и конечный индексы для отображаемых элементов на странице\nconst startIndex = (page - 1) * maxItemsPerPage;\nconst endIndex = startIndex + maxItemsPerPage;\n\n// Определяем, какие элементы будем выводить на текущей странице\nconst displayItems = groupedArray.slice(startIndex, endIndex);\n\n// Склонения для слова \"заявка\"\nconst declensions = [\"заявка\", \"заявки\", \"заявок\"];\n\n// Формируем массив кнопок с информацией по каждому авто\nconst buttons = displayItems.map((item, index) => {\n    const isUrgent = item.urgently ? '❗' : '';\n    const declension = getDeclension(item.count, declensions);\n    return {\n        text: `${isUrgent}${startIndex + index + 1}. ${item.carNumber} - ${item.count} ${declension}`,\n        callback_data: `TO_car_${item.carNumber}_page_${page}` // Используем номер авто\n    };\n});\n\n// Создаем объект с inline-клавиатурой\nconst inlineKeyboard = {\n    inline_keyboard: [\n        ...buttons.map(button => [button]), // Каждая кнопка на своей строке\n    ]\n};\n\n// Добавляем кнопки \"Следующая страница\" и \"Назад\", если нужно\nif (groupedArray.length > endIndex) {\n    inlineKeyboard.inline_keyboard.push([{ text: \"Следующая страница\", callback_data: `TO_all_page_${page + 1}` }]);\n}\nif (page > 1) {\n    inlineKeyboard.inline_keyboard.push([{ text: \"Предыдущая страница\", callback_data: `TO_all_page_${page - 1}` }]);\n}\n\n// Добавляем постоянную кнопку \"Назад\"\ninlineKeyboard.inline_keyboard.push([{ text: \"Назад\", callback_data: \"repair_or_TO\" }]);\n\n// Логируем для отладки\nconsole.log(JSON.stringify(inlineKeyboard, null, 2));\n\n// Получаем chat_id из входного JSON\nconst chatId = $('Execute Workflow Trigger').all()[0].json.callback_query.from.id;\n\n// Токен бота\nconst token = '7062531188:AAFkpyOiRuXLHFQO8mWKHuftPGglQSruqwo';\n\n// URL для обновления сообщения через API Telegram\nconst url = `https://api.telegram.org/bot${token}/editMessageText`;\n\n// Формируем сообщение для обновления\nconst message = {\n    chat_id: chatId,\n    message_id: messageId,\n    text: \"Заявки на ТО по автомобилям:\",\n    reply_markup: inlineKeyboard\n};\n\n// Возвращаем данные для запроса\nreturn [\n    {\n        json: {\n            url,\n            message\n        }\n    }\n];\n"
       },
-      "id": "635b37b9-0b66-43fd-a58a-4b6e795edc44",
+      "id": "91083762-3232-49f1-aeed-fad2d6278a3d",
       "name": "выбор авто1",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -5219,7 +5219,7 @@
       "parameters": {
         "jsCode": "// Получаем все элементы из входных данных\nconst items = $input.all();\n\n// Получаем данные о колбэке из Execute Workflow Trigger\nconst callbackQuery = $('Execute Workflow Trigger').all()[0].json.callback_query;\nconst callbackData = callbackQuery ? callbackQuery.data : null;\n\n// Проверяем, был ли получен callbackData\nif (!callbackData) {\n    throw new Error(\"Callback data is undefined. Cannot proceed.\");\n}\n\n// Извлекаем message_id из callback_query\nconst messageId = callbackQuery.message.message_id;\n\n// Обработка выбора заявки\nconst selectedMatch = callbackData.match(/item_(\\d+)_page_(\\d+)_([^_]+)_car_(.+)/);\nif (selectedMatch) {\n    const itemId = selectedMatch[1]; // ID выбранной заявки\n    const returnPage = parseInt(selectedMatch[2], 10); // Номер страницы для возврата\n    const type = selectedMatch[3];\n    const selectedCar = selectedMatch[4];\n\n    // Получаем информацию о выбранной заявке\n    const selectedRequest = items.find(item => item.json.id == itemId);\n    // Извлекаем необходимые данные из JSON\n    const {\n        description_of_maintenance,\n        car_id,\n        created_by,\n        id\n    } = selectedRequest.json;\n\n    const descriptionText = description_of_maintenance === \"Нет описания\" \n        ? `${description_of_maintenance} (Смотреть фото в Odoo)` \n        : description_of_maintenance;\n\n    // Формируем текст сообщения\n    const carName = car_id[1].split(' - ')[0]; // Получаем только номер авто\n\n    // Ищем данные о водителе\n    const driverData = items.find(item => item.json.resource_id && item.json.resource_id[1] === created_by[1]);\n    \n    // Если данные о водителе найдены, извлекаем имя и телефон\n    const name = driverData ? driverData.json.name : 'Неизвестный водитель';\n    const mobile_phone = driverData ? driverData.json.mobile_phone : 'Телефон не указан';\n\n    // Формируем ссылку на заявку в Odoo\n    const odooLink = `https://everest.lamart.site/web#id=${itemId}&model=technical.maintenance&view_type=form`;\n\n    // Полное сообщение\n    const messageText = `У автомобиля <b>${carName}</b> проблема:\\n\\n` +\n        `<i>${descriptionText}</i>\\n\\n`;\n\n    // Получаем chat_id из callback_query\n    const chatId = callbackQuery.from.id;\n\n    // Токен бота\n    const token = '7062531188:AAFkpyOiRuXLHFQO8mWKHuftPGglQSruqwo';\n\n    // URL для редактирования сообщения через API Telegram\n    const url = `https://api.telegram.org/bot${token}/editMessageText`;\n\n    // Создаем объект с inline-клавиатурой в один столбик\n    const inlineKeyboard = {\n        inline_keyboard: [\n            [\n                { text: \"Взять в работу\", callback_data: `TR_${id}` } // Добавляем ID заявки\n            ],\n            [\n                { text: \"Назад\", callback_data: `${type}_car_${selectedCar}_page_${returnPage}` } // Устанавливаем номер страницы в колбэк\n            ]\n        ]\n    };\n\n    // Формируем сообщение для редактирования\n    const message = {\n        chat_id: chatId,\n        message_id: messageId,\n        text: messageText,\n        parse_mode: 'HTML', // Указываем, что текст содержит HTML\n        reply_markup: inlineKeyboard // Добавляем inline-клавиатуру\n    };\n\n    // Возвращаем данные для запроса\n    return [\n        {\n            json: {\n                url,\n                message\n            }\n        }\n    ];\n}"
       },
-      "id": "e44371b0-ad3c-4e1c-b7d6-2acd892f36b9",
+      "id": "7a906a71-0228-435a-bbe4-b1b7daea63af",
       "name": "генерация сообщения для просмотра заявки",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -5237,7 +5237,7 @@
         "jsonBody": "={{ $json.message }}",
         "options": {}
       },
-      "id": "4714877d-6286-4198-a42e-cc0fd4917029",
+      "id": "55a96abc-63ae-48f3-b9db-788062cc683f",
       "name": "отправляем сообщение ",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -5269,7 +5269,7 @@
         },
         "options": {}
       },
-      "id": "7a295892-40cf-4899-a0c7-d7b61905509c",
+      "id": "96376133-216f-49de-9a46-38b297d2b84b",
       "name": "данные сотрудника1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -5281,7 +5281,7 @@
     },
     {
       "parameters": {},
-      "id": "cba253c0-2ea4-4aad-b36f-d1ea67f5b870",
+      "id": "50f1f03c-3065-4a23-a5dd-99398cb4780f",
       "name": "объединяем заявки и сотрудника1",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
@@ -5313,7 +5313,7 @@
         },
         "options": {}
       },
-      "id": "866c0001-533d-4cc4-bbe9-d240c016bf4f",
+      "id": "dc222951-5560-44ed-9db4-034506bf24a2",
       "name": "получим все неисправности7",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
@@ -5330,7 +5330,7 @@
         "width": 1065.0613458914934,
         "color": 5
       },
-      "id": "9ffc160f-410c-41e7-8156-2f691f141d2d",
+      "id": "d697b0ac-d14f-4b6e-ac3e-dbb43c3f1739",
       "name": "Sticky Note22",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -5384,7 +5384,7 @@
         },
         "options": {}
       },
-      "id": "9c53455f-80d6-466a-9b9b-2bb011f34a62",
+      "id": "00c7ade5-13b6-4ac2-8e28-f0b96c141036",
       "name": "получим все неисправности9",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
@@ -5440,7 +5440,7 @@
         },
         "options": {}
       },
-      "id": "d232e230-ea95-4862-86c4-d59ca58185b2",
+      "id": "b6fbc621-1945-44df-a89c-1d5d0275f0f5",
       "name": "получим все неисправности6",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
@@ -5496,7 +5496,7 @@
         },
         "options": {}
       },
-      "id": "3767798c-679b-4643-a381-e795338752a8",
+      "id": "0da61222-46d9-42c3-9188-d3e85a544db3",
       "name": "получим все неисправности8",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
@@ -5514,7 +5514,7 @@
         "width": 1308.2279848013868,
         "color": 5
       },
-      "id": "95063b3f-3387-4f93-8919-b488cbecdc9f",
+      "id": "0be68d67-d277-454d-983c-acf25a8e232f",
       "name": "Sticky Note21",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -5599,7 +5599,7 @@
           "fallbackOutput": "extra"
         }
       },
-      "id": "29782c59-e4ac-49b0-b051-54fe3aa35b42",
+      "id": "9c9c2cd8-36a8-4f27-8d8f-7b29f4f7ee3e",
       "name": "обработка всех заявок по выбранному авто",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
@@ -5614,7 +5614,7 @@
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}"
       },
-      "id": "3662e41b-e27e-4c9d-a847-e16aac22266a",
+      "id": "130d7461-baec-4d45-b289-07ecaee530c1",
       "name": "Удаление прошлого сообщения",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -5635,7 +5635,7 @@
         "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.from.id }}",
         "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id - 1}}"
       },
-      "id": "df22f4ab-3359-4fdf-aeb6-06438fa969e3",
+      "id": "e7609698-6ea5-47d9-bbc4-26691c0d4ab2",
       "name": "Удаление прошлого сообщения4",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
@@ -5657,7 +5657,7 @@
         "width": 496.32687483613483,
         "color": 5
       },
-      "id": "ee071669-ea4c-4f35-b7c8-4384676a35db",
+      "id": "504d3dad-9741-4f15-bd6a-f2292ce285af",
       "name": "Sticky Note9",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -5669,7 +5669,8 @@
   ],
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "timezone": "Asia/Vladivostok"
   },
   "staticData": null,
   "tags": [
@@ -5681,6 +5682,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-12-23T17:41:10.575Z",
-  "versionId": "23132322-34b4-4e73-9ffd-e0735be80e9c"
+  "updatedAt": "2025-01-20T16:37:30.072Z",
+  "versionId": "8400c04c-2f89-45f1-b1f3-3f1915d80d7c"
 }
