@@ -1241,6 +1241,13 @@
         ],
         [
           {
+            "node": "задаём м",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
             "node": "коллбеки ",
             "type": "main",
             "index": 0
@@ -1632,6 +1639,13 @@
         [
           {
             "node": "создать работу на объекте",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "убираем кнопку4",
             "type": "main",
             "index": 0
           }
@@ -2061,6 +2075,50 @@
         [
           {
             "node": "проверка статусов и генерация единого сообщения1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "убираем кнопку4": {
+      "main": [
+        [
+          {
+            "node": "пустой авто2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "пустой авто2": {
+      "main": [
+        [
+          {
+            "node": "записываем пустой авто1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Вместо меры записываем -1": {
+      "main": [
+        [
+          {
+            "node": "выберите ставку4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "задаём м": {
+      "main": [
+        [
+          {
+            "node": "Вместо меры записываем -1",
             "type": "main",
             "index": 0
           }
@@ -10675,7 +10733,7 @@
     {
       "parameters": {
         "chatId": "={{ $json.callback_query.message.chat.id }}",
-        "text": "Выберите меру материала",
+        "text": "Выберите условие завершения перевозки. При выборе “тонны” или “м3” следующим шагом будет выбор количества для завершения.",
         "replyMarkup": "inlineKeyboard",
         "inlineKeyboard": {
           "rows": [
@@ -10692,6 +10750,18 @@
                     "text": "м3",
                     "additionalFields": {
                       "callback_data": "template_m3"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "В течении смены",
+                    "additionalFields": {
+                      "callback_data": "without_material"
                     }
                   }
                 ]
@@ -12072,7 +12142,7 @@
             },
             {
               "name": "measure",
-              "value": "={{ $json.logist_template.measure == \"т.\" ? \"т\" : \"м3\" }}"
+              "value": "={{ $json.logist_template.measure == \"т.\" ? \"т\" : ($json.logist_template.measure == \"м3\" ? \"м3\" : \"В течении смены\") }}"
             },
             {
               "name": "round_rate",
@@ -13982,6 +14052,29 @@
                     "id": "22279e14-6dba-4f95-b998-e608aec08d58",
                     "leftValue": "={{ $json.callback_query.data }}",
                     "rightValue": "cancel_car",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d4587f95-c5f6-4c8d-b97d-be7915e6cc55",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "without_material",
                     "operator": {
                       "type": "string",
                       "operation": "equals",
@@ -17192,6 +17285,29 @@
                 ],
                 "combinator": "and"
               }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "3b2ea611-ba07-4332-ae34-454a6467424b",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "obj_skip_cars",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
             }
           ]
         },
@@ -18969,7 +19085,8 @@
       "position": [
         3880,
         7760
-      ]
+      ],
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -19882,25 +19999,918 @@
       ],
       "id": "ccbab5ac-0e48-49fc-9057-3f9efff186ca",
       "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $json.callback_query.message.chat.id }}",
+        "messageId": "={{ $json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "=Вы пропустили ввод автомобилей",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Продолжить",
+                    "additionalFields": {
+                      "callback_data": "obj_continue_to_comment"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Назад",
+                    "additionalFields": {
+                      "callback_data": "obj_input_cars"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "id": "d8d28fcc-4456-47bf-9408-25af7b49ac39",
+      "name": "убираем кнопку4",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        5040,
+        12140
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "var res = $('Execute Workflow Trigger').all()[0].json.logist_template;\nres['comment'] = \"\";\nreturn {\"data\": res};"
+      },
+      "id": "ec7d1744-acdc-4ae5-b686-f15464a04613",
+      "name": "пустой авто2",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5260,
+        12140
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "logist_template": "={{ $json.data }}",
+            "tg_id": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.message.chat.id }}"
+          },
+          "matchingColumns": [
+            "tg_id"
+          ],
+          "schema": [
+            {
+              "id": "tg_id",
+              "displayName": "tg_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "only_mech",
+              "displayName": "only_mech",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mech_photo",
+              "displayName": "mech_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_id",
+              "displayName": "end_request_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "materials_photo",
+              "displayName": "materials_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_hours",
+              "displayName": "end_request_hours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "car_id_while_inputing",
+              "displayName": "car_id_while_inputing",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "fuel_liters",
+              "displayName": "fuel_liters",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "weight_measure",
+              "displayName": "weight_measure",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "logist_alert_text",
+              "displayName": "logist_alert_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "logist_recipient_name",
+              "displayName": "logist_recipient_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "transportation_for_certificate",
+              "displayName": "transportation_for_certificate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "count_weight_photo",
+              "displayName": "count_weight_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "count_weight_photo_sent",
+              "displayName": "count_weight_photo_sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "current_quarry_hours",
+              "displayName": "current_quarry_hours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_round_message_id",
+              "displayName": "end_round_message_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "last_message_text",
+              "displayName": "last_message_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "logist_notifications",
+              "displayName": "logist_notifications",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "creating_transportation",
+              "displayName": "creating_transportation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "round_active_msg_id",
+              "displayName": "round_active_msg_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "no_taking_shift_logist_notify",
+              "displayName": "no_taking_shift_logist_notify",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "logist_template",
+              "displayName": "logist_template",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1eb56a03-11af-4d30-9d0e-0c43abf6cf87",
+      "name": "записываем пустой авто1",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        5460,
+        12140
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "xrihBpyZE5y4OBiy",
+          "name": "pg dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tg_users",
+          "mode": "list",
+          "cachedResultName": "tg_users"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tg_id": "={{ $('Execute Workflow Trigger').all()[0].json.callback_query.message.chat.id }}",
+            "logist_template": "={{ $json.data }}"
+          },
+          "matchingColumns": [
+            "tg_id"
+          ],
+          "schema": [
+            {
+              "id": "tg_id",
+              "displayName": "tg_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "odoo_id",
+              "displayName": "odoo_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "only_mech",
+              "displayName": "only_mech",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mech_photo",
+              "displayName": "mech_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_id",
+              "displayName": "end_request_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "materials_photo",
+              "displayName": "materials_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_request_hours",
+              "displayName": "end_request_hours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "car_id_while_inputing",
+              "displayName": "car_id_while_inputing",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "fuel_liters",
+              "displayName": "fuel_liters",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "weight_measure",
+              "displayName": "weight_measure",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "logist_alert_text",
+              "displayName": "logist_alert_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "logist_recipient_name",
+              "displayName": "logist_recipient_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "transportation_for_certificate",
+              "displayName": "transportation_for_certificate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "count_weight_photo",
+              "displayName": "count_weight_photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "count_weight_photo_sent",
+              "displayName": "count_weight_photo_sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "current_quarry_hours",
+              "displayName": "current_quarry_hours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "end_round_message_id",
+              "displayName": "end_round_message_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "last_message_text",
+              "displayName": "last_message_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "logist_notifications",
+              "displayName": "logist_notifications",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "creating_transportation",
+              "displayName": "creating_transportation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "round_active_msg_id",
+              "displayName": "round_active_msg_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "no_taking_shift_logist_notify",
+              "displayName": "no_taking_shift_logist_notify",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "logist_template",
+              "displayName": "logist_template",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "current_maintenance",
+              "displayName": "current_maintenance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "expected_time_maintenance",
+              "displayName": "expected_time_maintenance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "assigned_locksmiths",
+              "displayName": "assigned_locksmiths",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "array",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "mechanic_template",
+              "displayName": "mechanic_template",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "current_quarry_rounds",
+              "displayName": "current_quarry_rounds",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "fuel_company",
+              "displayName": "fuel_company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        3500,
+        9300
+      ],
+      "id": "85715516-a0c5-4149-b4e6-1a3c1005df89",
+      "name": "Вместо меры записываем -1",
+      "credentials": {
+        "postgres": {
+          "id": "xrihBpyZE5y4OBiy",
+          "name": "pg dev"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "Выберите, какую ставку вводить:",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "=Ставка за кубометр ({{ $('Execute Workflow Trigger').item.json.logist_template.cost_per_cubic_metre }}р.)",
+                    "additionalFields": {
+                      "callback_data": "input_cost_per_cubic_metre"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "=Ставка за тонну ({{ $('Execute Workflow Trigger').item.json.logist_template.cost_per_tonne }}р.) ",
+                    "additionalFields": {
+                      "callback_data": "input_cost_per_tonne"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "=Ставка за рейс ({{ $('Execute Workflow Trigger').item.json.logist_template.round_rate }}р.)",
+                    "additionalFields": {
+                      "callback_data": "input_round_rate"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "id": "31696c58-7387-4632-bc57-4ee146b36a9e",
+      "name": "выберите ставку2",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "Выберите, какую ставку вводить:",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "=Ставка за кубометр ({{ $('Execute Workflow Trigger').item.json.logist_template.cost_per_cubic_metre }}р.)",
+                    "additionalFields": {
+                      "callback_data": "input_cost_per_cubic_metre"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "=Ставка за тонну ({{ $('Execute Workflow Trigger').item.json.logist_template.cost_per_tonne }}р.) ",
+                    "additionalFields": {
+                      "callback_data": "input_cost_per_tonne"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "=Ставка за рейс ({{ $('Execute Workflow Trigger').item.json.logist_template.round_rate }}р.)",
+                    "additionalFields": {
+                      "callback_data": "input_round_rate"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "id": "7928f320-47e8-406c-9b61-5a2613d47f0a",
+      "name": "выберите ставку3",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        80,
+        80
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Execute Workflow Trigger').item.json.callback_query.message.message_id }}",
+        "replyMarkup": "inlineKeyboard",
+        "text": "Выберите, какую ставку вводить:",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "=Ставка за кубометр ({{ $('Execute Workflow Trigger').item.json.logist_template.cost_per_cubic_metre }}р.)",
+                    "additionalFields": {
+                      "callback_data": "input_cost_per_cubic_metre"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "=Ставка за тонну ({{ $('Execute Workflow Trigger').item.json.logist_template.cost_per_tonne }}р.) ",
+                    "additionalFields": {
+                      "callback_data": "input_cost_per_tonne"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "=Ставка за рейс ({{ $('Execute Workflow Trigger').item.json.logist_template.round_rate }}р.)",
+                    "additionalFields": {
+                      "callback_data": "input_round_rate"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "id": "0a1ecbc8-1836-47d2-85b8-50f5c563b18a",
+      "name": "выберите ставку4",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3660,
+        9300
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "rJQteGH5Ng1RKmF4",
+          "name": "tg dev aleksey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "var res = $('Execute Workflow Trigger').all()[0].json.logist_template;\nres['measure'] = \"В течении смены\";\nreturn {\"data\": res};"
+      },
+      "id": "1f0d611c-4e9d-48c1-8c0f-cda5f840f576",
+      "name": "задаём м",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3340,
+        9300
+      ]
     }
   ],
   "pinData": {
     "Execute Workflow Trigger": [
       {
         "json": {
-          "update_id": 100642931,
+          "update_id": 100643823,
           "callback_query": {
-            "id": "2800172964784585059",
+            "id": "2782501069630086204",
             "from": {
-              "id": 7094417017,
+              "id": 7090302459,
               "is_bot": false,
-              "first_name": "Сергей",
-              "last_name": "Косолапов",
-              "username": "sergio_kf",
+              "first_name": "Al",
+              "last_name": "Go",
               "language_code": "ru"
             },
             "message": {
-              "message_id": 34523,
+              "message_id": 35290,
               "from": {
                 "id": 7063451965,
                 "is_bot": true,
@@ -19908,151 +20918,76 @@
                 "username": "myn8nbotbot"
               },
               "chat": {
-                "id": 7094417017,
-                "first_name": "Сергей",
-                "last_name": "Косолапов",
-                "username": "sergio_kf",
+                "id": 7090302459,
+                "first_name": "Al",
+                "last_name": "Go",
                 "type": "private"
               },
-              "date": 1735209529,
-              "edit_date": 1735209560,
-              "text": "Сейчас свободны следующие автомобили:\n\nА 777 ЛО, Сергей Косолапов\n\nТекущие автомобили без водителя:\n\nО 999 ЛЛ\nА 777 АА\nО 666 ОО\nU 007 HH\nK 999 KK\nА 123 АА\nА 999 АА\nЕ 987 ЕЕ\nК 444 АУ\nУ 000 УУ\nА 451 АА",
-              "entities": [
-                {
-                  "offset": 39,
-                  "length": 26,
-                  "type": "bold"
-                },
-                {
-                  "offset": 101,
-                  "length": 8,
-                  "type": "bold"
-                },
-                {
-                  "offset": 110,
-                  "length": 8,
-                  "type": "bold"
-                },
-                {
-                  "offset": 119,
-                  "length": 8,
-                  "type": "bold"
-                },
-                {
-                  "offset": 128,
-                  "length": 8,
-                  "type": "bold"
-                },
-                {
-                  "offset": 137,
-                  "length": 8,
-                  "type": "bold"
-                },
-                {
-                  "offset": 146,
-                  "length": 8,
-                  "type": "bold"
-                },
-                {
-                  "offset": 155,
-                  "length": 8,
-                  "type": "bold"
-                },
-                {
-                  "offset": 164,
-                  "length": 8,
-                  "type": "bold"
-                },
-                {
-                  "offset": 173,
-                  "length": 8,
-                  "type": "bold"
-                },
-                {
-                  "offset": 182,
-                  "length": 8,
-                  "type": "bold"
-                },
-                {
-                  "offset": 191,
-                  "length": 8,
-                  "type": "bold"
-                }
-              ],
+              "date": 1736855133,
+              "text": "Выберите автомобили",
               "reply_markup": {
                 "inline_keyboard": [
                   [
                     {
-                      "text": "Автопарк компании",
-                      "callback_data": "free_auto"
+                      "text": "Список авто компании",
+                      "switch_inline_query_current_chat": "Авто компании "
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Список авто перевозчиков",
+                      "switch_inline_query_current_chat": "Авто перевозчиков "
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Создать без автомобиля",
+                      "callback_data": "obj_skip_cars"
                     }
                   ]
                 ]
               }
             },
-            "chat_instance": "-3242410479096206559",
-            "data": "free_auto"
+            "chat_instance": "4841481297779052467",
+            "data": "obj_skip_cars"
           },
-          "tg_id": "7094417017",
-          "odoo_id": 22,
-          "status": "delivery_cost_per_cubic_metre",
+          "tg_id": "7090302459",
+          "odoo_id": 19,
+          "status": "obj_input_comment",
           "only_mech": false,
           "mech_photo": false,
           "end_request_id": null,
           "materials_photo": false,
           "end_request_hours": null,
-          "car_id_while_inputing": 24,
+          "car_id_while_inputing": null,
           "fuel_liters": null,
-          "weight_measure": "50 м3 ",
-          "logist_alert_text": "123",
-          "logist_recipient_name": "Alexander.Simonov",
+          "weight_measure": null,
+          "logist_alert_text": null,
+          "logist_recipient_name": null,
           "transportation_for_certificate": null,
           "count_weight_photo": null,
           "count_weight_photo_sent": null,
           "current_quarry_hours": null,
-          "end_round_message_id": 29371,
-          "last_message_text": "{\"ok\":true,\"result\":{\"message_id\":34147,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":7094417017,\"first_name\":\"Сергей\",\"last_name\":\"Косолапов\",\"username\":\"sergio_kf\",\"type\":\"private\"},\"date\":1734967924,\"edit_date\":1734968243,\"text\":\"Введите ставку за кубометр\",\"entities\":[{\"offset\":8,\"length\":18,\"type\":\"bold\"}],\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Назад\",\"callback_data\":\"inpute_rate\"}]]}}}",
+          "end_round_message_id": null,
+          "last_message_text": "{\"ok\":true,\"result\":{\"message_id\":35293,\"from\":{\"id\":7063451965,\"is_bot\":true,\"first_name\":\"Everest n8n\",\"username\":\"myn8nbotbot\"},\"chat\":{\"id\":7090302459,\"first_name\":\"Al\",\"last_name\":\"Go\",\"type\":\"private\"},\"date\":1736855279,\"text\":\"Введите комментарий:\",\"reply_markup\":{\"inline_keyboard\":[[{\"text\":\"Пропустить комментарий\",\"callback_data\":\"obj_skip_comment\"}]]}}}",
           "logist_notifications": false,
           "creating_transportation": null,
-          "round_active_msg_id": 29371,
+          "round_active_msg_id": null,
           "no_taking_shift_logist_notify": false,
           "logist_template": {
-            "quarry.quarry": "Карьер Ключевое",
-            "transportation.place": "Торг. порт",
-            "transportation.rates": "ООО \"Компания\"",
-            "transportation.material": "Щебень",
-            "measure": "м3",
-            "weight": "50",
-            "cost_per_cubic_metre": "5",
-            "cost_per_tonne": "0",
-            "delivery_cost_per_cubic_metre": "0",
-            "delivery_cost_per_tonne": "0",
-            "round_rate": "0",
+            "quarry.quarry": "а123",
             "comment": "",
-            "cars": [],
-            "date": ""
+            "cars": [
+              "О 666 ОО"
+            ]
           },
-          "current_maintenance": 732,
+          "current_maintenance": null,
           "expected_time_maintenance": null,
-          "assigned_locksmiths": [
-            {
-              "id": 42
-            }
-          ],
-          "mechanic_template": {
-            "car_id": "",
-            "description": "",
-            "hours": "0",
-            "tech_maintenance": false,
-            "cost": "1",
-            "employee_id": 22,
-            "urgently": "true",
-            "photo": "",
-            "scheduled_date": ""
-          },
+          "assigned_locksmiths": null,
+          "mechanic_template": null,
           "current_quarry_rounds": null,
           "fuel_company": null,
-          "cookie": "session_id=b6a17cf4ae56be2b6c4aebcff92463a59462070c; Expires=Thu, 25 Dec 2025 06:11:46 GMT; Max-Age=604800; HttpOnly; Path=/"
+          "cookie": "session_id=284b10ec25e2f494881bf3e7be6f73736ad001e6; Expires=Wed, 14 Jan 2026 04:37:04 GMT; Max-Age=604800; HttpOnly; Path=/"
         }
       }
     ]
@@ -20072,6 +21007,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-12-27T18:04:29.033Z",
-  "versionId": "3553aa4c-6ba8-48cb-8d07-4f76e77d8ee7"
+  "updatedAt": "2025-01-24T12:09:57.461Z",
+  "versionId": "e1e3513b-cc8a-463d-bcfd-829eae08aac6"
 }
